@@ -1,0 +1,68 @@
+<ng-template #recursiveMenu let-modulos>
+  <li
+    class="nav-item custom-dropdown-item cursor-pointer"
+    style="padding: 0; margin-top: 1%"
+    *ngFor="let menu of modulos"
+    [ngClass]="{
+      'nav-item dropdown parent': menu.menu !== undefined,
+      submenu: menu.menu === undefined,
+      'option-active': selectedModulo === menu.id && menu.menu === undefined,
+      test: !menu.selected && menu.menu
+    }"
+  >
+    <!--Inicio Sub menú -->
+    <a
+      *ngIf="menu.menu === undefined"
+      class="nav-link parent"
+      (click)="onSelectScreen(menu)"
+      data-target="#nav{{ menu.id }}"
+      style="
+        padding: 0;
+        padding-left: 40px;
+        height: 35px;
+        padding-top: 6px;
+        border-color: #ffffff;
+      "
+    >
+      <fa-icon icon="dot-circle"></fa-icon>
+      <span class="ml-2">{{ menu.title }}</span> &nbsp;
+    </a>
+    <!--Fin Sub menú -->
+
+    <a
+      *ngIf="menu.menu"
+      class="nav-link parent my-auto"
+      (click)="onSelected(menu)"
+      data-target="#nav{{ menu.id }}"
+      data-toggle="dropdown"
+    >
+      <!-- <img
+        class="logo-modulo"
+        src="assets/img/logo-{{ menu.id }}.png"
+        style="max-width: 25px"
+      /> -->
+      <span class="mx-1" style="font-weight: bolder; font-size: large">{{
+        menu.title
+      }}</span>
+      &nbsp;
+    </a>
+    <div
+      [ngClass]="{ 'dropdown-menu': menu.selected }"
+      *ngIf="menu.menu"
+      id="nav{{ menu.id }}"
+    >
+      <ng-container
+        *ngTemplateOutlet="recursiveMenu; context: { $implicit: menu.menu }"
+      ></ng-container>
+    </div>
+  </li>
+</ng-template>
+
+<div>
+  <ul class="navbar-nav font-custom">
+    <ng-container
+      *ngTemplateOutlet="recursiveMenu; context: { $implicit: modulos }"
+    >
+    </ng-container>
+  </ul>
+</div>

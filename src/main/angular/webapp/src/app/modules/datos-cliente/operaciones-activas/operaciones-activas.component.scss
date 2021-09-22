@@ -1,0 +1,41 @@
+@import '../../../../scss/base';
+@import '../../../../scss/variables';
+
+.search-row{
+    justify-content: space-around;
+}
+
+.VIV0 {
+    margin-right: 0px !important;
+    padding-left: 15px !important;
+}
+
+.VIV2 {
+    margin-right: 0px !important;
+    padding-left: 0px !important;
+}
+
+.NEG0 {
+    margin-right: 0px !important;
+    padding-left: 40px !important;
+}
+
+.NEG1 {
+    margin-right: 0px !important;
+    padding-left: 1rem !important;
+}
+
+.modal-content .modal-body {
+    min-height: 640px !important;
+}
+
+.modal-body {
+    min-height: 603px !important;
+}
+.form-max-height {
+    min-height: 34rem;
+    max-height: 34rem;
+    overflow-y: auto;
+    overflow-x: clip;
+}
+

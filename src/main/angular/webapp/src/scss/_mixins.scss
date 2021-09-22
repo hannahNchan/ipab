@@ -1,0 +1,6 @@
+@import "variables";
+
+@mixin border-box-shadow {
+  border-color: $primary-color;
+  box-shadow: 0 0 0 0.2rem rgba($primary-color, .5);
+}

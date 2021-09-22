@@ -1,0 +1,36 @@
+$primary-color: #053555;
+$secondary-color: #c61e1c;
+$darken-primary-color: darken($primary-color, 10);
+$extra-darken-primary-color: darken($primary-color, 15);
+$lighten-primary-color: lighten($primary-color, 10);
+$extra-lighten-primary-color: lighten($primary-color, 25);
+$hover-primary-color: lighten($primary-color, 35);
+$text-color-primary: #dedede;
+$text-color-secondary: $secondary-color;
+$light-gray: #f8f9fa;
+
+$app-blue:    #007bff !default;
+$app-indigo:  #6610f2 !default;
+$app-purple:  #6f42c1 !default;
+$app-pink:    #e83e8c !default;
+$app-red:     #dc3545 !default;
+$app-orange:  #fd7e14 !default;
+$app-yellow:  #ffc107 !default;
+$app-green:   #28a745 !default;
+$app-teal:    #20c997 !default;
+$app-cyan:    #17a2b8 !default;
+
+
+$app-white:    #fff !default;
+$app-gray-100: #f8f9fa !default;
+$app-gray-200: #e9ecef !default;
+$app-gray-300: #dee2e6 !default;
+$app-gray-400: #ced4da !default;
+$app-gray-500: #adb5bd !default;
+$app-gray-600: #6c757d !default;
+$app-gray-700: #495057 !default;
+$app-gray-800: #343a40 !default;
+$app-gray-900: #212529 !default;
+$app-black:    #000 !default;
+
+$btn-block-spacing-y:         .5rem !default;

@@ -1,0 +1,57 @@
+@import "../../../scss/base";
+@import "../../../scss/variables";
+
+
+a {
+  border-bottom: ridge;
+  border-color: #ffffff;
+  &.parent {
+    &:hover {
+      background-color: #ffffff;
+      color: $hover-primary-color;
+      &:active {
+        background-color: $lighten-primary-color;
+      }
+    }
+
+  }
+}
+
+
+.custom-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.25rem 0;
+  clear: both;
+  font-weight: 400;
+  color: #212529;
+  text-align: inherit;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+  &.submenu {
+    padding: 0.25rem 1.5rem;
+    text-indent: 5px;
+  }
+  &.parent {
+    text-indent: 15px;
+    margin-right: 1em;
+  }
+}
+
+.option-active {
+  background-color: #ffffff;
+  color: #0D6CBF;
+}
+
+.test {
+  background-color: #ffffff;
+  color: #0D6CBF;
+  .logo-modulo {
+    filter: opacity(0.5);
+  }
+}
+
+.font-custom {
+  font-size: small;
+}

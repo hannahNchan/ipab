@@ -1,0 +1,421 @@
+<div class="container mt-3">
+  <div class="section mt-3">
+    <div class="row">
+      <div class="col-12">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="flex-fill align-self-center">
+              <h5>Operaciones pasivas</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <div class="form">
+          <div class="row search-row justify-content-between">
+            <div class="form-row">
+              <div class="col-3 col-md-3 col-lg-3">
+                <div class="input-group">
+                  <div class="col-4 col-md-4 col-lg-4 mt-2">
+                    <h6>Fecha:</h6>
+                  </div>
+                  <input
+                    class="form-control bg-white"
+                    id="fechaFinal"
+                    [readonly]="true"
+                    type="text"
+                    ngbDatepicker
+                    #a="ngbDatepicker"
+                    placeholder="dd/mm/aaaa"
+                    name="fechaFinal"
+                    (click)="a.toggle()"
+                  />
+                  <div class="input-group-append">
+                    <button
+                      class="btn btn-outline-secondary calendar"
+                      (click)="a.toggle()"
+                      type="button"
+                    >
+                      <fa-icon icon="calendar-alt"></fa-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-3 col-md-3 col-lg-3">
+                <div class="input-group">
+                  <div class="col-4 col-md-4 col-lg-4 mt-2">
+                    <h6>Cliente:</h6>
+                  </div>
+                  <input
+                    class="form-control"
+                    id="cliente"
+                    name="cliente"
+                  />
+                </div>
+              </div>
+              <div class="col-3 col-md-3 col-lg-3">
+                <div class="input-group">
+                  <div class="col-4 col-md-4 col-lg-4 mt-2">
+                    <h6>Cuenta:</h6>
+                  </div>
+                  <input
+                    class="form-control"
+                    id="cuenta"
+                    name="cuenta"
+                  />
+                </div>
+              </div>
+              <div class="col-3 col-md-3 col-lg-3">
+                <div class="input-group">
+                  <div class="col-5 col-md-5 col-lg-5 mt-2">
+                    <h6>Inversion:</h6>
+                  </div>
+                  <input
+                    class="form-control"
+                    id="inversion"
+                    name="inversion"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-3 col-md-4 col-lg-2">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="btn-group d-flex justify-content-center">
+                    <button
+                      class="btn btn-primary"
+                      id="btnSearchTiposProductoCreditos"
+                      (click)="getUsuarios()"
+                    >
+                      <fa-icon icon="search"></fa-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mt-3">
+      <div class="card-body tabs-card">
+        <ngb-tabset>
+          <ngb-tab>
+            <ng-template ngbTabTitle>
+              <b>Patrimonial</b>
+            </ng-template>
+            <ng-template ngbTabContent>
+              <div class="mt-4">
+                <h2>Patrimonial</h2>
+              </div>
+              <div class="card">
+                <div class="card-body">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group row">
+                          <label class="mt-1 col-xl-4">Numero de cuenta:</label>
+                          <div class="col-xl-6">
+                            <input
+                              class="form-control form-control-sm"
+                              type="text"
+                            />
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="mt-1 col-xl-4">Categoria:</label>
+                          <div class="col-xl-6">
+                            <select class="form-control form-control-sm">
+                              <option>Opción 1</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="mt-1 col-xl-4">Sucursal:</label>
+                          <div class="col-xl-6">
+                            <input
+                              class="form-control form-control-sm"
+                              type="text"
+                            />
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="mt-1 col-xl-4">Saldo de interes de Art. 61:</label>
+                          <div class="col-xl-6">
+                            <input
+                              class="form-control form-control-sm"
+                              type="text"
+                            />
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="mt-1 col-xl-4">Moneda IPAB:</label>
+                          <div class="col-xl-6">
+                            <select class="form-control form-control-sm">
+                              <option>Opción 1</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="mt-1 col-xl-4">Plazo de la operacion:</label>
+                          <div class="col-xl-6">
+                            <input
+                              class="form-control form-control-sm"
+                              type="text"
+                            />
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="mt-1 col-xl-4">Tasa:</label>
+                          <div class="col-xl-6">
+                            <input
+                              class="form-control form-control-sm"
+                              type="text"
+                            />
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="mt-1 col-xl-4">Entidad federativa:</label>
+                          <div class="col-xl-6">
+                            <select class="form-control form-control-sm">
+                              <option>Opción 1</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="form-group row">
+                          <label class="mt-1 col-xl-4">Numero de cuenta:</label>
+                          <div class="col-xl-6">
+                            <input
+                              class="form-control form-control-sm"
+                              type="text"
+                            />
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="mt-1 col-xl-4">Numero de cliente:</label>
+                          <div class="col-xl-6">
+                            <input
+                              class="form-control form-control-sm"
+                              type="text"
+                            />
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="mt-1 col-xl-4">Saldo de la cuenta:</label>
+                          <div class="col-xl-6">
+                            <input
+                              class="form-control form-control-sm"
+                              type="text"
+                            />
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="mt-1 col-xl-4">Saldo interes:</label>
+                          <div class="col-xl-6">
+                            <input
+                              class="form-control form-control-sm"
+                              type="text"
+                            />
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="mt-1 col-xl-4">Fecha de contratacion:</label>
+                          <div class="input-group col-xl-6">
+                            <input
+                              class="form-control bg-white"
+                              id="fechaContratacion"
+                              type="text"
+                              ngbDatepicker
+                              #b="ngbDatepicker"
+                              placeholder="dd/mm/aaaa"
+                              name="fechaContratacion"
+                              (click)="b.toggle()"
+                            />
+                            <div class="input-group-append">
+                              <button
+                                class="btn btn-outline-secondary calendar"
+                                (click)="b.toggle()"
+                                type="button"
+                              >
+                                <fa-icon icon="calendar-alt"></fa-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="mt-1 col-xl-4">Tipo de tasa:</label>
+                          <div class="col-xl-6">
+                            <select class="form-control form-control-sm">
+                              <option>Opción 1</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="mt-1 col-xl-4">Ultimo provision de intereses:</label>
+                          <div class="input-group col-xl-6">
+                            <input
+                              class="form-control bg-white"
+                              id="fechaProvision"
+                              type="text"
+                              ngbDatepicker
+                              #b="ngbDatepicker"
+                              placeholder="dd/mm/aaaa"
+                              name="fechaProvision"
+                              (click)="b.toggle()" 
+                            />
+                          <div class="input-group-append">
+                          <button
+                            class="btn btn-outline-secondary calendar"
+                            (click)="b.toggle()"
+                            type="button"
+                          >
+                            <fa-icon icon="calendar-alt"></fa-icon>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  <div class="form-group row">
+                    <label class="mt-1 col-xl-4">Plaza:</label>
+                    <div class="col-xl-6">
+                      <select class="form-control form-control-sm">
+                        <option>Opción 1</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab>
+            <ng-template ngbTabTitle>
+              <b>Clientes y cuentas</b>
+            </ng-template>
+            <ng-template ngbTabContent>
+              <div class="mt-4">
+                <h2>Clientes y cuentas</h2>
+              </div>
+              <div class="card">
+                <div class="card-body">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group row">
+                          <label class="mt-1 col-xl-4">Cuenta:</label>
+                          <div class="col-xl-6">
+                            <input
+                              class="form-control form-control-sm"
+                              type="text"
+                            />
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="mt-1 col-xl-4">Moneda:</label>
+                          <div class="col-xl-6">
+                            <select class="form-control form-control-sm">
+                              <option>Opción 1</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="mt-1 col-xl-4">Regimen fiscal:</label>
+                          <div class="col-xl-6">
+                            <input
+                              class="form-control form-control-sm"
+                              type="text"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="form-group row">
+                          <label class="mt-1 col-xl-4">Cliente:</label>
+                          <div class="col-xl-6">
+                            <input
+                              class="form-control form-control-sm"
+                              type="text"
+                            />
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="mt-1 col-xl-4">Categoria:</label>
+                          <div class="col-xl-6">
+                            <select class="form-control form-control-sm">
+                              <option>Opción 1</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="mt-1 col-xl-4">Exento impuesto:</label>
+                          <div class="col-xl-6">
+                            <select class="form-control form-control-sm">
+                              <option>Opción 1</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12 col-md-4">
+                      <div class="form-group">
+                        <label class="mt-1 col-xl-12">Cotitular:</label>
+                        <div class="col-xl-12">
+                          <input
+                            class="form-control form-control-sm"
+                            type="text"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4">
+                      <div class="form-group">
+                        <label class="mt-1 col-xl-12">Porcentaje IPAB:</label>
+                        <div class="col-xl-12">
+                          <input
+                            class="form-control form-control-sm"
+                            type="text"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4">
+                      <div class="form-group">
+                        <label class="mt-1 col-xl-12">Tipo forma cotitular:</label>
+                        <div class="col-xl-12">
+                          <input
+                            class="form-control form-control-sm"
+                            type="text"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab>
+            <ng-template ngbTabTitle>
+              <b>Bloqueos</b>
+            </ng-template>
+            <ng-template ngbTabContent>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+        <div class="modal-footer mr-0">
+          <div class="col-xl-6 d-flex flex-row justify-content-end mr-0">
+            <button class="btn btn-danger" type="button">Cancelar</button>
+            <button class="btn btn-success ml-2" type="button">Aceptar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

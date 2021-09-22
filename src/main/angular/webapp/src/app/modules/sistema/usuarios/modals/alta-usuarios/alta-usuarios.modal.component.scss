@@ -1,0 +1,25 @@
+
+/**
+Para establecer la altura del modal:
+ */
+
+.modal-container {
+  height: auto;
+}
+
+.modal-body {
+  min-height: 100px;
+}
+
+.radio-inp{
+  justify-content: space-evenly;
+}
+
+.custom-radio-2{
+  position: relative;
+  z-index: 1;
+  display: block;
+  min-height: 1.5rem;
+  padding-left: 0;
+  -webkit-print-color-adjust: exact;
+}

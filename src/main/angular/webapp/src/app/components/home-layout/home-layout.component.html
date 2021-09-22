@@ -1,0 +1,84 @@
+<div class="animated fadeIn">
+  <ng-sidebar-container
+    class="side-container"
+    style="background-color: #ffffff"
+  >
+    <ng-sidebar
+      [(opened)]="opened"
+      [closeOnClickOutside]="closeOnClickOutside"
+      [showBackdrop]="true"
+      [mode]="'over'"
+      [position]="'left'"
+      [dock]="dock"
+      [dockedSize]="'30px'"
+      [animate]="animate"
+      [autoFocus]="autoFocus"
+      [ariaLabel]="'menu-modulos'"
+    >
+      <div
+        class="d-block list-group-item list-group-item-dark side-bar-title"
+        style="
+          max-width: 400px;
+          height: 82px;
+          max-height: 150px;
+          min-width: 300px;
+          background-color: #ffffff;
+          text-align: center;
+        "
+      >
+        <img src="assets/img/logoMult.png" width="45%" alt="logo-multiva" />
+      </div>
+      <div class="compact" style="background-color: #ffffff">
+        <app-menu-recursivo> </app-menu-recursivo>
+      </div>
+      <div
+        id="footer"
+        class="
+          footer
+          d-block
+          list-group-item list-group-item-dark
+          btn-group
+          d-flex
+          justify-content-center
+        "
+        style="
+          max-width: 400px;
+          background-color: #ffffff;
+          min-width: 300px;
+          cursor: pointer;
+        "
+      >
+        <a
+          class="nav-link parent-logout"
+          (click)="onLogout()"
+          style="
+            max-width: 100%;
+            max-height: 100%;
+            height: 100%;
+            width: 100%;
+            padding: 0;
+            padding-left: 20px;
+            padding-top: 15px;
+          "
+        >
+          <fa-icon icon="sign-out-alt" style="font-size: 18px"></fa-icon>
+          <span class="mx-3" style="font-size: 18px">{{
+            "Cerrar Sesión"
+          }}</span>
+          &nbsp;
+        </a>
+      </div>
+    </ng-sidebar>
+
+    <div
+      ng-sidebar-content
+      class="d-flex flex-column"
+      style="background-color: #ffffff"
+    >
+      <section>
+        <app-navbar (toggleOpened)="onToggleOpened($event)"></app-navbar>
+        <router-outlet></router-outlet>
+      </section>
+    </div>
+  </ng-sidebar-container>
+</div>

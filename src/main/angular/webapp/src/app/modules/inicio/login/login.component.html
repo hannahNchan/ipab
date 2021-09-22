@@ -1,0 +1,107 @@
+<div class="container mt-3">
+  <div class="row full-height d-flex justify-content-center align-items-center">
+    <div
+      class="col-lg-3 col-sm-4 d-flex justify-content-center align-items-center"
+    >
+      <div class="logo-container">
+        <figure>
+          <img src="assets/img/logos.PNG" class="img-logo" alt="LOGO" />
+        </figure>
+      </div>
+    </div>
+    <div
+      class="
+        col col-lg-3 col-sm-8 col-md-auto
+        offset-lg-0 offset-md-0 offset-sm-1
+        d-flex
+        justify-content-center
+        align-items-center
+      "
+    >
+      <div class="card px-2 py-3 text-center">
+        <form autocomplete="off" (ngSubmit)="onClickEntrar(f)" #f="ngForm">
+          <div class="header-custom">
+            <h4 class="mb-0">Iniciar Sesión</h4>
+          </div>
+          <div class="card-body">
+            <div class="pb-2">
+              <div class="row">
+                <div
+                  class="
+                    col-12
+                    pb-3
+                    d-flex
+                    justify-content-center
+                    align-items-center
+                  "
+                >
+                  <div class="flex-column w-100 text-start">
+                    <input
+                      type="text"
+                      name="usuario"
+                      id="usuario"
+                      class="form-control small-font"
+                      placeholder="Usuario"
+                      aria-label="usuario"
+                      required
+                      #usuario="ngModel"
+                      [(ngModel)]="authUsuario.usuario"
+                      [ngClass]="{
+                        'is-invalid': usuario.touched && usuario.invalid,
+                        'font-italic': usuario.value === ''
+                      }"
+                    />
+                    <span
+                      *ngIf="usuario.touched && usuario.invalid"
+                      class="text-danger animated fadeIn align-self-start"
+                    >
+                      <small>El usuario es obligatorio</small>
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="
+                    col-12
+                    pb-3
+                    d-flex
+                    justify-content-center
+                    align-items-center
+                  "
+                >
+                  <div class="flex-column w-100 text-start">
+                    <input
+                      type="password"
+                      name="password"
+                      id="password"
+                      class="form-control small-font"
+                      placeholder="Contraseña"
+                      aria-label="password"
+                      required
+                      #pass="ngModel"
+                      [(ngModel)]="authUsuario.password"
+                      [ngClass]="{
+                        'is-invalid': pass.touched && pass.invalid,
+                        'font-italic': pass.value === ''
+                      }"
+                    />
+                    <span
+                      *ngIf="pass.touched && pass.invalid"
+                      class="text-danger animated fadeIn align-self-start"
+                    >
+                      <small>La contraseña es obligatoria</small>
+                    </span>
+                  </div>
+                </div>
+                <div class="col-12 d-flex align-items-center">
+                  <button class="btn btn-block btn-primary mt-3" type="submit">
+                    Entrar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

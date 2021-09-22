@@ -1,0 +1,96 @@
+<div class="container mt-1">
+  <div class="section">
+    <div class="row">
+      <div class="col-7 col-md-7 col-lg-7">
+        <div class="row">
+          <div class="col-sm-2 col-md-2 pl-0">
+            <div class="input-group-prepend head-divisa-font">
+              <label for="codigoAcreditadoGrupo" class="color-white mr-2 mt-1"
+                >DIVISA:</label
+              >
+            </div>
+          </div>
+          <div class="col-sm-10 col-md-10 pl-0 head-height mt-1">
+            <div class="form-group">
+              <select class="form-control" id="tipoCliente">
+                <option>Codigo</option>
+                <option>Nombre</option>
+                <option>Apellido Paterno</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-5 col-md-5 col-lg-5 img-head-padding-right">
+        <img
+          src="assets/img/m_multiva_fondo_blanco_40px.png"
+          class="img-logo"
+          alt="LOGO"
+          style="height: 45px; width: 90px"
+        />
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-12 col-md-6 col-lg-6 line-text-bottom">
+        <label class="color-white text-compra-venta"
+          >Público Compra: 18.600000</label
+        >
+      </div>
+      <div class="col-12 col-md-6 col-lg-6 line-text-start">
+        <label class="color-white text-compra-venta"
+          >Público Venta: 20.400000</label
+        >
+      </div>
+    </div>
+    <div class="card">
+      <div class="row">
+        <div class="col-12 col-md-12 col-lg-12">
+          <table class="table table-hover table-bordered table-sm">
+            <thead class="thead-light">
+              <tr class="hover-primary">
+                <th class="large-width" scope="col">Producto</th>
+                <th class="small-width" scope="col">Plazo</th>
+                <th class="large-width" scope="col">Interbancario Compra</th>
+                <th class="mid-width" scope="col">Límite compra</th>
+                <th class="large-width" scope="col">Interbancario Venta</th>
+                <th class="mid-width" scope="col">Límite venta</th>
+              </tr>
+            </thead>
+            <tbody class="max-rows-7">
+              <tr class="hover-primary">
+                <th class="large-width" scope="row">Transferencia</th>
+                <td class="small-width">HOY</td>
+                <td class="fitwidth line-text-bottom">20.022000</td>
+                <td class="fitwidth line-text-bottom">10,000</td>
+                <td class="fitwidth line-text-bottom">20.032000</td>
+                <td class="fitwidth line-text-bottom">10,000</td>
+              </tr>
+              <tr class="hover-primary">
+                <th class="large-width" scope="row">Transferencia</th>
+                <td class="small-width">HOY</td>
+                <td class="fitwidth line-text-bottom">20.022000</td>
+                <td class="fitwidth line-text-bottom">10,000</td>
+                <td class="fitwidth line-text-bottom">20.032000</td>
+                <td class="fitwidth line-text-bottom">10,000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <button
+        class="btn btn-block mt-3 col-1"
+        type="submit"
+        style="background: #3f3b8a; color: #ffffff"
+        (click)="endpointHola()"
+      >
+        Cargar Archivo
+      </button>
+      <label class="color-white mt-3 text-compra-venta">{{
+        respuestaHola
+      }}</label>
+    </div>
+  </div>
+</div>

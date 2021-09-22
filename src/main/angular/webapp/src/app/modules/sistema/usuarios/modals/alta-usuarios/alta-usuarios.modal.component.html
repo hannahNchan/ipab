@@ -1,0 +1,150 @@
+<div class="modal-container">
+  <div class="modal-header">
+    <h4 class="modal-title" *ngIf="isUpdate">Editar Usuario</h4>
+    <h4 class="modal-title" *ngIf="!isUpdate">Agregar Usuario</h4>
+    <button
+      class="close"
+      type="button"
+      aria-label="Close"
+      (click)="activeModal.close()"
+    >
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <h6 class="modal-title ml-3">Datos usuario</h6>
+    <div class="container-fluid mt-2">
+      <div class="card">
+        <div class="card-body">
+          <div class="form-group row">
+            <label
+              class="col-3 col-form-label col-form-label text-right"
+              for="apellidoPat"
+              >Apellido Paterno:</label
+            >
+            <div class="col-6">
+              <input
+                type="text"
+                id="apellidoPat"
+                class="form-control"
+                name="paterno"
+                [(ngModel)]="usuarioAlta.usuario.apellidoPat"
+              />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label
+              class="col-3 col-form-label col-form-label text-right"
+              for="nombre"
+              >Apellido Materno:</label
+            >
+            <div class="col-6">
+              <input
+                type="text"
+                id="nombre"
+                class="form-control"
+                name="materno"
+                [(ngModel)]="usuarioAlta.usuario.apellidoMat"
+              />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label
+              class="col-3 col-form-label col-form-label text-right"
+              for="nombre1"
+              >Primer Nombre:</label
+            >
+            <div class="col-6">
+              <input
+                type="text"
+                id="nombre1"
+                class="form-control"
+                name="primerNombre"
+                [(ngModel)]="usuarioAlta.usuario.nombre1"
+              />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label
+              class="col-3 col-form-label col-form-label text-right"
+              for="nombre2"
+              >Segundo Nombre:</label
+            >
+            <div class="col-6">
+              <input
+                type="text"
+                id="nombre2"
+                class="form-control"
+                name="segundoNombre"
+                [(ngModel)]="usuarioAlta.usuario.nombre2"
+              />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label
+              class="col-3 col-form-label col-form-label text-right"
+              for="usuario"
+              >Usuario:</label
+            >
+            <div class="col-6">
+              <input
+                type="text"
+                id="usuario"
+                class="form-control"
+                name="usuario"
+                [(ngModel)]="usuarioAlta.usuario.usuario"
+              />
+            </div>
+          </div>
+          <div *ngIf="isUpdate" class="custom-checkbox form-row radio-inp">
+            <input
+              type="checkbox"
+              id="activo"
+              name="activo"
+              class="custom-control-input form-control col-3 text-right"
+              [(ngModel)]="usuarioActivo"
+            />
+            <label class="custom-control-label " for="activo"
+            >Activo</label
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <h6 class="modal-title mt-4 ml-3">Perfil</h6>
+    <div class="container-fluid mt-2">
+      <div class="card">
+        <div class="card-body">
+          <div class="form-row radio-inp">
+            <ng-container *ngFor="let perfil of perfiles">
+              <div class="custom-checkbox custom-radio-2">
+                <input
+                  type="checkbox"
+                  [id]="perfil.codigo"
+                  [name]="perfil.codigo"
+                  class="custom-control-input custom-radio-2"
+                  [value]="perfil.idPerfil"
+                  [(ngModel)]="perfil.selected"
+                />
+                <label class="custom-control-label" [for]="perfil.codigo"
+                  >{{ perfil.descripcion }}</label
+                >
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <!-- Simple Buttons-->
+    <button class="btn btn-success" type="button" (click)="onClickSaveGuardar()">Aceptar</button>
+    <button
+      class="btn btn-danger mr-3"
+      type="button"
+      (click)="activeModal.close()"
+    >
+      Cancelar
+    </button>
+  </div>
+</div>

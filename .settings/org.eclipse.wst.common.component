@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+            
+    
+    <wb-module deploy-name="IPABWEB">
+                        
+        
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+                        
+        
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+                        
+        
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <dependent-module archiveName="IPABNegocio-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/IPABNegocio/IPABNegocio">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="IPABUtil-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/IPABUtil/IPABUtil">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="IPABDTO-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/IPABDTO/IPABDTO">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="IPABDAO-1.0.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/IPABDAO/IPABDAO">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+                        
+        
+        <property name="context-root" value="IPABWEB"/>
+                        
+        
+        <property name="java-output-path" value="/IPABWEB/target/classes"/>
+                    
+    
+    </wb-module>
+        
+
+</project-modules>

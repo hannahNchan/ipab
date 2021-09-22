@@ -1,0 +1,81 @@
+<div class="container mt-3">
+  <div class="section">
+    <h5>LOGS</h5>
+    <div class="card">
+      <div class="card-body">
+        <div class="form">
+          <div class="form-row">
+            <div class="col-2">
+            </div>
+            <div class="col-12 col-md-4 col-lg-6">
+              <div class="input-group">
+                <label class="col-lg-2 col-form-label form-control-label">
+                  Fecha:
+                </label>
+                <input class="form-control bg-white" id="fechaProceso" type="text" [(ngModel)]="fechaProceso"
+                  ngbDatepicker #d="ngbDatepicker" placeholder="dd/mm/aaaa" [maxDate]="maxFecha" (focus)="d.toggle()"
+                  name="fechaProceso"/>
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary calendar" (click)="d.toggle()"
+                    type="button">
+                    <fa-icon icon="calendar-alt"></fa-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-2 col-lg-1">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="btn-group d-flex justify-content-center">
+                    <!-- Botón buscar tipos de producto-->
+                    <button
+                      class="btn btn-primary"
+                      id="btnSearchTiposProductoCreditos"
+                      (click)="getLogs()"
+                    >
+                      <fa-icon icon="search"></fa-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section mt-3">
+      <div class="row">
+        <div class="col-12">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="flex-fill align-self-center">
+                <h5>DETALLE LOG</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card mt-2">
+        <div class="card-body" style="height: 400px;">
+        </div>
+      </div>
+    </div>
+  <div class="section mt-3 mb-5">
+    <div class="row">
+      <div class="col-12">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="flex-fill align-self-center">
+              <h5>DETALLE ERRORES</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mt-2">
+      <div class="card-body" style="height: 400px;">
+      </div>
+    </div>
+  </div>
+</div>
+</div>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<!--llamamos al modulo para tenerlo disponible en el html-->
+<html ng-app="tatei">
+ <!--cargamos angular js-->
+ <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+   <script src="js/angular.js"></script>
+   <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
+   <link rel="stylesheet"  href="css/normalize.css"  media="screen" />
+  <link rel="stylesheet"  href="css/foundation.min.css" media="screen" />
+  <link rel="stylesheet"  href="css/estilos.css" media="screen" />
+   <link rel="stylesheet"  href="css/botones.css" media="screen" />
+  <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+  <style>
+body {
+    font-family: Helvetica,Arial;
+    font-size: 10pt;
+}
+
+ul {
+    margin:0;
+    padding:0;
+}
+
+li {
+    margin:0;
+    padding:0;
+    list-style: none;
+    text-align: center;
+    line-height:27px;
+    cursor: pointer;
+    border-radius: 4px;
+    border:1px solid #111;
+    background-color: #2581cc;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#0B5BA1), to(#012238));
+    background-image: -moz-linear-gradient(19% 75% 90deg,#012238, #0B5BA1);
+    box-shadow: inset 0 1px 0 0 #a5b9d9;
+}
+
+li:hover {
+    background-color: #458cff;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#0D6CBF), to(#023F69));
+    background-image: -moz-linear-gradient(19% 75% 90deg,#023F69, #0D6CBF)
+}
+
+li:active {
+    background-color: #333;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#666666), to(#111111));
+    background-image: -moz-linear-gradient(19% 75% 90deg,#111111, #666666)
+}
+
+li:hover {
+    background-color: #458cff;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#0D6CBF), to(#023F69));
+    background-image: -moz-linear-gradient(19% 75% 90deg,#023F69, #0D6CBF)
+}
+
+li:active {
+    background-color: #333;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#666666), to(#111111));
+    background-image: -moz-linear-gradient(19% 75% 90deg,#111111, #666666)
+}
+
+.main {
+    float: left;
+    margin-top:5px;
+    width:78px;
+}
+
+.sub {
+    margin:0;
+    width:120px;
+    background-color: #220630;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#6C1299), to(#220630));
+    background-image: -moz-linear-gradient(19% 75% 90deg,#220630, #6C1299)
+}
+
+.sub:hover {
+    background-color: #450C61;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#8C17C7), to(#450C61));
+    background-image: -moz-linear-gradient(19% 75% 90deg,#450C61, #8C17C7)
+}
+
+.sub:active {
+    background-color: #111;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#666666), to(#111111));
+    background-image: -moz-linear-gradient(19% 75% 90deg,#111111, #666666)
+}
+
+.dir-div {
+  position: relative;
+  width: 100%;
+  //margin-top: -100px;
+  //z-index: 10;
+  height: 100%;
+  max-height: 550px;
+  overflow-y: scroll;
+}
+.fullwidth {
+    /* inline-block allows the anchor tag to fill
+       the entire width of the list item */
+    display:inline-block;
+    width:100%;
+}</style>
+<link rel="stylesheet"  href="css/botones.css" media="screen" />
+<head>
+</head>
+
+  <body>
+    <!-- Modal -->
+    <div class="modal fade bs-tatei-modal-sm" id="msload" tabindex="-1"
+        role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span class="glyphicon glyphicon-time">
+                        </span>Espera un momento..
+                     </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-info
+                        progress-bar-striped active"
+                        style="width: 100%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal fin -->
+      <div ng-view>
+      </div>
+    <!-- functions js-->
+    <!-- <script src="js/cookies.js"></script> -->
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+
+    <script src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRhFISVoNopLoDLd5dTHlgVjEgLvKPokc&libraries=geometry"></script> <!-- &callback=initMap -->
+    <script type="text/javascript" src="js/JsSimpleDateFormat.js"></script>
+	<script src="js/app.js"></script>
+  </body>
+</html>

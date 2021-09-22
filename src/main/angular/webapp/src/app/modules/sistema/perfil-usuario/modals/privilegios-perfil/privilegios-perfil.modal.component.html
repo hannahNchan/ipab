@@ -1,0 +1,65 @@
+<div class="modal-container">
+  <div class="modal-header">
+    <h4 class="modal-title">Privilegios de Perfil</h4>
+    <button
+      class="close"
+      type="button"
+      aria-label="Close"
+      (click)="activeModal.close()"
+    >
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid mt-2">
+      <div class="card">
+        <div class="card-body">
+          <div class="form-group row">
+            <label
+              class="col-3 col-form-label col-form-label text-right"
+              for="nombre"
+              >Nombre:</label
+            >
+            <div class="col-6">
+              <input
+                type="text"
+                id="nombre"
+                class="form-control"
+                name="nombre"
+                [(ngModel)]="perfil.descripcion"
+                [disabled]="true"
+              />
+            </div>
+          </div>
+          <div class="card mt-2" id="privilegios">
+            <div class="card-body">
+              <div id="treeparent">
+                <ejs-treeview
+                  id="treeelement"
+                  #treevalidate
+                  [fields]="field"
+                  [loadOnDemand]="false"
+                  [showCheckBox]="true"
+                  *ngIf="this.field !== undefined"
+                  autoCheck="true"
+                  expandOn="Auto"
+                ></ejs-treeview>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <!-- Simple Buttons-->
+    <button class="btn btn-success" type="button" (click)="onClickGuardar()">Guardar</button>
+    <button
+      class="btn btn-danger"
+      type="button"
+      (click)="activeModal.close('Close click')"
+    >
+      Cancelar
+    </button>
+  </div>
+</div>

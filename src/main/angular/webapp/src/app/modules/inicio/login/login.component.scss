@@ -1,0 +1,52 @@
+@import '../../../../scss/base';
+@import '../../../../scss/variables';
+
+
+/* Base styles
+--------------------------------------------------- */
+.header-custom {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 0;
+  background-color: $app-white;
+}
+
+.full-height {
+  min-height: 100vh;
+}
+
+.logo-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding: 1em;
+  figure {
+    width: 90%;
+    .img-logo {
+      object-fit: fill;
+      width: 100%;
+      margin: -5px;
+      align-self: center;
+      justify-self: center;
+      border-radius: 3%;
+    }
+  }
+}
+
+.small-font {
+  font-size: .85rem;
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+
+  // Vertically space out multiple block buttons
+  + .btn-block {
+    margin-top: $btn-block-spacing-y;
+  }
+}
+
+.text-start {
+  text-align: start;
+}
+

@@ -1,0 +1,436 @@
+@import './variables';
+@import './mixins';
+@import "~bootstrap/dist/css/bootstrap.css";
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+body,
+html {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #ffffff !important;
+}
+
+a {
+    color: $primary-color;
+    &:hover {
+        color: $lighten-primary-color;
+    }
+}
+
+*,
+*:before,
+*:after {
+    -webkit-user-select: none;
+    /* webkit (safari, chrome) browsers */
+    -moz-user-select: none;
+    /* mozilla browsers */
+    -ms-user-select: none;
+    /* IE10+ */
+    user-select: none;
+    /* Standard syntax */
+}
+
+tbody {
+    overflow-y: hidden;
+    &.max-rows {
+        &-3 {
+            min-height: 2.1rem * 3;
+            max-height: 2.1rem * 3;
+        }
+        &-4 {
+            min-height: 2.1rem * 4;
+            max-height: 2.1rem * 4;
+        }
+        &-5 {
+            min-height: 2.1rem * 5;
+            max-height: 2.1rem * 5;
+        }
+        &-6 {
+            min-height: 2.1rem * 6;
+            max-height: 2.1rem * 6;
+        }
+        &-7 {
+            min-height: 2.1rem * 7;
+            max-height: 2.1rem * 7;
+        }
+        &-12 {
+            min-height: 2.1rem * 12;
+            max-height: 2.1rem * 12;
+        }
+    }
+}
+
+.btn {
+    &-primary {
+        background-color: $primary-color;
+        border-color: $primary-color;
+        &:disabled {
+            background-color: $primary-color;
+            border-color: $primary-color;
+        }
+        &:hover:not(:disabled) {
+            background-color: $darken-primary-color;
+            border-color: $darken-primary-color;
+        }
+        &:not(:disabled):not(.disabled):active {
+            background-color: $extra-darken-primary-color;
+            border-color: $extra-darken-primary-color;
+        }
+        &:focus:not(:disabled):not(.disabled):active,
+        &:focus {
+            @include border-box-shadow;
+        }
+    }
+    &-outline-primary {
+        color: $primary-color;
+        border-color: $primary-color;
+        &:hover:not(:disabled) {
+            background-color: $primary-color;
+            border-color: $primary-color;
+        }
+        &:not(:disabled):not(.disabled):active {
+            background-color: $darken-primary-color;
+            border-color: $darken-primary-color;
+        }
+        &:focus:not(:disabled):not(.disabled):active,
+        &:focus {
+            @include border-box-shadow;
+        }
+    }
+    &-link {
+        color: $primary-color;
+        &:hover {
+            color: $lighten-primary-color;
+        }
+    }
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.section {
+    position: static;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.custom-icon {
+    color: $primary-color;
+    &-error {
+        color: $app-red;
+    }
+}
+
+.custom-placeholder {
+    font-style: italic;
+}
+
+.custom-radio .custom-control-input {
+    &:checked~.custom-control-label::before {
+        background-color: $primary-color;
+    }
+}
+
+.custom-checkbox {
+    .custom-control-input:checked~.custom-control-label::before {
+        background-color: $primary-color;
+    }
+}
+
+.custom-control-input {
+    &:checked~.custom-control-label::before {
+        @include border-box-shadow;
+    }
+    &:focus~.custom-control-label::before {
+        background-color: $extra-lighten-primary-color;
+    }
+    &:active~.custom-control-label::before {
+        background-color: $extra-lighten-primary-color;
+    }
+    &:disabled:checked~.custom-control-label::before {
+        background-color: $hover-primary-color !important;
+    }
+}
+
+.form-control {
+    &:focus {
+        @include border-box-shadow;
+        border-color: $extra-lighten-primary-color;
+    }
+}
+
+.modal-smd>.modal-dialog {
+    max-width: 400px;
+}
+
+.modal-md>.modal-dialog {
+    width: auto;
+}
+
+.mt-n1 {
+    margin-top: -0.25rem !important;
+}
+
+.mt-n2 {
+    margin-top: -0.5rem !important;
+}
+
+.nav-tabs .nav-link {
+    &.active {
+        color: $secondary-color;
+    }
+}
+
+.table {
+    border-radius: 8px 8px 0 0;
+    thead tr {
+        overflow: hidden;
+    }
+}
+
+.table .thead-light th {
+    color: white;
+    background-color: $lighten-primary-color;
+    border-color: $lighten-primary-color;
+}
+
+.table-hover tbody tr.hover-primary {
+    &:hover {
+        background-color: $hover-primary-color;
+    }
+    &:active {
+        background-color: $extra-lighten-primary-color;
+    }
+}
+
+.table-active {
+    background-color: $hover-primary-color;
+    >td,
+    >th {
+        background-color: initial;
+    }
+    &:hover>td {
+        background-color: initial;
+    }
+}
+
+.table-fixed {
+    width: 100%;
+    tbody {
+        overflow-y: auto;
+        width: 100%;
+        th,
+        td {
+            float: left;
+        }
+        tr {
+            float: left;
+            width: 100%;
+            cursor: pointer;
+        }
+    }
+    thead,
+    tbody,
+    tr,
+    td,
+    th {
+        display: block;
+    }
+    thead tr th {
+        float: left;
+    }
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table-hover .table-active:hover>td,
+.table-hover .table-active:hover>th {
+    background: none;
+}
+
+.table-hover .table-active:hover,
+.table-hover .table-active:hover {
+    background-color: rgba(255, 211, 179, 0.75)
+}
+
+.text-orange {
+    color: $primary-color;
+}
+
+.modal-content {
+    .modal-body {
+        //min-height: calc(100%) !important;
+         min-height: 680px;
+    }
+}
+
+.nav-tabs .nav-item {
+    margin-bottom: -2px;
+}
+
+label,
+input,
+select,
+option,
+tr {
+    user-select: none;
+}
+
+
+/* Customize the label (the container) */
+
+.container-checker {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    /* Hide the browser's default checkbox */
+    input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+        /* When the checkbox is checked, add a blue background */
+        &:checked~.checkmark {
+            background-color: $primary-color;
+        }
+        /* Show the checkmark when checked */
+        &:checked~.checkmark:after {
+            display: block;
+        }
+    }
+    /* On mouse-over, add a grey background color */
+    &:hover input~.checkmark {
+        background-color: $hover-primary-color;
+    }
+    /* Style the checkmark/indicator */
+    .checkmark:after {
+        left: 8px;
+        top: 4px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+}
+
+
+/* Create a custom checkbox */
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 22px;
+    width: 22px;
+    background-color: $light-gray;
+    border-radius: 3px;
+    border: 1px solid $primary-color;
+    /* Create the checkmark/indicator (hidden when not checked) */
+    &:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+}
+
+.table-custom {
+    tbody {
+        display: block;
+        max-height: 2.1rem * 3;
+        overflow-y: auto;
+    }
+    thead,
+    tbody tr {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
+    thead {
+        width: 100%;
+    }
+}
+
+.table-row-cc {
+    &-1 {
+        background: $app-green;
+    }
+    &-2 {
+        background: $app-yellow;
+    }
+    &-3 {
+        background: $app-gray-400;
+    }
+    &-4 {
+        background: $app-red;
+    }
+}
+
+
+/* Scroll configuration - For webkit browsers
+--------------------------------------------------- */
+
+
+/*
+::-webkit-scrollbar {
+  width: 15px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgba($app-gray-900, 0.3);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba($app-gray-900, 0.5);
+  border-radius: 5px;
+}
+*/
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 992px;
+    }
+}
+
+@media (min-width: 992px) {
+    .modal-lg {
+        max-width: 968px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 2000px;
+    }
+    .modal-smd>.modal-dialog {
+        max-width: 550px;
+    }
+    .modal-md>.modal-dialog {
+        max-width: 1080px;
+    }
+    .modal-lg {
+        padding-left: 2rem;
+        padding-right: 2rem;
+        max-width: 1280px;
+    }
+}

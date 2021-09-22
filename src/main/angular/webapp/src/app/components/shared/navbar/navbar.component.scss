@@ -1,0 +1,43 @@
+@import '../../../../scss/variables';
+.demo-header {
+  align-items: center;
+  background: #f1f1f1;
+  color: #f1f1f1;
+  display: flex;
+  padding: 0.5em;
+  max-height: content-box;
+  margin: 0;
+  box-shadow: 0 3px 5px $primary-color;
+  font-weight: bold;
+}
+
+.menu-logo {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.logo-container {
+  align-items:center;
+}
+
+.nav-item {
+  cursor: pointer;
+}
+
+.row {
+  margin-right: 0px;
+}
+
+.menu-button {
+  background-color: $lighten-primary-color;
+  border-radius: 10%;
+  border: 0px;
+  margin-left: 1%;
+}
+
+.menu-div{
+  width: 20px;
+  height: 2px;
+  background-color: white;
+  margin: 6px 0;
+}

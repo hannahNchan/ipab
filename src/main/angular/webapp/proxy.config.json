@@ -1,0 +1,11 @@
+{
+  "/IPABESB/*": {
+    "target": "http://localhost:8080/IPABESB",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/IPABESB": ""
+    }
+  }
+}

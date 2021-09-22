@@ -1,0 +1,115 @@
+<div class="container mt-3">
+  <div class="section mt-3">
+    <div class="row">
+      <div class="col-12">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="flex-fill align-self-center">
+              <h5>PERFILES</h5>
+            </div>
+            <div class="col-auto px-0">
+              <div class="btn-group">
+                <!-- Botón editar grupo-->
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  [disabled]="!perfilSeleccionado"
+                  (click)="openModalEditarPerfil()"
+                >
+                  <fa-icon icon="edit"></fa-icon>
+                </button>
+                <!-- Botón agregar producto-->
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  (click)="openModalAltaPerfil()"
+                >
+                  <fa-icon icon="plus"></fa-icon>
+                </button>
+                <!-- Botón remover producto-->
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  [disabled]="!perfilSeleccionado"
+                  (click)="onClickRemoverPerfil()"
+                >
+                  <fa-icon icon="minus"></fa-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mt-2">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover table-fixed">
+            <thead class="thead-light">
+              <tr class="hover-primary">
+                <th class="col-6" scope="col">CÓDIGO</th>
+                <th class="col-6" scope="col">DESCRIPCIÓN</th>
+              </tr>
+            </thead>
+            <tbody class="max-rows-5">
+              <ng-container *ngFor="let perfil of perfiles">
+                <tr
+                  class="hover-primary"
+                  [ngClass]="{
+                    'table-active': selectedIdPerfil === perfil.idPerfil
+                  }"
+                  (click)="onSelectedPerfil(perfil)"
+                  (dblclick)="openModalEditarPerfil()"
+                >
+                  <td class="col-6">{{ perfil.codigo }}</td>
+                  <td class="col-6">{{ perfil.descripcion }}</td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-12">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="flex-fill align-self-center">
+            <h5>PRIVILEGIOS DE PERFIL</h5>
+          </div>
+          <div class="col-auto px-2">
+            <div class="btn-group">
+              <!-- Botón perfil-->
+              <button
+                class="btn btn-primary"
+                type="button"
+                (click)="openModalPrivilegiosPerfil()"
+                [disabled]="!perfilSeleccionado"
+              >
+                <fa-icon icon="user"></fa-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card mt-2" id="privilegios">
+    <div class="card-body">
+      <div id="treeparent">
+        <ejs-treeview
+          id="treeelement"
+          [fields]="field"
+          [loadOnDemand]="false"
+          [showCheckBox]="showCheckBox"
+          (drawNode)="drawNode($event)"
+          *ngIf="this.field !== undefined && mostrar"
+          autoCheck="true"
+          expandOn="Auto"
+        >
+        </ejs-treeview>
+      </div>
+    </div>
+  </div>
+</div>

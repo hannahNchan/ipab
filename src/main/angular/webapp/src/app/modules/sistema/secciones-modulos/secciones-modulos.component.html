@@ -1,0 +1,203 @@
+<div class="container mt-3">
+  <div class="section">
+    <h5>SECCIONES</h5>
+    <div class="card">
+      <div class="card-body">
+        <div class="form">
+          <div class="form-row">
+            <div class="col-12 col-md-4 col-lg-4">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <label for="codigo" class="input-group-text"> CÓDIGO: </label>
+                </div>
+                <input
+                  class="form-control"
+                  type="number"
+                  id="codigo"
+                  name="codigo"
+                  maxlength="7"
+                  [(ngModel)]="code"
+                  (ngModelChange)="changeHandler('code')"
+                  (keyup.enter)="getSecciones()"
+                />
+              </div>
+            </div>
+            <div class="col-12 col-md-4 col-lg-6">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <label for="nombre" class="input-group-text"> NOMBRE: </label>
+                </div>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="nombre"
+                  name="nombre"
+                  [(ngModel)]="nombre"
+                  (ngModelChange)="changeHandler('name')"
+                  (keyup.enter)="getSecciones()"
+                />
+              </div>
+            </div>
+            <div class="col-12 col-md-4 col-lg-2">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="btn-group d-flex justify-content-center">
+                    <!-- Botón buscar tipos de producto-->
+                    <button
+                      class="btn btn-primary"
+                      id="btnSearchTiposProductoCreditos"
+                      (click)="getSecciones()"
+                    >
+                      <fa-icon icon="search"></fa-icon>
+                    </button>
+                    <!-- Botón editar grupo-->
+                    <button
+                      class="btn btn-primary"
+                      type="button"
+                      [disabled]="!editarSeccionActivo"
+                      (click)="openModalModificarSeccion()"
+                    >
+                      <fa-icon icon="edit"></fa-icon>
+                    </button>
+                    <!-- Botón agregar producto-->
+                    <button
+                      class="btn btn-primary"
+                      type="button"
+                      (click)="openModalAltaSeccion()"
+                    >
+                      <fa-icon icon="plus"></fa-icon>
+                    </button>
+                    <!-- Botón remover producto-->
+                    <button
+                      class="btn btn-primary"
+                      type="button"
+                      [disabled]="!editarSeccionActivo"
+                      (click)="onClickEliminarSeccion()"
+                    >
+                      <fa-icon icon="minus"></fa-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mt-2">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover table-fixed table-sm">
+            <thead class="thead-light">
+              <tr class="hover-primary">
+                <th class="col-2" scope="col">CÓDIGO</th>
+                <th class="col-10" scope="col">DESCRIPCIÓN</th>
+              </tr>
+            </thead>
+            <tbody class="max-rows-7">
+              <ng-container *ngFor="let seccion of listaSecciones">
+                <tr
+                  class="hover-primary"
+                  [ngClass]="{
+                    'table-active': selectedIdSeccion === seccion.idSeccion
+                  }"
+                  (click)="onSelectedSeccion(seccion)"
+                  (dblclick)="openModalModificarSeccion()"
+                >
+                  <th class="col-2" scope="row">{{ seccion.idSeccion }}</th>
+                  <td class="col-10 cell-uppercase">
+                    {{ seccion.descripcion }}
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section mt-3">
+    <div class="row">
+      <div class="col-12">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="flex-fill align-self-center">
+              <h5>MÓDULOS</h5>
+            </div>
+            <div class="col-auto px-0">
+              <div class="btn-group">
+                <!-- Botón buscar grupos-->
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  [disabled]="!listaModulosActivo"
+                  (click)="onClickListarModulos()"
+                >
+                  <fa-icon icon="list-alt"></fa-icon>
+                </button>
+                <!-- Botón editar grupo-->
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  [disabled]="!editarModuloActivo"
+                  (click)="openModalModificarModulo()"
+                >
+                  <fa-icon icon="edit"></fa-icon>
+                </button>
+                <!-- Botón agregar producto-->
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  [disabled]="!listaModulosActivo"
+                  (click)="openModalAltaModulo()"
+                >
+                  <fa-icon icon="plus"></fa-icon>
+                </button>
+                <!-- Botón remover producto-->
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  [disabled]="!editarModuloActivo"
+                  (click)="onClickEliminarModulo()"
+                >
+                  <fa-icon icon="minus"></fa-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mt-2">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover table-fixed table-sm">
+            <thead class="thead-light">
+              <tr class="hover-primary">
+                <th class="col-2" scope="col">CÓDIGO</th>
+                <th class="col-10" scope="col">DESCRIPCIÓN</th>
+              </tr>
+            </thead>
+            <tbody class="max-rows-5">
+              <ng-container *ngFor="let modulo of listaModulos">
+                <tr
+                  class="hover-primary"
+                  [ngClass]="{
+                    'table-active': selectedIdModulo === modulo.idModulo
+                  }"
+                  (click)="onSelectedModulo(modulo)"
+                  (dblclick)="openModalModificarModulo()"
+                >
+                  <th class="col-2" scope="row">{{ modulo.idModulo }}</th>
+                  <td class="col-10 cell-uppercase">
+                    {{ modulo.descripcion }}
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
