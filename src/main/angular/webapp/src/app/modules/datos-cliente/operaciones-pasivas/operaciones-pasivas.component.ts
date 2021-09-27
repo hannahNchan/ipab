@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {NgbModal, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
+
+import { AltaModificacionComponent } from './modals/alta-modificacion/alta-modificacion.component';
 
 @Component({
   selector: 'app-operaciones-pasivas',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OperacionesPasivasComponent implements OnInit {
 
-  constructor() { }
+  constructor(private modalService: NgbModal) { }
 
   ngOnInit() {
+  }
+
+  openModalAltaModificacion(): void {
+    const ngbModalOptions: NgbModalOptions = {
+      size: 'lg',
+      centered: true,
+      backdrop: 'static',
+      keyboard: false
+    };
+    this.modalService.open(AltaModificacionComponent, ngbModalOptions);
   }
 
 }

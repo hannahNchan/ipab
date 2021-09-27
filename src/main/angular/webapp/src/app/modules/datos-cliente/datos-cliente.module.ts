@@ -8,6 +8,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DatosClienteRoutingModule } from '@modules/datos-cliente/datos-cliente-routing.module';
 import { OperacionesActivasComponent } from '@modules/datos-cliente/operaciones-activas/operaciones-activas.component';
 import { OperacionesPasivasComponent } from '@modules/datos-cliente/operaciones-pasivas/operaciones-pasivas.component';
+import { AltaModificacionComponent } from './operaciones-pasivas/modals/alta-modificacion/alta-modificacion.component';
 
 @NgModule({
   imports: [
@@ -20,8 +21,9 @@ import { OperacionesPasivasComponent } from '@modules/datos-cliente/operaciones-
   declarations: [
     OperacionesActivasComponent,
     OperacionesPasivasComponent,
+    AltaModificacionComponent
   ],
-  entryComponents: []
+  entryComponents: [AltaModificacionComponent]
 })
 export class DatosClienteModule {
 }
