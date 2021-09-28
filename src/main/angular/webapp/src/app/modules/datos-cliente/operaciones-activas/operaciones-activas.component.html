@@ -48,11 +48,7 @@
                   <div class="col-4 col-md-4 col-lg-4 mt-2">
                     <h6>Cliente:</h6>
                   </div>
-                  <input
-                    class="form-control"
-                    id="cliente"
-                    name="ciente"
-                  />
+                  <input class="form-control" id="cliente" name="ciente" />
                 </div>
               </div>
               <div class="col-3 col-md-3 col-lg-3">
@@ -60,11 +56,7 @@
                   <div class="col-4 col-md-4 col-lg-4 mt-2">
                     <h6>Cuenta:</h6>
                   </div>
-                  <input
-                    class="form-control"
-                    id="cuenta"
-                    name="cuenta"
-                  />
+                  <input class="form-control" id="cuenta" name="cuenta" />
                 </div>
               </div>
               <div class="col-3 col-md-3 col-lg-3">
@@ -72,11 +64,7 @@
                   <div class="col-4 col-md-4 col-lg-4 mt-2">
                     <h6>Credito:</h6>
                   </div>
-                  <input
-                    class="form-control"
-                    id="credito"
-                    name="credito"
-                  />
+                  <input class="form-control" id="credito" name="credito" />
                 </div>
               </div>
             </div>
@@ -87,7 +75,6 @@
                     <button
                       class="btn btn-primary"
                       id="btnSearchTiposProductoCreditos"
-                      (click)="getUsuarios()"
                     >
                       <fa-icon icon="search"></fa-icon>
                     </button>
@@ -109,90 +96,203 @@
             <ng-template ngbTabContent>
               <div class="card">
                 <div class="card-body">
-                  <div class="form ml-5 form-max-height">
-                    <div class="form-group row">
-                      <label class="mt-1 col-2">Número de crédito:</label>
-                      <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                  <form [formGroup]="tabla4Form" novalidate>
+                    <div class="form ml-5 form-max-height">
+                      <div class="form-group row">
+                        <label class="mt-1 col-2">Número de crédito:</label>
+                        <div class="col-sm-3 col-md-3">
+                          <input
+                            class="form-control form-control-sm"
+                            type="text"
+                          />
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="mt-1 col-2">Moneda 1:</label>
+                        <div class="col-sm-3 col-md-3">
+                          <select class="form-control form-control-sm">
+                            <option>Opción 1</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="mt-1 col-2">Segmento:</label>
+                        <div class="col-sm-3 col-md-3">
+                          <select class="form-control form-control-sm">
+                            <option>Opción 1</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="mt-1 col-2">Tipo de cobranza:</label>
+                        <div class="col-sm-3 col-md-3">
+                          <select class="form-control form-control-sm">
+                            <option>Opción 1</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="mt-1 col-2"
+                          >Saldo vencido contable:</label
+                        >
+                        <div class="col-sm-3 col-md-3">
+                          <input
+                            formControlName="saldoVencidoContable"
+                            class="form-control form-control-sm"
+                            type="text"
+                          />
+                          <div
+                            *ngIf="
+                              saldoVencidoContable.invalid &&
+                              (saldoVencidoContable.dirty ||
+                                saldoVencidoContable.touched)
+                            "
+                            class="mt-2"
+                          >
+                            <div
+                              *ngIf="saldoVencidoContable.errors?.required"
+                              class="error-message"
+                            >
+                              Valor Obligatorio
+                            </div>
+                            <div
+                              *ngIf="saldoVencidoContable.errors?.pattern"
+                              class="error-message"
+                            >
+                              Valor inválido
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="mt-1 col-2"
+                          >Capital vencido operativo:</label
+                        >
+                        <div class="col-sm-3 col-md-3">
+                          <input
+                            formControlName="capitalVencidoContable"
+                            class="form-control form-control-sm"
+                            type="text"
+                          />
+                          <div
+                            *ngIf="
+                              capitalVencidoContable.invalid &&
+                              (capitalVencidoContable.dirty ||
+                                capitalVencidoContable.touched)
+                            "
+                            class="mt-2"
+                          >
+                            <div
+                              *ngIf="capitalVencidoContable.errors?.required"
+                              class="error-message"
+                            >
+                              Valor Obligatorio
+                            </div>
+                            <div
+                              *ngIf="capitalVencidoContable.errors?.pattern"
+                              class="error-message"
+                            >
+                              Valor inválido
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="mt-1 col-2"
+                          >Interés ordinario exigible:</label
+                        >
+                        <div class="col-sm-3 col-md-3">
+                          <input
+                            formControlName="interesOrdinarioExigible"
+                            class="form-control form-control-sm"
+                            type="text"
+                          />
+                          <div
+                            *ngIf="
+                              interesOrdinarioExigible.invalid &&
+                              (interesOrdinarioExigible.dirty ||
+                                interesOrdinarioExigible.touched)
+                            "
+                            class="mt-2"
+                          >
+                            <div
+                              *ngIf="interesOrdinarioExigible.errors?.required"
+                              class="error-message"
+                            >
+                              Valor Obligatorio
+                            </div>
+                            <div
+                              *ngIf="interesOrdinarioExigible.errors?.pattern"
+                              class="error-message"
+                            >
+                              Valor inválido
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="mt-1 col-2">Interés moratorio:</label>
+                        <div class="col-sm-3 col-md-3">
+                          <input
+                            formControlName="interesMoratorio"
+                            class="form-control form-control-sm"
+                            type="text"
+                          />
+                          <div
+                            *ngIf="
+                              interesMoratorio.invalid &&
+                              (interesMoratorio.dirty ||
+                                interesMoratorio.touched)
+                            "
+                            class="mt-2"
+                          >
+                            <div
+                              *ngIf="interesMoratorio.errors?.required"
+                              class="error-message"
+                            >
+                              Valor Obligatorio
+                            </div>
+                            <div
+                              *ngIf="interesMoratorio.errors?.pattern"
+                              class="error-message"
+                            >
+                              Valor inválido
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="mt-1 col-2">Otros accesorios:</label>
+                        <div class="col-sm-3 col-md-3">
+                          <input
+                            formControlName="otrosAccesorios"
+                            class="form-control form-control-sm"
+                            type="text"
+                          />
+                          <div
+                            *ngIf="
+                              otrosAccesorios.invalid &&
+                              (otrosAccesorios.dirty || otrosAccesorios.touched)
+                            "
+                            class="mt-2"
+                          >
+                            <div
+                              *ngIf="otrosAccesorios.errors?.required"
+                              class="error-message"
+                            >
+                              Valor Obligatorio
+                            </div>
+                            <div
+                              *ngIf="otrosAccesorios.errors?.pattern"
+                              class="error-message"
+                            >
+                              Valor inválido
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div class="form-group row">
-                      <label class="mt-1 col-2">Moneda 1:</label>
-                      <div class="col-sm-3 col-md-3">
-                        <select class="form-control form-control-sm">
-                          <option>Opción 1</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="mt-1 col-2">Segmento:</label>
-                      <div class="col-sm-3 col-md-3">
-                        <select class="form-control form-control-sm">
-                          <option>Opción 1</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="mt-1 col-2">Tipo de cobranza:</label>
-                      <div class="col-sm-3 col-md-3">
-                        <select class="form-control form-control-sm">
-                          <option>Opción 1</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="mt-1 col-2">Saldo vencido contable:</label>
-                      <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="mt-1 col-2"
-                        >Capital vencido operativo:</label
-                      >
-                      <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="mt-1 col-2"
-                        >Interés ordinario exigible:</label
-                      >
-                      <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="mt-1 col-2">Interés moratorio:</label>
-                      <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="mt-1 col-2">Otros accesorios:</label>
-                      <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
-                      </div>
-                    </div>
-                  </div>
+                  </form>
                 </div>
               </div>
             </ng-template>
@@ -234,6 +334,669 @@
               ><b
                 >Información patrimonial del titlular de los créditos
                 (vivienda)</b
+              ></ng-template
+            >
+            <ng-template ngbTabContent>
+              <div class="card">
+                <div class="card-body">
+                  <form [formGroup]="tabla1Form" novalidate>
+                    <div class="form ml-5 form-max-height">
+                      <div class="form-group row">
+                        <label class="mt-1 col-2">Clave única:</label>
+                        <div class="col-sm-3 col-md-3">
+                          <input
+                            class="form-control form-control-sm"
+                            type="text"
+                          />
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="mt-1 col-2">Nombre del acreditado:</label>
+                        <div class="col-sm-3 col-md-8">
+                          <input
+                            class="form-control form-control-sm"
+                            type="text"
+                          />
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="mt-1 col-2">Periodo:</label>
+                        <div class="col-sm-3 col-md-3">
+                          <div class="input-group">
+                            <input
+                              class="form-control bg-white"
+                              id="fechaDisp"
+                              type="text"
+                              ngbDatepicker
+                              #b="ngbDatepicker"
+                              placeholder="dd/mm/aaaa"
+                              name="fechaDisposicion"
+                              (click)="b.toggle()"
+                            />
+                            <div class="input-group-append">
+                              <button
+                                class="btn btn-outline-secondary calendar"
+                                (click)="b.toggle()"
+                                type="button"
+                              >
+                                <fa-icon icon="calendar-alt"></fa-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="mt-1 col-2"
+                          >Identificador del crédito:</label
+                        >
+                        <div class="col-sm-3 col-md-3">
+                          <input
+                            class="form-control form-control-sm"
+                            type="text"
+                          />
+                        </div>
+                        <label class="mt-1 col-2">Categoría del credito:</label>
+                        <div class="col-sm-3 col-md-3">
+                          <select class="form-control form-control-sm">
+                            <option>Opción 1</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="mt-1 col-2"
+                          >Tipo de alta del crédito:</label
+                        >
+                        <div class="col-sm-3 col-md-3">
+                          <select class="form-control form-control-sm">
+                            <option>Opción 1</option>
+                          </select>
+                        </div>
+                        <label class="mt-1 col-2">Destino del crédito:</label>
+                        <div class="col-sm-3 col-md-3">
+                          <select class="form-control form-control-sm">
+                            <option>Opción 1</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="mt-1 col-2">Fecha otorgamiento:</label>
+                        <div class="col-sm-3 col-md-3">
+                          <div class="input-group">
+                            <input
+                              class="form-control bg-white"
+                              id="fechaDisp"
+                              type="text"
+                              ngbDatepicker
+                              #c="ngbDatepicker"
+                              placeholder="dd/mm/aaaa"
+                              name="fechaDisposicion"
+                              (click)="c.toggle()"
+                            />
+                            <div class="input-group-append">
+                              <button
+                                class="btn btn-outline-secondary calendar"
+                                (click)="c.toggle()"
+                                type="button"
+                              >
+                                <fa-icon icon="calendar-alt"></fa-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <label class="mt-1 col-2">Fecha vencimiento:</label>
+                        <div class="col-sm-3 col-md-3">
+                          <div class="input-group">
+                            <input
+                              class="form-control bg-white"
+                              id="fechaDisp"
+                              type="text"
+                              ngbDatepicker
+                              #d="ngbDatepicker"
+                              placeholder="dd/mm/aaaa"
+                              name="fechaDisposicion"
+                              (click)="d.toggle()"
+                            />
+                            <div class="input-group-append">
+                              <button
+                                class="btn btn-outline-secondary calendar"
+                                (click)="d.toggle()"
+                                type="button"
+                              >
+                                <fa-icon icon="calendar-alt"></fa-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="mt-1 col-2"
+                          >Monto original crédito:</label
+                        >
+                        <div class="col-sm-3 col-md-3">
+                          <input
+                            formControlName="montoOriginalCredito"
+                            class="form-control form-control-sm"
+                            type="text"
+                          />
+                          <div
+                            *ngIf="
+                              montoOriginalCredito.invalid &&
+                              (montoOriginalCredito.dirty || montoOriginalCredito.touched)
+                            "
+                            class="mt-2"
+                          >
+                            <div
+                              *ngIf="montoOriginalCredito.errors?.required"
+                              class="error-message"
+                            >
+                              Valor Obligatorio
+                            </div>
+                            <div
+                              *ngIf="montoOriginalCredito.errors?.pattern"
+                              class="error-message"
+                            >
+                              Valor inválido
+                            </div>
+                          </div>
+                        </div>
+                        <label class="mt-1 col-2">Valor vivienda:</label>
+                        <div class="col-sm-3 col-md-3">
+                          <input
+                          formControlName="valorVivienda"
+                            class="form-control form-control-sm"
+                            type="text"
+                          />
+                          <div
+                            *ngIf="
+                              valorVivienda.invalid &&
+                              (valorVivienda.dirty || valorVivienda.touched)
+                            "
+                            class="mt-2"
+                          >
+                            <div
+                              *ngIf="valorVivienda.errors?.required"
+                              class="error-message"
+                            >
+                              Valor Obligatorio
+                            </div>
+                            <div
+                              *ngIf="valorVivienda.errors?.pattern"
+                              class="error-message"
+                            >
+                              Valor inválido
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="mt-1 col-2"
+                          >Tipo tasa de interés de crédito:</label
+                        >
+                        <div class="col-sm-3 col-md-3">
+                          <select class="form-control form-control-sm">
+                            <option>Opción 1</option>
+                          </select>
+                        </div>
+                        <label class="mt-1 col-2"
+                          >Denominación de crédito:</label
+                        >
+                        <div class="col-sm-3 col-md-3">
+                          <select class="form-control form-control-sm">
+                            <option>Opción 1</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="mt-1 col-2"
+                          >Tasa de interés aplicada en el periodo:</label
+                        >
+                        <div class="col-sm-3 col-md-3">
+                          <input
+                          formControlName="tasaInteresAplicadoPeriodo"
+                            class="form-control form-control-sm"
+                            type="text"
+                          />
+                          <div
+                            *ngIf="
+                              tasaInteresAplicadoPeriodo.invalid &&
+                              (tasaInteresAplicadoPeriodo.dirty || tasaInteresAplicadoPeriodo.touched)
+                            "
+                            class="mt-2"
+                          >
+                            <div
+                              *ngIf="tasaInteresAplicadoPeriodo.errors?.required"
+                              class="error-message"
+                            >
+                              Valor Obligatorio
+                            </div>
+                            <div
+                              *ngIf="tasaInteresAplicadoPeriodo.errors?.pattern"
+                              class="error-message"
+                            >
+                              Valor inválido
+                            </div>
+                          </div>
+                        </div>
+                        <label class="mt-1 col-2"
+                          >Responsabilidad total al final del periodo:</label
+                        >
+                        <div class="col-sm-3 col-md-3">
+                          <input
+                          formControlName="responsabilidadTotalperiodo"
+                            class="form-control form-control-sm"
+                            type="text"
+                          />
+                          <div
+                            *ngIf="
+                              responsabilidadTotalperiodo.invalid &&
+                              (responsabilidadTotalperiodo.dirty || responsabilidadTotalperiodo.touched)
+                            "
+                            class="mt-2"
+                          >
+                            <div
+                              *ngIf="responsabilidadTotalperiodo.errors?.required"
+                              class="error-message"
+                            >
+                              Valor Obligatorio
+                            </div>
+                            <div
+                              *ngIf="responsabilidadTotalperiodo.errors?.pattern"
+                              class="error-message"
+                            >
+                              Valor inválido
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="mt-1 col-2">Fecha último pago:</label>
+                        <div class="col-sm-3 col-md-3">
+                          <div class="input-group">
+                            <input
+                              class="form-control bg-white"
+                              id="fechaDisp"
+                              type="text"
+                              ngbDatepicker
+                              #e="ngbDatepicker"
+                              placeholder="dd/mm/aaaa"
+                              name="fechaDisposicion"
+                              (click)="e.toggle()"
+                            />
+                            <div class="input-group-append">
+                              <button
+                                class="btn btn-outline-secondary calendar"
+                                (click)="e.toggle()"
+                                type="button"
+                              >
+                                <fa-icon icon="calendar-alt"></fa-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <label class="mt-1 col-2">Situación del crédito:</label>
+                        <div class="col-sm-3 col-md-3">
+                          <input
+                            class="form-control form-control-sm"
+                            type="text"
+                          />
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="mt-1 col-2"
+                          >Probabilidad de incumplimiento:</label
+                        >
+                        <div class="col-sm-3 col-md-3">
+                          <input
+                          formControlName="probabilidadIncumplimiento"
+                            class="form-control form-control-sm"
+                            type="text"
+                          />
+                          <div
+                            *ngIf="
+                              probabilidadIncumplimiento.invalid &&
+                              (probabilidadIncumplimiento.dirty || probabilidadIncumplimiento.touched)
+                            "
+                            class="mt-2"
+                          >
+                            <div
+                              *ngIf="probabilidadIncumplimiento.errors?.required"
+                              class="error-message"
+                            >
+                              Valor Obligatorio
+                            </div>
+                            <div
+                              *ngIf="probabilidadIncumplimiento.errors?.pattern"
+                              class="error-message"
+                            >
+                              Valor inválido
+                            </div>
+                          </div>
+                        </div>
+                        <label class="mt-1 col-2"
+                          >Severidad de la pérdida:</label
+                        >
+                        <div class="col-sm-3 col-md-3">
+                          <input
+                          formControlName="severidadPerdida"
+                            class="form-control form-control-sm"
+                            type="text"
+                          />
+                          <div
+                            *ngIf="
+                              severidadPerdida.invalid &&
+                              (severidadPerdida.dirty || severidadPerdida.touched)
+                            "
+                            class="mt-2"
+                          >
+                            <div
+                              *ngIf="severidadPerdida.errors?.required"
+                              class="error-message"
+                            >
+                              Valor Obligatorio
+                            </div>
+                            <div
+                              *ngIf="severidadPerdida.errors?.pattern"
+                              class="error-message"
+                            >
+                              Valor inválido
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="mt-1 col-2">Días de atraso:</label>
+                        <div class="col-sm-3 col-md-3">
+                          <input
+                          formControlName="diasAtraso"
+                            class="form-control form-control-sm"
+                            type="text"
+                          />
+                          <div
+                            *ngIf="
+                              diasAtraso.invalid &&
+                              (diasAtraso.dirty || diasAtraso.touched)
+                            "
+                            class="mt-2"
+                          >
+                            <div
+                              *ngIf="diasAtraso.errors?.required"
+                              class="error-message"
+                            >
+                              Valor Obligatorio
+                            </div>
+                            <div
+                              *ngIf="diasAtraso.errors?.pattern"
+                              class="error-message"
+                            >
+                              Valor inválido
+                            </div>
+                          </div>
+                        </div>
+                        <label class="mt-1 col-2"
+                          >Monto de la subcuenta garantía de crédito:</label
+                        >
+                        <div class="col-sm-3 col-md-3">
+                          <input
+                          formControlName="montoSubcuentaVivienda"
+                            class="form-control form-control-sm"
+                            type="text"
+                          />
+                          <div
+                            *ngIf="
+                              montoSubcuentaVivienda.invalid &&
+                              (montoSubcuentaVivienda.dirty || montoSubcuentaVivienda.touched)
+                            "
+                            class="mt-2"
+                          >
+                            <div
+                              *ngIf="montoSubcuentaVivienda.errors?.required"
+                              class="error-message"
+                            >
+                              Valor Obligatorio
+                            </div>
+                            <div
+                              *ngIf="montoSubcuentaVivienda.errors?.pattern"
+                              class="error-message"
+                            >
+                              Valor inválido
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="mt-1 col-2"
+                          >Convenio judicial o fideicomiso de garantía:</label
+                        >
+                        <div class="col-sm-3 col-md-3">
+                          <select class="form-control form-control-sm">
+                            <option>Opción 1</option>
+                          </select>
+                        </div>
+                        <label class="mt-1 col-2">Reservas:</label>
+                        <div class="col-sm-3 col-md-3">
+                          <input
+                          formControlName="reservas"
+                            class="form-control form-control-sm"
+                            type="text"
+                          />
+                          <div
+                            *ngIf="
+                              reservas.invalid &&
+                              (reservas.dirty || reservas.touched)
+                            "
+                            class="mt-2"
+                          >
+                            <div
+                              *ngIf="reservas.errors?.required"
+                              class="error-message"
+                            >
+                              Valor Obligatorio
+                            </div>
+                            <div
+                              *ngIf="reservas.errors?.pattern"
+                              class="error-message"
+                            >
+                              Valor inválido
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="mt-1 col-2"
+                          >Segmento de la vivienda:</label
+                        >
+                        <div class="col-sm-3 col-md-3">
+                          <select class="form-control form-control-sm">
+                            <option>Opción 1</option>
+                          </select>
+                        </div>
+                        <label class="mt-1 col-2">Tipo de cobranza:</label>
+                        <div class="col-sm-3 col-md-3">
+                          <select class="form-control form-control-sm">
+                            <option>Opción 1</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="mt-1 col-2"
+                          >Capital vencido operativo:</label
+                        >
+                        <div class="col-sm-3 col-md-3">
+                          <input
+                          formControlName="capitalVencidoOperativo"
+                            class="form-control form-control-sm"
+                            type="text"
+                          />
+                          <div
+                            *ngIf="
+                              capitalVencidoOperativo.invalid &&
+                              (capitalVencidoOperativo.dirty || capitalVencidoOperativo.touched)
+                            "
+                            class="mt-2"
+                          >
+                            <div
+                              *ngIf="capitalVencidoOperativo.errors?.required"
+                              class="error-message"
+                            >
+                              Valor Obligatorio
+                            </div>
+                            <div
+                              *ngIf="capitalVencidoOperativo.errors?.pattern"
+                              class="error-message"
+                            >
+                              Valor inválido
+                            </div>
+                          </div>
+                        </div>
+                        <label class="mt-1 col-2"
+                          >Interes ordinarios exigibles:</label
+                        >
+                        <div class="col-sm-3 col-md-3">
+                          <input
+                          formControlName="interesesOrdinarios"
+                            class="form-control form-control-sm"
+                            type="text"
+                          />
+                          <div
+                            *ngIf="
+                              interesesOrdinarios.invalid &&
+                              (interesesOrdinarios.dirty || interesesOrdinarios.touched)
+                            "
+                            class="mt-2"
+                          >
+                            <div
+                              *ngIf="interesesOrdinarios.errors?.required"
+                              class="error-message"
+                            >
+                              Valor Obligatorio
+                            </div>
+                            <div
+                              *ngIf="interesesOrdinarios.errors?.pattern"
+                              class="error-message"
+                            >
+                              Valor inválido
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="mt-1 col-2"
+                          >Capital vigente operativo:</label
+                        >
+                        <div class="col-sm-3 col-md-3">
+                          <input
+                          formControlName="capitalVigenteOperativo"
+                            class="form-control form-control-sm"
+                            type="text"
+                          />
+                          <div
+                            *ngIf="
+                              capitalVigenteOperativo.invalid &&
+                              (capitalVigenteOperativo.dirty || capitalVigenteOperativo.touched)
+                            "
+                            class="mt-2"
+                          >
+                            <div
+                              *ngIf="capitalVigenteOperativo.errors?.required"
+                              class="error-message"
+                            >
+                              Valor Obligatorio
+                            </div>
+                            <div
+                              *ngIf="capitalVigenteOperativo.errors?.pattern"
+                              class="error-message"
+                            >
+                              Valor inválido
+                            </div>
+                          </div>
+                        </div>
+                        <label class="mt-1 col-2">Intereses moratorios:</label>
+                        <div class="col-sm-3 col-md-3">
+                          <input
+                          formControlName="interesesMoratorios"
+                            class="form-control form-control-sm"
+                            type="text"
+                          />
+                          <div
+                            *ngIf="
+                              interesesMoratorios.invalid &&
+                              (interesesMoratorios.dirty || interesesMoratorios.touched)
+                            "
+                            class="mt-2"
+                          >
+                            <div
+                              *ngIf="interesesMoratorios.errors?.required"
+                              class="error-message"
+                            >
+                              Valor Obligatorio
+                            </div>
+                            <div
+                              *ngIf="interesesMoratorios.errors?.pattern"
+                              class="error-message"
+                            >
+                              Valor inválido
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="mt-1 col-2">Otros accesorios:</label>
+                        <div class="col-sm-3 col-md-3">
+                          <input
+                          formControlName="otrosAccesorios"
+                            class="form-control form-control-sm"
+                            type="text"
+                          />
+                          <div
+                            *ngIf="
+                              otrosAccesorios2.invalid &&
+                              (otrosAccesorios2.dirty || otrosAccesorios2.touched)
+                            "
+                            class="mt-2"
+                          >
+                            <div
+                              *ngIf="otrosAccesorios2.errors?.required"
+                              class="error-message"
+                            >
+                              Valor Obligatorio
+                            </div>
+                            <div
+                              *ngIf="otrosAccesorios2.errors?.pattern"
+                              class="error-message"
+                            >
+                              Valor inválido
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="mt-1 col-2">Estado:</label>
+                        <div class="col-sm-3 col-md-3">
+                          <select class="form-control form-control-sm">
+                            <option>Opción 1</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="mt-1 col-2">Tipo de recursos:</label>
+                        <div class="col-sm-3 col-md-3">
+                          <select class="form-control form-control-sm">
+                            <option>Opción 1</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+          <!--Empieza Negocio-->
+          <ngb-tab>
+            <ng-template ngbTabTitle
+              ><b
+                >Información patrimonial del titlular de los créditos
+                (comercial)</b
               ></ng-template
             >
             <ng-template ngbTabContent>
@@ -283,8 +1046,6 @@
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="form-group row">
                       <label class="mt-1 col-2"
                         >Identificador del crédito:</label
                       >
@@ -294,7 +1055,16 @@
                           type="text"
                         />
                       </div>
-                      <label class="mt-1 col-2">Categoría del credito:</label>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2">Grupo de riesgo:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">Actividad económica:</label>
                       <div class="col-sm-3 col-md-3">
                         <select class="form-control form-control-sm">
                           <option>Opción 1</option>
@@ -302,23 +1072,48 @@
                       </div>
                     </div>
                     <div class="form-group row">
+                      <label class="mt-1 col-2">Número de empleados:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">Ingresos brutos anuales:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2">Tipo alta crédito:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <select class="form-control form-control-sm">
+                          <option>Opción 1</option>
+                        </select>
+                      </div>
                       <label class="mt-1 col-2"
-                        >Tipo de alta del crédito:</label
+                        >Monto de la línea de crédito autorizada:</label
                       >
                       <div class="col-sm-3 col-md-3">
-                        <select class="form-control form-control-sm">
-                          <option>Opción 1</option>
-                        </select>
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
                       </div>
-                      <label class="mt-1 col-2">Destino del crédito:</label>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2">Moneda línea de crédito:</label>
                       <div class="col-sm-3 col-md-3">
                         <select class="form-control form-control-sm">
                           <option>Opción 1</option>
                         </select>
                       </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="mt-1 col-2">Fecha otorgamiento:</label>
+                      <label class="mt-1 col-2"
+                        >Fecha vencimiento línea crédito:</label
+                      >
                       <div class="col-sm-3 col-md-3">
                         <div class="input-group">
                           <input
@@ -342,7 +1137,791 @@
                           </div>
                         </div>
                       </div>
-                      <label class="mt-1 col-2">Fecha vencimiento:</label>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2"
+                        >Porcentaje garantizado del crédito:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">Tipo de garantía:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <select class="form-control form-control-sm">
+                          <option>Opción 1</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2">Número de disposición:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">Grado de riesgo:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <select class="form-control form-control-sm">
+                          <option>Opción 1</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2">Situación del crédito:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2"
+                        >Tasa de interés bruta del periodo:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2"
+                        >Número de días con atraso:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">Saldo insoluto:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2">Resevas:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">Tipo de cartera:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <select class="form-control form-control-sm">
+                          <option>Opción 1</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2">Destino del crédito:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <select class="form-control form-control-sm">
+                          <option>Opción 1</option>
+                        </select>
+                      </div>
+                      <label class="mt-1 col-2">Tipo de operación:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <select class="form-control form-control-sm">
+                          <option>Opción 1</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2"
+                        >Porcentaje de participaciones federales comprometidas
+                        como fuente de pago del crédito:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2"
+                        >Monto fondeado por banco de desarrollo o fondo de
+                        fomento:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2"
+                        >Institución bancaria de desarrollo o fondo de
+                        fomento:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <select class="form-control form-control-sm">
+                          <option>Opción 1</option>
+                        </select>
+                      </div>
+                      <label class="mt-1 col-2"
+                        >Porcentaje bruto no cubierto del crédito:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2"
+                        >Severidad de la pérdida para segmento no
+                        cubierto:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">
+                        Monto bruto de exposición al incumplimiento sin
+                        garantía:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2"
+                        >Porcentaje bruto de cobertura de la garantía real
+                        financiera:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">
+                        Valor contable de la garantía real financiera:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2"
+                        >Severidad de la pérdida ajustada por garantías reales
+                        financieras:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">
+                        Exposición al incumplimiento ajustada por garantías
+                        reales financieras:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2"
+                        >Porcentaje bruto de cobertura de la garantía real no
+                        financiera:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">
+                        Valor garantía con derechos de cobro:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2"
+                        >Valor garantía con bienes inmuebles:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">
+                        Valor garantía con bienes muebles:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-4"
+                        >Valor garantía con fideicomiso de garantía y de
+                        administración con participaciones federales y
+                        aportaciones federales como fuente de pago:</label
+                      >
+                      <div class="col-sm-6 col-md-6">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-4"
+                        >Valor garantía con fideicomiso de garantía y de
+                        administración con ingresos propios como fuente de
+                        pago:</label
+                      >
+                      <div class="col-sm-6 col-md-6">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2"
+                        >Valor garantía con otras garantías reales no
+                        financieras:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">
+                        Severidad de la pérdida ajustada por los derechos de
+                        cobro:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2"
+                        >Severidad de la pérdida ajustada por bienes
+                        inmuebles:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">
+                        Severidad de la pérdida ajustada por bienes
+                        muebles:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-4"
+                        >Severidad de la pérdida ajustada por fideicomiso de
+                        garantía y de administración con participaciones
+                        federales y aportaciones federales como fuente de
+                        pago:</label
+                      >
+                      <div class="col-sm-6 col-md-6">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-4"
+                        >Severidad de la pérdida ajustada por fideicomiso de
+                        garantía y de administración con ingresos propios como
+                        fuente de pago:</label
+                      >
+                      <div class="col-sm-6 col-md-6">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-4"
+                        >Severidad de la pérdida ajustada con otras garantías
+                        reales no financieras:</label
+                      >
+                      <div class="col-sm-6 col-md-6">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2"
+                        >Total de severidad de la pérdida por garantías reales
+                        no financieras:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">
+                        Porcentaje bruto cubierto con garantías
+                        personales:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2"
+                        >Porcentaje cubierto por obligado solidario o aval
+                        distinto a entidad federativa y municipio:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">
+                        Monto cubierto por garantía personal:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2"
+                        >Valuación a mercado del derivado de crédito:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">
+                        Porcentaje cubierto por esquemas de paso y
+                        medida:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2"
+                        >Porcentaje cubierto por esquemas de primeras
+                        pérdidas:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">
+                        Monto cubierto por esquemas de paso y medida:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2"
+                        >Monto cubierto por esquema de primeras pérdidas:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">
+                        Severidad de la pérdida total:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2"
+                        >Severidad de la pérdida garante:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">
+                        Severidad de la pérdida acreditado:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2"
+                        >Exposición al incumplimiento total:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">
+                        Exposición al incumplimiento garante:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2"
+                        >Exposición al incumplimiento acreditado:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">
+                        Probabilidad de incumplimiento total:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2">
+                        Probabilidad de incumplimiento garante:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">
+                        Probabilidad de incumplimiento acreditado:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2">Tipo de cobranza:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <select class="form-control form-control-sm">
+                          <option>Opción 1</option>
+                        </select>
+                      </div>
+                      <label class="mt-1 col-2"
+                        >Capital vencido operativo:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2">
+                        Intereses ordinarios exigibles:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2"> Interes moratorio:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2"> Otros accesorios:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">
+                        Capital vigente operativo:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2">Estado:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <select class="form-control form-control-sm">
+                          <option>Opción 1</option>
+                        </select>
+                      </div>
+                      <label class="mt-1 col-2">Plazo total de crédito:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2"
+                        >Plazo en meses al vencimiento:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">Tipo de recursos:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <select class="form-control form-control-sm">
+                          <option>Opción 1</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab>
+            <ng-template ngbTabTitle
+              ><b
+                >Información patrimonial del titlular de los créditos (No
+                revolvente)</b
+              ></ng-template
+            >
+            <ng-template ngbTabContent>
+              <div class="card">
+                <div class="card-body">
+                  <div class="form ml-5 form-max-height">
+                    <div class="form-group row">
+                      <label class="mt-1 col-2">Clave única:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2">Nombre del acreditado:</label>
+                      <div class="col-sm-3 col-md-8">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2">Periodo:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <div class="input-group">
+                          <input
+                            class="form-control bg-white"
+                            id="fechaDisp"
+                            type="text"
+                            ngbDatepicker
+                            #b="ngbDatepicker"
+                            placeholder="dd/mm/aaaa"
+                            name="fechaDisposicion"
+                            (click)="b.toggle()"
+                          />
+                          <div class="input-group-append">
+                            <button
+                              class="btn btn-outline-secondary calendar"
+                              (click)="b.toggle()"
+                              type="button"
+                            >
+                              <fa-icon icon="calendar-alt"></fa-icon>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <label class="mt-1 col-2"
+                        >Identificador del crédito:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2">Clasificación contable:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">Tipo de crédito:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <select class="form-control form-control-sm">
+                          <option>Opción 1</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2">Moneda:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <select class="form-control form-control-sm">
+                          <option>Opción 1</option>
+                        </select>
+                      </div>
+                      <label class="mt-1 col-2"
+                        >Con restricción y sin restricción:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <select class="form-control form-control-sm">
+                          <option>Opción 1</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2">Tipo de alta crédito:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <select class="form-control form-control-sm">
+                          <option>Opción 1</option>
+                        </select>
+                      </div>
+                      <label class="mt-1 col-2"
+                        >Monto de la línea de crédito autorizada:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2"
+                        >Escala de los periodos de facturación:</label
+                      >
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">Tipo de tasa:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <select class="form-control form-control-sm">
+                          <option>Opción 1</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2">Fecha de inicio:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <div class="input-group">
+                          <input
+                            class="form-control bg-white"
+                            id="fechaDisp"
+                            type="text"
+                            ngbDatepicker
+                            #c="ngbDatepicker"
+                            placeholder="dd/mm/aaaa"
+                            name="fechaDisposicion"
+                            (click)="c.toggle()"
+                          />
+                          <div class="input-group-append">
+                            <button
+                              class="btn btn-outline-secondary calendar"
+                              (click)="c.toggle()"
+                              type="button"
+                            >
+                              <fa-icon icon="calendar-alt"></fa-icon>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <label class="mt-1 col-2">Fecha de vencimiento:</label>
                       <div class="col-sm-3 col-md-3">
                         <div class="input-group">
                           <input
@@ -368,41 +1947,7 @@
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-2">Monto original crédito:</label>
-                      <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
-                      </div>
-                      <label class="mt-1 col-2">Valor vivienda:</label>
-                      <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="mt-1 col-2"
-                        >Tipo tasa de interés de crédito:</label
-                      >
-                      <div class="col-sm-3 col-md-3">
-                        <select class="form-control form-control-sm">
-                          <option>Opción 1</option>
-                        </select>
-                      </div>
-                      <label class="mt-1 col-2">Denominación de crédito:</label>
-                      <div class="col-sm-3 col-md-3">
-                        <select class="form-control form-control-sm">
-                          <option>Opción 1</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="mt-1 col-2"
-                        >Tasa de interés aplicada en el periodo:</label
-                      >
+                      <label class="mt-1 col-2">Plazo total:</label>
                       <div class="col-sm-3 col-md-3">
                         <input
                           class="form-control form-control-sm"
@@ -410,7 +1955,7 @@
                         />
                       </div>
                       <label class="mt-1 col-2"
-                        >Responsabilidad total al final del periodo:</label
+                        >Importe original del crédito:</label
                       >
                       <div class="col-sm-3 col-md-3">
                         <input
@@ -420,31 +1965,62 @@
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-2">Fecha último pago:</label>
+                      <label class="mt-1 col-2">Tasa de interés:</label>
                       <div class="col-sm-3 col-md-3">
-                        <div class="input-group">
-                          <input
-                            class="form-control bg-white"
-                            id="fechaDisp"
-                            type="text"
-                            ngbDatepicker
-                            #e="ngbDatepicker"
-                            placeholder="dd/mm/aaaa"
-                            name="fechaDisposicion"
-                            (click)="e.toggle()"
-                          />
-                          <div class="input-group-append">
-                            <button
-                              class="btn btn-outline-secondary calendar"
-                              (click)="e.toggle()"
-                              type="button"
-                            >
-                              <fa-icon icon="calendar-alt"></fa-icon>
-                            </button>
-                          </div>
-                        </div>
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
                       </div>
-                      <label class="mt-1 col-2">Situación del crédito:</label>
+                      <label class="mt-1 col-2">Plazo renamente:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2">Saldo de crédito:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">Monto exigible:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2">Pago realizado:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">Dias de atraso:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="mt-1 col-2">Tipo de garantía:</label>
+                      <div class="col-sm-3 col-md-3">
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
+                      </div>
+                      <label class="mt-1 col-2">Importe de garantía:</label>
                       <div class="col-sm-3 col-md-3">
                         <input
                           class="form-control form-control-sm"
@@ -462,24 +2038,8 @@
                           type="text"
                         />
                       </div>
-                      <label class="mt-1 col-2">Severidad de la pérdida:</label>
-                      <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="mt-1 col-2">Días de atraso:</label>
-                      <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
-                      </div>
                       <label class="mt-1 col-2"
-                        >Monto de la subcuenta garantía de crédito:</label
+                        >Severidad de la perdida no cubierta:</label
                       >
                       <div class="col-sm-3 col-md-3">
                         <input
@@ -490,12 +2050,13 @@
                     </div>
                     <div class="form-group row">
                       <label class="mt-1 col-2"
-                        >Convenio judicial o fideicomiso de garantía:</label
+                        >Severidad de la perdida cubierta:</label
                       >
                       <div class="col-sm-3 col-md-3">
-                        <select class="form-control form-control-sm">
-                          <option>Opción 1</option>
-                        </select>
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
                       </div>
                       <label class="mt-1 col-2">Reservas:</label>
                       <div class="col-sm-3 col-md-3">
@@ -506,31 +2067,14 @@
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-2">Segmento de la vivienda:</label>
-                      <div class="col-sm-3 col-md-3">
-                        <select class="form-control form-control-sm">
-                          <option>Opción 1</option>
-                        </select>
-                      </div>
                       <label class="mt-1 col-2">Tipo de cobranza:</label>
                       <div class="col-sm-3 col-md-3">
                         <select class="form-control form-control-sm">
                           <option>Opción 1</option>
                         </select>
                       </div>
-                    </div>
-                    <div class="form-group row">
                       <label class="mt-1 col-2"
-                        >Capital vencido operativo:</label
-                      >
-                      <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
-                      </div>
-                      <label class="mt-1 col-2"
-                        >Interes ordinarios exigibles:</label
+                        >capital vencido operativo:</label
                       >
                       <div class="col-sm-3 col-md-3">
                         <input
@@ -541,7 +2085,7 @@
                     </div>
                     <div class="form-group row">
                       <label class="mt-1 col-2"
-                        >Capital vigente operativo:</label
+                        >Intereses ordinarios exigibles:</label
                       >
                       <div class="col-sm-3 col-md-3">
                         <input
@@ -565,21 +2109,14 @@
                           type="text"
                         />
                       </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="mt-1 col-2">Estado:</label>
+                      <label class="mt-1 col-2"
+                        >Capital vigente operativo:</label
+                      >
                       <div class="col-sm-3 col-md-3">
-                        <select class="form-control form-control-sm">
-                          <option>Opción 1</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="mt-1 col-2">Tipo de recursos:</label>
-                      <div class="col-sm-3 col-md-3">
-                        <select class="form-control form-control-sm">
-                          <option>Opción 1</option>
-                        </select>
+                        <input
+                          class="form-control form-control-sm"
+                          type="text"
+                        />
                       </div>
                     </div>
                   </div>
@@ -591,7 +2128,14 @@
         <div class="modal-footer">
           <!-- Simple Buttons-->
           <button class="btn btn-danger" type="button">Cancelar</button>
-          <button class="btn btn-success" type="button">Aceptar</button>
+          <button
+            class="btn btn-success"
+            type="button"
+            (click)="onClickAceptar()"
+            [disabled]="tabla4Form.invalid || tabla1Form.invalid"
+          >
+            Aceptar
+          </button>
         </div>
       </div>
     </div>

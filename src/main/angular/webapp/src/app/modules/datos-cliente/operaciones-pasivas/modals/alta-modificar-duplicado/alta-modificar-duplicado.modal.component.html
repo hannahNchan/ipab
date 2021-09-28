@@ -1,0 +1,100 @@
+<div class="modal-container">
+  <div class="modal-header">
+    <h4 class="modal-title" *ngIf="isUpdate">Editar</h4>
+    <h4 class="modal-title" *ngIf="!isUpdate">Alta</h4>
+    <button
+      class="close"
+      type="button"
+      aria-label="Close"
+      (click)="activeModal.close()"
+    >
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid mt-2">
+      <div class="card">
+        <div class="card-body">
+          <div class="form form-max-height">
+            <div class="form-group row center">
+              <label class="mt-1 col-2">Cliente principal:</label>
+              <div class="col-sm-3 col-md-4">
+                <input class="form-control form-control-sm" type="text" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-10">
+                <div class="form-group row">
+                  <div class="form-group col-4">
+                    <label class="mt-1 col-xl-12">Cliente duplicado:</label>
+                    <div class="col-xl-12">
+                      <input class="form-control form-control-sm" type="text" />
+                    </div>
+                  </div>
+                  <div class="form-group col-4">
+                    <label class="mt-1 col-xl-12"
+                      >Fecha alta/modificación:</label
+                    >
+                    <div class="col-xl-12">
+                      <input class="form-control form-control-sm" type="text" />
+                    </div>
+                  </div>
+                  <div class="form-group col-4">
+                    <label class="mt-1 col-xl-12">Usuario:</label>
+                    <div class="col-xl-12">
+                      <input class="form-control form-control-sm" type="text" />
+                    </div>
+                  </div>
+                  <div class="form-group col-12">
+                    <label class="mt-1 col-xl-12">Comentarios Duplicado:</label>
+                    <div class="col-xl-12">
+                      <input class="form-control form-control-sm" type="text" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row col-2 end">
+                <!-- Botón buscar tipos de producto-->
+                <!-- Botón editar grupo-->
+                <button class="btn btn-danger small-height" type="button">
+                  <fa-icon icon="times"></fa-icon>
+                </button>
+                <!-- Botón agregar producto-->
+                <button class="btn btn-primary ml-2 small-height" type="button">
+                  <fa-icon icon="plus"></fa-icon>
+                </button>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="form-group col-12">
+                <label class="mt-1 col-xl-12">Comentarios:</label>
+                <div class="col-xl-12">
+                  <input class="form-control form-control-sm" type="text" />
+                </div>
+              </div>
+            </div>
+            <div class="form-group row ml-1">
+              <label class="mt-1 col-1">Estatus:</label>
+              <div class="col-sm-3 col-md-3">
+                <select class="form-control form-control-sm">
+                  <option>Opción 1</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <!-- Simple Buttons-->
+    <button class="btn btn-success" type="button">Aceptar</button>
+    <button
+      class="btn btn-danger"
+      type="button"
+      (click)="activeModal.close('Close click')"
+    >
+      Cancelar
+    </button>
+  </div>
+</div>

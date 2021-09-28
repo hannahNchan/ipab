@@ -229,10 +229,112 @@
 
           <ngb-tab>
             <ng-template ngbTabTitle>
-              <b>Clientes duplicados IPAB</b>
+              <b>Clientes Duplicados IPAB</b>
             </ng-template>
             <ng-template ngbTabContent>
-
+              <div class="card mt-2">
+                <div class="card-body">
+                  <div class="form">
+                    <div class="row search-row justify-content-between">
+                      <div class="form-row">
+                        <div class="col-3 col-md-3 col-lg-6">
+                          <div class="input-group">
+                            <div class="col-4 col-md-4 col-lg-4 mt-2">
+                              <h6>Fecha:</h6>
+                            </div>
+                            <input
+                              class="form-control bg-white"
+                              id="fechaFinal"
+                              [readonly]="true"
+                              type="text"
+                              ngbDatepicker
+                              #a="ngbDatepicker"
+                              placeholder="dd/mm/aaaa"
+                              name="fechaFinal"
+                              (click)="a.toggle()"
+                            />
+                            <div class="input-group-append">
+                              <button
+                                class="btn btn-outline-secondary calendar"
+                                (click)="a.toggle()"
+                                type="button"
+                              >
+                                <fa-icon icon="calendar-alt"></fa-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-3 col-md-3 col-lg-6">
+                          <div class="input-group">
+                            <div class="col-4 col-md-4 col-lg-6 mt-2">
+                              <h6>Cliente principal:</h6>
+                            </div>
+                            <input
+                              class="form-control"
+                              id="cliente"
+                              name="cliente"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-3 col-md-4 col-lg-2">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div
+                              class="btn-group d-flex justify-content-center"
+                            >
+                              <!-- Botón buscar tipos de producto-->
+                              <button
+                                class="btn btn-primary"
+                                id="btnSearchTiposProductoCreditos"
+                              >
+                                <fa-icon icon="search"></fa-icon>
+                              </button>
+                              <!-- Botón editar grupo-->
+                              <button
+                                class="btn btn-primary"
+                                type="button"
+                                (click)="openModalAltDuplicado()"
+                              >
+                                <fa-icon icon="edit"></fa-icon>
+                              </button>
+                              <!-- Botón agregar producto-->
+                              <button
+                                class="btn btn-primary"
+                                type="button"
+                                (click)="openModalAltDuplicado()"
+                              >
+                                <fa-icon icon="plus"></fa-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card mt-2">
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-hover table-fixed">
+                      <thead class="thead-light">
+                        <tr class="hover-primary">
+                          <th class="col-12" scope="col">Cliente principal</th>
+                        </tr>
+                      </thead>
+                      <tbody class="max-row-7">
+                        <tr class="hover-primary">
+                          <td class="col-12"></td>
+                        </tr>
+                        <tr class="hover-primary">
+                          <td class="col-12"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
             </ng-template>
           </ngb-tab>
 
