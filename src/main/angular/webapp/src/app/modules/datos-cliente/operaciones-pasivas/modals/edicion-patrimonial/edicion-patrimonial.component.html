@@ -1,0 +1,208 @@
+<div class="modal-header">
+  <h4 class="modal-title">PATRIMONIAL</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="card">
+    <div class="card-body">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 form-group row">
+            <div class="col-lg-12 form-group row">
+              <div class="col-lg-2">
+                <label>Numero de cuenta:</label>
+              </div>
+              <div class="col-lg-4">
+                <input class="form-control form-control-sm" type="text" />
+              </div>
+              <div class="col-lg-2">
+                <label>Numero de inversion:</label>
+              </div>
+              <div class="col-lg-4">
+                <input class="form-control form-control-sm" type="text" />
+              </div>
+            </div>
+            <div class="col-lg-12 form-group row">
+              <div class="col-lg-2">
+                <label>Categoria:</label>
+              </div>
+              <div class="col-lg-4">
+                <select class="form-control form-control-sm">
+                  <option>Opción 1</option>
+                </select>
+              </div>
+              <div class="col-lg-2">
+                <label>Numero de cliente:</label>
+              </div>
+              <div class="col-lg-4">
+                <input class="form-control form-control-sm" type="text" />
+              </div>
+            </div>
+            <div class="col-lg-12 form-group row">              
+              <div class="col-lg-2">
+                <label>Sucursal:</label>
+              </div>
+              <div class="col-lg-4">
+                <input class="form-control form-control-sm" type="text" />
+              </div>
+              <div class="col-lg-2">
+                <label>Saldo de la cuenta:</label>
+              </div>
+              <div class="col-lg-4">
+                <input class="form-control form-control-sm" type="text" />
+              </div>
+            </div>
+            <div class="col-lg-12 form-group row">
+              <div class="col-lg-2">
+                <label>Saldo de interes de Art. 61:</label>
+              </div>
+              <div class="col-lg-4">
+                <input class="form-control form-control-sm" type="text" />
+              </div>
+              <div class="col-lg-2">
+                <label>Saldo interes:</label>
+              </div>
+              <div class="col-lg-4">
+                <input class="form-control form-control-sm" type="text" />
+              </div>
+            </div>
+            <div class="col-lg-12 form-group row">
+              <div class="col-lg-2">
+                <label>Moneda IPAB:</label>
+              </div>
+              <div class="col-lg-4">
+                <select class="form-control form-control-sm">
+                  <option>Opción 1</option>
+                </select>
+              </div>
+              <div class="col-lg-2">
+                <label>Fecha de contratacion:</label>
+              </div>
+              <div class="pl-0 col-lg-4">
+                <div class="input-group col-xl-8">
+                  <input
+                    class="form-control bg-white"
+                    id="fechaContratacion"
+                    type="text"
+                    ngbDatepicker
+                    #a="ngbDatepicker"
+                    placeholder="dd/mm/aaaa"
+                    name="fechaContratacion"
+                    (click)="a.toggle()"
+                  />
+                  <div class="input-group-append">
+                    <button
+                      class="btn btn-outline-secondary calendar"
+                      (click)="a.toggle()"
+                      type="button"
+                    >
+                      <fa-icon icon="calendar-alt"></fa-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12 form-group row">
+              <div class="col-lg-2">
+                <label>Plazo de la operacion:</label>
+              </div>
+              <div class="col-lg-4">
+                <input class="form-control form-control-sm" type="text" />
+              </div>
+              <div class="col-lg-2">
+                <label>Tipo tasa:</label>
+              </div>
+              <div class="col-lg-4">
+                <select class="form-control form-control-sm">
+                  <option>Opción 1</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-lg-12 form-group row">
+              <div class="col-lg-2">
+                <label>Tasa:</label>
+              </div>
+              <div class="col-lg-4">
+                <input class="form-control form-control-sm" type="text" />
+              </div>
+              <div class="col-lg-2">
+                <label>Ultimo provision de intereses:</label>
+              </div>
+              <div class="pl-0 col-lg-4">
+                <div class="input-group col-xl-8">
+                  <input
+                    class="form-control bg-white"
+                    id="fechaUltProvInt"
+                    type="text"
+                    ngbDatepicker
+                    #b="ngbDatepicker"
+                    placeholder="dd/mm/aaaa"
+                    name="fechaUltProvInt"
+                    (click)="b.toggle()"
+                  />
+                  <div class="input-group-append">
+                    <button
+                      class="btn btn-outline-secondary calendar"
+                      (click)="b.toggle()"
+                      type="button"
+                    >
+                      <fa-icon icon="calendar-alt"></fa-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12 form-group row">
+              <div class="col-lg-2">
+                <label>Entidad federativa:</label>
+              </div>
+              <div class="col-lg-4">
+                <select class="form-control form-control-sm">
+                  <option>Opción 1</option>
+                </select>
+              </div>
+              <div class="col-lg-2">
+                <label>Plaza:</label>
+              </div>
+              <div class="col-lg-4">
+                <select class="form-control form-control-sm">
+                  <option>Opción 1</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-lg-12 form-group row">
+              <div class="col-lg-2">
+                <label>Estatus:</label>
+              </div>
+              <div class="col-lg-4">
+                <input class="form-control form-control-sm" type="text" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="modal-footer">
+  <button class="btn btn-success" type="button">
+    Aceptar
+  </button>
+  <button
+    class="btn btn-danger"
+    type="button"
+    (click)="activeModal.close('Close click')"
+  >
+    Cancelar
+  </button>
+</div>

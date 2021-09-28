@@ -9,6 +9,7 @@ import { DatosClienteRoutingModule } from '@modules/datos-cliente/datos-cliente-
 import { OperacionesActivasComponent } from '@modules/datos-cliente/operaciones-activas/operaciones-activas.component';
 import { OperacionesPasivasComponent } from '@modules/datos-cliente/operaciones-pasivas/operaciones-pasivas.component';
 import { AltaModificacionComponent } from './operaciones-pasivas/modals/alta-modificacion/alta-modificacion.component';
+import { EdicionPatrimonialComponent } from './operaciones-pasivas/modals/edicion-patrimonial/edicion-patrimonial.component';
 
 @NgModule({
   imports: [
@@ -21,9 +22,10 @@ import { AltaModificacionComponent } from './operaciones-pasivas/modals/alta-mod
   declarations: [
     OperacionesActivasComponent,
     OperacionesPasivasComponent,
-    AltaModificacionComponent
+    AltaModificacionComponent,
+    EdicionPatrimonialComponent
   ],
-  entryComponents: [AltaModificacionComponent]
+  entryComponents: [AltaModificacionComponent, EdicionPatrimonialComponent]
 })
 export class DatosClienteModule {
 }
