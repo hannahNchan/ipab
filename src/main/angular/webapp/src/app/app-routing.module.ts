@@ -22,9 +22,9 @@ const routes: Routes = [
   },
   {
     path: '',
-    //component: HomeLayoutComponent,
-    //canActivate: [AuthGuard],
-    //canActivateChild: [ModGuard],
+    component: HomeLayoutComponent,
+    canActivate: [AuthGuard],
+    canActivateChild: [ModGuard],
     children: [
       {
         path: 'operacion',

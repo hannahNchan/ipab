@@ -17,6 +17,8 @@ import { EdicionPatrimonialComponent } from './operaciones-pasivas/modals/edicio
 import { AltaEditarCuentaComponent } from '@modules/datos-cliente/operaciones-pasivas/alta-editar-cuenta/alta-editar-cuenta.component';
 import { AltaModificarBloqueoModalComponent } from '@modules/datos-cliente/operaciones-pasivas/modals/alta-modificar-bloqueo/alta-modificar-bloqueo.modal.component';
 import { AltaModificarDuplicadoModalComponent } from '@modules/datos-cliente/operaciones-pasivas/modals/alta-modificar-duplicado/alta-modificar-duplicado.modal.component';
+import { AltaModificarCierreModalComponent } from '@modules/datos-cliente/operaciones-pasivas/modals/alta-modificar-cierre/alta-modificar-cierre.modal.component';
+
 
 
 @NgModule({
@@ -36,20 +38,22 @@ import { AltaModificarDuplicadoModalComponent } from '@modules/datos-cliente/ope
     AltaEditarHolidayComponent,
     OperacionesPasivasComponent,
     AltaModificacionComponent,
-    EdicionPatrimonialComponent
+    EdicionPatrimonialComponent,
+    AltaModificarBloqueoModalComponent,
+    AltaModificarDuplicadoModalComponent,
+    AltaEditarCuentaComponent,
+    AltaModificarCierreModalComponent
   ],
   entryComponents: [
     AltaModificacionComponent,
     EdicionPatrimonialComponent,
-    AltaEditarCuentaComponent,
-    AltaModificarBloqueoModalComponent,
-    AltaModificarDuplicadoModalComponent,
     AltaModificarBloqueoModalComponent,
     AltaModificarDuplicadoModalComponent,
     AltaEditarCuentaComponent,
     AltaEditarCategoriasComponent,
     AltaEditarParametrosComponent,
     AltaEditarHolidayComponent,
+    AltaModificarCierreModalComponent
   ],
 })
 export class DatosClienteModule {
