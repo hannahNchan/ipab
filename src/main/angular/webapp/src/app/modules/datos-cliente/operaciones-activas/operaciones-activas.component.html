@@ -11,81 +11,6 @@
         </div>
       </div>
     </div>
-    <div class="card">
-      <div class="card-body">
-        <div class="form">
-          <div class="row search-row">
-            <div class="form-row">
-              <div class="col-3 col-md-3 col-lg-3">
-                <div class="input-group">
-                  <div class="col-4 col-md-4 col-lg-4 mt-2">
-                    <h6>Fecha:</h6>
-                  </div>
-                  <input
-                    class="form-control bg-white"
-                    id="fechaFinal"
-                    [readonly]="true"
-                    type="text"
-                    ngbDatepicker
-                    #a="ngbDatepicker"
-                    placeholder="dd/mm/aaaa"
-                    name="fechaFinal"
-                    (click)="a.toggle()"
-                  />
-                  <div class="input-group-append">
-                    <button
-                      class="btn btn-outline-secondary calendar"
-                      (click)="a.toggle()"
-                      type="button"
-                    >
-                      <fa-icon icon="calendar-alt"></fa-icon>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="col-3 col-md-3 col-lg-3">
-                <div class="input-group">
-                  <div class="col-4 col-md-4 col-lg-4 mt-2">
-                    <h6>Cliente:</h6>
-                  </div>
-                  <input class="form-control" id="cliente" name="ciente" />
-                </div>
-              </div>
-              <div class="col-3 col-md-3 col-lg-3">
-                <div class="input-group">
-                  <div class="col-4 col-md-4 col-lg-4 mt-2">
-                    <h6>Cuenta:</h6>
-                  </div>
-                  <input class="form-control" id="cuenta" name="cuenta" />
-                </div>
-              </div>
-              <div class="col-3 col-md-3 col-lg-3">
-                <div class="input-group">
-                  <div class="col-4 col-md-4 col-lg-4 mt-2">
-                    <h6>Credito:</h6>
-                  </div>
-                  <input class="form-control" id="credito" name="credito" />
-                </div>
-              </div>
-            </div>
-            <div class="col-3 col-md-4 col-lg-2">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="btn-group d-flex justify-content-center">
-                    <button
-                      class="btn btn-primary"
-                      id="btnSearchTiposProductoCreditos"
-                    >
-                      <fa-icon icon="search"></fa-icon>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="card mt-3">
       <div class="card-body tabs-card">
         <ngb-tabset>
@@ -94,6 +19,77 @@
               ><b> Créditos vencidos de los titulares</b></ng-template
             >
             <ng-template ngbTabContent>
+              <div class="card mt-2">
+                <div class="card-body">
+                  <div class="form">
+                    <div class="form-row">
+                      <div class="col-3">
+                        <div class="input-group">
+                          <label
+                            class="col-lg-3 col-form-label form-control-label"
+                          >
+                            Fecha:
+                          </label>
+                          <input
+                            class="form-control bg-white"
+                            id="fechaProceso"
+                            type="text"
+                            ngbDatepicker
+                            #d="ngbDatepicker"
+                            placeholder="dd/mm/aaaa"
+                            (focus)="d.toggle()"
+                            name="fechaProceso"
+                            (keydown)="onKeydown($event)"
+                            [(ngModel)]="fecha"
+                          />
+                          <div class="input-group-append">
+                            <button
+                              class="btn btn-outline-secondary calendar"
+                              (click)="d.toggle()"
+                              type="button"
+                            >
+                              <fa-icon icon="calendar-alt"></fa-icon>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-3">
+                        <div class="input-group">
+                          <div class="col-4 col-md-4 col-lg-5 mt-1">
+                            <label class="mt-1">Número de crédito:</label>
+                          </div>
+                          <input
+                            class="form-control"
+                            id="nombreUsuario"
+                            name="nombre"
+                            [(ngModel)]="credito"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-4"></div>
+                      <div class="col-2">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div
+                              class="btn-group d-flex justify-content-center"
+                            >
+                              <!-- Botón buscar tipos de producto-->
+                              <button
+                                class="btn btn-primary"
+                                id="btnSearchTiposProductoCreditos"
+                                (click)="getCreditoTabla4()"
+                              >
+                                <fa-icon icon="search"></fa-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h6 class="mt-3">CRÉDITOS VENCIDOS DE LOS TITULARES</h6>
               <div class="card">
                 <div class="card-body">
                   <form [formGroup]="tabla4Form" novalidate>
@@ -102,9 +98,24 @@
                         <label class="mt-1 col-2">Número de crédito:</label>
                         <div class="col-sm-3 col-md-3">
                           <input
+                            formControlName="numeroCredito"
                             class="form-control form-control-sm"
                             type="text"
                           />
+                          <div
+                            *ngIf="
+                              numeroCredito.invalid &&
+                              (numeroCredito.dirty || numeroCredito.touched)
+                            "
+                            class="mt-2"
+                          >
+                            <div
+                              *ngIf="numeroCredito.errors?.required"
+                              class="error-message"
+                            >
+                              Valor Obligatorio
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <div class="form-group row">
@@ -132,31 +143,28 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="mt-1 col-2"
-                          >Saldo vencido contable:</label
-                        >
+                        <label class="mt-1 col-2">Capital vigente:</label>
                         <div class="col-sm-3 col-md-3">
                           <input
-                            formControlName="saldoVencidoContable"
+                            formControlName="capitalVigente"
                             class="form-control form-control-sm"
                             type="text"
                           />
                           <div
                             *ngIf="
-                              saldoVencidoContable.invalid &&
-                              (saldoVencidoContable.dirty ||
-                                saldoVencidoContable.touched)
+                              capitalVigente.invalid &&
+                              (capitalVigente.dirty || capitalVigente.touched)
                             "
                             class="mt-2"
                           >
                             <div
-                              *ngIf="saldoVencidoContable.errors?.required"
+                              *ngIf="capitalVigente.errors?.required"
                               class="error-message"
                             >
                               Valor Obligatorio
                             </div>
                             <div
-                              *ngIf="saldoVencidoContable.errors?.pattern"
+                              *ngIf="capitalVigente.errors?.pattern"
                               class="error-message"
                             >
                               Valor inválido
@@ -165,31 +173,28 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="mt-1 col-2"
-                          >Capital vencido operativo:</label
-                        >
+                        <label class="mt-1 col-2">Capital vencido:</label>
                         <div class="col-sm-3 col-md-3">
                           <input
-                            formControlName="capitalVencidoContable"
+                            formControlName="capitalVencido"
                             class="form-control form-control-sm"
                             type="text"
                           />
                           <div
                             *ngIf="
-                              capitalVencidoContable.invalid &&
-                              (capitalVencidoContable.dirty ||
-                                capitalVencidoContable.touched)
+                              capitalVencido.invalid &&
+                              (capitalVencido.dirty || capitalVencido.touched)
                             "
                             class="mt-2"
                           >
                             <div
-                              *ngIf="capitalVencidoContable.errors?.required"
+                              *ngIf="capitalVencido.errors?.required"
                               class="error-message"
                             >
                               Valor Obligatorio
                             </div>
                             <div
-                              *ngIf="capitalVencidoContable.errors?.pattern"
+                              *ngIf="capitalVencido.errors?.pattern"
                               class="error-message"
                             >
                               Valor inválido
@@ -481,7 +486,8 @@
                           <div
                             *ngIf="
                               montoOriginalCredito.invalid &&
-                              (montoOriginalCredito.dirty || montoOriginalCredito.touched)
+                              (montoOriginalCredito.dirty ||
+                                montoOriginalCredito.touched)
                             "
                             class="mt-2"
                           >
@@ -502,7 +508,7 @@
                         <label class="mt-1 col-2">Valor vivienda:</label>
                         <div class="col-sm-3 col-md-3">
                           <input
-                          formControlName="valorVivienda"
+                            formControlName="valorVivienda"
                             class="form-control form-control-sm"
                             type="text"
                           />
@@ -552,19 +558,22 @@
                         >
                         <div class="col-sm-3 col-md-3">
                           <input
-                          formControlName="tasaInteresAplicadoPeriodo"
+                            formControlName="tasaInteresAplicadoPeriodo"
                             class="form-control form-control-sm"
                             type="text"
                           />
                           <div
                             *ngIf="
                               tasaInteresAplicadoPeriodo.invalid &&
-                              (tasaInteresAplicadoPeriodo.dirty || tasaInteresAplicadoPeriodo.touched)
+                              (tasaInteresAplicadoPeriodo.dirty ||
+                                tasaInteresAplicadoPeriodo.touched)
                             "
                             class="mt-2"
                           >
                             <div
-                              *ngIf="tasaInteresAplicadoPeriodo.errors?.required"
+                              *ngIf="
+                                tasaInteresAplicadoPeriodo.errors?.required
+                              "
                               class="error-message"
                             >
                               Valor Obligatorio
@@ -582,25 +591,30 @@
                         >
                         <div class="col-sm-3 col-md-3">
                           <input
-                          formControlName="responsabilidadTotalperiodo"
+                            formControlName="responsabilidadTotalperiodo"
                             class="form-control form-control-sm"
                             type="text"
                           />
                           <div
                             *ngIf="
                               responsabilidadTotalperiodo.invalid &&
-                              (responsabilidadTotalperiodo.dirty || responsabilidadTotalperiodo.touched)
+                              (responsabilidadTotalperiodo.dirty ||
+                                responsabilidadTotalperiodo.touched)
                             "
                             class="mt-2"
                           >
                             <div
-                              *ngIf="responsabilidadTotalperiodo.errors?.required"
+                              *ngIf="
+                                responsabilidadTotalperiodo.errors?.required
+                              "
                               class="error-message"
                             >
                               Valor Obligatorio
                             </div>
                             <div
-                              *ngIf="responsabilidadTotalperiodo.errors?.pattern"
+                              *ngIf="
+                                responsabilidadTotalperiodo.errors?.pattern
+                              "
                               class="error-message"
                             >
                               Valor inválido
@@ -647,19 +661,22 @@
                         >
                         <div class="col-sm-3 col-md-3">
                           <input
-                          formControlName="probabilidadIncumplimiento"
+                            formControlName="probabilidadIncumplimiento"
                             class="form-control form-control-sm"
                             type="text"
                           />
                           <div
                             *ngIf="
                               probabilidadIncumplimiento.invalid &&
-                              (probabilidadIncumplimiento.dirty || probabilidadIncumplimiento.touched)
+                              (probabilidadIncumplimiento.dirty ||
+                                probabilidadIncumplimiento.touched)
                             "
                             class="mt-2"
                           >
                             <div
-                              *ngIf="probabilidadIncumplimiento.errors?.required"
+                              *ngIf="
+                                probabilidadIncumplimiento.errors?.required
+                              "
                               class="error-message"
                             >
                               Valor Obligatorio
@@ -677,14 +694,15 @@
                         >
                         <div class="col-sm-3 col-md-3">
                           <input
-                          formControlName="severidadPerdida"
+                            formControlName="severidadPerdida"
                             class="form-control form-control-sm"
                             type="text"
                           />
                           <div
                             *ngIf="
                               severidadPerdida.invalid &&
-                              (severidadPerdida.dirty || severidadPerdida.touched)
+                              (severidadPerdida.dirty ||
+                                severidadPerdida.touched)
                             "
                             class="mt-2"
                           >
@@ -707,7 +725,7 @@
                         <label class="mt-1 col-2">Días de atraso:</label>
                         <div class="col-sm-3 col-md-3">
                           <input
-                          formControlName="diasAtraso"
+                            formControlName="diasAtraso"
                             class="form-control form-control-sm"
                             type="text"
                           />
@@ -737,14 +755,15 @@
                         >
                         <div class="col-sm-3 col-md-3">
                           <input
-                          formControlName="montoSubcuentaVivienda"
+                            formControlName="montoSubcuentaVivienda"
                             class="form-control form-control-sm"
                             type="text"
                           />
                           <div
                             *ngIf="
                               montoSubcuentaVivienda.invalid &&
-                              (montoSubcuentaVivienda.dirty || montoSubcuentaVivienda.touched)
+                              (montoSubcuentaVivienda.dirty ||
+                                montoSubcuentaVivienda.touched)
                             "
                             class="mt-2"
                           >
@@ -775,7 +794,7 @@
                         <label class="mt-1 col-2">Reservas:</label>
                         <div class="col-sm-3 col-md-3">
                           <input
-                          formControlName="reservas"
+                            formControlName="reservas"
                             class="form-control form-control-sm"
                             type="text"
                           />
@@ -823,14 +842,15 @@
                         >
                         <div class="col-sm-3 col-md-3">
                           <input
-                          formControlName="capitalVencidoOperativo"
+                            formControlName="capitalVencidoOperativo"
                             class="form-control form-control-sm"
                             type="text"
                           />
                           <div
                             *ngIf="
                               capitalVencidoOperativo.invalid &&
-                              (capitalVencidoOperativo.dirty || capitalVencidoOperativo.touched)
+                              (capitalVencidoOperativo.dirty ||
+                                capitalVencidoOperativo.touched)
                             "
                             class="mt-2"
                           >
@@ -853,14 +873,15 @@
                         >
                         <div class="col-sm-3 col-md-3">
                           <input
-                          formControlName="interesesOrdinarios"
+                            formControlName="interesesOrdinarios"
                             class="form-control form-control-sm"
                             type="text"
                           />
                           <div
                             *ngIf="
                               interesesOrdinarios.invalid &&
-                              (interesesOrdinarios.dirty || interesesOrdinarios.touched)
+                              (interesesOrdinarios.dirty ||
+                                interesesOrdinarios.touched)
                             "
                             class="mt-2"
                           >
@@ -885,14 +906,15 @@
                         >
                         <div class="col-sm-3 col-md-3">
                           <input
-                          formControlName="capitalVigenteOperativo"
+                            formControlName="capitalVigenteOperativo"
                             class="form-control form-control-sm"
                             type="text"
                           />
                           <div
                             *ngIf="
                               capitalVigenteOperativo.invalid &&
-                              (capitalVigenteOperativo.dirty || capitalVigenteOperativo.touched)
+                              (capitalVigenteOperativo.dirty ||
+                                capitalVigenteOperativo.touched)
                             "
                             class="mt-2"
                           >
@@ -913,14 +935,15 @@
                         <label class="mt-1 col-2">Intereses moratorios:</label>
                         <div class="col-sm-3 col-md-3">
                           <input
-                          formControlName="interesesMoratorios"
+                            formControlName="interesesMoratorios"
                             class="form-control form-control-sm"
                             type="text"
                           />
                           <div
                             *ngIf="
                               interesesMoratorios.invalid &&
-                              (interesesMoratorios.dirty || interesesMoratorios.touched)
+                              (interesesMoratorios.dirty ||
+                                interesesMoratorios.touched)
                             "
                             class="mt-2"
                           >
@@ -943,14 +966,15 @@
                         <label class="mt-1 col-2">Otros accesorios:</label>
                         <div class="col-sm-3 col-md-3">
                           <input
-                          formControlName="otrosAccesorios"
+                            formControlName="otrosAccesorios"
                             class="form-control form-control-sm"
                             type="text"
                           />
                           <div
                             *ngIf="
                               otrosAccesorios2.invalid &&
-                              (otrosAccesorios2.dirty || otrosAccesorios2.touched)
+                              (otrosAccesorios2.dirty ||
+                                otrosAccesorios2.touched)
                             "
                             class="mt-2"
                           >

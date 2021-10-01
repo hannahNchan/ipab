@@ -21,8 +21,8 @@
                   <div class="col-7">
                     <select id="layout" class="form-control" size="0" name="layout" [(ngModel)]="selectedLayout">
                       <option value="0">Seleccionar</option>
-                      <option *ngFor="let layout of layouts" [ngValue]="layout">
-                        {{ layout }}
+                      <option *ngFor="let layout of layouts" [ngValue]="layout.idCatalogo">
+                        {{ layout.descripcionCatalogo }}
                       </option>
                     </select>
                   </div>

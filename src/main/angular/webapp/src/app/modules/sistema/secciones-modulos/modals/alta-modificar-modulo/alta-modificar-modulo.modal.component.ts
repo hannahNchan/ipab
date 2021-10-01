@@ -40,11 +40,20 @@ export class AltaModificarModuloModalComponent implements OnInit, OnDestroy {
     this.isUpdate = this._idModulo !== 0;
     this.incializarModulo();
     if (this.isUpdate) {
+      swal({
+        title: 'Cargando datos...',
+        allowEscapeKey: false,
+        allowOutsideClick: false,
+        onOpen: () => {
+          swal.showLoading();
+        }
+      }).then();
       this.service.getModulo(this._idModulo).subscribe(
         res => {
           this.modulo = res['modulo'];
           this.modulo.idSeccion = this._idSeccion;
           this.modulo.idModulo = this._idModulo;
+          swal.close();
         });
     }
   }

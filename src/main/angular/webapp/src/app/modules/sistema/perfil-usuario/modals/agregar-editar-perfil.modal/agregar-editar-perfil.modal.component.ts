@@ -35,12 +35,21 @@ export class AgregarEditarPerfilModalComponent implements OnInit {
     this.isUpdate = this._idPerfil !== 0;
     this.inicializarPerfil();
     if (this.isUpdate) {
+      swal({
+        title: 'Cargando datos...',
+        allowEscapeKey: false,
+        allowOutsideClick: false,
+        onOpen: () => {
+          swal.showLoading();
+        }
+      }).then();
       this.perfilService.getPerfil(this._idPerfil).subscribe(
         res => {
           this.perfil.codigo = res['perfil']['codigo'];
           this.perfil.descripcion = res['perfil']['descripcion'],
           this.perfil.idPerfil = this._idPerfil;
           this.perfil.idUsuario = this._idUsuario;
+          swal.close();
         });
     }
   }

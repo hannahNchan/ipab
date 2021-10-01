@@ -41,6 +41,14 @@ export class AltaUsuarioModalComponent implements OnInit {
     this.isUpdate = this._idUser !== 0;
     this.initializeUser();
     if (this.isUpdate) {
+      swal({
+        title: 'Cargando datos...',
+        allowEscapeKey: false,
+        allowOutsideClick: false,
+        onOpen: () => {
+          swal.showLoading();
+        }
+      }).then();
       this.usuarioService.getUser(this._idUser).subscribe(
           res => {
             this.usuarioAlta.usuario.idUsuario = this._idUser;
@@ -59,6 +67,7 @@ export class AltaUsuarioModalComponent implements OnInit {
                 }
               });
             });
+            swal.close();
           }
       );
     }

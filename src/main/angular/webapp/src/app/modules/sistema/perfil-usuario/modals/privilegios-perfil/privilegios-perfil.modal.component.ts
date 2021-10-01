@@ -41,6 +41,14 @@ export class PrivilegiosPerfilModalComponent implements OnInit {
     this._idPerfilSubscription = this._data$.selectedIdPerfil
       .subscribe(idPerfil => this._idPerfil = idPerfil);
     this.inicializarPerfil();
+    swal({
+      title: 'Cargando datos...',
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      onOpen: () => {
+        swal.showLoading();
+      }
+    }).then();
     this.perfilService.getPerfil(this._idPerfil).subscribe(
       res => {
         this.perfil = res['perfil'];
@@ -64,6 +72,7 @@ export class PrivilegiosPerfilModalComponent implements OnInit {
     this.field = undefined;
     this.perfilService.getArbol(this._idPerfil).subscribe(
     res => {
+      swal.close();
       this.arbolInfo = res;
       this.privilegios = res['arbol'];
       this.field = { dataSource: this.privilegios, id: 'id', parentID: 'pid', text: 'name', hasChildren: 'hasChild', isChecked: 'isChecked' };

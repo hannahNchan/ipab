@@ -1,6 +1,11 @@
 import { Component, OnInit, AfterViewInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ITabla4, ITabla1 } from "@interfaces/operaciones-activas.interface";
+import { OperacionesActivasService } from '@services/operaciones-activas.service';
+import swal from 'sweetalert2';
+import { PopUpMessage } from '@helpers/PopUpMessage';
+
+
 
 @Component({
   selector: "app-operaciones-activas",
@@ -14,19 +19,24 @@ export class OperacionesActivasComponent implements OnInit, AfterViewInit {
   tabla1: ITabla1;
   decimalPattern: string = "^[0-9]+[.][0-9][0-9]$";
   enteroPattern: string = "^[0-9]+$";
+  fecha: string;
+  credito: string = ""
 
-  constructor() {}
+  constructor(private operacionesActivasService: OperacionesActivasService) { }
 
   ngOnInit(): void {
     this.initTabla4();
     this.initTabla1();
     this.tabla4Form = new FormGroup({
-      saldoVencidoContable: new FormControl(this.tabla4.saldoVencidoContable, [
+      numeroCredito: new FormControl(this.tabla4.numeroCredito, [
+        Validators.required,
+      ]),
+      capitalVigente: new FormControl(this.tabla4.capitalVigente, [
         Validators.required,
         Validators.pattern(this.decimalPattern),
       ]),
-      capitalVencidoContable: new FormControl(
-        this.tabla4.capitalVencidoContable,
+      capitalVencido: new FormControl(
+        this.tabla4.capitalVencido,
         [Validators.required, Validators.pattern(this.decimalPattern)]
       ),
       interesOrdinarioExigible: new FormControl(
@@ -101,11 +111,14 @@ export class OperacionesActivasComponent implements OnInit, AfterViewInit {
       ]),
     });
   }
-  get saldoVencidoContable() {
-    return this.tabla4Form.get("saldoVencidoContable");
+  get numeroCredito() {
+    return this.tabla4Form.get("numeroCredito");
   }
-  get capitalVencidoContable() {
-    return this.tabla4Form.get("capitalVencidoContable");
+  get capitalVigente() {
+    return this.tabla4Form.get("capitalVigente");
+  }
+  get capitalVencido() {
+    return this.tabla4Form.get("capitalVencido");
   }
   get interesOrdinarioExigible() {
     return this.tabla4Form.get("interesOrdinarioExigible");
@@ -166,8 +179,8 @@ export class OperacionesActivasComponent implements OnInit, AfterViewInit {
       moneda1: "",
       segmento: "",
       tipoCobranza: "",
-      saldoVencidoContable: null,
-      capitalVencidoContable: null,
+      capitalVigente: null,
+      capitalVencido: null,
       interesOrdinarioExigible: null,
       interesMoratorio: null,
       otrosAccesorios: null,
@@ -193,6 +206,50 @@ export class OperacionesActivasComponent implements OnInit, AfterViewInit {
     };
   }
 
+  onKeydown(e) {
+    e.stopPropagation();
+    e.preventDefault();
+  }
+
+  getCreditoTabla4() {
+    let month = ''
+    if (this.fecha != undefined && this.fecha != '') {
+      if (this.fecha['month'] < 10) {
+        month = '0' + this.fecha['month'].toString()
+      }
+      else month = this.fecha['month'].toString()
+      let tempFecha = this.fecha['year'].toString() + month + this.fecha['day'].toString()
+
+      this.operacionesActivasService.getTabla4(tempFecha, this.credito).subscribe(res => {
+        if (res.header.estatus) {
+          if (res.tabla4 != undefined) {
+            this.tabla4Form.patchValue({
+              numeroCredito: res.tabla4.numeroCredito,
+              capitalVigente: res.tabla4.capitalVigente.toFixed(2),
+              capitalVencido: res.tabla4.capitalVencido.toFixed(2),
+              interesOrdinarioExigible: res.tabla4.interesesOrdinariosExigibles.toFixed(2),
+              interesMoratorio: res.tabla4.interesesMoratorios.toFixed(2),
+              otrosAccesorios: res.tabla4.otrosAccesorios.toFixed(2),
+            });
+          }
+          else {
+            swal(PopUpMessage.getAppErrorMessage('Sin resultado', 'La busqueda retorno 0 coincidencias'))
+              .then();
+          }
+        }
+        else {
+          swal(PopUpMessage.getAppErrorMessageReportId(res))
+            .then();
+        }
+      })
+    }
+    else {
+      swal(PopUpMessage.getValidateErrorMessage('Fecha'))
+        .then();
+    }
+
+  }
+
   ngAfterViewInit() {
     const element = document.querySelectorAll<HTMLElement>(".nav-tabs");
     element[0].style.flexWrap = "nowrap";
@@ -200,6 +257,6 @@ export class OperacionesActivasComponent implements OnInit, AfterViewInit {
 
   onClickAceptar() {
     // obtener valores del formulario
-    console.log(this.saldoVencidoContable.value);
+    console.log(this.capitalVigente.value);
   }
 }

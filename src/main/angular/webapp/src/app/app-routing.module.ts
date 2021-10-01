@@ -39,33 +39,11 @@ const routes: Routes = [
         loadChildren: () => import('./modules/layout-ipab/layout-ipab.module').then(m => m.LayoutIpabModule)
       },
       {
-        path: 'datos',
+        path: 'datos-cliente',
         loadChildren: () => import('./modules/datos-cliente/datos-cliente.module').then(m => m.DatosClienteModule)
       }
     ]
   },
-  // {
-  //   path: '',
-  //   component: TipoCambioComponent,
-  //   canActivate: [ AuthGuard ],
-  //   children: [
-  //     {
-  //       path: 'operacion',
-  //       loadChildren: () => import('./modules/operacion/operacion.module').then(m => m.OperacionModule)
-  //     },
-  //   ]
-  // },
-  // {
-  //   path: 'sistema',
-  //   component: UsuariosComponent,
-  //   canActivate: [ AuthGuard ],
-  //   children: [
-  //     {
-  //       path: 'usuarios',
-  //       loadChildren: () => import('./modules/sistema/sistema.module').then(m => m.SistemaModule)
-  //     },
-  //   ]
-  // },
   {
     path: '404',
     component: NotFoundComponent

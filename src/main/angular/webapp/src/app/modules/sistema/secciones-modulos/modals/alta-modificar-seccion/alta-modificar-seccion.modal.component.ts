@@ -37,10 +37,19 @@ export class AltaModificarSeccionModalComponent implements OnInit, OnDestroy {
     this.isUpdate = this._idSeccion !== 0;
     this.incializarSeccion();
     if (this.isUpdate) {
+      swal({
+        title: 'Cargando datos...',
+        allowEscapeKey: false,
+        allowOutsideClick: false,
+        onOpen: () => {
+          swal.showLoading();
+        }
+      }).then();
       this.service.getSeccion(this._idSeccion).subscribe(
         res => {
           this.seccion = res['seccion'];
           this.seccion.idSeccion = this._idSeccion;
+          swal.close();
         });
     }
   }
