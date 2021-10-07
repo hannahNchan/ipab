@@ -24,6 +24,9 @@ export class OperacionesActivasComponent implements OnInit, AfterViewInit {
   fechaCreditoNoRevolvente: string;
   clienteCreditoNoRevolvente: string;
   creditoCreditoNoRevolvente: string;
+  fechaCreditoAsociado: any;
+  creditoAsociado: string = "";
+  fillCreditos: { key: number, value: number }[] = [];
 
   constructor(private operacionesActivasService: OperacionesActivasService) { }
 
@@ -294,6 +297,21 @@ export class OperacionesActivasComponent implements OnInit, AfterViewInit {
         .then();
     }
 
+  }
+
+  onSearchCredit() {
+    const { year, month, day } = this.fechaCreditoAsociado;
+    const dateParsed = `${year}-${month}-${day}`;
+    if (this.creditoAsociado.length >= 3) {
+      this.operacionesActivasService.getCreditosCliente(dateParsed, this.creditoAsociado).subscribe(res => {
+        if (res.header.estatus) {
+          const { header, lista, tipo } = res;
+            lista.map(item => {
+              this.fillCreditos.push({ key: item.numeroCredito, value: item.numeroCredito })
+            });
+        }
+      });
+    }
   }
 
   ngAfterViewInit() {
