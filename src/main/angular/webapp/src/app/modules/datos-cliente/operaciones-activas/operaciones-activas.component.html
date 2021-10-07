@@ -15,9 +15,7 @@
       <div class="card-body tabs-card">
         <ngb-tabset>
           <ngb-tab>
-            <ng-template ngbTabTitle
-              ><b> Créditos vencidos de los titulares</b></ng-template
-            >
+            <ng-template ngbTabTitle><b> Créditos vencidos de los titulares</b></ng-template>
             <ng-template ngbTabContent>
               <div class="card mt-2">
                 <div class="card-body">
@@ -25,29 +23,14 @@
                     <div class="form-row">
                       <div class="col-3">
                         <div class="input-group">
-                          <label
-                            class="col-lg-3 col-form-label form-control-label"
-                          >
+                          <label class="col-lg-3 col-form-label form-control-label">
                             Fecha:
                           </label>
-                          <input
-                            class="form-control bg-white"
-                            id="fechaProceso"
-                            type="text"
-                            ngbDatepicker
-                            #d="ngbDatepicker"
-                            placeholder="dd/mm/aaaa"
-                            (focus)="d.toggle()"
-                            name="fechaProceso"
-                            (keydown)="onKeydown($event)"
-                            [(ngModel)]="fecha"
-                          />
+                          <input class="form-control bg-white" id="fechaProceso" type="text" ngbDatepicker
+                            #d="ngbDatepicker" placeholder="dd/mm/aaaa" (focus)="d.toggle()" name="fechaProceso"
+                            (keydown)="onKeydown($event)" [(ngModel)]="fecha" />
                           <div class="input-group-append">
-                            <button
-                              class="btn btn-outline-secondary calendar"
-                              (click)="d.toggle()"
-                              type="button"
-                            >
+                            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
                               <fa-icon icon="calendar-alt"></fa-icon>
                             </button>
                           </div>
@@ -58,27 +41,17 @@
                           <div class="col-4 col-md-4 col-lg-5 mt-1">
                             <label class="mt-1">Número de crédito:</label>
                           </div>
-                          <input
-                            class="form-control"
-                            id="nombreUsuario"
-                            name="nombre"
-                            [(ngModel)]="credito"
-                          />
+                          <input class="form-control" id="nombreUsuario" name="nombre" [(ngModel)]="credito" />
                         </div>
                       </div>
                       <div class="col-4"></div>
                       <div class="col-2">
                         <div class="row">
                           <div class="col-md-12">
-                            <div
-                              class="btn-group d-flex justify-content-center"
-                            >
+                            <div class="btn-group d-flex justify-content-center">
                               <!-- Botón buscar tipos de producto-->
-                              <button
-                                class="btn btn-primary"
-                                id="btnSearchTiposProductoCreditos"
-                                (click)="getCreditoTabla4()"
-                              >
+                              <button class="btn btn-primary" id="btnSearchTiposProductoCreditos"
+                                (click)="getCreditoTabla4()">
                                 <fa-icon icon="search"></fa-icon>
                               </button>
                             </div>
@@ -97,22 +70,12 @@
                       <div class="form-group row">
                         <label class="mt-1 col-2">Número de crédito:</label>
                         <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="numeroCredito"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
+                          <input formControlName="numeroCredito" class="form-control form-control-sm" type="text" />
+                          <div *ngIf="
                               numeroCredito.invalid &&
                               (numeroCredito.dirty || numeroCredito.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="numeroCredito.errors?.required"
-                              class="error-message"
-                            >
+                            " class="mt-2">
+                            <div *ngIf="numeroCredito.errors?.required" class="error-message">
                               Valor Obligatorio
                             </div>
                           </div>
@@ -145,28 +108,15 @@
                       <div class="form-group row">
                         <label class="mt-1 col-2">Capital vigente:</label>
                         <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="capitalVigente"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
+                          <input formControlName="capitalVigente" class="form-control form-control-sm" type="text" />
+                          <div *ngIf="
                               capitalVigente.invalid &&
                               (capitalVigente.dirty || capitalVigente.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="capitalVigente.errors?.required"
-                              class="error-message"
-                            >
+                            " class="mt-2">
+                            <div *ngIf="capitalVigente.errors?.required" class="error-message">
                               Valor Obligatorio
                             </div>
-                            <div
-                              *ngIf="capitalVigente.errors?.pattern"
-                              class="error-message"
-                            >
+                            <div *ngIf="capitalVigente.errors?.pattern" class="error-message">
                               Valor inválido
                             </div>
                           </div>
@@ -175,61 +125,34 @@
                       <div class="form-group row">
                         <label class="mt-1 col-2">Capital vencido:</label>
                         <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="capitalVencido"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
+                          <input formControlName="capitalVencido" class="form-control form-control-sm" type="text" />
+                          <div *ngIf="
                               capitalVencido.invalid &&
                               (capitalVencido.dirty || capitalVencido.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="capitalVencido.errors?.required"
-                              class="error-message"
-                            >
+                            " class="mt-2">
+                            <div *ngIf="capitalVencido.errors?.required" class="error-message">
                               Valor Obligatorio
                             </div>
-                            <div
-                              *ngIf="capitalVencido.errors?.pattern"
-                              class="error-message"
-                            >
+                            <div *ngIf="capitalVencido.errors?.pattern" class="error-message">
                               Valor inválido
                             </div>
                           </div>
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="mt-1 col-2"
-                          >Interés ordinario exigible:</label
-                        >
+                        <label class="mt-1 col-2">Interés ordinario exigible:</label>
                         <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="interesOrdinarioExigible"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
+                          <input formControlName="interesOrdinarioExigible" class="form-control form-control-sm"
+                            type="text" />
+                          <div *ngIf="
                               interesOrdinarioExigible.invalid &&
                               (interesOrdinarioExigible.dirty ||
                                 interesOrdinarioExigible.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="interesOrdinarioExigible.errors?.required"
-                              class="error-message"
-                            >
+                            " class="mt-2">
+                            <div *ngIf="interesOrdinarioExigible.errors?.required" class="error-message">
                               Valor Obligatorio
                             </div>
-                            <div
-                              *ngIf="interesOrdinarioExigible.errors?.pattern"
-                              class="error-message"
-                            >
+                            <div *ngIf="interesOrdinarioExigible.errors?.pattern" class="error-message">
                               Valor inválido
                             </div>
                           </div>
@@ -238,29 +161,16 @@
                       <div class="form-group row">
                         <label class="mt-1 col-2">Interés moratorio:</label>
                         <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="interesMoratorio"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
+                          <input formControlName="interesMoratorio" class="form-control form-control-sm" type="text" />
+                          <div *ngIf="
                               interesMoratorio.invalid &&
                               (interesMoratorio.dirty ||
                                 interesMoratorio.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="interesMoratorio.errors?.required"
-                              class="error-message"
-                            >
+                            " class="mt-2">
+                            <div *ngIf="interesMoratorio.errors?.required" class="error-message">
                               Valor Obligatorio
                             </div>
-                            <div
-                              *ngIf="interesMoratorio.errors?.pattern"
-                              class="error-message"
-                            >
+                            <div *ngIf="interesMoratorio.errors?.pattern" class="error-message">
                               Valor inválido
                             </div>
                           </div>
@@ -269,28 +179,15 @@
                       <div class="form-group row">
                         <label class="mt-1 col-2">Otros accesorios:</label>
                         <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="otrosAccesorios"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
+                          <input formControlName="otrosAccesorios" class="form-control form-control-sm" type="text" />
+                          <div *ngIf="
                               otrosAccesorios.invalid &&
                               (otrosAccesorios.dirty || otrosAccesorios.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="otrosAccesorios.errors?.required"
-                              class="error-message"
-                            >
+                            " class="mt-2">
+                            <div *ngIf="otrosAccesorios.errors?.required" class="error-message">
                               Valor Obligatorio
                             </div>
-                            <div
-                              *ngIf="otrosAccesorios.errors?.pattern"
-                              class="error-message"
-                            >
+                            <div *ngIf="otrosAccesorios.errors?.pattern" class="error-message">
                               Valor inválido
                             </div>
                           </div>
@@ -303,29 +200,77 @@
             </ng-template>
           </ngb-tab>
           <ngb-tab>
-            <ng-template ngbTabTitle
-              ><b>Créditos vencidos asociados a los titulares</b></ng-template
-            >
+            <ng-template ngbTabTitle><b>Créditos vencidos asociados a los titulares</b></ng-template>
             <ng-template ngbTabContent>
+              <div class="card mt-2">
+                <div class="card-body">
+                  <div class="form">
+                    <div class="form-row">
+                      <div class="col-3">
+                        <div class="input-group">
+                          <label class="col-lg-3 col-form-label form-control-label">
+                            Fecha:
+                          </label>
+                          <input class="form-control bg-white" id="fecha" type="text" ngbDatepicker #d="ngbDatepicker"
+                            placeholder="dd/mm/aaaa" (focus)="d.toggle()" name="fecha" (keydown)="onKeydown($event)"
+                            [(ngModel)]="fechaCreditoAsociado" />
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                              <fa-icon icon="calendar-alt"></fa-icon>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-3">
+                        <div class="input-group">
+                          <div class="col-4 col-md-4 col-lg-5 mt-1">
+                            <label class="mt-1">Cliente:</label>
+                          </div>
+                          <input class="form-control" id="nombreUsuario" name="nombre" maxlength="15"
+                            [(ngModel)]="creditoAsociado" (input)="onSearchCredit($event.target.value)" />
+                        </div>
+                      </div>
+                      <div class="col-3">
+                        <div class="input-group">
+                          <div class="col-4 col-md-4 col-lg-5 mt-1">
+                            <label class="mt-1">Crédito:</label>
+                          </div>
+                          <select class="form-control form-control-sm">
+                            <option *ngFor="let item of fillCreditos;let indice=index">
+                              {{ item.value }}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-3">
+                        <div class="row">
+                          <div class="col-md-8">
+                            <div class="btn-group d-flex justify-content-right">
+                              <button class="btn btn-primary" id="btnSearchCreditosVencidosTitulares">
+                                <fa-icon icon="search"></fa-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h6 class="mt-3">CRÉDITOS VENCIDOS ASOCADOS A LOS TITULARES</h6>
               <div class="card">
                 <div class="card-body">
                   <div class="form ml-5 form-max-height">
                     <div class="form-group row">
                       <label class="mt-1 col-2">Número de crédito:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="mt-1 col-2">Clave única:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                   </div>
@@ -335,12 +280,8 @@
           </ngb-tab>
           <!--Empieza Negocio-->
           <ngb-tab>
-            <ng-template ngbTabTitle
-              ><b
-                >Información patrimonial del titlular de los créditos
-                (vivienda)</b
-              ></ng-template
-            >
+            <ng-template ngbTabTitle><b>Información patrimonial del titlular de los créditos
+                (vivienda)</b></ng-template>
             <ng-template ngbTabContent>
               <div class="card">
                 <div class="card-body">
@@ -349,41 +290,24 @@
                       <div class="form-group row">
                         <label class="mt-1 col-2">Clave única:</label>
                         <div class="col-sm-3 col-md-3">
-                          <input
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
+                          <input class="form-control form-control-sm" type="text" />
                         </div>
                       </div>
                       <div class="form-group row">
                         <label class="mt-1 col-2">Nombre del acreditado:</label>
                         <div class="col-sm-3 col-md-8">
-                          <input
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
+                          <input class="form-control form-control-sm" type="text" />
                         </div>
                       </div>
                       <div class="form-group row">
                         <label class="mt-1 col-2">Periodo:</label>
                         <div class="col-sm-3 col-md-3">
                           <div class="input-group">
-                            <input
-                              class="form-control bg-white"
-                              id="fechaDisp"
-                              type="text"
-                              ngbDatepicker
-                              #b="ngbDatepicker"
-                              placeholder="dd/mm/aaaa"
-                              name="fechaDisposicion"
-                              (click)="b.toggle()"
-                            />
+                            <input class="form-control bg-white" id="fechaDisp" type="text" ngbDatepicker
+                              #b="ngbDatepicker" placeholder="dd/mm/aaaa" name="fechaDisposicion"
+                              (click)="b.toggle()" />
                             <div class="input-group-append">
-                              <button
-                                class="btn btn-outline-secondary calendar"
-                                (click)="b.toggle()"
-                                type="button"
-                              >
+                              <button class="btn btn-outline-secondary calendar" (click)="b.toggle()" type="button">
                                 <fa-icon icon="calendar-alt"></fa-icon>
                               </button>
                             </div>
@@ -391,14 +315,9 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="mt-1 col-2"
-                          >Identificador del crédito:</label
-                        >
+                        <label class="mt-1 col-2">Identificador del crédito:</label>
                         <div class="col-sm-3 col-md-3">
-                          <input
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
+                          <input class="form-control form-control-sm" type="text" />
                         </div>
                         <label class="mt-1 col-2">Categoría del credito:</label>
                         <div class="col-sm-3 col-md-3">
@@ -408,9 +327,7 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="mt-1 col-2"
-                          >Tipo de alta del crédito:</label
-                        >
+                        <label class="mt-1 col-2">Tipo de alta del crédito:</label>
                         <div class="col-sm-3 col-md-3">
                           <select class="form-control form-control-sm">
                             <option>Opción 1</option>
@@ -427,22 +344,11 @@
                         <label class="mt-1 col-2">Fecha otorgamiento:</label>
                         <div class="col-sm-3 col-md-3">
                           <div class="input-group">
-                            <input
-                              class="form-control bg-white"
-                              id="fechaDisp"
-                              type="text"
-                              ngbDatepicker
-                              #c="ngbDatepicker"
-                              placeholder="dd/mm/aaaa"
-                              name="fechaDisposicion"
-                              (click)="c.toggle()"
-                            />
+                            <input class="form-control bg-white" id="fechaDisp" type="text" ngbDatepicker
+                              #c="ngbDatepicker" placeholder="dd/mm/aaaa" name="fechaDisposicion"
+                              (click)="c.toggle()" />
                             <div class="input-group-append">
-                              <button
-                                class="btn btn-outline-secondary calendar"
-                                (click)="c.toggle()"
-                                type="button"
-                              >
+                              <button class="btn btn-outline-secondary calendar" (click)="c.toggle()" type="button">
                                 <fa-icon icon="calendar-alt"></fa-icon>
                               </button>
                             </div>
@@ -451,22 +357,11 @@
                         <label class="mt-1 col-2">Fecha vencimiento:</label>
                         <div class="col-sm-3 col-md-3">
                           <div class="input-group">
-                            <input
-                              class="form-control bg-white"
-                              id="fechaDisp"
-                              type="text"
-                              ngbDatepicker
-                              #d="ngbDatepicker"
-                              placeholder="dd/mm/aaaa"
-                              name="fechaDisposicion"
-                              (click)="d.toggle()"
-                            />
+                            <input class="form-control bg-white" id="fechaDisp" type="text" ngbDatepicker
+                              #d="ngbDatepicker" placeholder="dd/mm/aaaa" name="fechaDisposicion"
+                              (click)="d.toggle()" />
                             <div class="input-group-append">
-                              <button
-                                class="btn btn-outline-secondary calendar"
-                                (click)="d.toggle()"
-                                type="button"
-                              >
+                              <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
                                 <fa-icon icon="calendar-alt"></fa-icon>
                               </button>
                             </div>
@@ -474,78 +369,47 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="mt-1 col-2"
-                          >Monto original crédito:</label
-                        >
+                        <label class="mt-1 col-2">Monto original crédito:</label>
                         <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="montoOriginalCredito"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
+                          <input formControlName="montoOriginalCredito" class="form-control form-control-sm"
+                            type="text" />
+                          <div *ngIf="
                               montoOriginalCredito.invalid &&
                               (montoOriginalCredito.dirty ||
                                 montoOriginalCredito.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="montoOriginalCredito.errors?.required"
-                              class="error-message"
-                            >
+                            " class="mt-2">
+                            <div *ngIf="montoOriginalCredito.errors?.required" class="error-message">
                               Valor Obligatorio
                             </div>
-                            <div
-                              *ngIf="montoOriginalCredito.errors?.pattern"
-                              class="error-message"
-                            >
+                            <div *ngIf="montoOriginalCredito.errors?.pattern" class="error-message">
                               Valor inválido
                             </div>
                           </div>
                         </div>
                         <label class="mt-1 col-2">Valor vivienda:</label>
                         <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="valorVivienda"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
+                          <input formControlName="valorVivienda" class="form-control form-control-sm" type="text" />
+                          <div *ngIf="
                               valorVivienda.invalid &&
                               (valorVivienda.dirty || valorVivienda.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="valorVivienda.errors?.required"
-                              class="error-message"
-                            >
+                            " class="mt-2">
+                            <div *ngIf="valorVivienda.errors?.required" class="error-message">
                               Valor Obligatorio
                             </div>
-                            <div
-                              *ngIf="valorVivienda.errors?.pattern"
-                              class="error-message"
-                            >
+                            <div *ngIf="valorVivienda.errors?.pattern" class="error-message">
                               Valor inválido
                             </div>
                           </div>
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="mt-1 col-2"
-                          >Tipo tasa de interés de crédito:</label
-                        >
+                        <label class="mt-1 col-2">Tipo tasa de interés de crédito:</label>
                         <div class="col-sm-3 col-md-3">
                           <select class="form-control form-control-sm">
                             <option>Opción 1</option>
                           </select>
                         </div>
-                        <label class="mt-1 col-2"
-                          >Denominación de crédito:</label
-                        >
+                        <label class="mt-1 col-2">Denominación de crédito:</label>
                         <div class="col-sm-3 col-md-3">
                           <select class="form-control form-control-sm">
                             <option>Opción 1</option>
@@ -553,70 +417,42 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="mt-1 col-2"
-                          >Tasa de interés aplicada en el periodo:</label
-                        >
+                        <label class="mt-1 col-2">Tasa de interés aplicada en el periodo:</label>
                         <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="tasaInteresAplicadoPeriodo"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
+                          <input formControlName="tasaInteresAplicadoPeriodo" class="form-control form-control-sm"
+                            type="text" />
+                          <div *ngIf="
                               tasaInteresAplicadoPeriodo.invalid &&
                               (tasaInteresAplicadoPeriodo.dirty ||
                                 tasaInteresAplicadoPeriodo.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="
+                            " class="mt-2">
+                            <div *ngIf="
                                 tasaInteresAplicadoPeriodo.errors?.required
-                              "
-                              class="error-message"
-                            >
+                              " class="error-message">
                               Valor Obligatorio
                             </div>
-                            <div
-                              *ngIf="tasaInteresAplicadoPeriodo.errors?.pattern"
-                              class="error-message"
-                            >
+                            <div *ngIf="tasaInteresAplicadoPeriodo.errors?.pattern" class="error-message">
                               Valor inválido
                             </div>
                           </div>
                         </div>
-                        <label class="mt-1 col-2"
-                          >Responsabilidad total al final del periodo:</label
-                        >
+                        <label class="mt-1 col-2">Responsabilidad total al final del periodo:</label>
                         <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="responsabilidadTotalperiodo"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
+                          <input formControlName="responsabilidadTotalperiodo" class="form-control form-control-sm"
+                            type="text" />
+                          <div *ngIf="
                               responsabilidadTotalperiodo.invalid &&
                               (responsabilidadTotalperiodo.dirty ||
                                 responsabilidadTotalperiodo.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="
+                            " class="mt-2">
+                            <div *ngIf="
                                 responsabilidadTotalperiodo.errors?.required
-                              "
-                              class="error-message"
-                            >
+                              " class="error-message">
                               Valor Obligatorio
                             </div>
-                            <div
-                              *ngIf="
+                            <div *ngIf="
                                 responsabilidadTotalperiodo.errors?.pattern
-                              "
-                              class="error-message"
-                            >
+                              " class="error-message">
                               Valor inválido
                             </div>
                           </div>
@@ -626,22 +462,11 @@
                         <label class="mt-1 col-2">Fecha último pago:</label>
                         <div class="col-sm-3 col-md-3">
                           <div class="input-group">
-                            <input
-                              class="form-control bg-white"
-                              id="fechaDisp"
-                              type="text"
-                              ngbDatepicker
-                              #e="ngbDatepicker"
-                              placeholder="dd/mm/aaaa"
-                              name="fechaDisposicion"
-                              (click)="e.toggle()"
-                            />
+                            <input class="form-control bg-white" id="fechaDisp" type="text" ngbDatepicker
+                              #e="ngbDatepicker" placeholder="dd/mm/aaaa" name="fechaDisposicion"
+                              (click)="e.toggle()" />
                             <div class="input-group-append">
-                              <button
-                                class="btn btn-outline-secondary calendar"
-                                (click)="e.toggle()"
-                                type="button"
-                              >
+                              <button class="btn btn-outline-secondary calendar" (click)="e.toggle()" type="button">
                                 <fa-icon icon="calendar-alt"></fa-icon>
                               </button>
                             </div>
@@ -649,73 +474,41 @@
                         </div>
                         <label class="mt-1 col-2">Situación del crédito:</label>
                         <div class="col-sm-3 col-md-3">
-                          <input
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
+                          <input class="form-control form-control-sm" type="text" />
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="mt-1 col-2"
-                          >Probabilidad de incumplimiento:</label
-                        >
+                        <label class="mt-1 col-2">Probabilidad de incumplimiento:</label>
                         <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="probabilidadIncumplimiento"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
+                          <input formControlName="probabilidadIncumplimiento" class="form-control form-control-sm"
+                            type="text" />
+                          <div *ngIf="
                               probabilidadIncumplimiento.invalid &&
                               (probabilidadIncumplimiento.dirty ||
                                 probabilidadIncumplimiento.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="
+                            " class="mt-2">
+                            <div *ngIf="
                                 probabilidadIncumplimiento.errors?.required
-                              "
-                              class="error-message"
-                            >
+                              " class="error-message">
                               Valor Obligatorio
                             </div>
-                            <div
-                              *ngIf="probabilidadIncumplimiento.errors?.pattern"
-                              class="error-message"
-                            >
+                            <div *ngIf="probabilidadIncumplimiento.errors?.pattern" class="error-message">
                               Valor inválido
                             </div>
                           </div>
                         </div>
-                        <label class="mt-1 col-2"
-                          >Severidad de la pérdida:</label
-                        >
+                        <label class="mt-1 col-2">Severidad de la pérdida:</label>
                         <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="severidadPerdida"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
+                          <input formControlName="severidadPerdida" class="form-control form-control-sm" type="text" />
+                          <div *ngIf="
                               severidadPerdida.invalid &&
                               (severidadPerdida.dirty ||
                                 severidadPerdida.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="severidadPerdida.errors?.required"
-                              class="error-message"
-                            >
+                            " class="mt-2">
+                            <div *ngIf="severidadPerdida.errors?.required" class="error-message">
                               Valor Obligatorio
                             </div>
-                            <div
-                              *ngIf="severidadPerdida.errors?.pattern"
-                              class="error-message"
-                            >
+                            <div *ngIf="severidadPerdida.errors?.pattern" class="error-message">
                               Valor inválido
                             </div>
                           </div>
@@ -724,68 +517,39 @@
                       <div class="form-group row">
                         <label class="mt-1 col-2">Días de atraso:</label>
                         <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="diasAtraso"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
+                          <input formControlName="diasAtraso" class="form-control form-control-sm" type="text" />
+                          <div *ngIf="
                               diasAtraso.invalid &&
                               (diasAtraso.dirty || diasAtraso.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="diasAtraso.errors?.required"
-                              class="error-message"
-                            >
+                            " class="mt-2">
+                            <div *ngIf="diasAtraso.errors?.required" class="error-message">
                               Valor Obligatorio
                             </div>
-                            <div
-                              *ngIf="diasAtraso.errors?.pattern"
-                              class="error-message"
-                            >
+                            <div *ngIf="diasAtraso.errors?.pattern" class="error-message">
                               Valor inválido
                             </div>
                           </div>
                         </div>
-                        <label class="mt-1 col-2"
-                          >Monto de la subcuenta garantía de crédito:</label
-                        >
+                        <label class="mt-1 col-2">Monto de la subcuenta garantía de crédito:</label>
                         <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="montoSubcuentaVivienda"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
+                          <input formControlName="montoSubcuentaVivienda" class="form-control form-control-sm"
+                            type="text" />
+                          <div *ngIf="
                               montoSubcuentaVivienda.invalid &&
                               (montoSubcuentaVivienda.dirty ||
                                 montoSubcuentaVivienda.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="montoSubcuentaVivienda.errors?.required"
-                              class="error-message"
-                            >
+                            " class="mt-2">
+                            <div *ngIf="montoSubcuentaVivienda.errors?.required" class="error-message">
                               Valor Obligatorio
                             </div>
-                            <div
-                              *ngIf="montoSubcuentaVivienda.errors?.pattern"
-                              class="error-message"
-                            >
+                            <div *ngIf="montoSubcuentaVivienda.errors?.pattern" class="error-message">
                               Valor inválido
                             </div>
                           </div>
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="mt-1 col-2"
-                          >Convenio judicial o fideicomiso de garantía:</label
-                        >
+                        <label class="mt-1 col-2">Convenio judicial o fideicomiso de garantía:</label>
                         <div class="col-sm-3 col-md-3">
                           <select class="form-control form-control-sm">
                             <option>Opción 1</option>
@@ -793,37 +557,22 @@
                         </div>
                         <label class="mt-1 col-2">Reservas:</label>
                         <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="reservas"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
+                          <input formControlName="reservas" class="form-control form-control-sm" type="text" />
+                          <div *ngIf="
                               reservas.invalid &&
                               (reservas.dirty || reservas.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="reservas.errors?.required"
-                              class="error-message"
-                            >
+                            " class="mt-2">
+                            <div *ngIf="reservas.errors?.required" class="error-message">
                               Valor Obligatorio
                             </div>
-                            <div
-                              *ngIf="reservas.errors?.pattern"
-                              class="error-message"
-                            >
+                            <div *ngIf="reservas.errors?.pattern" class="error-message">
                               Valor inválido
                             </div>
                           </div>
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="mt-1 col-2"
-                          >Segmento de la vivienda:</label
-                        >
+                        <label class="mt-1 col-2">Segmento de la vivienda:</label>
                         <div class="col-sm-3 col-md-3">
                           <select class="form-control form-control-sm">
                             <option>Opción 1</option>
@@ -837,126 +586,72 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="mt-1 col-2"
-                          >Capital vencido operativo:</label
-                        >
+                        <label class="mt-1 col-2">Capital vencido operativo:</label>
                         <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="capitalVencidoOperativo"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
+                          <input formControlName="capitalVencidoOperativo" class="form-control form-control-sm"
+                            type="text" />
+                          <div *ngIf="
                               capitalVencidoOperativo.invalid &&
                               (capitalVencidoOperativo.dirty ||
                                 capitalVencidoOperativo.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="capitalVencidoOperativo.errors?.required"
-                              class="error-message"
-                            >
+                            " class="mt-2">
+                            <div *ngIf="capitalVencidoOperativo.errors?.required" class="error-message">
                               Valor Obligatorio
                             </div>
-                            <div
-                              *ngIf="capitalVencidoOperativo.errors?.pattern"
-                              class="error-message"
-                            >
+                            <div *ngIf="capitalVencidoOperativo.errors?.pattern" class="error-message">
                               Valor inválido
                             </div>
                           </div>
                         </div>
-                        <label class="mt-1 col-2"
-                          >Interes ordinarios exigibles:</label
-                        >
+                        <label class="mt-1 col-2">Interes ordinarios exigibles:</label>
                         <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="interesesOrdinarios"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
+                          <input formControlName="interesesOrdinarios" class="form-control form-control-sm"
+                            type="text" />
+                          <div *ngIf="
                               interesesOrdinarios.invalid &&
                               (interesesOrdinarios.dirty ||
                                 interesesOrdinarios.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="interesesOrdinarios.errors?.required"
-                              class="error-message"
-                            >
+                            " class="mt-2">
+                            <div *ngIf="interesesOrdinarios.errors?.required" class="error-message">
                               Valor Obligatorio
                             </div>
-                            <div
-                              *ngIf="interesesOrdinarios.errors?.pattern"
-                              class="error-message"
-                            >
+                            <div *ngIf="interesesOrdinarios.errors?.pattern" class="error-message">
                               Valor inválido
                             </div>
                           </div>
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="mt-1 col-2"
-                          >Capital vigente operativo:</label
-                        >
+                        <label class="mt-1 col-2">Capital vigente operativo:</label>
                         <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="capitalVigenteOperativo"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
+                          <input formControlName="capitalVigenteOperativo" class="form-control form-control-sm"
+                            type="text" />
+                          <div *ngIf="
                               capitalVigenteOperativo.invalid &&
                               (capitalVigenteOperativo.dirty ||
                                 capitalVigenteOperativo.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="capitalVigenteOperativo.errors?.required"
-                              class="error-message"
-                            >
+                            " class="mt-2">
+                            <div *ngIf="capitalVigenteOperativo.errors?.required" class="error-message">
                               Valor Obligatorio
                             </div>
-                            <div
-                              *ngIf="capitalVigenteOperativo.errors?.pattern"
-                              class="error-message"
-                            >
+                            <div *ngIf="capitalVigenteOperativo.errors?.pattern" class="error-message">
                               Valor inválido
                             </div>
                           </div>
                         </div>
                         <label class="mt-1 col-2">Intereses moratorios:</label>
                         <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="interesesMoratorios"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
+                          <input formControlName="interesesMoratorios" class="form-control form-control-sm"
+                            type="text" />
+                          <div *ngIf="
                               interesesMoratorios.invalid &&
                               (interesesMoratorios.dirty ||
                                 interesesMoratorios.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="interesesMoratorios.errors?.required"
-                              class="error-message"
-                            >
+                            " class="mt-2">
+                            <div *ngIf="interesesMoratorios.errors?.required" class="error-message">
                               Valor Obligatorio
                             </div>
-                            <div
-                              *ngIf="interesesMoratorios.errors?.pattern"
-                              class="error-message"
-                            >
+                            <div *ngIf="interesesMoratorios.errors?.pattern" class="error-message">
                               Valor inválido
                             </div>
                           </div>
@@ -965,29 +660,16 @@
                       <div class="form-group row">
                         <label class="mt-1 col-2">Otros accesorios:</label>
                         <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="otrosAccesorios"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
+                          <input formControlName="otrosAccesorios" class="form-control form-control-sm" type="text" />
+                          <div *ngIf="
                               otrosAccesorios2.invalid &&
                               (otrosAccesorios2.dirty ||
                                 otrosAccesorios2.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="otrosAccesorios2.errors?.required"
-                              class="error-message"
-                            >
+                            " class="mt-2">
+                            <div *ngIf="otrosAccesorios2.errors?.required" class="error-message">
                               Valor Obligatorio
                             </div>
-                            <div
-                              *ngIf="otrosAccesorios2.errors?.pattern"
-                              class="error-message"
-                            >
+                            <div *ngIf="otrosAccesorios2.errors?.pattern" class="error-message">
                               Valor inválido
                             </div>
                           </div>
@@ -1017,12 +699,8 @@
           </ngb-tab>
           <!--Empieza Negocio-->
           <ngb-tab>
-            <ng-template ngbTabTitle
-              ><b
-                >Información patrimonial del titlular de los créditos
-                (comercial)</b
-              ></ng-template
-            >
+            <ng-template ngbTabTitle><b>Información patrimonial del titlular de los créditos
+                (comercial)</b></ng-template>
             <ng-template ngbTabContent>
               <div class="card">
                 <div class="card-body">
@@ -1030,63 +708,37 @@
                     <div class="form-group row">
                       <label class="mt-1 col-2">Clave única:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="mt-1 col-2">Nombre del acreditado:</label>
                       <div class="col-sm-3 col-md-8">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="mt-1 col-2">Periodo:</label>
                       <div class="col-sm-3 col-md-3">
                         <div class="input-group">
-                          <input
-                            class="form-control bg-white"
-                            id="fechaDisp"
-                            type="text"
-                            ngbDatepicker
-                            #b="ngbDatepicker"
-                            placeholder="dd/mm/aaaa"
-                            name="fechaDisposicion"
-                            (click)="b.toggle()"
-                          />
+                          <input class="form-control bg-white" id="fechaDisp" type="text" ngbDatepicker
+                            #b="ngbDatepicker" placeholder="dd/mm/aaaa" name="fechaDisposicion" (click)="b.toggle()" />
                           <div class="input-group-append">
-                            <button
-                              class="btn btn-outline-secondary calendar"
-                              (click)="b.toggle()"
-                              type="button"
-                            >
+                            <button class="btn btn-outline-secondary calendar" (click)="b.toggle()" type="button">
                               <fa-icon icon="calendar-alt"></fa-icon>
                             </button>
                           </div>
                         </div>
                       </div>
-                      <label class="mt-1 col-2"
-                        >Identificador del crédito:</label
-                      >
+                      <label class="mt-1 col-2">Identificador del crédito:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="mt-1 col-2">Grupo de riesgo:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">Actividad económica:</label>
                       <div class="col-sm-3 col-md-3">
@@ -1098,17 +750,11 @@
                     <div class="form-group row">
                       <label class="mt-1 col-2">Número de empleados:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">Ingresos brutos anuales:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
@@ -1118,14 +764,9 @@
                           <option>Opción 1</option>
                         </select>
                       </div>
-                      <label class="mt-1 col-2"
-                        >Monto de la línea de crédito autorizada:</label
-                      >
+                      <label class="mt-1 col-2">Monto de la línea de crédito autorizada:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
@@ -1135,27 +776,13 @@
                           <option>Opción 1</option>
                         </select>
                       </div>
-                      <label class="mt-1 col-2"
-                        >Fecha vencimiento línea crédito:</label
-                      >
+                      <label class="mt-1 col-2">Fecha vencimiento línea crédito:</label>
                       <div class="col-sm-3 col-md-3">
                         <div class="input-group">
-                          <input
-                            class="form-control bg-white"
-                            id="fechaDisp"
-                            type="text"
-                            ngbDatepicker
-                            #c="ngbDatepicker"
-                            placeholder="dd/mm/aaaa"
-                            name="fechaDisposicion"
-                            (click)="c.toggle()"
-                          />
+                          <input class="form-control bg-white" id="fechaDisp" type="text" ngbDatepicker
+                            #c="ngbDatepicker" placeholder="dd/mm/aaaa" name="fechaDisposicion" (click)="c.toggle()" />
                           <div class="input-group-append">
-                            <button
-                              class="btn btn-outline-secondary calendar"
-                              (click)="c.toggle()"
-                              type="button"
-                            >
+                            <button class="btn btn-outline-secondary calendar" (click)="c.toggle()" type="button">
                               <fa-icon icon="calendar-alt"></fa-icon>
                             </button>
                           </div>
@@ -1163,14 +790,9 @@
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-2"
-                        >Porcentaje garantizado del crédito:</label
-                      >
+                      <label class="mt-1 col-2">Porcentaje garantizado del crédito:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">Tipo de garantía:</label>
                       <div class="col-sm-3 col-md-3">
@@ -1182,10 +804,7 @@
                     <div class="form-group row">
                       <label class="mt-1 col-2">Número de disposición:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">Grado de riesgo:</label>
                       <div class="col-sm-3 col-md-3">
@@ -1197,46 +816,27 @@
                     <div class="form-group row">
                       <label class="mt-1 col-2">Situación del crédito:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
-                      <label class="mt-1 col-2"
-                        >Tasa de interés bruta del periodo:</label
-                      >
+                      <label class="mt-1 col-2">Tasa de interés bruta del periodo:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-2"
-                        >Número de días con atraso:</label
-                      >
+                      <label class="mt-1 col-2">Número de días con atraso:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">Saldo insoluto:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="mt-1 col-2">Resevas:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">Tipo de cartera:</label>
                       <div class="col-sm-3 col-md-3">
@@ -1260,445 +860,260 @@
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-2"
-                        >Porcentaje de participaciones federales comprometidas
-                        como fuente de pago del crédito:</label
-                      >
+                      <label class="mt-1 col-2">Porcentaje de participaciones federales comprometidas
+                        como fuente de pago del crédito:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
-                      <label class="mt-1 col-2"
-                        >Monto fondeado por banco de desarrollo o fondo de
-                        fomento:</label
-                      >
+                      <label class="mt-1 col-2">Monto fondeado por banco de desarrollo o fondo de
+                        fomento:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-2"
-                        >Institución bancaria de desarrollo o fondo de
-                        fomento:</label
-                      >
+                      <label class="mt-1 col-2">Institución bancaria de desarrollo o fondo de
+                        fomento:</label>
                       <div class="col-sm-3 col-md-3">
                         <select class="form-control form-control-sm">
                           <option>Opción 1</option>
                         </select>
                       </div>
-                      <label class="mt-1 col-2"
-                        >Porcentaje bruto no cubierto del crédito:</label
-                      >
+                      <label class="mt-1 col-2">Porcentaje bruto no cubierto del crédito:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-2"
-                        >Severidad de la pérdida para segmento no
-                        cubierto:</label
-                      >
+                      <label class="mt-1 col-2">Severidad de la pérdida para segmento no
+                        cubierto:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">
                         Monto bruto de exposición al incumplimiento sin
-                        garantía:</label
-                      >
+                        garantía:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-2"
-                        >Porcentaje bruto de cobertura de la garantía real
-                        financiera:</label
-                      >
+                      <label class="mt-1 col-2">Porcentaje bruto de cobertura de la garantía real
+                        financiera:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">
-                        Valor contable de la garantía real financiera:</label
-                      >
+                        Valor contable de la garantía real financiera:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-2"
-                        >Severidad de la pérdida ajustada por garantías reales
-                        financieras:</label
-                      >
+                      <label class="mt-1 col-2">Severidad de la pérdida ajustada por garantías reales
+                        financieras:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">
                         Exposición al incumplimiento ajustada por garantías
-                        reales financieras:</label
-                      >
+                        reales financieras:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-2"
-                        >Porcentaje bruto de cobertura de la garantía real no
-                        financiera:</label
-                      >
+                      <label class="mt-1 col-2">Porcentaje bruto de cobertura de la garantía real no
+                        financiera:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">
-                        Valor garantía con derechos de cobro:</label
-                      >
+                        Valor garantía con derechos de cobro:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-2"
-                        >Valor garantía con bienes inmuebles:</label
-                      >
+                      <label class="mt-1 col-2">Valor garantía con bienes inmuebles:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">
-                        Valor garantía con bienes muebles:</label
-                      >
+                        Valor garantía con bienes muebles:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-4"
-                        >Valor garantía con fideicomiso de garantía y de
+                      <label class="mt-1 col-4">Valor garantía con fideicomiso de garantía y de
                         administración con participaciones federales y
-                        aportaciones federales como fuente de pago:</label
-                      >
+                        aportaciones federales como fuente de pago:</label>
                       <div class="col-sm-6 col-md-6">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-4"
-                        >Valor garantía con fideicomiso de garantía y de
+                      <label class="mt-1 col-4">Valor garantía con fideicomiso de garantía y de
                         administración con ingresos propios como fuente de
-                        pago:</label
-                      >
+                        pago:</label>
                       <div class="col-sm-6 col-md-6">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-2"
-                        >Valor garantía con otras garantías reales no
-                        financieras:</label
-                      >
+                      <label class="mt-1 col-2">Valor garantía con otras garantías reales no
+                        financieras:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">
                         Severidad de la pérdida ajustada por los derechos de
-                        cobro:</label
-                      >
+                        cobro:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-2"
-                        >Severidad de la pérdida ajustada por bienes
-                        inmuebles:</label
-                      >
+                      <label class="mt-1 col-2">Severidad de la pérdida ajustada por bienes
+                        inmuebles:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">
                         Severidad de la pérdida ajustada por bienes
-                        muebles:</label
-                      >
+                        muebles:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-4"
-                        >Severidad de la pérdida ajustada por fideicomiso de
+                      <label class="mt-1 col-4">Severidad de la pérdida ajustada por fideicomiso de
                         garantía y de administración con participaciones
                         federales y aportaciones federales como fuente de
-                        pago:</label
-                      >
+                        pago:</label>
                       <div class="col-sm-6 col-md-6">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-4"
-                        >Severidad de la pérdida ajustada por fideicomiso de
+                      <label class="mt-1 col-4">Severidad de la pérdida ajustada por fideicomiso de
                         garantía y de administración con ingresos propios como
-                        fuente de pago:</label
-                      >
+                        fuente de pago:</label>
                       <div class="col-sm-6 col-md-6">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-4"
-                        >Severidad de la pérdida ajustada con otras garantías
-                        reales no financieras:</label
-                      >
+                      <label class="mt-1 col-4">Severidad de la pérdida ajustada con otras garantías
+                        reales no financieras:</label>
                       <div class="col-sm-6 col-md-6">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-2"
-                        >Total de severidad de la pérdida por garantías reales
-                        no financieras:</label
-                      >
+                      <label class="mt-1 col-2">Total de severidad de la pérdida por garantías reales
+                        no financieras:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">
                         Porcentaje bruto cubierto con garantías
-                        personales:</label
-                      >
+                        personales:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-2"
-                        >Porcentaje cubierto por obligado solidario o aval
-                        distinto a entidad federativa y municipio:</label
-                      >
+                      <label class="mt-1 col-2">Porcentaje cubierto por obligado solidario o aval
+                        distinto a entidad federativa y municipio:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">
-                        Monto cubierto por garantía personal:</label
-                      >
+                        Monto cubierto por garantía personal:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-2"
-                        >Valuación a mercado del derivado de crédito:</label
-                      >
+                      <label class="mt-1 col-2">Valuación a mercado del derivado de crédito:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">
                         Porcentaje cubierto por esquemas de paso y
-                        medida:</label
-                      >
+                        medida:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-2"
-                        >Porcentaje cubierto por esquemas de primeras
-                        pérdidas:</label
-                      >
+                      <label class="mt-1 col-2">Porcentaje cubierto por esquemas de primeras
+                        pérdidas:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">
-                        Monto cubierto por esquemas de paso y medida:</label
-                      >
+                        Monto cubierto por esquemas de paso y medida:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-2"
-                        >Monto cubierto por esquema de primeras pérdidas:</label
-                      >
+                      <label class="mt-1 col-2">Monto cubierto por esquema de primeras pérdidas:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">
-                        Severidad de la pérdida total:</label
-                      >
+                        Severidad de la pérdida total:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-2"
-                        >Severidad de la pérdida garante:</label
-                      >
+                      <label class="mt-1 col-2">Severidad de la pérdida garante:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">
-                        Severidad de la pérdida acreditado:</label
-                      >
+                        Severidad de la pérdida acreditado:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-2"
-                        >Exposición al incumplimiento total:</label
-                      >
+                      <label class="mt-1 col-2">Exposición al incumplimiento total:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">
-                        Exposición al incumplimiento garante:</label
-                      >
+                        Exposición al incumplimiento garante:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-2"
-                        >Exposición al incumplimiento acreditado:</label
-                      >
+                      <label class="mt-1 col-2">Exposición al incumplimiento acreditado:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">
-                        Probabilidad de incumplimiento total:</label
-                      >
+                        Probabilidad de incumplimiento total:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="mt-1 col-2">
-                        Probabilidad de incumplimiento garante:</label
-                      >
+                        Probabilidad de incumplimiento garante:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">
-                        Probabilidad de incumplimiento acreditado:</label
-                      >
+                        Probabilidad de incumplimiento acreditado:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
@@ -1708,50 +1123,31 @@
                           <option>Opción 1</option>
                         </select>
                       </div>
-                      <label class="mt-1 col-2"
-                        >Capital vencido operativo:</label
-                      >
+                      <label class="mt-1 col-2">Capital vencido operativo:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="mt-1 col-2">
-                        Intereses ordinarios exigibles:</label
-                      >
+                        Intereses ordinarios exigibles:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2"> Interes moratorio:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="mt-1 col-2"> Otros accesorios:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">
-                        Capital vigente operativo:</label
-                      >
+                        Capital vigente operativo:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
@@ -1763,21 +1159,13 @@
                       </div>
                       <label class="mt-1 col-2">Plazo total de crédito:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-2"
-                        >Plazo en meses al vencimiento:</label
-                      >
+                      <label class="mt-1 col-2">Plazo en meses al vencimiento:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">Tipo de recursos:</label>
                       <div class="col-sm-3 col-md-3">
@@ -1792,12 +1180,8 @@
             </ng-template>
           </ngb-tab>
           <ngb-tab>
-            <ng-template ngbTabTitle
-              ><b
-                >Información patrimonial del titlular de los créditos (No
-                revolvente)</b
-              ></ng-template
-            >
+            <ng-template ngbTabTitle><b>Información patrimonial del titlular de los créditos (No
+                revolvente)</b></ng-template>
             <ng-template ngbTabContent>
               <div class="card">
                 <div class="card-body">
@@ -1805,63 +1189,37 @@
                     <div class="form-group row">
                       <label class="mt-1 col-2">Clave única:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="mt-1 col-2">Nombre del acreditado:</label>
                       <div class="col-sm-3 col-md-8">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="mt-1 col-2">Periodo:</label>
                       <div class="col-sm-3 col-md-3">
                         <div class="input-group">
-                          <input
-                            class="form-control bg-white"
-                            id="fechaDisp"
-                            type="text"
-                            ngbDatepicker
-                            #b="ngbDatepicker"
-                            placeholder="dd/mm/aaaa"
-                            name="fechaDisposicion"
-                            (click)="b.toggle()"
-                          />
+                          <input class="form-control bg-white" id="fechaDisp" type="text" ngbDatepicker
+                            #b="ngbDatepicker" placeholder="dd/mm/aaaa" name="fechaDisposicion" (click)="b.toggle()" />
                           <div class="input-group-append">
-                            <button
-                              class="btn btn-outline-secondary calendar"
-                              (click)="b.toggle()"
-                              type="button"
-                            >
+                            <button class="btn btn-outline-secondary calendar" (click)="b.toggle()" type="button">
                               <fa-icon icon="calendar-alt"></fa-icon>
                             </button>
                           </div>
                         </div>
                       </div>
-                      <label class="mt-1 col-2"
-                        >Identificador del crédito:</label
-                      >
+                      <label class="mt-1 col-2">Identificador del crédito:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="mt-1 col-2">Clasificación contable:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">Tipo de crédito:</label>
                       <div class="col-sm-3 col-md-3">
@@ -1877,9 +1235,7 @@
                           <option>Opción 1</option>
                         </select>
                       </div>
-                      <label class="mt-1 col-2"
-                        >Con restricción y sin restricción:</label
-                      >
+                      <label class="mt-1 col-2">Con restricción y sin restricción:</label>
                       <div class="col-sm-3 col-md-3">
                         <select class="form-control form-control-sm">
                           <option>Opción 1</option>
@@ -1893,25 +1249,15 @@
                           <option>Opción 1</option>
                         </select>
                       </div>
-                      <label class="mt-1 col-2"
-                        >Monto de la línea de crédito autorizada:</label
-                      >
+                      <label class="mt-1 col-2">Monto de la línea de crédito autorizada:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-2"
-                        >Escala de los periodos de facturación:</label
-                      >
+                      <label class="mt-1 col-2">Escala de los periodos de facturación:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">Tipo de tasa:</label>
                       <div class="col-sm-3 col-md-3">
@@ -1924,22 +1270,10 @@
                       <label class="mt-1 col-2">Fecha de inicio:</label>
                       <div class="col-sm-3 col-md-3">
                         <div class="input-group">
-                          <input
-                            class="form-control bg-white"
-                            id="fechaDisp"
-                            type="text"
-                            ngbDatepicker
-                            #c="ngbDatepicker"
-                            placeholder="dd/mm/aaaa"
-                            name="fechaDisposicion"
-                            (click)="c.toggle()"
-                          />
+                          <input class="form-control bg-white" id="fechaDisp" type="text" ngbDatepicker
+                            #c="ngbDatepicker" placeholder="dd/mm/aaaa" name="fechaDisposicion" (click)="c.toggle()" />
                           <div class="input-group-append">
-                            <button
-                              class="btn btn-outline-secondary calendar"
-                              (click)="c.toggle()"
-                              type="button"
-                            >
+                            <button class="btn btn-outline-secondary calendar" (click)="c.toggle()" type="button">
                               <fa-icon icon="calendar-alt"></fa-icon>
                             </button>
                           </div>
@@ -1948,22 +1282,10 @@
                       <label class="mt-1 col-2">Fecha de vencimiento:</label>
                       <div class="col-sm-3 col-md-3">
                         <div class="input-group">
-                          <input
-                            class="form-control bg-white"
-                            id="fechaDisp"
-                            type="text"
-                            ngbDatepicker
-                            #d="ngbDatepicker"
-                            placeholder="dd/mm/aaaa"
-                            name="fechaDisposicion"
-                            (click)="d.toggle()"
-                          />
+                          <input class="form-control bg-white" id="fechaDisp" type="text" ngbDatepicker
+                            #d="ngbDatepicker" placeholder="dd/mm/aaaa" name="fechaDisposicion" (click)="d.toggle()" />
                           <div class="input-group-append">
-                            <button
-                              class="btn btn-outline-secondary calendar"
-                              (click)="d.toggle()"
-                              type="button"
-                            >
+                            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
                               <fa-icon icon="calendar-alt"></fa-icon>
                             </button>
                           </div>
@@ -1973,121 +1295,71 @@
                     <div class="form-group row">
                       <label class="mt-1 col-2">Plazo total:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
-                      <label class="mt-1 col-2"
-                        >Importe original del crédito:</label
-                      >
+                      <label class="mt-1 col-2">Importe original del crédito:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="mt-1 col-2">Tasa de interés:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">Plazo renamente:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="mt-1 col-2">Saldo de crédito:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">Monto exigible:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="mt-1 col-2">Pago realizado:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">Dias de atraso:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="mt-1 col-2">Tipo de garantía:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">Importe de garantía:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-2"
-                        >Probabilidad de incumplimiento:</label
-                      >
+                      <label class="mt-1 col-2">Probabilidad de incumplimiento:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
-                      <label class="mt-1 col-2"
-                        >Severidad de la perdida no cubierta:</label
-                      >
+                      <label class="mt-1 col-2">Severidad de la perdida no cubierta:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-2"
-                        >Severidad de la perdida cubierta:</label
-                      >
+                      <label class="mt-1 col-2">Severidad de la perdida cubierta:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">Reservas:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
@@ -2097,50 +1369,29 @@
                           <option>Opción 1</option>
                         </select>
                       </div>
-                      <label class="mt-1 col-2"
-                        >capital vencido operativo:</label
-                      >
+                      <label class="mt-1 col-2">capital vencido operativo:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label class="mt-1 col-2"
-                        >Intereses ordinarios exigibles:</label
-                      >
+                      <label class="mt-1 col-2">Intereses ordinarios exigibles:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                       <label class="mt-1 col-2">Intereses moratorios:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="mt-1 col-2">Otros accesorios:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
-                      <label class="mt-1 col-2"
-                        >Capital vigente operativo:</label
-                      >
+                      <label class="mt-1 col-2">Capital vigente operativo:</label>
                       <div class="col-sm-3 col-md-3">
-                        <input
-                          class="form-control form-control-sm"
-                          type="text"
-                        />
+                        <input class="form-control form-control-sm" type="text" />
                       </div>
                     </div>
                   </div>
@@ -2152,12 +1403,8 @@
         <div class="modal-footer">
           <!-- Simple Buttons-->
           <button class="btn btn-danger" type="button">Cancelar</button>
-          <button
-            class="btn btn-success"
-            type="button"
-            (click)="onClickAceptar()"
-            [disabled]="tabla4Form.invalid || tabla1Form.invalid"
-          >
+          <button class="btn btn-success" type="button" (click)="onClickAceptar()"
+            [disabled]="tabla4Form.invalid || tabla1Form.invalid">
             Aceptar
           </button>
         </div>
