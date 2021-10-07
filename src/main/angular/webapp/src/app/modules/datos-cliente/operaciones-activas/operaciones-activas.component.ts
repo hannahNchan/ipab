@@ -20,11 +20,16 @@ export class OperacionesActivasComponent implements OnInit, AfterViewInit {
   decimalPattern: string = "^[0-9]+[.][0-9][0-9]$";
   enteroPattern: string = "^[0-9]+$";
   fecha: string;
-  credito: string = ""
+  credito: string = '';
+  fechaCreditoNoRevolvente: string;
+  clienteCreditoNoRevolvente: string;
+  creditoCreditoNoRevolvente: string;
 
   constructor(private operacionesActivasService: OperacionesActivasService) { }
 
   ngOnInit(): void {
+    this.clienteCreditoNoRevolvente = '';
+    this.creditoCreditoNoRevolvente = '';
     this.initTabla4();
     this.initTabla1();
     this.tabla4Form = new FormGroup({
@@ -211,6 +216,47 @@ export class OperacionesActivasComponent implements OnInit, AfterViewInit {
     e.preventDefault();
   }
 
+  getTabla4B() {
+    let tempFecha;
+    if (this.validaGuardar()) {
+      let month;
+      let day;
+      if (this.fechaCreditoNoRevolvente !== undefined && this.fecha !== '') {
+        if (this.fechaCreditoNoRevolvente['month'] < 10) {
+          month = '0' + this.fechaCreditoNoRevolvente['month'].toString();
+        } else month = this.fechaCreditoNoRevolvente['month'].toString();
+        if (this.fechaCreditoNoRevolvente['day'] < 10) {
+          day = '0' + this.fechaCreditoNoRevolvente['day'].toString();
+        } else day = this.fechaCreditoNoRevolvente['day'].toString();
+        tempFecha = day + month + this.fechaCreditoNoRevolvente['year'].toString();
+        swal({
+          title: 'Obteniendo información...',
+          allowEscapeKey: false,
+          allowOutsideClick: false,
+          onOpen: () => {
+            swal.showLoading();
+          }
+        }).then();
+        this.operacionesActivasService.getTabla4B(tempFecha, this.clienteCreditoNoRevolvente, this.creditoCreditoNoRevolvente).subscribe(
+          response => {
+            if (response.header['estatus'] === false) {
+              swal(PopUpMessage.getAppErrorMessageReportId(response)).then(() => {});
+
+            } else {
+              swal(PopUpMessage.getSuccesMessage(response, null , null)).then();
+            }
+          },
+          err => {
+            swal(PopUpMessage.getServerErrorMessage(err)).then(() => {
+              console.error(err);
+            });
+          });
+      } else {
+        swal('Ingrese una fecha.', '', 'warning');
+      }
+    }
+  }
+
   getCreditoTabla4() {
     let month = ''
     if (this.fecha != undefined && this.fecha != '') {
@@ -258,5 +304,30 @@ export class OperacionesActivasComponent implements OnInit, AfterViewInit {
   onClickAceptar() {
     // obtener valores del formulario
     console.log(this.capitalVigente.value);
+  }
+
+  /**
+   * Sólo permite la escritura de números
+   * @param event Evento desencadenador
+   */
+  onKeyPressCodigo(event: KeyboardEvent): void {
+    const pattern = /[0-9\b]/;
+    const inputChar = event.key;
+
+    if (!pattern.test(inputChar)) {
+      // invalid character, prevent input
+      event.preventDefault();
+    }
+  }
+
+  /**
+   * Valida los datos antes de guardar la información
+   */
+  validaGuardar(): boolean {
+    if (this.clienteCreditoNoRevolvente === null || this.clienteCreditoNoRevolvente.trim().length === 0) {
+      swal('Ingrese el cliente.', '', 'warning');
+      return false;
+    }
+    return true;
   }
 }

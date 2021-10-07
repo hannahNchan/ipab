@@ -1794,11 +1794,95 @@
           <ngb-tab>
             <ng-template ngbTabTitle
               ><b
-                >Información patrimonial del titlular de los créditos (No
-                revolvente)</b
+                >Tabla 4 Art. B</b
               ></ng-template
             >
             <ng-template ngbTabContent>
+              <div class="card mt-2">
+                <div class="card-body">
+                  <div class="form">
+                    <div class="form-row">
+                      <div class="col-3">
+                        <div class="input-group">
+                          <label
+                            class="col-lg-4 col-form-label form-control-label"
+                          >
+                            Fecha:
+                          </label>
+                          <input
+                            class="form-control bg-white"
+                            id="fechaCreditoNoRevolvente"
+                            type="text"
+                            ngbDatepicker
+                            #f="ngbDatepicker"
+                            placeholder="dd/mm/aaaa"
+                            (focus)="f.toggle()"
+                            name="fechaCreditoNoRevolvente"
+                            (keydown)="onKeydown($event)"
+                            [(ngModel)]="fechaCreditoNoRevolvente"
+                          />
+                          <div class="input-group-append">
+                            <button
+                              class="btn btn-outline-secondary calendar"
+                              (click)="f.toggle()"
+                              type="button"
+                            >
+                              <fa-icon icon="calendar-alt"></fa-icon>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-3">
+                        <div class="input-group">
+                          <div class="col-5 col-md-5 col-lg-5 mt-1">
+                            <label class="mt-1 ml-4">Cliente:</label>
+                          </div>
+                          <input
+                            class="form-control"
+                            id="clienteCreditoNoRevolvente"
+                            name="clienteCreditoNoRevolvente"
+                            [(ngModel)]="clienteCreditoNoRevolvente"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-3">
+                        <div class="input-group">
+                          <div class="col-5 col-md-5 col-lg-5 mt-1">
+                            <label class="mt-1 ml-4">Crédito:</label>
+                          </div>
+                          <input
+                            class="form-control"
+                            id="creditoCreditoNoRevolvente"
+                            name="creditoCreditoNoRevolvente"
+                            (keypress)="onKeyPressCodigo($event)"
+                            [(ngModel)]="creditoCreditoNoRevolvente"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-1"></div>
+                      <div class="col-2">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div
+                              class="btn-group d-flex justify-content-center"
+                            >
+                              <!-- Botón buscar tipos de producto-->
+                              <button
+                                class="btn btn-primary"
+                                id="btnSearchTiposProductoCreditos"
+                                (click)="getTabla4B()"
+                              >
+                                <fa-icon icon="search"></fa-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h6 class="mt-3 setBolder">Tabla 4 Art. B</h6>
               <div class="card">
                 <div class="card-body">
                   <div class="form ml-5 form-max-height">
