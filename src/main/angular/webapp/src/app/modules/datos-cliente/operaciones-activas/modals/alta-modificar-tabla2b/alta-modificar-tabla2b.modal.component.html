@@ -1,0 +1,2234 @@
+<div class="modal-container">
+  <div class="modal-header">
+    <h4 class="modal-title">Editar</h4>
+    <button
+      class="close"
+      type="button"
+      aria-label="Close"
+      (click)="activeModal.close()"
+    >
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid mt-2">
+      <div class="card">
+        <div class="card-body">
+          <form [formGroup]="tabla2Form" novalidate>
+            <div class="form ml-5 form-max-height">
+              <div class="form-group row">
+                <label class="mt-1 col-2">Clave única:</label>
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="claveUnica"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      claveUnica.invalid &&
+                      (claveUnica.dirty || claveUnica.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="claveUnica.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2">Nombre del acreditado:</label>
+                <div class="col-sm-3 col-md-8">
+                  <input
+                    formControlName="nombreAcreditado"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      nombreAcreditado.invalid &&
+                      (nombreAcreditado.dirty || nombreAcreditado.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="nombreAcreditado.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2">Periodo:</label>
+                <div class="col-sm-3 col-md-3">
+                  <div class="input-group">
+                    <input
+                      formControlName="periodoReporta"
+                      class="form-control bg-white"
+                      id="fechaDisp"
+                      type="text"
+                      ngbDatepicker
+                      #b="ngbDatepicker"
+                      placeholder="dd/mm/aaaa"
+                      name="fechaDisposicion"
+                      (click)="b.toggle()"
+                    />
+                    <div class="input-group-append">
+                      <button
+                        class="btn btn-outline-secondary calendar"
+                        (click)="b.toggle()"
+                        type="button"
+                      >
+                        <fa-icon icon="calendar-alt"></fa-icon>
+                      </button>
+                    </div>
+                    <div
+                      *ngIf="
+                        periodoReporta.invalid &&
+                        (periodoReporta.dirty || periodoReporta.touched)
+                      "
+                      class="mt-2"
+                    >
+                      <div
+                        *ngIf="periodoReporta.errors?.required"
+                        class="error-message"
+                      >
+                        Valor Obligatorio
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <label class="mt-1 col-2">Identificador del crédito:</label>
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="identificadorCredito"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      identificadorCredito.invalid &&
+                      (identificadorCredito.dirty ||
+                        identificadorCredito.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="identificadorCredito.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2">Grupo de riesgo:</label>
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="grupoRiesgo"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      grupoRiesgo.invalid &&
+                      (grupoRiesgo.dirty || grupoRiesgo.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="grupoRiesgo.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                  </div>
+                </div>
+                <label class="mt-1 col-2">Actividad económica:</label>
+                <div class="col-sm-3 col-md-3">
+                  <select class="form-control form-control-sm">
+                    <option>Opción 1</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2">Número de empleados:</label>
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="numeroEmpleados"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      numeroEmpleados.invalid &&
+                      (numeroEmpleados.dirty || numeroEmpleados.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="numeroEmpleados.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="numeroEmpleados.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+                <label class="mt-1 col-2">Ingresos brutos anuales:</label>
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="ingresosBrutosAnuales"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      ingresosBrutosAnuales.invalid &&
+                      (ingresosBrutosAnuales.dirty ||
+                        ingresosBrutosAnuales.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="ingresosBrutosAnuales.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="ingresosBrutosAnuales.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2">Tipo alta crédito:</label>
+                <div class="col-sm-3 col-md-3">
+                  <select class="form-control form-control-sm">
+                    <option>Opción 1</option>
+                  </select>
+                </div>
+                <label class="mt-1 col-2"
+                  >Monto de la línea de crédito autorizada:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="montoLineaCreditoAutorizada"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      montoLineaCreditoAutorizada.invalid &&
+                      (montoLineaCreditoAutorizada.dirty ||
+                        montoLineaCreditoAutorizada.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="montoLineaCreditoAutorizada.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="montoLineaCreditoAutorizada.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2">Moneda línea de crédito:</label>
+                <div class="col-sm-3 col-md-3">
+                  <select class="form-control form-control-sm">
+                    <option>Opción 1</option>
+                  </select>
+                </div>
+                <label class="mt-1 col-2"
+                  >Fecha vencimiento línea crédito:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <div class="input-group">
+                    <input
+                      formControlName="fechaVencimientoLineaCredito"
+                      class="form-control bg-white"
+                      id="fechaDisp"
+                      type="text"
+                      ngbDatepicker
+                      #c="ngbDatepicker"
+                      placeholder="dd/mm/aaaa"
+                      name="fechaDisposicion"
+                      (click)="c.toggle()"
+                    />
+                    <div class="input-group-append">
+                      <button
+                        class="btn btn-outline-secondary calendar"
+                        (click)="c.toggle()"
+                        type="button"
+                      >
+                        <fa-icon icon="calendar-alt"></fa-icon>
+                      </button>
+                    </div>
+                    <div
+                      *ngIf="
+                        fechaVencimientoLineaCredito.invalid &&
+                        (fechaVencimientoLineaCredito.dirty ||
+                          fechaVencimientoLineaCredito.touched)
+                      "
+                      class="mt-2"
+                    >
+                      <div
+                        *ngIf="fechaVencimientoLineaCredito.errors?.required"
+                        class="error-message"
+                      >
+                        Valor Obligatorio
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2"
+                  >Porcentaje garantizado del crédito:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="porcentajeGarantizadoCredito"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      porcentajeGarantizadoCredito.invalid &&
+                      (porcentajeGarantizadoCredito.dirty ||
+                        porcentajeGarantizadoCredito.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="porcentajeGarantizadoCredito.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="porcentajeGarantizadoCredito.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+                <label class="mt-1 col-2">Tipo de garantía:</label>
+                <div class="col-sm-3 col-md-3">
+                  <select class="form-control form-control-sm">
+                    <option>Opción 1</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2">Número de disposición:</label>
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="numeroDisposicion"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      numeroDisposicion.invalid &&
+                      (numeroDisposicion.dirty || numeroDisposicion.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="numeroDisposicion.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="numeroDisposicion.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+                <label class="mt-1 col-2">Grado de riesgo:</label>
+                <div class="col-sm-3 col-md-3">
+                  <select class="form-control form-control-sm">
+                    <option>Opción 1</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2">Situación del crédito:</label>
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="situacionCredito"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      situacionCredito.invalid &&
+                      (situacionCredito.dirty || situacionCredito.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="situacionCredito.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="situacionCredito.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+                <label class="mt-1 col-2"
+                  >Tasa de interés bruta del periodo:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="tasaInteresBrutaPeriodo"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      tasaInteresBrutaPeriodo.invalid &&
+                      (tasaInteresBrutaPeriodo.dirty ||
+                        tasaInteresBrutaPeriodo.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="tasaInteresBrutaPeriodo.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="tasaInteresBrutaPeriodo.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2">Número de días con atraso:</label>
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="numeroDiasAtraso"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      numeroDiasAtraso.invalid &&
+                      (numeroDiasAtraso.dirty || numeroDiasAtraso.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="numeroDiasAtraso.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="numeroDiasAtraso.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+                <label class="mt-1 col-2">Saldo insoluto:</label>
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="saldoInsoluto"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      saldoInsoluto.invalid &&
+                      (saldoInsoluto.dirty || saldoInsoluto.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="saldoInsoluto.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="saldoInsoluto.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2">Resevas:</label>
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="reservas"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      reservas.invalid && (reservas.dirty || reservas.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="reservas.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div *ngIf="reservas.errors?.pattern" class="error-message">
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+                <label class="mt-1 col-2">Tipo de cartera:</label>
+                <div class="col-sm-3 col-md-3">
+                  <select class="form-control form-control-sm">
+                    <option>Opción 1</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2">Destino del crédito:</label>
+                <div class="col-sm-3 col-md-3">
+                  <select class="form-control form-control-sm">
+                    <option>Opción 1</option>
+                  </select>
+                </div>
+                <label class="mt-1 col-2">Tipo de operación:</label>
+                <div class="col-sm-3 col-md-3">
+                  <select class="form-control form-control-sm">
+                    <option>Opción 1</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2"
+                  >Porcentaje de participaciones federales comprometidas como
+                  fuente de pago del crédito:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="porcentajeParticipacionesFederalesComprometidasFuentePagoCredito"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      porcentajeParticipacionesFederalesComprometidasFuentePagoCredito.invalid &&
+                      (porcentajeParticipacionesFederalesComprometidasFuentePagoCredito.dirty ||
+                        porcentajeParticipacionesFederalesComprometidasFuentePagoCredito.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="
+                        porcentajeParticipacionesFederalesComprometidasFuentePagoCredito
+                          .errors?.required
+                      "
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="
+                        porcentajeParticipacionesFederalesComprometidasFuentePagoCredito
+                          .errors?.pattern
+                      "
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+                <label class="mt-1 col-2"
+                  >Monto fondeado por banco de desarrollo o fondo de
+                  fomento:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="montoFondeadoBancoFondoFomento"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      montoFondeadoBancoFondoFomento.invalid &&
+                      (montoFondeadoBancoFondoFomento.dirty ||
+                        montoFondeadoBancoFondoFomento.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="montoFondeadoBancoFondoFomento.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="montoFondeadoBancoFondoFomento.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2"
+                  >Institución bancaria de desarrollo o fondo de fomento:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <select class="form-control form-control-sm">
+                    <option>Opción 1</option>
+                  </select>
+                </div>
+                <label class="mt-1 col-2"
+                  >Porcentaje bruto no cubierto del crédito:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="porcentajeBrutoNoCubiertoCredito"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      porcentajeBrutoNoCubiertoCredito.invalid &&
+                      (porcentajeBrutoNoCubiertoCredito.dirty ||
+                        porcentajeBrutoNoCubiertoCredito.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="porcentajeBrutoNoCubiertoCredito.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="porcentajeBrutoNoCubiertoCredito.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2"
+                  >Severidad de la pérdida para segmento no cubierto:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="severidadPerdidaSegmentoNoCubierto"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      severidadPerdidaSegmentoNoCubierto.invalid &&
+                      (severidadPerdidaSegmentoNoCubierto.dirty ||
+                        severidadPerdidaSegmentoNoCubierto.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="
+                        severidadPerdidaSegmentoNoCubierto.errors?.required
+                      "
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="severidadPerdidaSegmentoNoCubierto.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+                <label class="mt-1 col-2">
+                  Monto bruto de exposición al incumplimiento sin
+                  garantía:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="montoBrutoExposicionIncumplimientoSinGarantia"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      montoBrutoExposicionIncumplimientoSinGarantia.invalid &&
+                      (montoBrutoExposicionIncumplimientoSinGarantia.dirty ||
+                        montoBrutoExposicionIncumplimientoSinGarantia.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="
+                        montoBrutoExposicionIncumplimientoSinGarantia.errors
+                          ?.required
+                      "
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="
+                        montoBrutoExposicionIncumplimientoSinGarantia.errors
+                          ?.pattern
+                      "
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2"
+                  >Porcentaje bruto de cobertura de la garantía real
+                  financiera:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="porcentajeBrutoCoberturaGarantiaReal"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      porcentajeBrutoCoberturaGarantiaReal.invalid &&
+                      (porcentajeBrutoCoberturaGarantiaReal.dirty ||
+                        porcentajeBrutoCoberturaGarantiaReal.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="
+                        porcentajeBrutoCoberturaGarantiaReal.errors?.required
+                      "
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="
+                        porcentajeBrutoCoberturaGarantiaReal.errors?.pattern
+                      "
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+                <label class="mt-1 col-2">
+                  Valor contable de la garantía real financiera:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="valorContableGarantiaRealFinanciera"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      valorContableGarantiaRealFinanciera.invalid &&
+                      (valorContableGarantiaRealFinanciera.dirty ||
+                        valorContableGarantiaRealFinanciera.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="
+                        valorContableGarantiaRealFinanciera.errors?.required
+                      "
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="
+                        valorContableGarantiaRealFinanciera.errors?.pattern
+                      "
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2"
+                  >Severidad de la pérdida ajustada por garantías reales
+                  financieras:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="severidadPerdidaAjustadaGarantiasRealesFinancieras"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      severidadPerdidaAjustadaGarantiasRealesFinancieras.invalid &&
+                      (severidadPerdidaAjustadaGarantiasRealesFinancieras.dirty ||
+                        severidadPerdidaAjustadaGarantiasRealesFinancieras.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="
+                        severidadPerdidaAjustadaGarantiasRealesFinancieras
+                          .errors?.required
+                      "
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="
+                        severidadPerdidaAjustadaGarantiasRealesFinancieras
+                          .errors?.pattern
+                      "
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+                <label class="mt-1 col-2">
+                  Exposición al incumplimiento ajustada por garantías reales
+                  financieras:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="exposicionIncumplimientoAjustadaGarantiasRealesFinancieras"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      exposicionIncumplimientoAjustadaGarantiasRealesFinancieras.invalid &&
+                      (exposicionIncumplimientoAjustadaGarantiasRealesFinancieras.dirty ||
+                        exposicionIncumplimientoAjustadaGarantiasRealesFinancieras.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="
+                        exposicionIncumplimientoAjustadaGarantiasRealesFinancieras
+                          .errors?.required
+                      "
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="
+                        exposicionIncumplimientoAjustadaGarantiasRealesFinancieras
+                          .errors?.pattern
+                      "
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2"
+                  >Porcentaje bruto de cobertura de la garantía real no
+                  financiera:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="porcentajeBrutoGarantiaRealNoFinanciada"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      porcentajeBrutoGarantiaRealNoFinanciada.invalid &&
+                      (porcentajeBrutoGarantiaRealNoFinanciada.dirty ||
+                        porcentajeBrutoGarantiaRealNoFinanciada.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="
+                        porcentajeBrutoGarantiaRealNoFinanciada.errors?.required
+                      "
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="
+                        porcentajeBrutoGarantiaRealNoFinanciada.errors?.pattern
+                      "
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+                <label class="mt-1 col-2">
+                  Valor garantía con derechos de cobro:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="valorGarantiaDerechosCobro"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      valorGarantiaDerechosCobro.invalid &&
+                      (valorGarantiaDerechosCobro.dirty ||
+                        valorGarantiaDerechosCobro.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="valorGarantiaDerechosCobro.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="valorGarantiaDerechosCobro.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2"
+                  >Valor garantía con bienes inmuebles:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="valorGarantiaBienesInmuebles"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      valorGarantiaBienesInmuebles.invalid &&
+                      (valorGarantiaBienesInmuebles.dirty ||
+                        valorGarantiaBienesInmuebles.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="valorGarantiaBienesInmuebles.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="valorGarantiaBienesInmuebles.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+                <label class="mt-1 col-2">
+                  Valor garantía con bienes muebles:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="valorGarantiaBienesMuebles"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      valorGarantiaBienesMuebles.invalid &&
+                      (valorGarantiaBienesMuebles.dirty ||
+                        valorGarantiaBienesMuebles.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="valorGarantiaBienesMuebles.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="valorGarantiaBienesMuebles.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-4"
+                  >Valor garantía con fideicomiso de garantía y de
+                  administración con participaciones federales y aportaciones
+                  federales como fuente de pago:</label
+                >
+                <div class="col-sm-6 col-md-6">
+                  <input
+                    formControlName="valorGarantiaFideicomisosGarantiaAdministracionesParticipacionesFederalesAportacionesFederalesComoFP"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      valorGarantiaFideicomisosGarantiaAdministracionesParticipacionesFederalesAportacionesFederalesComoFP.invalid &&
+                      (valorGarantiaFideicomisosGarantiaAdministracionesParticipacionesFederalesAportacionesFederalesComoFP.dirty ||
+                        valorGarantiaFideicomisosGarantiaAdministracionesParticipacionesFederalesAportacionesFederalesComoFP.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="
+                        valorGarantiaFideicomisosGarantiaAdministracionesParticipacionesFederalesAportacionesFederalesComoFP
+                          .errors?.required
+                      "
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="
+                        valorGarantiaFideicomisosGarantiaAdministracionesParticipacionesFederalesAportacionesFederalesComoFP
+                          .errors?.pattern
+                      "
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-4"
+                  >Valor garantía con fideicomiso de garantía y de
+                  administración con ingresos propios como fuente de
+                  pago:</label
+                >
+                <div class="col-sm-6 col-md-6">
+                  <input
+                    formControlName="valorGarantiaFideicomisosGarantiaAdministracionIngresosPropiosComoFuente"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      valorGarantiaFideicomisosGarantiaAdministracionIngresosPropiosComoFuente.invalid &&
+                      (valorGarantiaFideicomisosGarantiaAdministracionIngresosPropiosComoFuente.dirty ||
+                        valorGarantiaFideicomisosGarantiaAdministracionIngresosPropiosComoFuente.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="
+                        valorGarantiaFideicomisosGarantiaAdministracionIngresosPropiosComoFuente
+                          .errors?.required
+                      "
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="
+                        valorGarantiaFideicomisosGarantiaAdministracionIngresosPropiosComoFuente
+                          .errors?.pattern
+                      "
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2"
+                  >Valor garantía con otras garantías reales no
+                  financieras:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="valorGarantiaOtrasGarantiasRealesNoFinancieras"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      valorGarantiaOtrasGarantiasRealesNoFinancieras.invalid &&
+                      (valorGarantiaOtrasGarantiasRealesNoFinancieras.dirty ||
+                        valorGarantiaOtrasGarantiasRealesNoFinancieras.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="
+                        valorGarantiaOtrasGarantiasRealesNoFinancieras.errors
+                          ?.required
+                      "
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="
+                        valorGarantiaOtrasGarantiasRealesNoFinancieras.errors
+                          ?.pattern
+                      "
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+                <label class="mt-1 col-2">
+                  Severidad de la pérdida ajustada por los derechos de
+                  cobro:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="severidadPerdidaAjustadaDerechosCobro"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      severidadPerdidaAjustadaDerechosCobro.invalid &&
+                      (severidadPerdidaAjustadaDerechosCobro.dirty ||
+                        severidadPerdidaAjustadaDerechosCobro.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="
+                        severidadPerdidaAjustadaDerechosCobro.errors?.required
+                      "
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="
+                        severidadPerdidaAjustadaDerechosCobro.errors?.pattern
+                      "
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2"
+                  >Severidad de la pérdida ajustada por bienes inmuebles:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="severidadPerdidaAjustadaBienesInmuebles"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      severidadPerdidaAjustadaBienesInmuebles.invalid &&
+                      (severidadPerdidaAjustadaBienesInmuebles.dirty ||
+                        severidadPerdidaAjustadaBienesInmuebles.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="
+                        severidadPerdidaAjustadaBienesInmuebles.errors?.required
+                      "
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="
+                        severidadPerdidaAjustadaBienesInmuebles.errors?.pattern
+                      "
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+                <label class="mt-1 col-2">
+                  Severidad de la pérdida ajustada por bienes muebles:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="severidadPerdidaAjustadaBienesMuebles"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      severidadPerdidaAjustadaBienesMuebles.invalid &&
+                      (severidadPerdidaAjustadaBienesMuebles.dirty ||
+                        severidadPerdidaAjustadaBienesMuebles.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="
+                        severidadPerdidaAjustadaBienesMuebles.errors?.required
+                      "
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="
+                        severidadPerdidaAjustadaBienesMuebles.errors?.pattern
+                      "
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-4"
+                  >Severidad de la pérdida ajustada por fideicomiso de garantía
+                  y de administración con participaciones federales y
+                  aportaciones federales como fuente de pago:</label
+                >
+                <div class="col-sm-6 col-md-6">
+                  <input
+                    formControlName="severidadPerdidaAjustadaFideicomisosGarantiaAdministracionParticipacionesFederalesAportacionesFederalesComoFP"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      severidadPerdidaAjustadaFideicomisosGarantiaAdministracionParticipacionesFederalesAportacionesFederalesComoFP.invalid &&
+                      (severidadPerdidaAjustadaFideicomisosGarantiaAdministracionParticipacionesFederalesAportacionesFederalesComoFP.dirty ||
+                        severidadPerdidaAjustadaFideicomisosGarantiaAdministracionParticipacionesFederalesAportacionesFederalesComoFP.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="
+                        severidadPerdidaAjustadaFideicomisosGarantiaAdministracionParticipacionesFederalesAportacionesFederalesComoFP
+                          .errors?.required
+                      "
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="
+                        severidadPerdidaAjustadaFideicomisosGarantiaAdministracionParticipacionesFederalesAportacionesFederalesComoFP
+                          .errors?.pattern
+                      "
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-4"
+                  >Severidad de la pérdida ajustada por fideicomiso de garantía
+                  y de administración con ingresos propios como fuente de
+                  pago:</label
+                >
+                <div class="col-sm-6 col-md-6">
+                  <input
+                    formControlName="severidadPerdidaAjustadaFideicomisosGarantiaAdministracionIngresosPropiosComoFP"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      severidadPerdidaAjustadaFideicomisosGarantiaAdministracionIngresosPropiosComoFP.invalid &&
+                      (severidadPerdidaAjustadaFideicomisosGarantiaAdministracionIngresosPropiosComoFP.dirty ||
+                        severidadPerdidaAjustadaFideicomisosGarantiaAdministracionIngresosPropiosComoFP.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="
+                        severidadPerdidaAjustadaFideicomisosGarantiaAdministracionIngresosPropiosComoFP
+                          .errors?.required
+                      "
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="
+                        severidadPerdidaAjustadaFideicomisosGarantiaAdministracionIngresosPropiosComoFP
+                          .errors?.pattern
+                      "
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-4"
+                  >Severidad de la pérdida ajustada con otras garantías reales
+                  no financieras:</label
+                >
+                <div class="col-sm-6 col-md-6">
+                  <input
+                    formControlName="severidadPerdidaAjustadaOtrasGarantiasRealesNoFinancieras"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      severidadPerdidaAjustadaOtrasGarantiasRealesNoFinancieras.invalid &&
+                      (severidadPerdidaAjustadaOtrasGarantiasRealesNoFinancieras.dirty ||
+                        severidadPerdidaAjustadaOtrasGarantiasRealesNoFinancieras.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="
+                        severidadPerdidaAjustadaOtrasGarantiasRealesNoFinancieras
+                          .errors?.required
+                      "
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="
+                        severidadPerdidaAjustadaOtrasGarantiasRealesNoFinancieras
+                          .errors?.pattern
+                      "
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2"
+                  >Total de severidad de la pérdida por garantías reales no
+                  financieras:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="totalSeveridadPerdidaGarantiasRealesNoFinancieras"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      totalSeveridadPerdidaGarantiasRealesNoFinancieras.invalid &&
+                      (totalSeveridadPerdidaGarantiasRealesNoFinancieras.dirty ||
+                        totalSeveridadPerdidaGarantiasRealesNoFinancieras.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="
+                        totalSeveridadPerdidaGarantiasRealesNoFinancieras.errors
+                          ?.required
+                      "
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="
+                        totalSeveridadPerdidaGarantiasRealesNoFinancieras.errors
+                          ?.pattern
+                      "
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+                <label class="mt-1 col-2">
+                  Porcentaje bruto cubierto con garantías personales:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="porcentajeBrutoCubiertoGarantiasPersonales"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      porcentajeBrutoCubiertoGarantiasPersonales.invalid &&
+                      (porcentajeBrutoCubiertoGarantiasPersonales.dirty ||
+                        porcentajeBrutoCubiertoGarantiasPersonales.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="
+                        porcentajeBrutoCubiertoGarantiasPersonales.errors
+                          ?.required
+                      "
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="
+                        porcentajeBrutoCubiertoGarantiasPersonales.errors
+                          ?.pattern
+                      "
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2"
+                  >Porcentaje cubierto por obligado solidario o aval distinto a
+                  entidad federativa y municipio:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="porcentajeCubiertoObligadoSolidarioAvalDistintoEntidadFederativaMunicipio"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      porcentajeCubiertoObligadoSolidarioAvalDistintoEntidadFederativaMunicipio.invalid &&
+                      (porcentajeCubiertoObligadoSolidarioAvalDistintoEntidadFederativaMunicipio.dirty ||
+                        porcentajeCubiertoObligadoSolidarioAvalDistintoEntidadFederativaMunicipio.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="
+                        porcentajeCubiertoObligadoSolidarioAvalDistintoEntidadFederativaMunicipio
+                          .errors?.required
+                      "
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="
+                        porcentajeCubiertoObligadoSolidarioAvalDistintoEntidadFederativaMunicipio
+                          .errors?.pattern
+                      "
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+                <label class="mt-1 col-2">
+                  Monto cubierto por garantía personal:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="montoCubiertoGarantiaPersonal"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      montoCubiertoGarantiaPersonal.invalid &&
+                      (montoCubiertoGarantiaPersonal.dirty ||
+                        montoCubiertoGarantiaPersonal.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="montoCubiertoGarantiaPersonal.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="montoCubiertoGarantiaPersonal.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2"
+                  >Valuación a mercado del derivado de crédito:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="valuacionMercadoDerivadoCredito"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      valuacionMercadoDerivadoCredito.invalid &&
+                      (valuacionMercadoDerivadoCredito.dirty ||
+                        valuacionMercadoDerivadoCredito.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="valuacionMercadoDerivadoCredito.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="valuacionMercadoDerivadoCredito.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+                <label class="mt-1 col-2">
+                  Porcentaje cubierto por esquemas de paso y medida:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="porcentajeCubiertoEsquemasPasoMedida"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      porcentajeCubiertoEsquemasPasoMedida.invalid &&
+                      (porcentajeCubiertoEsquemasPasoMedida.dirty ||
+                        porcentajeCubiertoEsquemasPasoMedida.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="
+                        porcentajeCubiertoEsquemasPasoMedida.errors?.required
+                      "
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="
+                        porcentajeCubiertoEsquemasPasoMedida.errors?.pattern
+                      "
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2"
+                  >Porcentaje cubierto por esquemas de primeras pérdidas:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="porcentajeCubiertoEsquemasPrimerasPerdidas"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      porcentajeCubiertoEsquemasPrimerasPerdidas.invalid &&
+                      (porcentajeCubiertoEsquemasPrimerasPerdidas.dirty ||
+                        porcentajeCubiertoEsquemasPrimerasPerdidas.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="
+                        porcentajeCubiertoEsquemasPrimerasPerdidas.errors
+                          ?.required
+                      "
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="
+                        porcentajeCubiertoEsquemasPrimerasPerdidas.errors
+                          ?.pattern
+                      "
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+                <label class="mt-1 col-2">
+                  Monto cubierto por esquemas de paso y medida:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="montoCubiertoEsquemasPasoMedida"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      montoCubiertoEsquemasPasoMedida.invalid &&
+                      (montoCubiertoEsquemasPasoMedida.dirty ||
+                        montoCubiertoEsquemasPasoMedida.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="montoCubiertoEsquemasPasoMedida.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="montoCubiertoEsquemasPasoMedida.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2"
+                  >Monto cubierto por esquema de primeras pérdidas:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="montoCubiertoEsquemasPrimerasPerdidas"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      montoCubiertoEsquemasPrimerasPerdidas.invalid &&
+                      (montoCubiertoEsquemasPrimerasPerdidas.dirty ||
+                        montoCubiertoEsquemasPrimerasPerdidas.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="
+                        montoCubiertoEsquemasPrimerasPerdidas.errors?.required
+                      "
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="
+                        montoCubiertoEsquemasPrimerasPerdidas.errors?.pattern
+                      "
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+                <label class="mt-1 col-2">
+                  Severidad de la pérdida total:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="severidadPerdidaTotal"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      severidadPerdidaTotal.invalid &&
+                      (severidadPerdidaTotal.dirty ||
+                        severidadPerdidaTotal.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="severidadPerdidaTotal.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="severidadPerdidaTotal.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2"
+                  >Severidad de la pérdida garante:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="severidadPerdidaGarante"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      severidadPerdidaGarante.invalid &&
+                      (severidadPerdidaGarante.dirty ||
+                        severidadPerdidaGarante.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="severidadPerdidaGarante.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="severidadPerdidaGarante.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+                <label class="mt-1 col-2">
+                  Severidad de la pérdida acreditado:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="severidadPerdidaAcreditado"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      severidadPerdidaAcreditado.invalid &&
+                      (severidadPerdidaAcreditado.dirty ||
+                        severidadPerdidaAcreditado.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="severidadPerdidaAcreditado.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="severidadPerdidaAcreditado.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2"
+                  >Exposición al incumplimiento total:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="exposicionIncumplimientoTotal"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      exposicionIncumplimientoTotal.invalid &&
+                      (exposicionIncumplimientoTotal.dirty ||
+                        exposicionIncumplimientoTotal.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="exposicionIncumplimientoTotal.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="exposicionIncumplimientoTotal.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+                <label class="mt-1 col-2">
+                  Exposición al incumplimiento garante:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="exposicionIncumplimientoGarante"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      exposicionIncumplimientoGarante.invalid &&
+                      (exposicionIncumplimientoGarante.dirty ||
+                        exposicionIncumplimientoGarante.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="exposicionIncumplimientoGarante.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="exposicionIncumplimientoGarante.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2"
+                  >Exposición al incumplimiento acreditado:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="exposicionIncumplimientoAcreditado"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      exposicionIncumplimientoAcreditado.invalid &&
+                      (exposicionIncumplimientoAcreditado.dirty ||
+                        exposicionIncumplimientoAcreditado.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="
+                        exposicionIncumplimientoAcreditado.errors?.required
+                      "
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="exposicionIncumplimientoAcreditado.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+                <label class="mt-1 col-2">
+                  Probabilidad de incumplimiento total:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="probabilidadIncumplimientoTotal"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      probabilidadIncumplimientoTotal.invalid &&
+                      (probabilidadIncumplimientoTotal.dirty ||
+                        probabilidadIncumplimientoTotal.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="probabilidadIncumplimientoTotal.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="probabilidadIncumplimientoTotal.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2">
+                  Probabilidad de incumplimiento garante:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="probabilidadIncumplimientoGarante"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      probabilidadIncumplimientoGarante.invalid &&
+                      (probabilidadIncumplimientoGarante.dirty ||
+                        probabilidadIncumplimientoGarante.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="probabilidadIncumplimientoGarante.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="probabilidadIncumplimientoGarante.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+                <label class="mt-1 col-2">
+                  Probabilidad de incumplimiento acreditado:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="probabilidadIncumplimientoAcreditado"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      probabilidadIncumplimientoAcreditado.invalid &&
+                      (probabilidadIncumplimientoAcreditado.dirty ||
+                        probabilidadIncumplimientoAcreditado.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="
+                        probabilidadIncumplimientoAcreditado.errors?.required
+                      "
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="
+                        probabilidadIncumplimientoAcreditado.errors?.pattern
+                      "
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2">Tipo de cobranza:</label>
+                <div class="col-sm-3 col-md-3">
+                  <select class="form-control form-control-sm">
+                    <option>Opción 1</option>
+                  </select>
+                </div>
+                <label class="mt-1 col-2">Capital vencido operativo:</label>
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="capitalVencidoOperativo"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      capitalVencidoOperativo.invalid &&
+                      (capitalVencidoOperativo.dirty ||
+                        capitalVencidoOperativo.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="capitalVencidoOperativo.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="capitalVencidoOperativo.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2">
+                  Intereses ordinarios exigibles:</label
+                >
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="interesesOrdinariosExigibles"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      interesesOrdinariosExigibles.invalid &&
+                      (interesesOrdinariosExigibles.dirty ||
+                        interesesOrdinariosExigibles.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="interesesOrdinariosExigibles.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="interesesOrdinariosExigibles.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+                <label class="mt-1 col-2"> Interes moratorio:</label>
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="interesesMoratorios"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      interesesMoratorios.invalid &&
+                      (interesesMoratorios.dirty || interesesMoratorios.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="interesesMoratorios.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="interesesMoratorios.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2"> Otros accesorios:</label>
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="otrosAccesorios"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      otrosAccesorios.invalid &&
+                      (otrosAccesorios.dirty || otrosAccesorios.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="otrosAccesorios.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="otrosAccesorios.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+                <label class="mt-1 col-2"> Capital vigente operativo:</label>
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="capitalVigenteOperativo"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      capitalVigenteOperativo.invalid &&
+                      (capitalVigenteOperativo.dirty ||
+                        capitalVigenteOperativo.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="capitalVigenteOperativo.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="capitalVigenteOperativo.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2">Estado:</label>
+                <div class="col-sm-3 col-md-3">
+                  <select class="form-control form-control-sm">
+                    <option>Opción 1</option>
+                  </select>
+                </div>
+                <label class="mt-1 col-2">Plazo total de crédito:</label>
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="plazaTotalCredito"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      plazaTotalCredito.invalid &&
+                      (plazaTotalCredito.dirty || plazaTotalCredito.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="plazaTotalCredito.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="plazaTotalCredito.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="mt-1 col-2">Plazo en meses al vencimiento:</label>
+                <div class="col-sm-3 col-md-3">
+                  <input
+                    formControlName="plazaMesesVencimiento"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      plazaMesesVencimiento.invalid &&
+                      (plazaMesesVencimiento.dirty ||
+                        plazaMesesVencimiento.touched)
+                    "
+                    class="mt-2"
+                  >
+                    <div
+                      *ngIf="plazaMesesVencimiento.errors?.required"
+                      class="error-message"
+                    >
+                      Valor Obligatorio
+                    </div>
+                    <div
+                      *ngIf="plazaMesesVencimiento.errors?.pattern"
+                      class="error-message"
+                    >
+                      Valor inválido
+                    </div>
+                  </div>
+                </div>
+                <label class="mt-1 col-2">Tipo de recursos:</label>
+                <div class="col-sm-3 col-md-3">
+                  <select class="form-control form-control-sm">
+                    <option>Opción 1</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <!-- Simple Buttons-->
+    <button class="btn btn-success" type="button">Aceptar</button>
+    <button
+      class="btn btn-danger"
+      type="button"
+      (click)="activeModal.close('Close click')"
+    >
+      Cancelar
+    </button>
+  </div>
+</div>

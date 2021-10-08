@@ -8,6 +8,7 @@ import { AltaModificarBloqueoModalComponent } from './modals/alta-modificar-bloq
 import { AltaModificarCierreModalComponent } from './modals/alta-modificar-cierre/alta-modificar-cierre.modal.component';
 import { AltaModificarDuplicadoModalComponent } from './modals/alta-modificar-duplicado/alta-modificar-duplicado.modal.component';
 import { AltaEditarCuentaComponent } from './alta-editar-cuenta/alta-editar-cuenta.component';
+import {AltaModificarExceptuadosComponent} from "@modules/datos-cliente/operaciones-pasivas/modals/alta-modificar-exceptuados/alta-modificar-exceptuados.component";
 //import { AltaUsuarioModalComponent } from '@modules/sistema/usuarios/modals/alta-usuarios/alta-usuarios.modal.component';
 
 @Component({
@@ -22,6 +23,28 @@ export class OperacionesPasivasComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  openModalAltaExceptuados(): void {
+    this.modalService.dismissAll();
+    const ngbModalOptions: NgbModalOptions = {
+      centered: true,
+      backdrop: 'static',
+      size: 'lg',
+      keyboard: false,
+    };
+    this.modalService.open(AltaModificarExceptuadosComponent, ngbModalOptions).result.then();
+  }
+
+  openModalEditarExceptuados(): void {
+    // Dado que es una edición se da por hecho que habrá un Data$
+    this.modalService.dismissAll();
+    const ngbModalOptions: NgbModalOptions = {
+      centered: true,
+      backdrop: 'static',
+      size: 'lg',
+      keyboard: false,
+    };
+    this.modalService.open(AltaModificarExceptuadosComponent, ngbModalOptions).result.then();
+  }
 
   openModalAltaCuenta(): void {
     this.modalService.dismissAll();

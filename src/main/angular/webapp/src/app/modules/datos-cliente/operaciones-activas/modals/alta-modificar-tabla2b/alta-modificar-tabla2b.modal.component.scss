@@ -1,0 +1,41 @@
+/**
+Para establecer la altura del modal:
+ */
+
+.modal-container {
+  height: auto;
+}
+
+.modal-body {
+  min-height: 100px;
+}
+
+.center {
+  justify-content: center
+}
+.end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.small-height {
+    margin-top: 46%;
+    height: 20%;
+}
+
+.form-max-height {
+    min-height: 34rem;
+    max-height: 34rem;
+    overflow-y: auto;
+    overflow-x: clip;
+}
+
+.error-message {
+    font-size:10px;
+    color:red;
+}
+
+.setBolder {
+  font-weight: bold;
+}
+

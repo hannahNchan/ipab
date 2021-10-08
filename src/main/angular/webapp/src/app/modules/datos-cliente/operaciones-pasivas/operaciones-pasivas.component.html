@@ -707,6 +707,123 @@
               </div>
             </ng-template>
           </ngb-tab>
+          <ngb-tab>
+            <ng-template ngbTabTitle>
+              <b>Exceptuados IPAB</b>
+            </ng-template>
+            <ng-template ngbTabContent>
+              <div class="card mt-2">
+                <div class="card-body">
+                  <div class="form">
+                    <div class="form-row">
+                      <div class="col-3">
+                        <div class="input-group">
+                          <label
+                            class="col-lg-4 col-form-label form-control-label"
+                          >
+                            Fecha:
+                          </label>
+                          <input
+                            class="form-control bg-white"
+                            id="fechaCreditoNoRevolvente"
+                            type="text"
+                            ngbDatepicker
+                            #f="ngbDatepicker"
+                            placeholder="dd/mm/aaaa"
+                            (focus)="f.toggle()"
+                            name="fechaCreditoNoRevolvente"
+                            (keydown)="onKeydown($event)"
+                            [(ngModel)]="fechaExceptuadosIPAB"
+                          />
+                          <div class="input-group-append">
+                            <button
+                              class="btn btn-outline-secondary calendar"
+                              (click)="f.toggle()"
+                              type="button"
+                            >
+                              <fa-icon icon="calendar-alt"></fa-icon>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-3">
+                        <div class="input-group">
+                          <div class="col-5 col-md-5 col-lg-5 mt-1">
+                            <label class="mt-1 ml-4">Cliente:</label>
+                          </div>
+                          <input
+                            class="form-control"
+                            id="clienteCreditoNoRevolvente"
+                            name="clienteCreditoNoRevolvente"
+                            [(ngModel)]="clienteExceptuadosIPAB"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-4"></div>
+                      <div class="col-2">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="btn-group d-flex justify-content-center">
+                              <!-- Botón buscar tipos de producto-->
+                              <button
+                                class="btn btn-primary"
+                                id="btnSearchTiposProductoCreditos"
+                              >
+                                <fa-icon icon="search"></fa-icon>
+                              </button>
+                              <!-- Botón editar grupo-->
+                              <button
+                                class="btn btn-primary"
+                                type="button"
+                                (click)="openModalAltaExceptuados()"
+                              >
+                                <fa-icon icon="edit"></fa-icon>
+                              </button>
+                              <!-- Botón agregar-->
+                              <button
+                                class="btn btn-primary"
+                                type="button"
+                                (click)="openModalEditarExceptuados()"
+                              >
+                                <fa-icon icon="plus"></fa-icon>
+                              </button>
+                              <!-- Botón remover producto-->
+                              <button
+                                class="btn btn-primary"
+                                type="button"
+                              >
+                                <fa-icon icon="minus"></fa-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card mt-3">
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-hover table-fixed">
+                      <thead class="thead-light">
+                      <tr class="hover-primary">
+                        <th class="col-6" scope="col">Cliente</th>
+                        <th class="col-6" scope="col">Nombre Cliente</th>
+                      </tr>
+                      </thead>
+                      <tbody class="max-row-7">
+                      <tr class="hover-primary">
+                        <td class="col-6"></td>
+                        <td class="col-6"></td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
         </ngb-tabset>
         <div class="modal-footer">
           <button class="btn btn-danger" type="button">Cancelar</button>

@@ -1,11 +1,16 @@
 import { Component, OnInit, AfterViewInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { ITabla4, ITabla1 } from "@interfaces/operaciones-activas.interface";
+import { ITabla4, ITabla1, ITabla2, ITabla4B } from "@interfaces/operaciones-activas.interface";
 import { OperacionesActivasService } from '@services/operaciones-activas.service';
+import { AltaModificarTabla2bModalComponent } from './modals/alta-modificar-tabla2b/alta-modificar-tabla2b.modal.component';
+import { OperacionesActivasDataService } from '@services/operaciones-activas-data.service';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import swal from 'sweetalert2';
 import { PopUpMessage } from '@helpers/PopUpMessage';
 
-
+import { Observable } from 'rxjs';
+import { debounceTime, map } from 'rxjs/operators';
+import { IDate } from '@interfaces/date.interface';
 
 @Component({
   selector: "app-operaciones-activas",
@@ -17,20 +22,28 @@ export class OperacionesActivasComponent implements OnInit, AfterViewInit {
   tabla1Form: FormGroup;
   tabla4: ITabla4;
   tabla1: ITabla1;
+  listaTabla4B: ITabla4B[];
+  selectedAcreditadoTabla4B: ITabla4B;
+  tabla2: [ITabla2];
   decimalPattern: string = "^[0-9]+[.][0-9][0-9]$";
   enteroPattern: string = "^[0-9]+$";
   fecha: string;
   credito: string = '';
+  cliente: string = '';
   fechaCreditoNoRevolvente: string;
   clienteCreditoNoRevolvente: string;
   creditoCreditoNoRevolvente: string;
   fechaCreditoAsociado: any;
   creditoAsociado: string = "";
   fillCreditos: { key: number, value: number }[] = [];
+  fechaPeriodo: IDate;
+  fechaInicio: IDate;
+  fechaVencimiento: IDate;
 
-  constructor(private operacionesActivasService: OperacionesActivasService) { }
+  constructor(private modalService: NgbModal, private operacionesActivasService: OperacionesActivasService, private _dataService: OperacionesActivasDataService,) { }
 
   ngOnInit(): void {
+    this.selectedAcreditadoTabla4B = this.initAcreditado();
     this.clienteCreditoNoRevolvente = '';
     this.creditoCreditoNoRevolvente = '';
     this.initTabla4();
@@ -231,7 +244,7 @@ export class OperacionesActivasComponent implements OnInit, AfterViewInit {
         if (this.fechaCreditoNoRevolvente['day'] < 10) {
           day = '0' + this.fechaCreditoNoRevolvente['day'].toString();
         } else day = this.fechaCreditoNoRevolvente['day'].toString();
-        tempFecha = day + month + this.fechaCreditoNoRevolvente['year'].toString();
+        tempFecha = this.fechaCreditoNoRevolvente['year'].toString() + month + day;
         swal({
           title: 'Obteniendo información...',
           allowEscapeKey: false,
@@ -243,10 +256,10 @@ export class OperacionesActivasComponent implements OnInit, AfterViewInit {
         this.operacionesActivasService.getTabla4B(tempFecha, this.clienteCreditoNoRevolvente, this.creditoCreditoNoRevolvente).subscribe(
           response => {
             if (response.header['estatus'] === false) {
-              swal(PopUpMessage.getAppErrorMessageReportId(response)).then(() => {});
-
+              swal(PopUpMessage.getAppErrorMessageReportId(response)).then(() => { });
             } else {
-              swal(PopUpMessage.getSuccesMessage(response, null , null)).then();
+              this.listaTabla4B = response['lista'];
+              swal(PopUpMessage.getSuccesMessage(response, null, null)).then();
             }
           },
           err => {
@@ -260,7 +273,68 @@ export class OperacionesActivasComponent implements OnInit, AfterViewInit {
     }
   }
 
+  search = (text$: Observable<string>) => {
+    return text$.pipe(
+      debounceTime(200), map(txt => txt === '' ? [] :
+        this.listaTabla4B
+          .filter(obj => obj.nombreAcreditado.toLowerCase()
+            .indexOf(txt.toLowerCase()) === 0)
+          .slice(0, 10)
+      )
+    );
+  }
+
+  formatter = (x: { nombreAcreditado: string }) => x.nombreAcreditado;
+
+  /**
+   * Cambia el acreditado
+   * @param acreditado
+   */
+  changeAcreditado(acreditado: ITabla4B): void {
+    this.selectedAcreditadoTabla4B = acreditado;
+    //this.fechaInicio = DateHelper.convertStringToIDate(acreditado.fechaInicio);
+  }
+
   getCreditoTabla4() {
+    let month = '';
+    if (this.fecha !== undefined && this.fecha !== '') {
+      if (this.fecha['month'] < 10) {
+        month = '0' + this.fecha['month'].toString();
+      }
+      else month = this.fecha['month'].toString();
+      let tempFecha = this.fecha['year'].toString() + month + this.fecha['day'].toString();
+
+      this.operacionesActivasService.getTabla4(tempFecha, this.credito).subscribe(res => {
+        if (res.header.estatus) {
+          if (res.tabla4A != undefined) {
+            this.tabla4Form.patchValue({
+              numeroCredito: res.tabla4A.numeroCredito,
+              capitalVigente: res.tabla4A.capitalVigente.toFixed(2),
+              capitalVencido: res.tabla4A.capitalVencido.toFixed(2),
+              interesOrdinarioExigible: res.tabla4A.interesesOrdinariosExigibles.toFixed(2),
+              interesMoratorio: res.tabla4A.interesesMoratorios.toFixed(2),
+              otrosAccesorios: res.tabla4A.otrosAccesorios.toFixed(2),
+            });
+          }
+          else {
+            swal(PopUpMessage.getAppErrorMessage('Sin resultado', 'La busqueda retorno 0 coincidencias'))
+              .then();
+          }
+        }
+        else {
+          swal(PopUpMessage.getAppErrorMessageReportId(res))
+            .then();
+        }
+      })
+    }
+    else {
+      swal(PopUpMessage.getValidateErrorMessage('Fecha'))
+        .then();
+    }
+
+  }
+
+  getTabla2BR() {
     let month = ''
     if (this.fecha != undefined && this.fecha != '') {
       if (this.fecha['month'] < 10) {
@@ -269,17 +343,10 @@ export class OperacionesActivasComponent implements OnInit, AfterViewInit {
       else month = this.fecha['month'].toString()
       let tempFecha = this.fecha['year'].toString() + month + this.fecha['day'].toString()
 
-      this.operacionesActivasService.getTabla4(tempFecha, this.credito).subscribe(res => {
+      this.operacionesActivasService.getTabla2B(tempFecha, this.cliente, this.credito).subscribe(res => {
         if (res.header.estatus) {
-          if (res.tabla4 != undefined) {
-            this.tabla4Form.patchValue({
-              numeroCredito: res.tabla4.numeroCredito,
-              capitalVigente: res.tabla4.capitalVigente.toFixed(2),
-              capitalVencido: res.tabla4.capitalVencido.toFixed(2),
-              interesOrdinarioExigible: res.tabla4.interesesOrdinariosExigibles.toFixed(2),
-              interesMoratorio: res.tabla4.interesesMoratorios.toFixed(2),
-              otrosAccesorios: res.tabla4.otrosAccesorios.toFixed(2),
-            });
+          if (res.lista.length > 0) {
+            this.tabla2 = res.lista
           }
           else {
             swal(PopUpMessage.getAppErrorMessage('Sin resultado', 'La busqueda retorno 0 coincidencias'))
@@ -338,6 +405,18 @@ export class OperacionesActivasComponent implements OnInit, AfterViewInit {
     }
   }
 
+  onSelectedSeccion(row: ITabla2): void {
+    this._dataService.changeSelectedTable2b(row);
+    this.modalService.dismissAll();
+    const ngbModalOptions: NgbModalOptions = {
+      size: 'lg',
+      centered: true,
+      backdrop: 'static',
+      keyboard: false
+    };
+    this.modalService.open(AltaModificarTabla2bModalComponent, ngbModalOptions)
+  }
+
   /**
    * Valida los datos antes de guardar la información
    */
@@ -347,5 +426,47 @@ export class OperacionesActivasComponent implements OnInit, AfterViewInit {
       return false;
     }
     return true;
+  }
+
+  /**
+   * Retorna un objeto para solicitudes
+   */
+  private initAcreditado(): ITabla4B {
+    return {
+      claveUnica: '',
+      nombreAcreditado: '',
+      periodoReporta: '',
+      clasificacionContable: '',
+      moneda: '',
+      capitalVencidoOperativo: 0,
+      capitalVigenteOperativo: 0,
+      conSinRestriccion: '',
+      diasAtraso: '',
+      escalaPeriodosFacturacion: '',
+      fechaInicio: '',
+      fechaVencimiento: '',
+      identificadorCredito: '',
+      importeGarantia: '',
+      importeOriginalCredito: '',
+      interesesMoratorios: 0,
+      interesesOrdinariosExigibles: 0,
+      loadDate: '',
+      montoExigible: '',
+      otrosAccesorios: 0,
+      pagoRealizado: '',
+      plazoRemanente: '',
+      plazoTotal: '',
+      probabilidadIncumplimiento: '',
+      reservas: '',
+      saldoTotalCredito: '',
+      severidadPerdidaCubierta: '',
+      severidadPerdidaNoCubierta: '',
+      tasaInteres: '',
+      tipo: 0,
+      tipoCobranza: 0,
+      tipoCredito: '',
+      tipoGarantia: '',
+      tipoTasa: '',
+    };
   }
 }
