@@ -20,6 +20,7 @@ import { AltaModificarTabla2bModalComponent } from '@modules/datos-cliente/opera
 import { AltaModificarExceptuadosComponent } from './operaciones-pasivas/modals/alta-modificar-exceptuados/alta-modificar-exceptuados.component';
 import { AltaModificacionComponent } from './operaciones-pasivas/modals/alta-modificacion/alta-modificacion.component';
 import { EdicionPatrimonialComponent } from './operaciones-pasivas/modals/edicion-patrimonial/edicion-patrimonial.component';
+import { AltaModificarCreditosVencidosComponent } from './operaciones-activas/modals/alta-modificar-creditos-vencidos/alta-modificar-creditos-vencidos.component';
 
 @NgModule({
   imports: [
@@ -44,7 +45,8 @@ import { EdicionPatrimonialComponent } from './operaciones-pasivas/modals/edicio
     AltaEditarCuentaComponent,
     AltaModificarCierreModalComponent,
     AltaModificarExceptuadosComponent,
-    AltaModificarTabla2bModalComponent
+    AltaModificarTabla2bModalComponent,
+    AltaModificarCreditosVencidosComponent
   ],
   entryComponents: [
     AltaModificacionComponent,
@@ -57,7 +59,8 @@ import { EdicionPatrimonialComponent } from './operaciones-pasivas/modals/edicio
     AltaEditarHolidayComponent,
     AltaModificarCierreModalComponent,
     AltaModificarExceptuadosComponent,
-    AltaModificarTabla2bModalComponent
+    AltaModificarTabla2bModalComponent,
+    AltaModificarCreditosVencidosComponent
   ],
 })
 export class DatosClienteModule {
