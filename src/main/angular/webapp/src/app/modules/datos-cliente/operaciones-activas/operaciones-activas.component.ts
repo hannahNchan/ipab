@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ITabla4, ITabla1, ITabla2, ITabla4B } from "@interfaces/operaciones-activas.interface";
 import { OperacionesActivasService } from '@services/operaciones-activas.service';
 import { AltaModificarTabla2bModalComponent } from './modals/alta-modificar-tabla2b/alta-modificar-tabla2b.modal.component';
+import { AltaModificarCreditosVencidosComponent } from './modals/alta-modificar-creditos-vencidos/alta-modificar-creditos-vencidos.component';
 import { OperacionesActivasDataService } from '@services/operaciones-activas-data.service';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import swal from 'sweetalert2';
@@ -35,7 +36,7 @@ export class OperacionesActivasComponent implements OnInit, AfterViewInit {
   creditoCreditoNoRevolvente: string;
   fechaCreditoAsociado: any;
   creditoAsociado: string = "";
-  fillCreditos: { key: number, value: number }[] = [];
+  gridCreditos: { claveUnica: number, numeroCredito: number }[] = [];
   fechaPeriodo: IDate;
   fechaInicio: IDate;
   fechaVencimiento: IDate;
@@ -380,12 +381,23 @@ export class OperacionesActivasComponent implements OnInit, AfterViewInit {
       this.operacionesActivasService.getCreditosCliente(dateParsed, this.creditoAsociado).subscribe(res => {
         if (res.header.estatus) {
           const { header, lista, tipo } = res;
-            lista.map(item => {
-              this.fillCreditos.push({ key: item.numeroCredito, value: item.numeroCredito })
+            lista.map(({ claveUnica, numeroCredito }) => {
+              this.gridCreditos.push({ claveUnica, numeroCredito })
             });
         }
       });
     }
+  }
+
+  openModalVencidosAsociados(item) {
+    this.modalService.dismissAll();
+    const ngbModalOptions: NgbModalOptions = {
+      size: 'lg',
+      centered: true,
+      backdrop: 'static',
+      keyboard: false
+    };
+    this.modalService.open(AltaModificarCreditosVencidosComponent, ngbModalOptions)
   }
 
   ngAfterViewInit() {
