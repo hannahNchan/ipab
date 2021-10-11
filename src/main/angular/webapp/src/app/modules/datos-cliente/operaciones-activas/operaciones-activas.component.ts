@@ -346,6 +346,13 @@ export class OperacionesActivasComponent implements OnInit, AfterViewInit {
       this.operacionesActivasService.getTabla2B(tempFecha, this.cliente, this.credito).subscribe(res => {
         if (res.header.estatus) {
           if (res.lista.length > 0) {
+            res.lista.map((row) => {
+              row.fechaVencimientoLineaCredito = {
+                "year": parseInt(row.fechaVencimientoLineaCredito.slice(0, -4)),
+                "month": parseInt(row.fechaVencimientoLineaCredito.slice(4, -2)),
+                "day": parseInt(row.fechaVencimientoLineaCredito.slice(-2))
+              }
+            })
             this.tabla2 = res.lista
           }
           else {

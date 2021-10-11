@@ -67,40 +67,23 @@
               <div class="form-group row">
                 <label class="mt-1 col-2">Periodo:</label>
                 <div class="col-sm-3 col-md-3">
-                  <div class="input-group">
-                    <input
-                      formControlName="periodoReporta"
-                      class="form-control bg-white"
-                      id="fechaDisp"
-                      type="text"
-                      ngbDatepicker
-                      #b="ngbDatepicker"
-                      placeholder="dd/mm/aaaa"
-                      name="fechaDisposicion"
-                      (click)="b.toggle()"
-                    />
-                    <div class="input-group-append">
-                      <button
-                        class="btn btn-outline-secondary calendar"
-                        (click)="b.toggle()"
-                        type="button"
-                      >
-                        <fa-icon icon="calendar-alt"></fa-icon>
-                      </button>
-                    </div>
+                  <input
+                    formControlName="periodoReporta"
+                    class="form-control form-control-sm"
+                    type="text"
+                  />
+                  <div
+                    *ngIf="
+                      periodoReporta.invalid &&
+                      (periodoReporta.dirty || periodoReporta.touched)
+                    "
+                    class="mt-2"
+                  >
                     <div
-                      *ngIf="
-                        periodoReporta.invalid &&
-                        (periodoReporta.dirty || periodoReporta.touched)
-                      "
-                      class="mt-2"
+                      *ngIf="periodoReporta.errors?.required"
+                      class="error-message"
                     >
-                      <div
-                        *ngIf="periodoReporta.errors?.required"
-                        class="error-message"
-                      >
-                        Valor Obligatorio
-                      </div>
+                      Valor Obligatorio
                     </div>
                   </div>
                 </div>

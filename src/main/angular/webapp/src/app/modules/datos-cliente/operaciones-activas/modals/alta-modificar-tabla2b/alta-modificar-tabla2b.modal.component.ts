@@ -24,7 +24,7 @@ export class AltaModificarTabla2bModalComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._tabla2bSubscription = this._data$.selectedTable2b
-      .subscribe(tabla2b => this.tabla2b = tabla2b);
+      .subscribe((tabla2b) => this.tabla2b = tabla2b);
     this.tabla2Form = new FormGroup({
       claveUnica: new FormControl(this.tabla2b.claveUnica, [
         Validators.required,
