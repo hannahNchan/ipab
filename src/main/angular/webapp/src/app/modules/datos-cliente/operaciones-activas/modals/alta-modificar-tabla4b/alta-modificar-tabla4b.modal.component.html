@@ -1,0 +1,449 @@
+<div class="modal-container">
+  <div class="modal-header">
+    <h4 class="modal-title">INFORMACIÓN PATRIMONIAL DEL TITULAR DE LOS CRÉDITOS CONSUMO (NO
+      REVOLVENTE)</h4>
+    <button class="close" type="button" aria-label="Close" (click)="activeModal.close()"><span aria-hidden="true">×</span></button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid mt-2">
+      <div class="card">
+        <div class="card-body">
+          <div class="form ml-5 form-max-height">
+            <div class="form-group row">
+              <label class="mt-1 col-2">Clave única:</label>
+              <div class="col-sm-3 col-md-3">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="claveUnica"
+                  name="claveUnica"
+                  [(ngModel)]="selectedAcreditadoTabla4B.claveUnica"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2">Nombre del acreditado:</label>
+              <div class="col-sm-3 col-md-9">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="nombreAcreditado"
+                  name="nombreAcreditado"
+                  [(ngModel)]="
+                            selectedAcreditadoTabla4B.nombreAcreditado
+                          "
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2">Periodo:</label>
+              <div class="col-sm-3 col-md-3">
+                <div class="input-group">
+                  <input
+                    class="form-control bg-white"
+                    id="fechaPeriodo"
+                    type="text"
+                    ngbDatepicker
+                    #b="ngbDatepicker"
+                    placeholder="dd/mm/aaaa"
+                    name="fechaPeriodo"
+                    [(ngModel)]="fechaPeriodo"
+                    (click)="b.toggle()"
+                  />
+                  <div class="input-group-append">
+                    <button
+                      class="btn btn-outline-secondary calendar"
+                      (click)="b.toggle()"
+                      type="button"
+                    >
+                      <fa-icon icon="calendar-alt"></fa-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <label class="mt-1 col-3 align-text-right"
+              >Identificador del crédito:</label
+              >
+              <div class="col-sm-3 col-md-3">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="identificador"
+                  name="identificador"
+                  [(ngModel)]="
+                            selectedAcreditadoTabla4B.identificadorCredito
+                          "
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2">Clasificación contable:</label>
+              <div class="col-sm-3 col-md-3">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="clasificacion"
+                  name="clasificacion"
+                  [(ngModel)]="
+                            selectedAcreditadoTabla4B.clasificacionContable
+                          "
+                />
+              </div>
+              <label class="mt-1 col-3 align-text-right">Tipo de crédito:</label>
+              <div class="col-sm-3 col-md-3">
+                <select class="form-control form-control-sm">
+                  <option>Opción 1</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2">Moneda:</label>
+              <div class="col-sm-3 col-md-3">
+                <select class="form-control form-control-sm">
+                  <option>Opción 1</option>
+                </select>
+              </div>
+              <label class="mt-1 col-3 align-text-right"
+              >Con restricción y sin restricción:</label
+              >
+              <div class="col-sm-3 col-md-3">
+                <select class="form-control form-control-sm">
+                  <option>Opción 1</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2"
+              >Escala de los periodos de facturación:</label
+              >
+              <div class="col-sm-3 col-md-3">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="escala"
+                  name="escala"
+                  [(ngModel)]="
+                            selectedAcreditadoTabla4B.escalaPeriodosFacturacion
+                          "
+                />
+              </div>
+              <label class="mt-1 col-3 align-text-right">Tipo de tasa:</label>
+              <div class="col-sm-3 col-md-3">
+                <select class="form-control form-control-sm">
+                  <option>Opción 1</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2">Fecha de inicio:</label>
+              <div class="col-sm-3 col-md-3">
+                <div class="input-group">
+                  <input
+                    class="form-control bg-white"
+                    id="fechaInicio"
+                    type="text"
+                    ngbDatepicker
+                    #c="ngbDatepicker"
+                    placeholder="dd/mm/aaaa"
+                    [(ngModel)]="selectedAcreditadoTabla4B.fechaInicio"
+                    name="fechaInicio"
+                    (click)="c.toggle()"
+                  />
+                  <div class="input-group-append">
+                    <button
+                      class="btn btn-outline-secondary calendar"
+                      (click)="c.toggle()"
+                      type="button"
+                    >
+                      <fa-icon icon="calendar-alt"></fa-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <label class="mt-1 col-3 align-text-right">Fecha de vencimiento:</label>
+              <div class="col-sm-3 col-md-3">
+                <div class="input-group">
+                  <input
+                    class="form-control bg-white"
+                    id="fechaVencimiento"
+                    type="text"
+                    ngbDatepicker
+                    #d="ngbDatepicker"
+                    placeholder="dd/mm/aaaa"
+                    [(ngModel)]="
+                              selectedAcreditadoTabla4B.fechaVencimiento
+                            "
+                    name="fechaVencimiento"
+                    (click)="d.toggle()"
+                  />
+                  <div class="input-group-append">
+                    <button
+                      class="btn btn-outline-secondary calendar"
+                      (click)="d.toggle()"
+                      type="button"
+                    >
+                      <fa-icon icon="calendar-alt"></fa-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2">Plazo total:</label>
+              <div class="col-sm-3 col-md-3">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="plazoTotal"
+                  name="plazoTotal"
+                  [(ngModel)]="selectedAcreditadoTabla4B.plazoTotal"
+                />
+              </div>
+              <label class="mt-1 col-3 align-text-right"
+              >Importe original del crédito:</label
+              >
+              <div class="col-sm-3 col-md-3">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="importeOriginal"
+                  name="importeOriginal"
+                  [(ngModel)]="
+                            selectedAcreditadoTabla4B.importeOriginalCredito
+                          "
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2">Tasa de interés:</label>
+              <div class="col-sm-3 col-md-3">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="tasaInteres"
+                  name="tasaInteres"
+                  [(ngModel)]="selectedAcreditadoTabla4B.tasaInteres"
+                />
+              </div>
+              <label class="mt-1 col-3 align-text-right">Plazo renamente:</label>
+              <div class="col-sm-3 col-md-3">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="plazoRenamente"
+                  name="tasaInteres"
+                  [(ngModel)]="selectedAcreditadoTabla4B.tasaInteres"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2">Saldo de crédito:</label>
+              <div class="col-sm-3 col-md-3">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="saldoCredito"
+                  name="saldoCredito"
+                  [(ngModel)]="
+                            selectedAcreditadoTabla4B.saldoTotalCredito
+                          "
+                />
+              </div>
+              <label class="mt-1 col-3 align-text-right">Monto exigible:</label>
+              <div class="col-sm-3 col-md-3">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="montoExigible"
+                  name="montoExigible"
+                  [(ngModel)]="selectedAcreditadoTabla4B.montoExigible"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2">Pago realizado:</label>
+              <div class="col-sm-3 col-md-3">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="pagoRealizado"
+                  name="pagoRealizado"
+                  [(ngModel)]="selectedAcreditadoTabla4B.pagoRealizado"
+                />
+              </div>
+              <label class="mt-1 col-3 align-text-right">Dias de atraso:</label>
+              <div class="col-sm-3 col-md-3">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="diasAtraso"
+                  name="diasAtraso"
+                  [(ngModel)]="selectedAcreditadoTabla4B.diasAtraso"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2">Tipo de garantía:</label>
+              <div class="col-sm-3 col-md-3">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="tipoGarantia"
+                  name="tipoGarantia"
+                  [(ngModel)]="selectedAcreditadoTabla4B.tipoGarantia"
+                />
+              </div>
+              <label class="mt-1 col-3 align-text-right">Importe de garantía:</label>
+              <div class="col-sm-3 col-md-3">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="importeGarantia"
+                  name="importeGarantia"
+                  [(ngModel)]="
+                            selectedAcreditadoTabla4B.importeGarantia
+                          "
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2"
+              >Probabilidad de incumplimiento:</label
+              >
+              <div class="col-sm-3 col-md-3">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="probabilidadadIncumplimiento"
+                  name="probabilidadadIncumplimiento"
+                  [(ngModel)]="
+                            selectedAcreditadoTabla4B.probabilidadIncumplimiento
+                          "
+                />
+              </div>
+              <label class="mt-1 col-3 align-text-right"
+              >Severidad de la perdida no cubierta:</label
+              >
+              <div class="col-sm-3 col-md-3">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="severidadPerdidaNoCubierta"
+                  name="severidadPerdidaNoCubierta"
+                  [(ngModel)]="
+                            selectedAcreditadoTabla4B.severidadPerdidaNoCubierta
+                          "
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2"
+              >Severidad de la perdida cubierta:</label
+              >
+              <div class="col-sm-3 col-md-3">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="severidadPerdidaCubierta"
+                  name="severidadPerdidaCubierta"
+                  [(ngModel)]="
+                            selectedAcreditadoTabla4B.severidadPerdidaCubierta
+                          "
+                />
+              </div>
+              <label class="mt-1 col-3 align-text-right">Reservas:</label>
+              <div class="col-sm-3 col-md-3">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="reservas"
+                  name="reservas"
+                  [(ngModel)]="selectedAcreditadoTabla4B.reservas"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2">Tipo de cobranza:</label>
+              <div class="col-sm-3 col-md-3">
+                <select class="form-control form-control-sm">
+                  <option>Opción 1</option>
+                </select>
+              </div>
+              <label class="mt-1 col-3 align-text-right"
+              >capital vencido operativo:</label
+              >
+              <div class="col-sm-3 col-md-3">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="capitalVencido"
+                  name="capitalVencido"
+                  [(ngModel)]="
+                            selectedAcreditadoTabla4B.capitalVencidoOperativo
+                          "
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2"
+              >Intereses ordinarios exigibles:</label
+              >
+              <div class="col-sm-3 col-md-3">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="interesesOrdinarios"
+                  name="interesesOrdinarios"
+                  [(ngModel)]="
+                            selectedAcreditadoTabla4B.interesesOrdinariosExigibles
+                          "
+                />
+              </div>
+              <label class="mt-1 col-3 align-text-right">Intereses moratorios:</label>
+              <div class="col-sm-3 col-md-3">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="interesesMoratorios"
+                  name="interesesMoratorios"
+                  [(ngModel)]="
+                            selectedAcreditadoTabla4B.interesesMoratorios
+                          "
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2">Otros accesorios:</label>
+              <div class="col-sm-3 col-md-3">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="otrosAccesorios"
+                  name="otrosAccesorios"
+                  [(ngModel)]="
+                            selectedAcreditadoTabla4B.otrosAccesorios
+                          "
+                />
+              </div>
+              <label class="mt-1 col-3 align-text-right"
+              >Capital vigente operativo:</label
+              >
+              <div class="col-sm-3 col-md-3">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="capitaVigenteOperativo"
+                  name="capitaVigenteOperativo"
+                  [(ngModel)]="
+                            selectedAcreditadoTabla4B.capitalVigenteOperativo
+                          "
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -15,3 +15,21 @@ export interface IExceptuadosIPAB {
   concepto: number;
   exclusion: number;
 }
+
+export interface IBloqueo {
+  nombre: string;
+  apellidoPat: string;
+  apellidoMat: string;
+  idCuenta: string;
+  idBloqueo: string;
+}
+
+export interface IBloqueoInformacion {
+  idCuenta: string;
+  idBloqueo: string;
+  fechaBloqueo: string;
+  montoBloqueo: number;
+  tipoBloqueo: number;
+  descBloqueo: string;
+  loadDate: string;
+}

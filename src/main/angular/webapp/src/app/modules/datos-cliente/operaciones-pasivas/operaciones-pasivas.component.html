@@ -19,43 +19,60 @@
               <b>Clientes</b>
             </ng-template>
             <ng-template ngbTabContent>
+              <h5 class="mt-3 ml-3 setBolder">Clientes</h5>
               <div class="card mt-2">
-                <div class="card-body">
+                <div class="card-header pb-0 pt-0">
+                  <div class="flex-fill align-self-center">
+                    <label
+                      class="col-lg-3 col-form-label form-control-label setBolder pb-0"
+                    >
+                      Criterios de búsqueda:
+                    </label>
+                  </div>
+                </div>
+                <div class="card-body pl-0 pr-0">
                   <div class="form">
                     <div class="form-row">
-                      <div class="col-3">
-                        <div class="input-group">
+                      <div class="col-11 row">
+
+                        <div class="col-1 pr-0">
                           <label
-                            class="col-lg-3 col-form-label form-control-label"
+                            class="ml-4 col-form-label form-control-label"
                           >
                             Fecha:
                           </label>
-                          <input
-                            class="form-control bg-white"
-                            id="fechaProceso"
-                            type="text"
-                            ngbDatepicker
-                            #d="ngbDatepicker"
-                            placeholder="dd/mm/aaaa"
-                            (focus)="d.toggle()"
-                            name="fechaProceso"
-                          />
-                          <div class="input-group-append">
-                            <button
-                              class="btn btn-outline-secondary calendar"
-                              (click)="d.toggle()"
-                              type="button"
-                            >
-                              <fa-icon icon="calendar-alt"></fa-icon>
-                            </button>
+                        </div>
+                        <div class="col-2">
+                          <div class="input-group">
+                            <input
+                              class="form-control bg-white"
+                              id="fechaProceso"
+                              type="text"
+                              ngbDatepicker
+                              #d="ngbDatepicker"
+                              placeholder="dd/mm/aaaa"
+                              (focus)="d.toggle()"
+                              name="fechaProceso"
+                            />
+                            <div class="input-group-append">
+                              <button
+                                class="btn btn-outline-secondary calendar"
+                                (click)="d.toggle()"
+                                type="button"
+                              >
+                                <fa-icon icon="calendar-alt"></fa-icon>
+                              </button>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="col-3">
-                        <div class="input-group">
-                          <div class="col-4 col-md-4 col-lg-2 mt-1">
-                            <label class="mt-1"> RFC: </label>
-                          </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label
+                            class="ml-4 col-form-label form-control-label"
+                          >
+                            RFC:
+                          </label>
+                        </div>
+                        <div class="col-2">
                           <input
                             class="form-control"
                             id="nombreUsuario"
@@ -63,24 +80,14 @@
                           />
                         </div>
                       </div>
-                      <div class="col-4"></div>
-                      <div class="col-2">
-                        <div class="row">
-                          <div class="col-md-12">
+                      <div class="col-1">
+                        <div class="row justify-content-search">
+                          <div class="col-md-6">
                             <div
                               class="btn-group d-flex justify-content-center"
                             >
                               <button class="btn btn-primary">
                                 <fa-icon icon="search"></fa-icon>
-                              </button>
-                              <button
-                                class="btn btn-primary"
-                                (click)="openModalAltaModificacion()"
-                              >
-                                <fa-icon icon="edit"></fa-icon>
-                              </button>
-                              <button class="btn btn-primary" type="button">
-                                <fa-icon icon="plus"></fa-icon>
                               </button>
                             </div>
                           </div>
@@ -91,22 +98,45 @@
                 </div>
               </div>
               <div class="card mt-3">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-hover table-fixed">
-                      <thead class="thead-light">
-                        <tr class="hover-primary">
-                          <th class="col-6" scope="col">Número de cliente</th>
-                          <th class="col-6" scope="col">Nombre de cliente</th>
-                        </tr>
-                      </thead>
-                      <tbody class="max-row-7">
-                        <tr class="hover-primary">
-                          <td class="col-6"></td>
-                          <td class="col-6"></td>
-                        </tr>
-                      </tbody>
-                    </table>
+                <div class="card-body height-card-table">
+                  <div class="row">
+                    <div class="col-md-11">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-fixed">
+                          <thead class="thead-light">
+                          <tr class="hover-primary">
+                            <th class="col-6" scope="col">Número de cliente</th>
+                            <th class="col-6" scope="col">Nombre de cliente</th>
+                          </tr>
+                          </thead>
+                          <tbody class="max-row-7">
+                          <tr
+                            class="cursor-pointer hover-primary"
+                          >
+                            <td class="col-6">{{ '123456' }}</td>
+                            <td class="col-6">
+                              {{ '010001' }}
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="col-md-1 justify-content-buttons">
+                      <div class="row justify-content-edit-button">
+                        <button class="btn btn-primary" type="button">
+                          <fa-icon icon="plus"></fa-icon>
+                        </button>
+                      </div>
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                          (click)="openModalAltaModificacion()"
+                        >
+                          <fa-icon icon="edit"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -117,7 +147,17 @@
               <b>Patrimonial</b>
             </ng-template>
             <ng-template ngbTabContent>
+              <h5 class="mt-3 ml-3 setBolder">Patrimonial</h5>
               <div class="card mt-2">
+                <div class="card-header pb-0 pt-0">
+                  <div class="flex-fill align-self-center">
+                    <label
+                      class="col-lg-3 col-form-label form-control-label setBolder pb-0"
+                    >
+                      Criterios de búsqueda:
+                    </label>
+                  </div>
+                </div>
                 <div class="card-body">
                   <div class="form">
                     <div class="form-row">
@@ -176,22 +216,13 @@
                         </div>
                       </div>
                       <div class="col-2">
-                        <div class="row">
-                          <div class="col-md-12">
+                        <div class="row justify-content-search">
+                          <div class="col-md-3">
                             <div
                               class="btn-group d-flex justify-content-center"
                             >
                               <button class="btn btn-primary">
                                 <fa-icon icon="search"></fa-icon>
-                              </button>
-                              <button
-                                class="btn btn-primary"
-                                (click)="openModalPatrimonial()"
-                              >
-                                <fa-icon icon="edit"></fa-icon>
-                              </button>
-                              <button class="btn btn-primary" type="button">
-                                <fa-icon icon="plus"></fa-icon>
                               </button>
                             </div>
                           </div>
@@ -202,24 +233,54 @@
                 </div>
               </div>
               <div class="card mt-3">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-hover table-fixed">
-                      <thead class="thead-light">
-                        <tr class="hover-primary">
-                          <th class="col-6" scope="col">Número de cliente</th>
-                          <th class="col-6" scope="col">
-                            Número de cuenta / Número de inversión
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody class="max-row-7">
-                        <tr class="hover-primary">
-                          <td class="col-6"></td>
-                          <td class="col-6"></td>
-                        </tr>
-                      </tbody>
-                    </table>
+                <div class="card-body height-card-table">
+                  <div class="row">
+                    <div class="col-md-11">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-fixed">
+                          <thead class="thead-light">
+                          <tr class="hover-primary">
+                            <th class="col-6" scope="col">Número de cliente</th>
+                            <th class="col-6" scope="col">
+                              Número de cuenta / Número de inversión
+                            </th>
+                          </tr>
+                          </thead>
+                          <tbody class="max-row-7">
+                          <tr
+                            class="cursor-pointer hover-primary"
+                          >
+                            <td class="col-6">{{ '123456' }}</td>
+                            <td class="col-6">
+                              {{ '010001' }}
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="col-md-1 justify-content-buttons">
+                      <div class="row justify-content-edit-button">
+                        <button class="btn btn-primary" type="button">
+                          <fa-icon icon="plus"></fa-icon>
+                        </button>
+                      </div>
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                          (click)="openModalPatrimonial()"
+                        >
+                          <fa-icon icon="edit"></fa-icon>
+                        </button>
+                      </div>
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                        >
+                          <fa-icon icon="trash"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -227,10 +288,20 @@
           </ngb-tab>
           <ngb-tab>
             <ng-template ngbTabTitle>
-              <b>Clientes y cuentas</b>
+              <b>Clientes y Cuentas</b>
             </ng-template>
             <ng-template ngbTabContent>
+              <h5 class="mt-3 ml-3 setBolder">Clientes y Cuentas</h5>
               <div class="card mt-2">
+                <div class="card-header pb-0 pt-0">
+                  <div class="flex-fill align-self-center">
+                    <label
+                      class="col-lg-3 col-form-label form-control-label setBolder pb-0"
+                    >
+                      Criterios de búsqueda:
+                    </label>
+                  </div>
+                </div>
                 <div class="card-body">
                   <div class="form">
                     <div class="form-row">
@@ -288,36 +359,13 @@
                       </div>
                       <div class="col-1"></div>
                       <div class="col-2">
-                        <div class="row">
-                          <div class="col-md-12">
+                        <div class="row justify-content-search">
+                          <div class="col-md-3">
                             <div
                               class="btn-group d-flex justify-content-center"
                             >
-                              <button
-                                class="btn btn-primary"
-                                id="btnSearchTiposProductoCreditos"
-                              >
+                              <button class="btn btn-primary">
                                 <fa-icon icon="search"></fa-icon>
-                              </button>
-                              <!-- Botón editar grupo-->
-                              <button
-                                class="btn btn-primary"
-                                type="button"
-                                (click)="openModalEditarCuenta()"
-                              >
-                                <fa-icon icon="edit"></fa-icon>
-                              </button>
-                              <!-- Botón agregar grupos-->
-                              <button
-                                class="btn btn-primary"
-                                id="btnSearchProspectos"
-                                (click)="openModalAltaCuenta()"
-                              >
-                                <fa-icon icon="plus"></fa-icon>
-                              </button>
-                              <!-- Botón eliminar grupo-->
-                              <button class="btn btn-primary" type="button">
-                                <fa-icon icon="trash"></fa-icon>
                               </button>
                             </div>
                           </div>
@@ -328,22 +376,58 @@
                 </div>
               </div>
               <div class="card mt-3">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-hover table-fixed">
-                      <thead class="thead-light">
-                        <tr class="hover-primary">
-                          <th class="col-6" scope="col">Número de cliente</th>
-                          <th class="col-6" scope="col">Número de cuenta</th>
-                        </tr>
-                      </thead>
-                      <tbody class="max-row-7">
-                        <tr class="hover-primary">
-                          <td class="col-6"></td>
-                          <td class="col-6"></td>
-                        </tr>
-                      </tbody>
-                    </table>
+                <div class="card-body height-card-table">
+                  <div class="row">
+                    <div class="col-md-11">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-fixed">
+                          <thead class="thead-light">
+                          <tr class="hover-primary">
+                            <th class="col-6" scope="col">Número de cliente</th>
+                            <th class="col-6" scope="col">
+                              Número de cuenta
+                            </th>
+                          </tr>
+                          </thead>
+                          <tbody class="max-row-7">
+                          <tr
+                            class="cursor-pointer hover-primary"
+                          >
+                            <td class="col-6">{{ '123456' }}</td>
+                            <td class="col-6">
+                              {{ '010001' }}
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="col-md-1 justify-content-buttons">
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                          type="button"
+                          (click)="openModalEditarCuenta()"
+                        >
+                          <fa-icon icon="plus"></fa-icon>
+                        </button>
+                      </div>
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                          (click)="openModalEditarCuenta()"
+                        >
+                          <fa-icon icon="edit"></fa-icon>
+                        </button>
+                      </div>
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                        >
+                          <fa-icon icon="trash"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -354,94 +438,91 @@
               <b>Bloqueo de Saldos</b>
             </ng-template>
             <ng-template ngbTabContent>
+              <h5 class="mt-3 ml-3 setBolder">Bloqueo de Saldos</h5>
               <div class="card mt-2">
-                <div class="card-body">
+                <div class="card-header pb-0 pt-0">
+                  <div class="flex-fill align-self-center">
+                    <label
+                      class="col-lg-3 col-form-label form-control-label setBolder pb-0"
+                    >
+                      Criterios de búsqueda:
+                    </label>
+                  </div>
+                </div>
+                <div class="card-body pl-0 pr-0">
                   <div class="form">
                     <div class="form-row">
-                      <div class="col-3">
-                        <div class="input-group">
+                      <div class="col-11 row">
+
+                        <div class="col-1 pr-0 pl-0">
                           <label
-                            class="col-lg-3 col-form-label form-control-label"
+                            class="ml-4 col-form-label form-control-label"
                           >
-                            Fecha:
+                            Número de cliente:
                           </label>
-                          <input
-                            class="form-control bg-white"
-                            id="fechaProceso"
-                            type="text"
-                            ngbDatepicker
-                            #d="ngbDatepicker"
-                            placeholder="dd/mm/aaaa"
-                            (focus)="d.toggle()"
-                            name="fechaProceso"
-                          />
-                          <div class="input-group-append">
-                            <button
-                              class="btn btn-outline-secondary calendar"
-                              (click)="d.toggle()"
-                              type="button"
-                            >
-                              <fa-icon icon="calendar-alt"></fa-icon>
-                            </button>
-                          </div>
                         </div>
-                      </div>
-                      <div class="col-3">
-                        <div class="input-group">
-                          <div class="col-4 col-md-4 col-lg-5 mt-1">
-                            <label class="mt-1">Número de cuenta:</label>
-                          </div>
+                        <div class="col-2">
                           <input
                             class="form-control"
-                            id="nombreUsuario"
-                            name="nombre"
+                            id="bloqueosNumeroCliente"
+                            name="bloqueosNumeroCliente"
+                            [(ngModel)]="bloqueosNumeroCliente"
                           />
                         </div>
-                      </div>
-                      <div class="col-4">
-                        <div class="input-group">
-                          <div class="col-4 col-md-4 col-lg-4 mt-1">
-                            <label class="mt-1">Número de bloqueos:</label>
-                          </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label
+                            class="ml-4 col-form-label form-control-label"
+                          >
+                            Nombre de cliente:
+                          </label>
+                        </div>
+                        <div class="col-2">
                           <input
                             class="form-control"
-                            id="apellidoPat"
-                            name="apellidoPat"
+                            id="bloqueosNombreCliente"
+                            name="bloqueosNombreCliente"
+                            [(ngModel)]="bloqueosNombreCliente"
+                          />
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label
+                            class="ml-4 col-form-label form-control-label"
+                          >
+                            Apellido Paterno:
+                          </label>
+                        </div>
+                        <div class="col-2">
+                          <input
+                            class="form-control"
+                            id="bloqueosApellidoPaterno"
+                            name="bloqueosApellidoPaterno"
+                            [(ngModel)]="bloqueosApellidoPaterno"
+                          />
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label
+                            class="ml-4 col-form-label form-control-label"
+                          >
+                            Apellido Materno:
+                          </label>
+                        </div>
+                        <div class="col-2">
+                          <input
+                            class="form-control"
+                            id="bloqueosApellidoMaterno"
+                            name="bloqueosApellidoMaterno"
+                            [(ngModel)]="bloqueosApellidoMaterno"
                           />
                         </div>
                       </div>
-                      <div class="col-2">
-                        <div class="row">
-                          <div class="col-md-12">
+                      <div class="col-1">
+                        <div class="row justify-content-search">
+                          <div class="col-md-6">
                             <div
                               class="btn-group d-flex justify-content-center"
                             >
-                              <!-- Botón buscar tipos de producto-->
-                              <button
-                                class="btn btn-primary"
-                                id="btnSearchTiposProductoCreditos"
-                              >
+                              <button class="btn btn-primary" (click)="searchBloqueos()">
                                 <fa-icon icon="search"></fa-icon>
-                              </button>
-                              <!-- Botón editar grupo-->
-                              <button
-                                class="btn btn-primary"
-                                type="button"
-                                (click)="openModalAltaBloqueo()"
-                              >
-                                <fa-icon icon="edit"></fa-icon>
-                              </button>
-                              <!-- Botón agregar producto-->
-                              <button
-                                class="btn btn-primary"
-                                type="button"
-                                (click)="openModalAltaBloqueo()"
-                              >
-                                <fa-icon icon="plus"></fa-icon>
-                              </button>
-                              <!-- Botón remover producto-->
-                              <button class="btn btn-primary" type="button">
-                                <fa-icon icon="trash"></fa-icon>
                               </button>
                             </div>
                           </div>
@@ -452,22 +533,64 @@
                 </div>
               </div>
               <div class="card mt-3">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-hover table-fixed">
-                      <thead class="thead-light">
-                        <tr class="hover-primary">
-                          <th class="col-6" scope="col">Número de cuenta</th>
-                          <th class="col-6" scope="col">Número de bloqueo</th>
-                        </tr>
-                      </thead>
-                      <tbody class="max-row-7">
-                        <tr class="hover-primary">
-                          <td class="col-6"></td>
-                          <td class="col-6"></td>
-                        </tr>
-                      </tbody>
-                    </table>
+                <div class="card-body height-card-table">
+                  <div class="row">
+                    <div class="col-md-11">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-fixed">
+                          <thead class="thead-light">
+                          <tr class="hover-primary">
+                            <th class="col-6" scope="col">Número de cuenta</th>
+                            <th class="col-6" scope="col">Número de bloqueo</th>
+                          </tr>
+                          </thead>
+                          <tbody class="max-row-7">
+                          <tr
+                            *ngFor="let bloqueo of listaBloqueos"
+                            class="cursor-pointer hover-primary"
+                            (click)="openModalAltaBloqueo(bloqueo)"
+                          >
+                            <td class="col-6">{{ bloqueo.idCuenta }}</td>
+                            <td class="col-6">{{ bloqueo.idBloqueo }}</td>
+                          </tr>
+                          <!--tr
+                            class="cursor-pointer hover-primary"
+                            (click)="openModalAltaBloqueo()"
+                          >
+                            <td class="col-6">{{ '123456' }}</td>
+                            <td class="col-6">
+                              {{ '010001' }}
+                            </td>
+                          </tr-->
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="col-md-1 justify-content-buttons">
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                          type="button"
+                          (click)="openModalAltaBloqueo(any)"
+                        >
+                          <fa-icon icon="plus"></fa-icon>
+                        </button>
+                      </div>
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                        >
+                          <fa-icon icon="edit"></fa-icon>
+                        </button>
+                      </div>
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                        >
+                          <fa-icon icon="trash"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -479,7 +602,17 @@
               <b>Cierre de cuentas</b>
             </ng-template>
             <ng-template ngbTabContent>
+              <h5 class="mt-3 ml-3 setBolder">Cierre de Cuentas</h5>
               <div class="card mt-2">
+                <div class="card-header pb-0 pt-0">
+                  <div class="flex-fill align-self-center">
+                    <label
+                      class="col-lg-3 col-form-label form-control-label setBolder pb-0"
+                    >
+                      Criterios de búsqueda:
+                    </label>
+                  </div>
+                </div>
                 <div class="card-body">
                   <div class="form">
                     <div class="form-row">
@@ -536,38 +669,15 @@
                         </div>
                       </div>
                       <div class="col-1"></div>
+
                       <div class="col-2">
-                        <div class="row">
-                          <div class="col-md-12">
+                        <div class="row justify-content-search">
+                          <div class="col-md-3">
                             <div
                               class="btn-group d-flex justify-content-center"
                             >
-                              <!-- Botón buscar tipos de producto-->
-                              <button
-                                class="btn btn-primary"
-                                id="btnSearchTiposProductoCreditos"
-                              >
+                              <button class="btn btn-primary">
                                 <fa-icon icon="search"></fa-icon>
-                              </button>
-                              <!-- Botón editar grupo-->
-                              <button
-                                class="btn btn-primary"
-                                type="button"
-                                (click)="openModalAltaCierre()"
-                              >
-                                <fa-icon icon="edit"></fa-icon>
-                              </button>
-                              <!-- Botón agregar producto-->
-                              <button
-                                class="btn btn-primary"
-                                type="button"
-                                (click)="openModalAltaCierre()"
-                              >
-                                <fa-icon icon="plus"></fa-icon>
-                              </button>
-                              <!-- Botón remover producto-->
-                              <button class="btn btn-primary" type="button">
-                                <fa-icon icon="trash"></fa-icon>
                               </button>
                             </div>
                           </div>
@@ -578,22 +688,55 @@
                 </div>
               </div>
               <div class="card mt-3">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-hover table-fixed">
-                      <thead class="thead-light">
-                        <tr class="hover-primary">
-                          <th class="col-6" scope="col">Número de cuenta</th>
-                          <th class="col-6" scope="col">Fecha Cierre</th>
-                        </tr>
-                      </thead>
-                      <tbody class="max-row-7">
-                        <tr class="hover-primary">
-                          <td class="col-6"></td>
-                          <td class="col-6"></td>
-                        </tr>
-                      </tbody>
-                    </table>
+                <div class="card-body height-card-table">
+                  <div class="row">
+                    <div class="col-md-11">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-fixed">
+                          <thead class="thead-light">
+                          <tr class="hover-primary">
+                            <th class="col-6" scope="col">Número de cuenta</th>
+                            <th class="col-6" scope="col">Fecha cierre</th>
+                          </tr>
+                          </thead>
+                          <tbody class="max-row-7">
+                          <tr
+                            class="cursor-pointer hover-primary"
+                          >
+                            <td class="col-6">{{ '123456' }}</td>
+                            <td class="col-6">
+                              {{ '010001' }}
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="col-md-1 justify-content-buttons">
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                          type="button"
+                          (click)="openModalAltaCierre()"
+                        >
+                          <fa-icon icon="plus"></fa-icon>
+                        </button>
+                      </div>
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                        >
+                          <fa-icon icon="edit"></fa-icon>
+                        </button>
+                      </div>
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                        >
+                          <fa-icon icon="trash"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -605,7 +748,17 @@
               <b>Clientes Duplicados IPAB</b>
             </ng-template>
             <ng-template ngbTabContent>
+              <h5 class="mt-3 ml-3 setBolder">Clientes Duplicados IPAB</h5>
               <div class="card mt-2">
+                <div class="card-header pb-0 pt-0">
+                  <div class="flex-fill align-self-center">
+                    <label
+                      class="col-lg-3 col-form-label form-control-label setBolder pb-0"
+                    >
+                      Criterios de búsqueda:
+                    </label>
+                  </div>
+                </div>
                 <div class="card-body">
                   <div class="form">
                     <div class="form-row">
@@ -650,34 +803,15 @@
                         </div>
                       </div>
                       <div class="col-3"></div>
+
                       <div class="col-2">
-                        <div class="row">
-                          <div class="col-md-12">
+                        <div class="row justify-content-search">
+                          <div class="col-md-3">
                             <div
                               class="btn-group d-flex justify-content-center"
                             >
-                              <!-- Botón buscar tipos de producto-->
-                              <button
-                                class="btn btn-primary"
-                                id="btnSearchTiposProductoCreditos"
-                              >
+                              <button class="btn btn-primary">
                                 <fa-icon icon="search"></fa-icon>
-                              </button>
-                              <!-- Botón editar grupo-->
-                              <button
-                                class="btn btn-primary"
-                                type="button"
-                                (click)="openModalAltDuplicado()"
-                              >
-                                <fa-icon icon="edit"></fa-icon>
-                              </button>
-                              <!-- Botón agregar producto-->
-                              <button
-                                class="btn btn-primary"
-                                type="button"
-                                (click)="openModalAltDuplicado()"
-                              >
-                                <fa-icon icon="plus"></fa-icon>
                               </button>
                             </div>
                           </div>
@@ -688,20 +822,47 @@
                 </div>
               </div>
               <div class="card mt-3">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-hover table-fixed">
-                      <thead class="thead-light">
-                        <tr class="hover-primary">
-                          <th class="col-12" scope="col">Cliente principal</th>
-                        </tr>
-                      </thead>
-                      <tbody class="max-row-7">
-                        <tr class="hover-primary">
-                          <td class="col-12"></td>
-                        </tr>
-                      </tbody>
-                    </table>
+                <div class="card-body height-card-table">
+                  <div class="row">
+                    <div class="col-md-11">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-fixed">
+                          <thead class="thead-light">
+                          <tr class="hover-primary">
+                            <th class="col-12" scope="col">Cliente principal</th>
+                          </tr>
+                          </thead>
+                          <tbody class="max-row-7">
+                          <tr
+                            class="cursor-pointer hover-primary"
+                          >
+                            <td class="col-6">{{ '123456' }}</td>
+                            <td class="col-6">
+                              {{ '010001' }}
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="col-md-1 justify-content-buttons">
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                          type="button"
+                          (click)="openModalAltDuplicado()"
+                        >
+                          <fa-icon icon="plus"></fa-icon>
+                        </button>
+                      </div>
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                        >
+                          <fa-icon icon="edit"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -712,7 +873,17 @@
               <b>Exceptuados IPAB</b>
             </ng-template>
             <ng-template ngbTabContent>
+              <h5 class="mt-3 ml-3 setBolder">Exceptuados IPAB</h5>
               <div class="card mt-2">
+                <div class="card-header pb-0 pt-0">
+                  <div class="flex-fill align-self-center">
+                    <label
+                      class="col-lg-3 col-form-label form-control-label setBolder pb-0"
+                    >
+                      Criterios de búsqueda:
+                    </label>
+                  </div>
+                </div>
                 <div class="card-body">
                   <div class="form">
                     <div class="form-row">
@@ -761,38 +932,13 @@
                       </div>
                       <div class="col-4"></div>
                       <div class="col-2">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="btn-group d-flex justify-content-center">
-                              <!-- Botón buscar tipos de producto-->
-                              <button
-                                class="btn btn-primary"
-                                id="btnSearchTiposProductoCreditos"
-                              >
+                        <div class="row justify-content-search">
+                          <div class="col-md-3">
+                            <div
+                              class="btn-group d-flex justify-content-center"
+                            >
+                              <button class="btn btn-primary">
                                 <fa-icon icon="search"></fa-icon>
-                              </button>
-                              <!-- Botón editar grupo-->
-                              <button
-                                class="btn btn-primary"
-                                type="button"
-                                (click)="openModalAltaExceptuados()"
-                              >
-                                <fa-icon icon="edit"></fa-icon>
-                              </button>
-                              <!-- Botón agregar-->
-                              <button
-                                class="btn btn-primary"
-                                type="button"
-                                (click)="openModalEditarExceptuados()"
-                              >
-                                <fa-icon icon="plus"></fa-icon>
-                              </button>
-                              <!-- Botón remover producto-->
-                              <button
-                                class="btn btn-primary"
-                                type="button"
-                              >
-                                <fa-icon icon="minus"></fa-icon>
                               </button>
                             </div>
                           </div>
@@ -803,22 +949,50 @@
                 </div>
               </div>
               <div class="card mt-3">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-hover table-fixed">
-                      <thead class="thead-light">
-                      <tr class="hover-primary">
-                        <th class="col-6" scope="col">Cliente</th>
-                        <th class="col-6" scope="col">Nombre Cliente</th>
-                      </tr>
-                      </thead>
-                      <tbody class="max-row-7">
-                      <tr class="hover-primary">
-                        <td class="col-6"></td>
-                        <td class="col-6"></td>
-                      </tr>
-                      </tbody>
-                    </table>
+                <div class="card-body height-card-table">
+                  <div class="row">
+                    <div class="col-md-11">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-fixed">
+                          <thead class="thead-light">
+                          <tr class="hover-primary">
+                            <th class="col-6" scope="col">Cliente</th>
+                            <th class="col-6" scope="col">Nombre cliente</th>
+                          </tr>
+                          </thead>
+                          <tbody class="max-row-7">
+                          <tr
+                            class="cursor-pointer hover-primary"
+                          >
+                            <td class="col-6">{{ '123456' }}</td>
+                            <td class="col-6">
+                              {{ '010001' }}
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="col-md-1 justify-content-buttons">
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                          type="button"
+                          (click)="openModalAltaExceptuados()"
+                        >
+                          <fa-icon icon="plus"></fa-icon>
+                        </button>
+                      </div>
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                          type="button"
+                          (click)="openModalEditarExceptuados()"
+                        >
+                          <fa-icon icon="edit"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

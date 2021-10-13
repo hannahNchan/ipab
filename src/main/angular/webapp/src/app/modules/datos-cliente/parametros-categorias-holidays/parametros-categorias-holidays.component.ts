@@ -1,18 +1,20 @@
-import { Component, OnInit } from "@angular/core";
-import { NgbModal, NgbModalOptions } from "@ng-bootstrap/ng-bootstrap";
+import { Component, OnInit } from '@angular/core';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 
-import { AltaEditarCategoriasComponent } from "./modals/alta-editar-categorias/alta-editar-categorias.component";
-import { AltaEditarParametrosComponent } from "./modals/alta-editar-parametros/alta-editar-parametros.component";
+import { ParametrosCategoriasHolidaysService } from '@services/parametros-categorias-holidays.service';
+
 import { AltaEditarHolidayComponent } from '@modules/datos-cliente/parametros-categorias-holidays/modals/alta-editar-holiday/alta-editar-holiday.component';
 
+import { AltaEditarCategoriasComponent } from './modals/alta-editar-categorias/alta-editar-categorias.component';
+import { AltaEditarParametrosComponent } from './modals/alta-editar-parametros/alta-editar-parametros.component';
 
 @Component({
-  selector: "parametros-categorias-holidays",
-  templateUrl: "./parametros-categorias-holidays.component.html",
-  styleUrls: ["./parametros-categorias-holidays.component.scss"],
+  selector: 'parametros-categorias-holidays',
+  templateUrl: './parametros-categorias-holidays.component.html',
+  styleUrls: ['./parametros-categorias-holidays.component.scss']
 })
 export class ParametrosCategoriasHolidaysComponent implements OnInit {
-  constructor(private modalService: NgbModal) {}
+  constructor(private modalService: NgbModal, private paramService: ParametrosCategoriasHolidaysService) {}
 
   ngOnInit(): void {}
 
@@ -22,10 +24,10 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
   openModalAltaParametro(): void {
     this.modalService.dismissAll();
     const ngbModalOptions: NgbModalOptions = {
-      size: "lg",
+      size: 'lg',
       centered: true,
-      backdrop: "static",
-      keyboard: false,
+      backdrop: 'static',
+      keyboard: false
     };
     this.modalService
       .open(AltaEditarParametrosComponent, ngbModalOptions)
@@ -38,10 +40,10 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
   openModalEditarParametro(): void {
     this.modalService.dismissAll();
     const ngbModalOptions: NgbModalOptions = {
-      size: "lg",
+      size: 'lg',
       centered: true,
-      backdrop: "static",
-      keyboard: false,
+      backdrop: 'static',
+      keyboard: false
     };
     this.modalService
       .open(AltaEditarParametrosComponent, ngbModalOptions)
@@ -54,10 +56,10 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
   openModalAltaCategoria(): void {
     this.modalService.dismissAll();
     const ngbModalOptions: NgbModalOptions = {
-      size: "lg",
+      size: 'lg',
       centered: true,
-      backdrop: "static",
-      keyboard: false,
+      backdrop: 'static',
+      keyboard: false
     };
     this.modalService
       .open(AltaEditarCategoriasComponent, ngbModalOptions)
@@ -70,10 +72,10 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
   openModalEditarCategoria(): void {
     this.modalService.dismissAll();
     const ngbModalOptions: NgbModalOptions = {
-      size: "lg",
+      size: 'lg',
       centered: true,
-      backdrop: "static",
-      keyboard: false,
+      backdrop: 'static',
+      keyboard: false
     };
     this.modalService
       .open(AltaEditarCategoriasComponent, ngbModalOptions)
@@ -83,17 +85,17 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
   /**
    * Abre el modal para la alta de usuario
    */
-   openModalAltaHoliday(): void {
+  openModalAltaHoliday(): void {
     this.modalService.dismissAll();
     const ngbModalOptions: NgbModalOptions = {
-      size: "lg",
+      size: 'lg',
       centered: true,
-      backdrop: "static",
-      keyboard: false,
+      backdrop: 'static',
+      keyboard: false
     };
     this.modalService
-      .open(AltaEditarHolidayComponent, ngbModalOptions)
-      .result.then();
+    .open(AltaEditarHolidayComponent, ngbModalOptions)
+    .result.then();
   }
 
   /**
@@ -102,10 +104,10 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
   openModalEditarHoliday(): void {
     this.modalService.dismissAll();
     const ngbModalOptions: NgbModalOptions = {
-      size: "lg",
+      size: 'lg',
       centered: true,
-      backdrop: "static",
-      keyboard: false,
+      backdrop: 'static',
+      keyboard: false
     };
     this.modalService
       .open(AltaEditarHolidayComponent, ngbModalOptions)
