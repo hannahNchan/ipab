@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
@@ -8,15 +8,11 @@ import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
   styleUrls: ["./alta-editar-categorias.component.scss"],
 })
 export class AltaEditarCategoriasComponent implements OnInit {
-
-  isUpdate: boolean;
+  @Input() public isUpdate: boolean;
 
   constructor(
-    private modalService: NgbModal,
     public activeModal: NgbActiveModal
   ) {}
 
-  ngOnInit() {
-    this.isUpdate = false;
-  }
+  ngOnInit() { }
 }

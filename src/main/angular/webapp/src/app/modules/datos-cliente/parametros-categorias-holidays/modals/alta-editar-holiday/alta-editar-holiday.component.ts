@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
@@ -8,7 +8,7 @@ import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
   styleUrls: ["./alta-editar-holiday.component.scss"],
 })
 export class AltaEditarHolidayComponent implements OnInit {
-  isUpdate: boolean;
+  @Input() public isUpdate: boolean;
   meses: number[];
 
   constructor(
@@ -17,7 +17,6 @@ export class AltaEditarHolidayComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.isUpdate = false;
     this.meses = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   }
 }

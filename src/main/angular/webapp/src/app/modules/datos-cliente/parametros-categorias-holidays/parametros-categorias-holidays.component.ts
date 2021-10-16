@@ -13,7 +13,7 @@ import { AltaEditarHolidayComponent } from '@modules/datos-cliente/parametros-ca
 })
 export class ParametrosCategoriasHolidaysComponent implements OnInit {
   constructor(private modalService: NgbModal) {}
-
+  isUpdate: boolean;
   ngOnInit(): void {}
 
   /**
@@ -27,9 +27,9 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
       backdrop: "static",
       keyboard: false,
     };
-    this.modalService
-      .open(AltaEditarParametrosComponent, ngbModalOptions)
-      .result.then();
+    const activeModal = this.modalService
+      .open(AltaEditarParametrosComponent, ngbModalOptions);
+    activeModal.componentInstance.isUpdate = false;
   }
 
   /**
@@ -43,9 +43,9 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
       backdrop: "static",
       keyboard: false,
     };
-    this.modalService
-      .open(AltaEditarParametrosComponent, ngbModalOptions)
-      .result.then();
+    const activeModal = this.modalService
+      .open(AltaEditarParametrosComponent, ngbModalOptions);
+    activeModal.componentInstance.isUpdate = true;
   }
 
   /**
@@ -59,9 +59,9 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
       backdrop: "static",
       keyboard: false,
     };
-    this.modalService
-      .open(AltaEditarCategoriasComponent, ngbModalOptions)
-      .result.then();
+    const activeModal = this.modalService
+      .open(AltaEditarCategoriasComponent, ngbModalOptions);
+    activeModal.componentInstance.isUpdate = false;
   }
 
   /**
@@ -75,9 +75,9 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
       backdrop: "static",
       keyboard: false,
     };
-    this.modalService
-      .open(AltaEditarCategoriasComponent, ngbModalOptions)
-      .result.then();
+    const activeModal = this.modalService
+      .open(AltaEditarCategoriasComponent, ngbModalOptions);
+    activeModal.componentInstance.isUpdate = true; 
   }
 
   /**
@@ -91,9 +91,9 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
       backdrop: "static",
       keyboard: false,
     };
-    this.modalService
-      .open(AltaEditarHolidayComponent, ngbModalOptions)
-      .result.then();
+    const activeModal = this.modalService
+      .open(AltaEditarHolidayComponent, ngbModalOptions);
+    activeModal.componentInstance.isUpdate = false; 
   }
 
   /**
@@ -107,8 +107,8 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
       backdrop: "static",
       keyboard: false,
     };
-    this.modalService
-      .open(AltaEditarHolidayComponent, ngbModalOptions)
-      .result.then();
+    const activeModal = this.modalService
+      .open(AltaEditarHolidayComponent, ngbModalOptions);
+    activeModal.componentInstance.isUpdate = true; 
   }
 }
