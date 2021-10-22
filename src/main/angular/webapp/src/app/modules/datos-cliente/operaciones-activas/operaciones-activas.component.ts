@@ -1,17 +1,18 @@
 import { Component, OnInit, AfterViewInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { ITabla4, ITabla1, ITabla2, ITabla4B } from "@interfaces/operaciones-activas.interface";
-import { OperacionesActivasService } from '@services/operaciones-activas.service';
-import { AltaModificarTabla2bModalComponent } from './modals/alta-modificar-tabla2b/alta-modificar-tabla2b.modal.component';
 import { AltaModificarCreditosVencidosComponent } from './modals/alta-modificar-creditos-vencidos/alta-modificar-creditos-vencidos.component';
-import { OperacionesActivasDataService } from '@services/operaciones-activas-data.service';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import swal from 'sweetalert2';
 import { PopUpMessage } from '@helpers/PopUpMessage';
-
 import { Observable } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
+import { OperacionesActivasService } from '@services/operaciones-activas.service';
+import { OperacionesActivasDataService } from '@services/operaciones-activas-data.service';
 import { IDate } from '@interfaces/date.interface';
+import { ITabla4, ITabla1, ITabla2, ITabla4B } from '@interfaces/operaciones-activas.interface';
+import { AltaModificarExceptuadosComponent } from '@modules/datos-cliente/operaciones-pasivas/modals/alta-modificar-exceptuados/alta-modificar-exceptuados.component';
+import { AltaModificarTabla4bModalComponent } from './modals/alta-modificar-tabla4b/alta-modificar-tabla4b.modal.component';
+import { AltaModificarTabla2bModalComponent } from './modals/alta-modificar-tabla2b/alta-modificar-tabla2b.modal.component';
 
 @Component({
   selector: "app-operaciones-activas",
@@ -23,8 +24,8 @@ export class OperacionesActivasComponent implements OnInit, AfterViewInit {
   tabla1Form: FormGroup;
   tabla4: ITabla4;
   tabla1: ITabla1;
-  listaTabla4B: ITabla4B[];
   selectedAcreditadoTabla4B: ITabla4B;
+  listaTabla4B: ITabla4B[];
   tabla2: [ITabla2];
   decimalPattern: string = "^[0-9]+[.][0-9][0-9]$";
   enteroPattern: string = "^[0-9]+$";
@@ -41,10 +42,10 @@ export class OperacionesActivasComponent implements OnInit, AfterViewInit {
   fechaInicio: IDate;
   fechaVencimiento: IDate;
 
-  constructor(private modalService: NgbModal, private operacionesActivasService: OperacionesActivasService, private _dataService: OperacionesActivasDataService,) { }
+  constructor(private modalService: NgbModal, private operacionesActivasService: OperacionesActivasService, private _dataService: OperacionesActivasDataService) { }
 
   ngOnInit(): void {
-    this.selectedAcreditadoTabla4B = this.initAcreditado();
+    this.selectedAcreditadoTabla4B = OperacionesActivasComponent.initAcreditado();
     this.clienteCreditoNoRevolvente = '';
     this.creditoCreditoNoRevolvente = '';
     this.initTabla4();
@@ -274,6 +275,17 @@ export class OperacionesActivasComponent implements OnInit, AfterViewInit {
     }
   }
 
+  openModalEditarExceptuados(): void {
+    this.modalService.dismissAll();
+    const ngbModalOptions: NgbModalOptions = {
+      centered: true,
+      backdrop: 'static',
+      size: 'lg',
+      keyboard: false
+    };
+    this.modalService.open(AltaModificarExceptuadosComponent, ngbModalOptions).result.then();
+  }
+
   search = (text$: Observable<string>) => {
     return text$.pipe(
       debounceTime(200), map(txt => txt === '' ? [] :
@@ -291,8 +303,18 @@ export class OperacionesActivasComponent implements OnInit, AfterViewInit {
    * Cambia el acreditado
    * @param acreditado
    */
-  changeAcreditado(acreditado: ITabla4B): void {
+  openModalTabla4B(acreditado: ITabla4B): void {
     this.selectedAcreditadoTabla4B = acreditado;
+    this._dataService.changeSelectedTable4b(this.selectedAcreditadoTabla4B);
+    // Dado que es una edición se da por hecho que habrá un Data$
+    this.modalService.dismissAll();
+    const ngbModalOptions: NgbModalOptions = {
+      centered: true,
+      backdrop: 'static',
+      size: 'lg',
+      keyboard: false
+    };
+    this.modalService.open(AltaModificarTabla4bModalComponent, ngbModalOptions).result.then();
     //this.fechaInicio = DateHelper.convertStringToIDate(acreditado.fechaInicio);
   }
 
@@ -381,9 +403,9 @@ export class OperacionesActivasComponent implements OnInit, AfterViewInit {
       this.operacionesActivasService.getCreditosCliente(dateParsed, this.creditoAsociado).subscribe(res => {
         if (res.header.estatus) {
           const { header, lista, tipo } = res;
-            lista.map(({ claveUnica, numeroCredito }) => {
-              this.gridCreditos.push({ claveUnica, numeroCredito })
-            });
+          lista.map(({ claveUnica, numeroCredito }) => {
+            this.gridCreditos.push({ claveUnica, numeroCredito })
+          });
         }
       });
     }
@@ -447,10 +469,11 @@ export class OperacionesActivasComponent implements OnInit, AfterViewInit {
     return true;
   }
 
+
   /**
    * Retorna un objeto para solicitudes
    */
-  private initAcreditado(): ITabla4B {
+  private static initAcreditado(): ITabla4B {
     return {
       claveUnica: '',
       nombreAcreditado: '',
@@ -485,7 +508,7 @@ export class OperacionesActivasComponent implements OnInit, AfterViewInit {
       tipoCobranza: 0,
       tipoCredito: '',
       tipoGarantia: '',
-      tipoTasa: '',
+      tipoTasa: ''
     };
   }
 }

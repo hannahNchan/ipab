@@ -1,3 +1,38 @@
 .tab-content {
   margin-top: 0 important;
 }
+
+.height-card-table {
+  height: 25rem;
+}
+
+.justify-content-search {
+  place-content: end;
+  padding-right: 2.2rem;
+}
+
+.justify-content-add-button {
+  text-align: right;
+  padding-right: 3rem;
+  padding-top: 3.5rem;
+}
+
+.justify-content-edit-button {
+  justify-content: right;
+  padding-top: 4rem;
+  padding-right: 3.6rem;
+}
+
+.setBolder {
+  font-weight: bold;
+}
+
+.padding-top-bottom {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.table-scroll {
+    overflow-y: auto;
+    max-height: 32vh;
+}

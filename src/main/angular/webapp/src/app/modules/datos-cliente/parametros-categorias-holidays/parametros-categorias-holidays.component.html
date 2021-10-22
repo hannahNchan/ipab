@@ -16,25 +16,84 @@
                 </div>
               </div>
               <div class="card-body">
-                <div class="form">
-                  <div class="form-row">
-                    <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-                      <div class="input-group">
-                        <label class="
-                            col-5 col-md-5 col-lg-5 col-form-label
-                            form-control-label
-                          ">
-                          Tipo de parametro :
-                        </label>
-                        <input class="form-control" id="tipoParametro" name="tipoParametro" />
-                      </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-                      <div class="input-group">
-                        <div class="col-4 col-md-4 col-lg-4 mt-1">
-                          <label class="mt-1">ID :</label>
+                <div class="card">
+                  <div class="card-body">
+                    <div class="form">
+                      <div class="form-row">
+                        <div class="col-4 col-md-4 col-lg-4">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <label for="codigo" class="input-group-text">
+                                Tipo de Parámetro:
+                              </label>
+                            </div>
+                            <input
+                              class="form-control"
+                              id="tipoParametro"
+                              name="tipoParametro"
+                              [(ngModel)]="tipoParametro"
+                            />
+                          </div>
                         </div>
-                        <input class="form-control" id="id" name="id" />
+                        <div class="col-4 col-md-4 col-lg-4">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <label for="codigo" class="input-group-text">
+                                Id:
+                              </label>
+                            </div>
+                            <input
+                              class="form-control"
+                              id="idParametro"
+                              name="idParametro"
+                              [(ngModel)]="idParametro"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-1 col-md-1 col-lg-1"></div>
+                        <div class="col-3 col-md-4 col-lg-2">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div
+                                class="btn-group d-flex justify-content-center"
+                              >
+                                <button
+                                  class="btn btn-primary"
+                                  id="btnSearchTiposProductoCreditos"
+                                  (click)="onClickSearchParametros()"
+                                >
+                                  <fa-icon icon="search"></fa-icon>
+                                </button>
+                                <!-- Botón agregar grupos-->
+                                <button
+                                  class="btn btn-primary"
+                                  id="btnSearchProspectos"
+                                  (click)="openModalAltaParametro()"
+                                >
+                                  <fa-icon icon="plus"></fa-icon>
+                                </button>
+                                <!-- Botón editar grupo-->
+                                <button
+                                  class="btn btn-primary"
+                                  type="button"
+                                  [disabled]="!isActiveBtnEditarParametro"
+                                  (click)="openModalEditarParametro()"
+                                >
+                                  <fa-icon icon="edit"></fa-icon>
+                                </button>
+                                <!-- Botón eliminar grupo-->
+                                <button
+                                  class="btn btn-primary"
+                                  type="button"
+                                  [disabled]="!isActiveBtnEliminarParametro"
+                                  (click)="onDeleteParametro()">
+
+                                  <fa-icon icon="trash"></fa-icon>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="col-12 col-md-12 col-lg-1 col-xl-4 mt-1"></div>
@@ -124,7 +183,65 @@
                           <label class="mt-1">Categoria :</label>
                         </div>
                         <div class="col-4 col-md-4 col-lg-4">
-                          <input class="form-control" id="categoria" name="categoria" />
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <label for="categoria" class="input-group-text">
+                                Categoría:
+                              </label>
+                            </div>
+                            <input
+                              class="form-control"
+                              id="categoria"
+                              name="categoria"
+                              [(ngModel)]="categoria"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-3 col-md-3 col-lg-3"></div>
+                        <div class="col-3 col-md-4 col-lg-2">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div
+                                class="btn-group d-flex justify-content-center"
+                              >
+                                <button
+                                  class="btn btn-primary"
+                                  id="btnSearchTiposProductoCreditos"
+                                  (click)="onClickSearchCategorias()"
+                                >
+                                  <fa-icon icon="search"></fa-icon>
+                                </button>
+                                <!-- Botón agregar grupos-->
+                                <button
+                                  class="btn btn-primary"
+                                  id="btnAltaCategoria"
+                                  (click)="openModalAltaCategoria()"
+                                >
+                                  <fa-icon icon="plus"></fa-icon>
+                                </button>
+                                <!-- Botón editar grupo-->
+                                <button
+                                  class="btn btn-primary"
+                                  type="button"
+                                  id="btnEditarCategoria"
+                                  [disabled]="!isActiveBtnEditarCategoria"
+                                  (click)="openModalEditarCategoria()"
+                                >
+                                  <fa-icon icon="edit"></fa-icon>
+                                </button>
+                                <!-- Botón eliminar grupo-->
+                                <button
+                                  class="btn btn-primary"
+                                  type="button"
+                                  id="btnEliminarCategoria"
+                                  [disabled]="!isActiveBtnEliminarCategoria"
+                                  (click)="onDeleteCategorias()"
+                                >
+                                  <fa-icon icon="trash"></fa-icon>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -208,9 +325,64 @@
                           <label class="mt-1">Año :</label>
                         </div>
                         <div class="col-4 col-md-4 col-lg-4">
-                          <select class="form-control form-control-sm">
-                            <option>2021</option>
-                          </select>
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <label for="anio" class="input-group-text">
+                                Año:
+                              </label>
+                            </div>
+                            <div class="col-sm-8 col-md-8">
+                              <select class="form-control col-9 pr-0" id="anio" name="anio" [(ngModel)]="anio">
+                                <option *ngFor="let anio of anios" [ngValue]="anio">{{ anio }}</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-3 col-md-3 col-lg-3"></div>
+                        <div class="col-3 col-md-4 col-lg-2">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div
+                                class="btn-group d-flex justify-content-center"
+                              >
+                                <button
+                                  class="btn btn-primary"
+                                  id="btnSearchCalendario"
+                                  type="button"
+                                  (click)="onClickSearchCalendario()"
+                                >
+                                  <fa-icon icon="search"></fa-icon>
+                                </button>
+                                <!-- Botón agregar grupos-->
+                                <button
+                                  class="btn btn-primary"
+                                  type="button"
+                                  id="btnSearchCalendario"
+                                  (click)="openModalAltaHoliday()"
+                                >
+                                  <fa-icon icon="plus"></fa-icon>
+                                </button>
+                                <!-- Botón editar grupo-->
+                                <button
+                                  class="btn btn-primary"
+                                  type="button"
+                                  [disabled]="!isActiveBtnEditarCalendario"
+                                  (click)="openModalEditarHoliday()"
+                                >
+                                  <fa-icon icon="edit"></fa-icon>
+                                </button>
+                                <!-- Botón eliminar grupo-->
+                                <button
+                                  class="btn btn-primary"
+                                  type="button"
+                                  [disabled]="!isActiveBtnEliminarCalendario"
+                                  (click)="onDeleteCalendario()"
+                                >
+                                  <fa-icon icon="trash"></fa-icon>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>

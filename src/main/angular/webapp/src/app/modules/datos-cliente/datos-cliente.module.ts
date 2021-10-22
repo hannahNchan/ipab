@@ -16,9 +16,11 @@ import { AltaEditarCuentaComponent } from '@modules/datos-cliente/operaciones-pa
 import { AltaModificarBloqueoModalComponent } from '@modules/datos-cliente/operaciones-pasivas/modals/alta-modificar-bloqueo/alta-modificar-bloqueo.modal.component';
 import { AltaModificarDuplicadoModalComponent } from '@modules/datos-cliente/operaciones-pasivas/modals/alta-modificar-duplicado/alta-modificar-duplicado.modal.component';
 import { AltaModificarCierreModalComponent } from '@modules/datos-cliente/operaciones-pasivas/modals/alta-modificar-cierre/alta-modificar-cierre.modal.component';
+import { AltaModificarTabla4bModalComponent } from '@modules/datos-cliente/operaciones-activas/modals/alta-modificar-tabla4b/alta-modificar-tabla4b.modal.component';
 import { AltaModificarTabla2bModalComponent } from '@modules/datos-cliente/operaciones-activas/modals/alta-modificar-tabla2b/alta-modificar-tabla2b.modal.component';
+
 import { AltaModificarExceptuadosComponent } from './operaciones-pasivas/modals/alta-modificar-exceptuados/alta-modificar-exceptuados.component';
-import { AltaModificacionComponent } from './operaciones-pasivas/modals/alta-modificacion/alta-modificacion.component';
+import { AltaModificacionClienteComponent } from './operaciones-pasivas/modals/alta-modificacion-cliente/alta-modificacion-cliente.component';
 import { EdicionPatrimonialComponent } from './operaciones-pasivas/modals/edicion-patrimonial/edicion-patrimonial.component';
 import { AltaModificarCreditosVencidosComponent } from './operaciones-activas/modals/alta-modificar-creditos-vencidos/alta-modificar-creditos-vencidos.component';
 
@@ -38,7 +40,7 @@ import { AltaModificarCreditosVencidosComponent } from './operaciones-activas/mo
     AltaEditarParametrosComponent,
     AltaEditarHolidayComponent,
     OperacionesPasivasComponent,
-    AltaModificacionComponent,
+    AltaModificacionClienteComponent,
     EdicionPatrimonialComponent,
     AltaModificarBloqueoModalComponent,
     AltaModificarDuplicadoModalComponent,
@@ -46,10 +48,11 @@ import { AltaModificarCreditosVencidosComponent } from './operaciones-activas/mo
     AltaModificarCierreModalComponent,
     AltaModificarExceptuadosComponent,
     AltaModificarTabla2bModalComponent,
+    AltaModificarTabla4bModalComponent,
     AltaModificarCreditosVencidosComponent
   ],
   entryComponents: [
-    AltaModificacionComponent,
+    AltaModificacionClienteComponent,
     EdicionPatrimonialComponent,
     AltaModificarBloqueoModalComponent,
     AltaModificarDuplicadoModalComponent,
@@ -60,8 +63,9 @@ import { AltaModificarCreditosVencidosComponent } from './operaciones-activas/mo
     AltaModificarCierreModalComponent,
     AltaModificarExceptuadosComponent,
     AltaModificarTabla2bModalComponent,
+    AltaModificarTabla4bModalComponent,
     AltaModificarCreditosVencidosComponent
-  ],
+  ]
 })
 export class DatosClienteModule {
 }

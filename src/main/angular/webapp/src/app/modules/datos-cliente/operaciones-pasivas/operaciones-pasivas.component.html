@@ -19,68 +19,90 @@
               <b>Clientes</b>
             </ng-template>
             <ng-template ngbTabContent>
+              <h5 class="mt-3 ml-3 setBolder">Clientes</h5>
               <div class="card mt-2">
-                <div class="card-body">
+                <div class="card-header pb-0 pt-0">
+                  <div class="flex-fill align-self-center">
+                    <label
+                      class="
+                        col-lg-3 col-form-label
+                        form-control-label
+                        setBolder
+                        pb-0
+                      "
+                    >
+                      Criterios de búsqueda:
+                    </label>
+                  </div>
+                </div>
+                <div class="card-body pl-0 pr-0">
                   <div class="form">
                     <div class="form-row">
-                      <div class="col-3">
-                        <div class="input-group">
-                          <label
-                            class="col-lg-3 col-form-label form-control-label"
-                          >
-                            Fecha:
+                      <div class="col-11 row">
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Número de Cliente:
                           </label>
-                          <input
-                            class="form-control bg-white"
-                            id="fechaProceso"
-                            type="text"
-                            ngbDatepicker
-                            #d="ngbDatepicker"
-                            placeholder="dd/mm/aaaa"
-                            (focus)="d.toggle()"
-                            name="fechaProceso"
-                          />
-                          <div class="input-group-append">
-                            <button
-                              class="btn btn-outline-secondary calendar"
-                              (click)="d.toggle()"
-                              type="button"
-                            >
-                              <fa-icon icon="calendar-alt"></fa-icon>
-                            </button>
-                          </div>
                         </div>
-                      </div>
-                      <div class="col-3">
-                        <div class="input-group">
-                          <div class="col-4 col-md-4 col-lg-2 mt-1">
-                            <label class="mt-1"> RFC: </label>
-                          </div>
+                        <div class="col-2 mt-3">
                           <input
                             class="form-control"
-                            id="nombreUsuario"
-                            name="nombre"
+                            id="numeroCliente"
+                            name="numeroCliente"
+                            [(ngModel)]="numeroCliente"
+                          />
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Nombre o Razón social:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <input
+                            class="form-control"
+                            id="nombreCliente"
+                            name="nombreCliente"
+                            [(ngModel)]="nombreCliente"
+                          />
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Apellido Paterno:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <input
+                            class="form-control"
+                            id="apellidoPaterno"
+                            name="apellidoPaterno"
+                            [(ngModel)]="apellidoPaterno"
+                          />
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Apellido Materno:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <input
+                            class="form-control"
+                            id="apellidoMaterno"
+                            name="apellidoMaterno"
+                            [(ngModel)]="apellidoMaterno"
                           />
                         </div>
                       </div>
-                      <div class="col-4"></div>
-                      <div class="col-2">
-                        <div class="row">
-                          <div class="col-md-12">
+                      <div class="col-1 mt-3">
+                        <div class="row justify-content-search">
+                          <div class="col-md-6">
                             <div
                               class="btn-group d-flex justify-content-center"
                             >
-                              <button class="btn btn-primary">
-                                <fa-icon icon="search"></fa-icon>
-                              </button>
                               <button
                                 class="btn btn-primary"
-                                (click)="openModalAltaModificacion()"
+                                (click)="searchClientes()"
                               >
-                                <fa-icon icon="edit"></fa-icon>
-                              </button>
-                              <button class="btn btn-primary" type="button">
-                                <fa-icon icon="plus"></fa-icon>
+                                <fa-icon icon="search"></fa-icon>
                               </button>
                             </div>
                           </div>
@@ -91,22 +113,70 @@
                 </div>
               </div>
               <div class="card mt-3">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-hover table-fixed">
-                      <thead class="thead-light">
-                        <tr class="hover-primary">
-                          <th class="col-6" scope="col">Número de cliente</th>
-                          <th class="col-6" scope="col">Nombre de cliente</th>
-                        </tr>
-                      </thead>
-                      <tbody class="max-row-7">
-                        <tr class="hover-primary">
-                          <td class="col-6"></td>
-                          <td class="col-6"></td>
-                        </tr>
-                      </tbody>
-                    </table>
+                <div class="card-body height-card-table">
+                  <div class="row">
+                    <div class="col-md-11">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-fixed">
+                          <thead class="thead-light">
+                            <tr class="hover-primary">
+                              <th class="col-3" scope="col">
+                                Número de Cliente
+                              </th>
+                              <th class="col-3" scope="col">Nombre Cliente</th>
+                              <th class="col-3" scope="col">
+                                Apellido Paterno
+                              </th>
+                              <th class="col-3" scope="col">
+                                Apellido Materno
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody class="max-row-7 table-scroll">
+                            <tr
+                              *ngFor="
+                                let cliente of listaClientes;
+                                let indexOfelement = index
+                              "
+                              class="cursor-pointer hover-primary"
+                              (click)="selectClient(indexOfelement)"
+                              [ngClass]="{
+                                'table-active':
+                                  selectedCliente === indexOfelement
+                              }"
+                            >
+                              <td class="col-3">{{ cliente.idCliente }}</td>
+                              <td class="col-3">{{ cliente.nombreCliente }}</td>
+                              <td class="col-3">
+                                {{ cliente.apellidoPaterno }}
+                              </td>
+                              <td class="col-3">
+                                {{ cliente.apellidoMaterno }}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="col-md-1 justify-content-buttons">
+                      <div
+                        class="row justify-content-edit-button"
+                        style="display: none"
+                      >
+                        <button class="btn btn-primary" type="button">
+                          <fa-icon icon="plus"></fa-icon>
+                        </button>
+                      </div>
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                          [disabled]="selectedCliente == null"
+                          (click)="openModalCliente('edit')"
+                        >
+                          <fa-icon icon="edit"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -117,81 +187,90 @@
               <b>Patrimonial</b>
             </ng-template>
             <ng-template ngbTabContent>
+              <h5 class="mt-3 ml-3 setBolder">Patrimonial</h5>
               <div class="card mt-2">
-                <div class="card-body">
+                <div class="card-header pb-0 pt-0">
+                  <div class="flex-fill align-self-center">
+                    <label
+                      class="
+                        col-lg-3 col-form-label
+                        form-control-label
+                        setBolder
+                        pb-0
+                      "
+                    >
+                      Criterios de búsqueda:
+                    </label>
+                  </div>
+                </div>
+                <div class="card-body pl-0 pr-0">
                   <div class="form">
                     <div class="form-row">
-                      <div class="col-3">
-                        <div class="input-group">
-                          <label
-                            class="col-lg-3 col-form-label form-control-label"
-                          >
-                            Fecha:
+                      <div class="col-11 row">
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Número de Cliente:
                           </label>
-                          <input
-                            class="form-control bg-white"
-                            id="fechaProceso"
-                            type="text"
-                            ngbDatepicker
-                            #d="ngbDatepicker"
-                            placeholder="dd/mm/aaaa"
-                            (focus)="d.toggle()"
-                            name="fechaProceso"
-                          />
-                          <div class="input-group-append">
-                            <button
-                              class="btn btn-outline-secondary calendar"
-                              (click)="d.toggle()"
-                              type="button"
-                            >
-                              <fa-icon icon="calendar-alt"></fa-icon>
-                            </button>
-                          </div>
                         </div>
-                      </div>
-                      <div class="col-3">
-                        <div class="input-group">
-                          <div class="col-4 col-md-4 col-lg-5 mt-1">
-                            <label class="mt-1">Número de cliente:</label>
-                          </div>
+                        <div class="col-2 mt-3">
                           <input
                             class="form-control"
-                            id="nombreUsuario"
-                            name="nombre"
+                            id="patrimonialNumeroCliente"
+                            name="patrimonialNumeroCliente"
+                            [(ngModel)]="patrimonialNumeroCliente"
                           />
                         </div>
-                      </div>
-                      <div class="col-4">
-                        <div class="input-group">
-                          <div class="col-4 col-md-4 col-lg-7 mt-1">
-                            <label class="mt-1"
-                              >Número de cuenta/Número de inversión:</label
-                            >
-                          </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Nombre o Razón social:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
                           <input
                             class="form-control"
-                            id="apellidoPat"
-                            name="apellidoPat"
+                            id="patrimonialNombreCliente"
+                            name="patrimonialNombreCliente"
+                            [(ngModel)]="patrimonialNombreCliente"
+                          />
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Apellido Paterno:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <input
+                            class="form-control"
+                            id="patrimonialApellidoPaterno"
+                            name="patrimonialApellidoPaterno"
+                            [(ngModel)]="patrimonialApellidoPaterno"
+                          />
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Apellido Materno:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <input
+                            class="form-control"
+                            id="patrimonialApellidoMaterno"
+                            name="patrimonialApellidoMaterno"
+                            [(ngModel)]="patrimonialApellidoMaterno"
                           />
                         </div>
                       </div>
-                      <div class="col-2">
-                        <div class="row">
-                          <div class="col-md-12">
+                      <div class="col-1 mt-3">
+                        <div class="row justify-content-search">
+                          <div class="col-md-6">
                             <div
                               class="btn-group d-flex justify-content-center"
                             >
-                              <button class="btn btn-primary">
-                                <fa-icon icon="search"></fa-icon>
-                              </button>
                               <button
                                 class="btn btn-primary"
-                                (click)="openModalPatrimonial()"
+                                (click)="searchPatrimoniales()"
                               >
-                                <fa-icon icon="edit"></fa-icon>
-                              </button>
-                              <button class="btn btn-primary" type="button">
-                                <fa-icon icon="plus"></fa-icon>
+                                <fa-icon icon="search"></fa-icon>
                               </button>
                             </div>
                           </div>
@@ -202,24 +281,95 @@
                 </div>
               </div>
               <div class="card mt-3">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-hover table-fixed">
-                      <thead class="thead-light">
-                        <tr class="hover-primary">
-                          <th class="col-6" scope="col">Número de cliente</th>
-                          <th class="col-6" scope="col">
-                            Número de cuenta / Número de inversión
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody class="max-row-7">
-                        <tr class="hover-primary">
-                          <td class="col-6"></td>
-                          <td class="col-6"></td>
-                        </tr>
-                      </tbody>
-                    </table>
+                <div class="card-body height-card-table">
+                  <div class="row">
+                    <div class="col-md-11">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-fixed">
+                          <thead class="thead-light">
+                            <tr class="hover-primary">
+                              <th class="col-2" scope="col">
+                                Número de Cliente
+                              </th>
+                              <th class="col-2" scope="col">
+                                Número de Cuenta
+                              </th>
+                              <th class="col-2" scope="col">
+                                Número de Inversión
+                              </th>
+                              <th class="col-2" scope="col">Nombre Cliente</th>
+                              <th class="col-2" scope="col">
+                                Apellido Paterno
+                              </th>
+                              <th class="col-2" scope="col">
+                                Apellido Materno
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody class="max-row-7 table-scroll">
+                            <tr
+                              *ngFor="
+                                let patrimonial of listaPatrimonial;
+                                let indexOfelement = index
+                              "
+                              class="cursor-pointer hover-primary"
+                              (click)="selectPatrimonial(indexOfelement)"
+                              [ngClass]="{
+                                'table-active':
+                                  selectedPatrimonial === indexOfelement
+                              }"
+                            >
+                              <td class="col-2">
+                                {{ patrimonial.numeroCliente }}
+                              </td>
+                              <td class="col-2">
+                                {{ patrimonial.numeroCuenta }}
+                              </td>
+                              <td class="col-2">
+                                {{ patrimonial.numeroInversion }}
+                              </td>
+                              <td class="col-2">
+                                {{ patrimonial.nombre }}
+                              </td>
+                              <td class="col-2">
+                                {{ patrimonial.apellidoPat }}
+                              </td>
+                              <td class="col-2">
+                                {{ patrimonial.apellidoMat }}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="col-md-1 justify-content-buttons">
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                          type="button"
+                          (click)="openModalPatrimonial('new')"
+                        >
+                          <fa-icon icon="plus"></fa-icon>
+                        </button>
+                      </div>
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                          (click)="openModalPatrimonial('edit')"
+                          [disabled]="selectedPatrimonial == null"
+                        >
+                          <fa-icon icon="edit"></fa-icon>
+                        </button>
+                      </div>
+                      <div
+                        class="row justify-content-edit-button"
+                        style="display: none"
+                      >
+                        <button class="btn btn-primary">
+                          <fa-icon icon="trash"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -227,97 +377,90 @@
           </ngb-tab>
           <ngb-tab>
             <ng-template ngbTabTitle>
-              <b>Clientes y cuentas</b>
+              <b>Clientes y Cuentas</b>
             </ng-template>
             <ng-template ngbTabContent>
+              <h5 class="mt-3 ml-3 setBolder">Clientes y Cuentas</h5>
               <div class="card mt-2">
-                <div class="card-body">
+                <div class="card-header pb-0 pt-0">
+                  <div class="flex-fill align-self-center">
+                    <label
+                      class="
+                        col-lg-3 col-form-label
+                        form-control-label
+                        setBolder
+                        pb-0
+                      "
+                    >
+                      Criterios de búsqueda:
+                    </label>
+                  </div>
+                </div>
+                <div class="card-body pl-0 pr-0">
                   <div class="form">
                     <div class="form-row">
-                      <div class="col-3">
-                        <div class="input-group">
-                          <label
-                            class="col-lg-3 col-form-label form-control-label"
-                          >
-                            Fecha:
+                      <div class="col-11 row">
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Número de Cliente:
                           </label>
-                          <input
-                            class="form-control bg-white"
-                            id="fechaProceso"
-                            type="text"
-                            ngbDatepicker
-                            #d="ngbDatepicker"
-                            placeholder="dd/mm/aaaa"
-                            (focus)="d.toggle()"
-                            name="fechaProceso"
-                          />
-                          <div class="input-group-append">
-                            <button
-                              class="btn btn-outline-secondary calendar"
-                              (click)="d.toggle()"
-                              type="button"
-                            >
-                              <fa-icon icon="calendar-alt"></fa-icon>
-                            </button>
-                          </div>
                         </div>
-                      </div>
-                      <div class="col-3">
-                        <div class="input-group">
-                          <div class="col-4 col-md-4 col-lg-4 mt-1">
-                            <label class="mt-1">Cliente:</label>
-                          </div>
+                        <div class="col-2 mt-3">
                           <input
                             class="form-control"
-                            id="nombreUsuario"
-                            name="nombre"
+                            id="patrimonialNumeroCliente"
+                            name="patrimonialNumeroCliente"
+                            [(ngModel)]="patrimonialNumeroCliente"
                           />
                         </div>
-                      </div>
-                      <div class="col-3">
-                        <div class="input-group">
-                          <div class="col-4 col-md-4 col-lg-4 mt-1">
-                            <label class="mt-1">Cuenta:</label>
-                          </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Nombre o Razón social:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
                           <input
                             class="form-control"
-                            id="apellidoPat"
-                            name="apellidoPat"
+                            id="patrimonialNombreCliente"
+                            name="patrimonialNombreCliente"
+                            [(ngModel)]="patrimonialNombreCliente"
+                          />
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Apellido Paterno:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <input
+                            class="form-control"
+                            id="patrimonialApellidoPaterno"
+                            name="patrimonialApellidoPaterno"
+                            [(ngModel)]="patrimonialApellidoPaterno"
+                          />
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Apellido Materno:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <input
+                            class="form-control"
+                            id="patrimonialApellidoMaterno"
+                            name="patrimonialApellidoMaterno"
+                            [(ngModel)]="patrimonialApellidoMaterno"
                           />
                         </div>
                       </div>
-                      <div class="col-1"></div>
-                      <div class="col-2">
-                        <div class="row">
-                          <div class="col-md-12">
+                      <div class="col-1 mt-3">
+                        <div class="row justify-content-search">
+                          <div class="col-md-6">
                             <div
                               class="btn-group d-flex justify-content-center"
                             >
-                              <button
-                                class="btn btn-primary"
-                                id="btnSearchTiposProductoCreditos"
-                              >
+                              <button class="btn btn-primary">
                                 <fa-icon icon="search"></fa-icon>
-                              </button>
-                              <!-- Botón editar grupo-->
-                              <button
-                                class="btn btn-primary"
-                                type="button"
-                                (click)="openModalEditarCuenta()"
-                              >
-                                <fa-icon icon="edit"></fa-icon>
-                              </button>
-                              <!-- Botón agregar grupos-->
-                              <button
-                                class="btn btn-primary"
-                                id="btnSearchProspectos"
-                                (click)="openModalAltaCuenta()"
-                              >
-                                <fa-icon icon="plus"></fa-icon>
-                              </button>
-                              <!-- Botón eliminar grupo-->
-                              <button class="btn btn-primary" type="button">
-                                <fa-icon icon="trash"></fa-icon>
                               </button>
                             </div>
                           </div>
@@ -328,22 +471,58 @@
                 </div>
               </div>
               <div class="card mt-3">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-hover table-fixed">
-                      <thead class="thead-light">
-                        <tr class="hover-primary">
-                          <th class="col-6" scope="col">Número de cliente</th>
-                          <th class="col-6" scope="col">Número de cuenta</th>
-                        </tr>
-                      </thead>
-                      <tbody class="max-row-7">
-                        <tr class="hover-primary">
-                          <td class="col-6"></td>
-                          <td class="col-6"></td>
-                        </tr>
-                      </tbody>
-                    </table>
+                <div class="card-body height-card-table">
+                  <div class="row">
+                    <div class="col-md-11">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-fixed">
+                          <thead class="thead-light">
+                            <tr class="hover-primary">
+                              <th class="col-2" scope="col">
+                                Número de Cliente
+                              </th>
+                              <th class="col-2" scope="col">
+                                Número de Cuenta
+                              </th>
+                              <th class="col-3" scope="col">Nombre Cliente</th>
+                              <th class="col-2" scope="col">
+                                Apellido Paterno
+                              </th>
+                              <th class="col-3" scope="col">
+                                Apellido Materno
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody class="max-row-7 table-scroll">
+                            <tr class="cursor-pointer hover-primary"></tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="col-md-1 justify-content-buttons">
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                          type="button"
+                          (click)="openModalEditarCuenta()"
+                        >
+                          <fa-icon icon="plus"></fa-icon>
+                        </button>
+                      </div>
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                          (click)="openModalEditarCuenta()"
+                        >
+                          <fa-icon icon="edit"></fa-icon>
+                        </button>
+                      </div>
+                      <div class="row justify-content-edit-button">
+                        <button class="btn btn-primary">
+                          <fa-icon icon="trash"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -354,94 +533,90 @@
               <b>Bloqueo de Saldos</b>
             </ng-template>
             <ng-template ngbTabContent>
+              <h5 class="mt-3 ml-3 setBolder">Bloqueo de Saldos</h5>
               <div class="card mt-2">
-                <div class="card-body">
+                <div class="card-header pb-0 pt-0">
+                  <div class="flex-fill align-self-center">
+                    <label
+                      class="
+                        col-lg-3 col-form-label
+                        form-control-label
+                        setBolder
+                        pb-0
+                      "
+                    >
+                      Criterios de búsqueda:
+                    </label>
+                  </div>
+                </div>
+                <div class="card-body pl-0 pr-0">
                   <div class="form">
                     <div class="form-row">
-                      <div class="col-3">
-                        <div class="input-group">
-                          <label
-                            class="col-lg-3 col-form-label form-control-label"
-                          >
-                            Fecha:
+                      <div class="col-11 row">
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Número de Cliente:
                           </label>
-                          <input
-                            class="form-control bg-white"
-                            id="fechaProceso"
-                            type="text"
-                            ngbDatepicker
-                            #d="ngbDatepicker"
-                            placeholder="dd/mm/aaaa"
-                            (focus)="d.toggle()"
-                            name="fechaProceso"
-                          />
-                          <div class="input-group-append">
-                            <button
-                              class="btn btn-outline-secondary calendar"
-                              (click)="d.toggle()"
-                              type="button"
-                            >
-                              <fa-icon icon="calendar-alt"></fa-icon>
-                            </button>
-                          </div>
                         </div>
-                      </div>
-                      <div class="col-3">
-                        <div class="input-group">
-                          <div class="col-4 col-md-4 col-lg-5 mt-1">
-                            <label class="mt-1">Número de cuenta:</label>
-                          </div>
+                        <div class="col-2 mt-3">
                           <input
                             class="form-control"
-                            id="nombreUsuario"
-                            name="nombre"
+                            id="bloqueosNumeroCliente"
+                            name="bloqueosNumeroCliente"
+                            [(ngModel)]="bloqueosNumeroCliente"
                           />
                         </div>
-                      </div>
-                      <div class="col-4">
-                        <div class="input-group">
-                          <div class="col-4 col-md-4 col-lg-4 mt-1">
-                            <label class="mt-1">Número de bloqueos:</label>
-                          </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Nombre o Razón social:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
                           <input
                             class="form-control"
-                            id="apellidoPat"
-                            name="apellidoPat"
+                            id="bloqueosNombreCliente"
+                            name="bloqueosNombreCliente"
+                            [(ngModel)]="bloqueosNombreCliente"
+                          />
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Apellido Paterno:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <input
+                            class="form-control"
+                            id="bloqueosApellidoPaterno"
+                            name="bloqueosApellidoPaterno"
+                            [(ngModel)]="bloqueosApellidoPaterno"
+                          />
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Apellido Materno:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <input
+                            class="form-control"
+                            id="bloqueosApellidoMaterno"
+                            name="bloqueosApellidoMaterno"
+                            [(ngModel)]="bloqueosApellidoMaterno"
                           />
                         </div>
                       </div>
-                      <div class="col-2">
-                        <div class="row">
-                          <div class="col-md-12">
+                      <div class="col-1 mt-3">
+                        <div class="row justify-content-search">
+                          <div class="col-md-6">
                             <div
                               class="btn-group d-flex justify-content-center"
                             >
-                              <!-- Botón buscar tipos de producto-->
                               <button
                                 class="btn btn-primary"
-                                id="btnSearchTiposProductoCreditos"
+                                (click)="searchBloqueos()"
                               >
                                 <fa-icon icon="search"></fa-icon>
-                              </button>
-                              <!-- Botón editar grupo-->
-                              <button
-                                class="btn btn-primary"
-                                type="button"
-                                (click)="openModalAltaBloqueo()"
-                              >
-                                <fa-icon icon="edit"></fa-icon>
-                              </button>
-                              <!-- Botón agregar producto-->
-                              <button
-                                class="btn btn-primary"
-                                type="button"
-                                (click)="openModalAltaBloqueo()"
-                              >
-                                <fa-icon icon="plus"></fa-icon>
-                              </button>
-                              <!-- Botón remover producto-->
-                              <button class="btn btn-primary" type="button">
-                                <fa-icon icon="trash"></fa-icon>
                               </button>
                             </div>
                           </div>
@@ -452,22 +627,79 @@
                 </div>
               </div>
               <div class="card mt-3">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-hover table-fixed">
-                      <thead class="thead-light">
-                        <tr class="hover-primary">
-                          <th class="col-6" scope="col">Número de cuenta</th>
-                          <th class="col-6" scope="col">Número de bloqueo</th>
-                        </tr>
-                      </thead>
-                      <tbody class="max-row-7">
-                        <tr class="hover-primary">
-                          <td class="col-6"></td>
-                          <td class="col-6"></td>
-                        </tr>
-                      </tbody>
-                    </table>
+                <div class="card-body height-card-table">
+                  <div class="row">
+                    <div class="col-md-11">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-fixed">
+                          <thead class="thead-light">
+                            <tr class="hover-primary">
+                              <th class="col-2" scope="col">
+                                Número de Cliente
+                              </th>
+                              <th class="col-2" scope="col">
+                                Número de Bloqueo
+                              </th>
+                              <th class="col-3" scope="col">Nombre Cliente</th>
+                              <th class="col-2" scope="col">
+                                Apellido Paterno
+                              </th>
+                              <th class="col-3" scope="col">
+                                Apellido Materno
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody class="max-row-7 table-scroll">
+                            <tr
+                              *ngFor="
+                                let bloqueo of listaBloqueos;
+                                let indexOfelement = index
+                              "
+                              class="cursor-pointer hover-primary"
+                              (click)="selectBloqueo(indexOfelement)"
+                              [ngClass]="{
+                                'table-active':
+                                  selectedBloqueo === indexOfelement
+                              }"
+                            >
+                              <td class="col-2">{{ bloqueo.idCuenta }}</td>
+                              <td class="col-2">{{ bloqueo.idBloqueo }}</td>
+                              <td class="col-3">{{ bloqueo.nombre }}</td>
+                              <td class="col-2">{{ bloqueo.apellidoPat }}</td>
+                              <td class="col-3">{{ bloqueo.apellidoMat }}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="col-md-1 justify-content-buttons">
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                          type="button"
+                          (click)="openModalAltaBloqueo(any)"
+                        >
+                          <fa-icon icon="plus"></fa-icon>
+                        </button>
+                      </div>
+                      <div
+                        class="row justify-content-edit-button"
+                        style="display: none"
+                      >
+                        <button class="btn btn-primary">
+                          <fa-icon icon="edit"></fa-icon>
+                        </button>
+                      </div>
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                          (click)="onClickEliminarBloqueo()"
+                          [disabled]="selectedBloqueo == null"
+                        >
+                          <fa-icon icon="trash"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -479,95 +711,90 @@
               <b>Cierre de cuentas</b>
             </ng-template>
             <ng-template ngbTabContent>
+              <h5 class="mt-3 ml-3 setBolder">Cierre de Cuentas</h5>
               <div class="card mt-2">
-                <div class="card-body">
+                <div class="card-header pb-0 pt-0">
+                  <div class="flex-fill align-self-center">
+                    <label
+                      class="
+                        col-lg-3 col-form-label
+                        form-control-label
+                        setBolder
+                        pb-0
+                      "
+                    >
+                      Criterios de búsqueda:
+                    </label>
+                  </div>
+                </div>
+                <div class="card-body pl-0 pr-0">
                   <div class="form">
                     <div class="form-row">
-                      <div class="col-3">
-                        <div class="input-group">
-                          <label
-                            class="col-lg-3 col-form-label form-control-label"
-                          >
-                            Fecha:
+                      <div class="col-11 row">
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Número de Cliente:
                           </label>
-                          <input
-                            class="form-control bg-white"
-                            id="fechaProceso"
-                            type="text"
-                            ngbDatepicker
-                            #d="ngbDatepicker"
-                            placeholder="dd/mm/aaaa"
-                            (focus)="d.toggle()"
-                            name="fechaProceso"
-                          />
-                          <div class="input-group-append">
-                            <button
-                              class="btn btn-outline-secondary calendar"
-                              (click)="d.toggle()"
-                              type="button"
-                            >
-                              <fa-icon icon="calendar-alt"></fa-icon>
-                            </button>
-                          </div>
                         </div>
-                      </div>
-                      <div class="col-3">
-                        <div class="input-group">
-                          <div class="col-4 col-md-4 col-lg-5 mt-1">
-                            <label class="mt-1">Número de cliente:</label>
-                          </div>
+                        <div class="col-2 mt-3">
                           <input
                             class="form-control"
-                            id="nombreUsuario"
-                            name="nombre"
+                            id="cierreCuentasNumeroCliente"
+                            name="cierreCuentasNumeroCliente"
+                            [(ngModel)]="cierreCuentasNumeroCliente"
                           />
                         </div>
-                      </div>
-                      <div class="col-3">
-                        <div class="input-group">
-                          <div class="col-4 col-md-4 col-lg-5 mt-1">
-                            <label class="mt-1">Número de cuenta:</label>
-                          </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Nombre o Razón social:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
                           <input
                             class="form-control"
-                            id="apellidoPat"
-                            name="apellidoPat"
+                            id="cierreCuentasNombreCliente"
+                            name="cierreCuentasNombreCliente"
+                            [(ngModel)]="cierreCuentasNombreCliente"
+                          />
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Apellido Paterno:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <input
+                            class="form-control"
+                            id="cierreCuentasApellidoPaterno"
+                            name="cierreCuentasApellidoPaterno"
+                            [(ngModel)]="cierreCuentasApellidoPaterno"
+                          />
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Apellido Materno:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <input
+                            class="form-control"
+                            id="cierreCuentasApellidoMaterno"
+                            name="cierreCuentasApellidoMaterno"
+                            [(ngModel)]="cierreCuentasApellidoMaterno"
                           />
                         </div>
                       </div>
-                      <div class="col-1"></div>
-                      <div class="col-2">
-                        <div class="row">
-                          <div class="col-md-12">
+                      <div class="col-1 mt-3">
+                        <div class="row justify-content-search">
+                          <div class="col-md-6">
                             <div
                               class="btn-group d-flex justify-content-center"
                             >
-                              <!-- Botón buscar tipos de producto-->
                               <button
                                 class="btn btn-primary"
-                                id="btnSearchTiposProductoCreditos"
+                                (click)="searchCierreCuentas()"
                               >
                                 <fa-icon icon="search"></fa-icon>
-                              </button>
-                              <!-- Botón editar grupo-->
-                              <button
-                                class="btn btn-primary"
-                                type="button"
-                                (click)="openModalAltaCierre()"
-                              >
-                                <fa-icon icon="edit"></fa-icon>
-                              </button>
-                              <!-- Botón agregar producto-->
-                              <button
-                                class="btn btn-primary"
-                                type="button"
-                                (click)="openModalAltaCierre()"
-                              >
-                                <fa-icon icon="plus"></fa-icon>
-                              </button>
-                              <!-- Botón remover producto-->
-                              <button class="btn btn-primary" type="button">
-                                <fa-icon icon="trash"></fa-icon>
                               </button>
                             </div>
                           </div>
@@ -578,22 +805,79 @@
                 </div>
               </div>
               <div class="card mt-3">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-hover table-fixed">
-                      <thead class="thead-light">
-                        <tr class="hover-primary">
-                          <th class="col-6" scope="col">Número de cuenta</th>
-                          <th class="col-6" scope="col">Fecha Cierre</th>
-                        </tr>
-                      </thead>
-                      <tbody class="max-row-7">
-                        <tr class="hover-primary">
-                          <td class="col-6"></td>
-                          <td class="col-6"></td>
-                        </tr>
-                      </tbody>
-                    </table>
+                <div class="card-body height-card-table">
+                  <div class="row">
+                    <div class="col-md-11">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-fixed">
+                          <thead class="thead-light">
+                            <tr class="hover-primary">
+                              <th class="col-2" scope="col">
+                                Número de Cliente
+                              </th>
+                              <th class="col-2" scope="col">
+                                Número de Cuenta
+                              </th>
+                              <th class="col-3" scope="col">Nombre Cliente</th>
+                              <th class="col-2" scope="col">
+                                Apellido Paterno
+                              </th>
+                              <th class="col-3" scope="col">
+                                Apellido Materno
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody class="max-row-7 table-scroll">
+                            <tr
+                              *ngFor="
+                                let cierre of listaCierreCuentas;
+                                let indexOfelement = index
+                              "
+                              class="cursor-pointer hover-primary"
+                              (click)="selectCierre(indexOfelement)"
+                              [ngClass]="{
+                                'table-active':
+                                  selectedCierre === indexOfelement
+                              }"
+                            >
+                              <td class="col-2">{{ cierre.idTitular }}</td>
+                              <td class="col-2">{{ cierre.idCuenta }}</td>
+                              <td class="col-3">{{ cierre.nombre }}</td>
+                              <td class="col-2">{{ cierre.apellidoPat }}</td>
+                              <td class="col-3">{{ cierre.apellidoMat }}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="col-md-1 justify-content-buttons">
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                          type="button"
+                          (click)="openModalAltaCierre()"
+                        >
+                          <fa-icon icon="plus"></fa-icon>
+                        </button>
+                      </div>
+                      <div
+                        class="row justify-content-edit-button"
+                        style="display: none"
+                      >
+                        <button class="btn btn-primary">
+                          <fa-icon icon="edit"></fa-icon>
+                        </button>
+                      </div>
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                          (click)="onClickEliminarCierre()"
+                          [disabled]="selectedCierre == null"
+                        >
+                          <fa-icon icon="trash"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -605,79 +889,87 @@
               <b>Clientes Duplicados IPAB</b>
             </ng-template>
             <ng-template ngbTabContent>
+              <h5 class="mt-3 ml-3 setBolder">Clientes Duplicados IPAB</h5>
               <div class="card mt-2">
-                <div class="card-body">
+                <div class="card-header pb-0 pt-0">
+                  <div class="flex-fill align-self-center">
+                    <label
+                      class="
+                        col-lg-3 col-form-label
+                        form-control-label
+                        setBolder
+                        pb-0
+                      "
+                    >
+                      Criterios de búsqueda:
+                    </label>
+                  </div>
+                </div>
+                <div class="card-body pl-0 pr-0">
                   <div class="form">
                     <div class="form-row">
-                      <div class="col-3">
-                        <div class="input-group">
-                          <label
-                            class="col-lg-3 col-form-label form-control-label"
-                          >
-                            Fecha:
+                      <div class="col-11 row">
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Número de Cliente:
                           </label>
-                          <input
-                            class="form-control bg-white"
-                            id="fechaProceso"
-                            type="text"
-                            ngbDatepicker
-                            #d="ngbDatepicker"
-                            placeholder="dd/mm/aaaa"
-                            (focus)="d.toggle()"
-                            name="fechaProceso"
-                          />
-                          <div class="input-group-append">
-                            <button
-                              class="btn btn-outline-secondary calendar"
-                              (click)="d.toggle()"
-                              type="button"
-                            >
-                              <fa-icon icon="calendar-alt"></fa-icon>
-                            </button>
-                          </div>
                         </div>
-                      </div>
-                      <div class="col-4">
-                        <div class="input-group">
-                          <div class="col-4 col-md-4 col-lg-4 mt-1">
-                            <label class="mt-1">Cliente principal:</label>
-                          </div>
+                        <div class="col-2 mt-3">
                           <input
                             class="form-control"
-                            id="nombreUsuario"
-                            name="nombre"
+                            id="cierreCuentasNumeroCliente"
+                            name="cierreCuentasNumeroCliente"
+                            [(ngModel)]="cierreCuentasNumeroCliente"
+                          />
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Nombre o Razón social:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <input
+                            class="form-control"
+                            id="cierreCuentasNombreCliente"
+                            name="cierreCuentasNombreCliente"
+                            [(ngModel)]="cierreCuentasNombreCliente"
+                          />
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Apellido Paterno:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <input
+                            class="form-control"
+                            id="cierreCuentasApellidoPaterno"
+                            name="cierreCuentasApellidoPaterno"
+                            [(ngModel)]="cierreCuentasApellidoPaterno"
+                          />
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Apellido Materno:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <input
+                            class="form-control"
+                            id="cierreCuentasApellidoMaterno"
+                            name="cierreCuentasApellidoMaterno"
+                            [(ngModel)]="cierreCuentasApellidoMaterno"
                           />
                         </div>
                       </div>
-                      <div class="col-3"></div>
-                      <div class="col-2">
-                        <div class="row">
-                          <div class="col-md-12">
+                      <div class="col-1 mt-3">
+                        <div class="row justify-content-search">
+                          <div class="col-md-6">
                             <div
                               class="btn-group d-flex justify-content-center"
                             >
-                              <!-- Botón buscar tipos de producto-->
-                              <button
-                                class="btn btn-primary"
-                                id="btnSearchTiposProductoCreditos"
-                              >
+                              <button class="btn btn-primary">
                                 <fa-icon icon="search"></fa-icon>
-                              </button>
-                              <!-- Botón editar grupo-->
-                              <button
-                                class="btn btn-primary"
-                                type="button"
-                                (click)="openModalAltDuplicado()"
-                              >
-                                <fa-icon icon="edit"></fa-icon>
-                              </button>
-                              <!-- Botón agregar producto-->
-                              <button
-                                class="btn btn-primary"
-                                type="button"
-                                (click)="openModalAltDuplicado()"
-                              >
-                                <fa-icon icon="plus"></fa-icon>
                               </button>
                             </div>
                           </div>
@@ -688,20 +980,47 @@
                 </div>
               </div>
               <div class="card mt-3">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-hover table-fixed">
-                      <thead class="thead-light">
-                        <tr class="hover-primary">
-                          <th class="col-12" scope="col">Cliente principal</th>
-                        </tr>
-                      </thead>
-                      <tbody class="max-row-7">
-                        <tr class="hover-primary">
-                          <td class="col-12"></td>
-                        </tr>
-                      </tbody>
-                    </table>
+                <div class="card-body height-card-table">
+                  <div class="row">
+                    <div class="col-md-11">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-fixed">
+                          <thead class="thead-light">
+                            <tr class="hover-primary">
+                              <th class="col-3" scope="col">
+                                Numero de Cliente principal
+                              </th>
+                              <th class="col-3" scope="col">Nombre Cliente</th>
+                              <th class="col-3" scope="col">
+                                Apellido Paterno
+                              </th>
+                              <th class="col-3" scope="col">
+                                Apellido Materno
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody class="max-row-7 table-scroll">
+                            <tr class="cursor-pointer hover-primary"></tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="col-md-1 justify-content-buttons">
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                          type="button"
+                          (click)="openModalAltDuplicado()"
+                        >
+                          <fa-icon icon="plus"></fa-icon>
+                        </button>
+                      </div>
+                      <div class="row justify-content-edit-button">
+                        <button class="btn btn-primary">
+                          <fa-icon icon="edit"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -712,87 +1031,87 @@
               <b>Exceptuados IPAB</b>
             </ng-template>
             <ng-template ngbTabContent>
+              <h5 class="mt-3 ml-3 setBolder">Exceptuados IPAB</h5>
               <div class="card mt-2">
-                <div class="card-body">
+                <div class="card-header pb-0 pt-0">
+                  <div class="flex-fill align-self-center">
+                    <label
+                      class="
+                        col-lg-3 col-form-label
+                        form-control-label
+                        setBolder
+                        pb-0
+                      "
+                    >
+                      Criterios de búsqueda:
+                    </label>
+                  </div>
+                </div>
+                <div class="card-body pl-0 pr-0">
                   <div class="form">
                     <div class="form-row">
-                      <div class="col-3">
-                        <div class="input-group">
-                          <label
-                            class="col-lg-4 col-form-label form-control-label"
-                          >
-                            Fecha:
+                      <div class="col-11 row">
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Número de Cliente:
                           </label>
-                          <input
-                            class="form-control bg-white"
-                            id="fechaCreditoNoRevolvente"
-                            type="text"
-                            ngbDatepicker
-                            #f="ngbDatepicker"
-                            placeholder="dd/mm/aaaa"
-                            (focus)="f.toggle()"
-                            name="fechaCreditoNoRevolvente"
-                            (keydown)="onKeydown($event)"
-                            [(ngModel)]="fechaExceptuadosIPAB"
-                          />
-                          <div class="input-group-append">
-                            <button
-                              class="btn btn-outline-secondary calendar"
-                              (click)="f.toggle()"
-                              type="button"
-                            >
-                              <fa-icon icon="calendar-alt"></fa-icon>
-                            </button>
-                          </div>
                         </div>
-                      </div>
-                      <div class="col-3">
-                        <div class="input-group">
-                          <div class="col-5 col-md-5 col-lg-5 mt-1">
-                            <label class="mt-1 ml-4">Cliente:</label>
-                          </div>
+                        <div class="col-2 mt-3">
                           <input
                             class="form-control"
-                            id="clienteCreditoNoRevolvente"
-                            name="clienteCreditoNoRevolvente"
-                            [(ngModel)]="clienteExceptuadosIPAB"
+                            id="cierreCuentasNumeroCliente"
+                            name="cierreCuentasNumeroCliente"
+                            [(ngModel)]="cierreCuentasNumeroCliente"
+                          />
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Nombre o Razón social:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <input
+                            class="form-control"
+                            id="cierreCuentasNombreCliente"
+                            name="cierreCuentasNombreCliente"
+                            [(ngModel)]="cierreCuentasNombreCliente"
+                          />
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Apellido Paterno:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <input
+                            class="form-control"
+                            id="cierreCuentasApellidoPaterno"
+                            name="cierreCuentasApellidoPaterno"
+                            [(ngModel)]="cierreCuentasApellidoPaterno"
+                          />
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Apellido Materno:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <input
+                            class="form-control"
+                            id="cierreCuentasApellidoMaterno"
+                            name="cierreCuentasApellidoMaterno"
+                            [(ngModel)]="cierreCuentasApellidoMaterno"
                           />
                         </div>
                       </div>
-                      <div class="col-4"></div>
-                      <div class="col-2">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="btn-group d-flex justify-content-center">
-                              <!-- Botón buscar tipos de producto-->
-                              <button
-                                class="btn btn-primary"
-                                id="btnSearchTiposProductoCreditos"
-                              >
+                      <div class="col-1 mt-3">
+                        <div class="row justify-content-search">
+                          <div class="col-md-6">
+                            <div
+                              class="btn-group d-flex justify-content-center"
+                            >
+                              <button class="btn btn-primary">
                                 <fa-icon icon="search"></fa-icon>
-                              </button>
-                              <!-- Botón editar grupo-->
-                              <button
-                                class="btn btn-primary"
-                                type="button"
-                                (click)="openModalAltaExceptuados()"
-                              >
-                                <fa-icon icon="edit"></fa-icon>
-                              </button>
-                              <!-- Botón agregar-->
-                              <button
-                                class="btn btn-primary"
-                                type="button"
-                                (click)="openModalEditarExceptuados()"
-                              >
-                                <fa-icon icon="plus"></fa-icon>
-                              </button>
-                              <!-- Botón remover producto-->
-                              <button
-                                class="btn btn-primary"
-                                type="button"
-                              >
-                                <fa-icon icon="minus"></fa-icon>
                               </button>
                             </div>
                           </div>
@@ -803,22 +1122,54 @@
                 </div>
               </div>
               <div class="card mt-3">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-hover table-fixed">
-                      <thead class="thead-light">
-                      <tr class="hover-primary">
-                        <th class="col-6" scope="col">Cliente</th>
-                        <th class="col-6" scope="col">Nombre Cliente</th>
-                      </tr>
-                      </thead>
-                      <tbody class="max-row-7">
-                      <tr class="hover-primary">
-                        <td class="col-6"></td>
-                        <td class="col-6"></td>
-                      </tr>
-                      </tbody>
-                    </table>
+                <div class="card-body height-card-table">
+                  <div class="row">
+                    <div class="col-md-11">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-fixed">
+                          <thead class="thead-light">
+                            <tr class="hover-primary">
+                              <th class="col-2" scope="col">
+                                Número de Cliente
+                              </th>
+                              <th class="col-2" scope="col">
+                                Número de Cuenta
+                              </th>
+                              <th class="col-3" scope="col">Nombre Cliente</th>
+                              <th class="col-2" scope="col">
+                                Apellido Paterno
+                              </th>
+                              <th class="col-3" scope="col">
+                                Apellido Materno
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody class="max-row-7 table-scroll">
+                            <tr class="cursor-pointer hover-primary"></tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="col-md-1 justify-content-buttons">
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                          type="button"
+                          (click)="openModalAltaExceptuados()"
+                        >
+                          <fa-icon icon="plus"></fa-icon>
+                        </button>
+                      </div>
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                          type="button"
+                          (click)="openModalEditarExceptuados()"
+                        >
+                          <fa-icon icon="edit"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

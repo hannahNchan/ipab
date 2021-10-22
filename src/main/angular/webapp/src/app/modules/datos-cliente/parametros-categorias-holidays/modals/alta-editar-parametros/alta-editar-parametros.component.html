@@ -28,9 +28,10 @@
                   <div class="col-8">
                     <input
                       type="text"
-                      id="registro"
+                      id="tipoParametro"
                       class="form-control"
-                      name="registro"
+                      name="tipoParametro"
+                      [(ngModel)]="parametroLocal.description"
                     />
                   </div>
                 </div>
@@ -45,9 +46,10 @@
                   <div class="col-8">
                     <input
                       type="text"
-                      id="campo"
+                      id="id"
                       class="form-control"
-                      name="campo"
+                      name="id"
+                      [(ngModel)]="parametroLocal.paramName"
                     />
                   </div>
                 </div>
@@ -58,15 +60,16 @@
                 <div class="row">
                   <label
                     class="col-4 col-form-label col-form-label text-right"
-                    for="registro"
+                    for="campo"
                     >Campo:</label
                   >
                   <div class="col-8">
                     <input
                       type="text"
-                      id="registro"
+                      id="campo"
                       class="form-control"
-                      name="registro"
+                      name="campo"
+                      [(ngModel)]="parametroLocal.paramValue"
                     />
                   </div>
                 </div>
@@ -75,15 +78,16 @@
                 <div class="row">
                   <label
                     class="col-4 col-form-label col-form-label text-right"
-                    for="campo"
+                    for="valor"
                     >Valor:</label
                   >
                   <div class="col-8">
                     <input
                       type="text"
-                      id="campo"
+                      id="valor"
                       class="form-control"
-                      name="campo"
+                      name="valor"
+                      [(ngModel)]="parametroLocal.comment"
                     />
                   </div>
                 </div>
@@ -96,7 +100,7 @@
   </div>
   <div class="modal-footer">
     <!-- Simple Buttons-->
-    <button class="btn btn-success" type="button">Aceptar</button>
+    <button class="btn btn-success" type="button" (click)="onClickAceptar()">Aceptar</button>
     <button
       class="btn btn-danger mr-3"
       type="button"

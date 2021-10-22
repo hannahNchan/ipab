@@ -19,7 +19,12 @@
               <label>Numero de cliente:</label>
             </div>
             <div class="col-lg-4">
-              <input class="form-control form-control-sm" type="text" />
+              <input
+                class="form-control form-control-sm"
+                type="text"
+                [disabled]="isUpdate"
+                [(ngModel)]="clienteInformacion.idCliente"
+              />
             </div>
             <div class="col-lg-2">
               <label>Tipo persona:</label>
@@ -35,7 +40,11 @@
               <label>Nombre cliente:</label>
             </div>
             <div class="col-lg-10">
-              <input class="form-control form-control-sm" type="text" />
+              <input
+                class="form-control form-control-sm"
+                type="text"
+                [(ngModel)]="clienteInformacion.nombreCliente"
+              />
             </div>
           </div>
           <div class="col-lg-12 form-group row">
@@ -43,7 +52,11 @@
               <label>Apellido paterno:</label>
             </div>
             <div class="col-lg-10">
-              <input class="form-control form-control-sm" type="text" />
+              <input
+                class="form-control form-control-sm"
+                type="text"
+                [(ngModel)]="clienteInformacion.apellidoPaterno"
+              />
             </div>
           </div>
           <div class="col-lg-12 form-group row">
@@ -51,7 +64,11 @@
               <label>Apellido materno:</label>
             </div>
             <div class="col-lg-10">
-              <input class="form-control form-control-sm" type="text" />
+              <input
+                class="form-control form-control-sm"
+                type="text"
+                [(ngModel)]="clienteInformacion.apellidoMaterno"
+              />
             </div>
           </div>
           <div class="col-lg-12 form-group row">
@@ -68,6 +85,7 @@
                   #b="ngbDatepicker"
                   placeholder="dd/mm/aaaa"
                   name="fechaContratacion"
+                  [(ngModel)]="clienteInformacion.fechaNacimiento"
                   (click)="b.toggle()"
                 />
                 <div class="input-group-append">
@@ -81,13 +99,17 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-2">
+            <div class="col-lg-1">
               <label>CURP :</label>
             </div>
-            <div class="col-lg-4">
-              <select class="form-control form-control-sm">
-                <option>Opción 1</option>
-              </select>
+            <div class="col-lg-5">
+              <div class="input-group col-xl-12 pr-0">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  [(ngModel)]="clienteInformacion.curp"
+                />
+              </div>
             </div>
           </div>
           <div class="col-lg-12 form-group row">
@@ -95,7 +117,11 @@
               <label>RFC:</label>
             </div>
             <div class="col-lg-4">
-              <input class="form-control form-control-sm" type="text" />
+              <input
+                class="form-control form-control-sm"
+                type="text"
+                [(ngModel)]="clienteInformacion.rfc"
+              />
             </div>
           </div>
           <div class="col-lg-12 form-group row">
@@ -103,7 +129,11 @@
               <label>Calle domicilio:</label>
             </div>
             <div class="col-lg-10">
-              <input class="form-control form-control-sm" type="text" />
+              <input
+                class="form-control form-control-sm"
+                type="text"
+                [(ngModel)]="clienteInformacion.calleDomicilio"
+              />
             </div>
           </div>
           <div class="col-lg-12 form-group row">
@@ -111,7 +141,11 @@
               <label>Colonia domicilio:</label>
             </div>
             <div class="col-lg-10">
-              <input class="form-control form-control-sm" type="text" />
+              <input
+                class="form-control form-control-sm"
+                type="text"
+                [(ngModel)]="clienteInformacion.coloniaDomicilio"
+              />
             </div>
           </div>
           <div class="col-lg-12 form-group row">
@@ -119,7 +153,11 @@
               <label>Municipio domicilio:</label>
             </div>
             <div class="col-lg-10">
-              <input class="form-control form-control-sm" type="text" />
+              <input
+                class="form-control form-control-sm"
+                type="text"
+                [(ngModel)]="clienteInformacion.municipioDomicilio"
+              />
             </div>
           </div>
           <div class="col-lg-12 form-group row">
@@ -137,7 +175,11 @@
               <label>Ciudad domicilio:</label>
             </div>
             <div class="col-lg-10">
-              <input class="form-control form-control-sm" type="text" />
+              <input
+                class="form-control form-control-sm"
+                type="text"
+                [(ngModel)]="clienteInformacion.ciudadDomicilio"
+              />
             </div>
           </div>
           <div class="col-lg-12 form-group row">
@@ -145,7 +187,11 @@
               <label>Pais domicilio:</label>
             </div>
             <div class="col-lg-4">
-              <input class="form-control form-control-sm" type="text" />
+              <input
+                class="form-control form-control-sm"
+                type="text"
+                [(ngModel)]="clienteInformacion.paisDomicilio"
+              />
             </div>
             <div class="col-lg-2">
               <label>Codigo postal domicilio:</label>
@@ -196,7 +242,11 @@
             <div class="col-lg-6">
               <label>Telefono domicilio:</label>
               <div class="d-flex flex-row">
-                <input class="form-control" type="text" />
+                <input
+                  class="form-control"
+                  type="text"
+                  [(ngModel)]="clienteInformacion.telefonoDomicilio"
+                />
                 <div class="btn-group ml-3">
                   <button class="btn btn-danger" type="button">
                     <fa-icon icon="minus"></fa-icon>
@@ -210,7 +260,11 @@
             <div class="col-lg-6">
               <label>Telefono oficina:</label>
               <div class="d-flex flex-row">
-                <input class="form-control" type="text" />
+                <input
+                  class="form-control"
+                  type="text"
+                  [(ngModel)]="clienteInformacion.telefonoOficina"
+                />
                 <div class="btn-group ml-3">
                   <button class="btn btn-danger" type="button">
                     <fa-icon icon="minus"></fa-icon>

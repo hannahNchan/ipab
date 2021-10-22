@@ -38,12 +38,13 @@ export class OperacionesActivasService {
   getCreditosCliente(fecha: String, numeroCliente: String): Observable<any> {
     return this.http.get(`/IPABESB/rest/?fecha=${fecha}&cliente=${numeroCliente}`);
   }
-   /** Obtiene los creditos vencidos de los titulares. 
-   * @param numeroCredito
-   * @param fecha
-   * @param cliente
-   *
-   */
+
+  /** Obtiene los creditos vencidos de los titulares. 
+  * @param numeroCredito
+  * @param fecha
+  * @param cliente
+  *
+  */
   getTabla2B(fecha: String, cliente: String, numeroCredito: String): Observable<any> {
     return this.http.get(`/IPABESB/rest/activas/tabla2B?fecha=${fecha}&cliente=${cliente}&credito=${numeroCredito}`);
   }
