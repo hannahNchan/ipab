@@ -65,12 +65,22 @@ export class OperacionesPasivasService {
 
   /**
     * Obtiene los patrimoniales.
-    * @param cliente
-    * @param nombre
-    * @param apellidoPat
-    * @param apellidoMat
+    * @param fechaReporte
+    * @param numeroCliente
+    * @param numeroCuenta
     */
-  getCierres(cliente: string, nombre: string, apellidoPat: string, apellidoMat: string): Observable<any> {
-    return this.http.get(`/IPABESB/rest/pasivas/cierreCuentas?cliente=${cliente}&nombre=${nombre}&apellidoMat=${apellidoMat}&apellidoPat=${apellidoPat}`);
+  getCierres(fechaReporte: string, numeroCliente: string, numeroCuenta: string): Observable<any> {
+    console.log(`/IPABESB/rest/pasivas/cierreCuentas?fechaReporte=${fechaReporte}&numeroCliente=${numeroCliente}&numeroCuenta=${numeroCuenta}`)
+    return this.http.get(`/IPABESB/rest/pasivas/cierreCuentas?fechaReporte=${fechaReporte}&numeroCliente=${numeroCliente}&numeroCuenta=${numeroCuenta}`);
+  }
+
+    /**
+    * Obtiene los exceptuados IPAB.
+    * @param fechaReporte
+    * @param numeroCliente
+    */
+  getExceptuadosIPAB(fechaReporte: string, numeroCliente: string): Observable<any> {
+    console.log(`/IPABESB/rest/pasivas/exceptuados?fechaReporte=${fechaReporte}=&cliente=${numeroCliente}`)
+    return this.http.get(`/IPABESB/rest/pasivas/exceptuados?fechaReporte=${fechaReporte}=&cliente=${numeroCliente}`);
   }
 }

@@ -9,7 +9,7 @@ import { IBloqueo, ICliente, IPatrimonial, ICierreCuentas } from '@interfaces/op
 import { AltaModificarExceptuadosComponent } from '@modules/datos-cliente/operaciones-pasivas/modals/alta-modificar-exceptuados/alta-modificar-exceptuados.component';
 import { OperacionesPasivasService } from '@services/operaciones-pasivas.service';
 import { OperacionesPasivasDataService } from '@services/operaciones-pasivas-data.service';
-
+import { IDate } from '@interfaces/date.interface';
 import { AltaModificacionClienteComponent } from './modals/alta-modificacion-cliente/alta-modificacion-cliente.component';
 import { EdicionPatrimonialComponent } from './modals/edicion-patrimonial/edicion-patrimonial.component';
 
@@ -41,15 +41,16 @@ export class OperacionesPasivasComponent implements OnInit {
   patrimonialApellidoPaterno: string;
   patrimonialApellidoMaterno: string;
   selectedPatrimonial: number;
+  cierreCuentasFechaReporte: { year: string, month: string, day: string };
+  cierreCuentasNumeroCuenta: string;
   cierreCuentasNumeroCliente: string;
-  cierreCuentasNombreCliente: string;
-  cierreCuentasApellidoPaterno: string;
-  cierreCuentasApellidoMaterno: string;
   selectedCierre: string;
   listaBloqueos: IBloqueo[];
   listaClientes: ICliente[];
   listaPatrimonial: IPatrimonial[];
   listaCierreCuentas: ICierreCuentas[];
+  fechaReporteExceptuadosIPAB: { year: string, month: string, day: string };
+  numeroClienteExceptuadosIPAB: string;
 
 
   constructor(private modalService: NgbModal, private operacionesPasivasService: OperacionesPasivasService, private operacionesPasivasData$: OperacionesPasivasDataService) { }
@@ -70,11 +71,10 @@ export class OperacionesPasivasComponent implements OnInit {
     this.patrimonialApellidoPaterno = '';
     this.patrimonialApellidoMaterno = '';
     this.selectedPatrimonial = null;
+    this.cierreCuentasNumeroCuenta = '';
     this.cierreCuentasNumeroCliente = '';
-    this.cierreCuentasNombreCliente = '';
-    this.cierreCuentasApellidoPaterno = '';
-    this.cierreCuentasApellidoMaterno = '';
     this.selectedCierre = null;
+    this.numeroClienteExceptuadosIPAB = '';
 
   }
 
@@ -212,6 +212,8 @@ export class OperacionesPasivasComponent implements OnInit {
   }
 
   searchCierreCuentas(): void {
+    const { year, month, day } = this.cierreCuentasFechaReporte;
+    const formedDate = `${year}/${month}/${day}`;
     this.listaCierreCuentas = []
     this.selectedCierre = null;
     // if (this.validaGuardar()) {
@@ -223,7 +225,7 @@ export class OperacionesPasivasComponent implements OnInit {
         swal.showLoading();
       }
     }).then();
-    this.operacionesPasivasService.getCierres(this.cierreCuentasNumeroCliente, this.cierreCuentasNombreCliente, this.cierreCuentasApellidoPaterno, this.cierreCuentasApellidoMaterno).subscribe(
+    this.operacionesPasivasService.getCierres(formedDate, this.cierreCuentasNumeroCliente, this.cierreCuentasNumeroCuenta).subscribe(
       response => {
         if (response.header['estatus'] === false) {
           swal(PopUpMessage.getAppErrorMessageReportId(response)).then(() => { });
@@ -247,6 +249,38 @@ export class OperacionesPasivasComponent implements OnInit {
 
   selectCierre(index): void {
     this.selectedCierre = index;
+  }
+
+  searchExceptuadosIPAB(): void {
+    const { year, month, day } = this.fechaReporteExceptuadosIPAB;
+    const formedDate = `${year}/${month}/${day}`;
+    swal({
+      title: 'Obteniendo información...',
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      onOpen: () => {
+        swal.showLoading();
+      }
+    }).then();
+    this.operacionesPasivasService.getExceptuadosIPAB(formedDate, this.numeroClienteExceptuadosIPAB).subscribe(
+      response => {
+        if (response.header['estatus'] === false) {
+          swal(PopUpMessage.getAppErrorMessageReportId(response)).then(() => { });
+        } else {
+          if (response["lista"].length <= 100) {
+            this.listaCierreCuentas = response['lista'];
+            swal(PopUpMessage.getSuccesMessage(response, null, null)).then();
+          }
+          else {
+            swal(PopUpMessage.getAppErrorMessage('Ocurrio un error', 'La busqueda regreso demasiadas coincidencias')).then();
+          }
+        }
+      },
+      err => {
+        swal(PopUpMessage.getServerErrorMessage(err)).then(() => {
+          console.error(err);
+        });
+      });
   }
 
   onClickEliminarCierre(): void {
