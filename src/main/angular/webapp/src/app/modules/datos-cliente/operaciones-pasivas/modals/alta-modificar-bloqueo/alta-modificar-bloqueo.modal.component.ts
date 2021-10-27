@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OperacionesPasivasDataService } from '@services/operaciones-pasivas-data.service';
-import { IBloqueo, IBloqueoInformacion } from '@interfaces/operaciones-pasivas.interface';
+import { IBloqueo, IBloqueoInformacion, ICatalogoGenerico } from '@interfaces/operaciones-pasivas.interface';
 import { Subscription } from 'rxjs/Subscription';
 import { OperacionesPasivasService } from '@services/operaciones-pasivas.service';
 import swal from "sweetalert2";
@@ -15,6 +15,7 @@ export class AltaModificarBloqueoModalComponent implements OnInit, OnDestroy {
   isUpdate: boolean;
   bloqueoLocal: IBloqueo;
   bloqueoInformacion: IBloqueoInformacion;
+  catalogosInformacion: ICatalogoGenerico;
 
   subscribeSelectedBloqueo: Subscription;
   subscribeInfoBloqueo: Subscription;
@@ -23,6 +24,9 @@ export class AltaModificarBloqueoModalComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.bloqueoInformacion = AltaModificarBloqueoModalComponent.initBloqueoInformacion();
+    this.operacionesPasivasData$.catalogos.subscribe(catalogos => {
+      this.catalogosInformacion = catalogos
+    })
     this.subscribeSelectedBloqueo = this.operacionesPasivasData$.selectedBloqueo.subscribe(bloqueo => {
       this.bloqueoLocal = bloqueo;
       if (this.bloqueoLocal !== undefined) {

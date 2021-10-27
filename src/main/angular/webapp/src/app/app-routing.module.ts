@@ -23,8 +23,8 @@ const routes: Routes = [
   {
     path: '',
     component: HomeLayoutComponent,
-    //canActivate: [AuthGuard],
-    //canActivateChild: [ModGuard],
+    canActivate: [AuthGuard],
+    canActivateChild: [ModGuard],
     children: [
       {
         path: 'operacion',

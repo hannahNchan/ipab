@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OperacionesPasivasDataService } from '@services/operaciones-pasivas-data.service';
-import { ICliente, IClienteInformacion } from '@interfaces/operaciones-pasivas.interface';
+import { ICliente, IClienteInformacion, ICatalogoGenerico } from '@interfaces/operaciones-pasivas.interface';
 import { Subscription } from 'rxjs/Subscription';
 import { OperacionesPasivasService } from '@services/operaciones-pasivas.service';
 import swal from "sweetalert2";
@@ -16,6 +16,7 @@ export class AltaModificacionClienteComponent implements OnInit, OnDestroy {
   isUpdate: boolean;
   clienteLocal: ICliente;
   clienteInformacion: IClienteInformacion;
+  catalogosInformacion: ICatalogoGenerico;
 
   subscribeSelectedCliente: Subscription;
   subscribeInfoCliente: Subscription;
@@ -24,6 +25,9 @@ export class AltaModificacionClienteComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.clienteInformacion = AltaModificacionClienteComponent.initClienteInformacion();
+    this.operacionesPasivasData$.catalogos.subscribe(catalogos => {
+      this.catalogosInformacion = catalogos
+    })
     this.subscribeSelectedCliente = this.operacionesPasivasData$.selectedCliente.subscribe(cliente => {
       this.clienteLocal = cliente;
       if (this.clienteLocal !== undefined) {
@@ -39,9 +43,9 @@ export class AltaModificacionClienteComponent implements OnInit, OnDestroy {
         this.subscribeInfoCliente = this.operacionesPasivasService.getCliente(this.clienteLocal.idCliente).subscribe(resp => {
           if (resp['cliente'] !== undefined) {
             resp['cliente'].fechaNacimiento = {
-              'year': parseInt(resp['cliente'].fechaNacimiento.substr(0, 4)),
-              'month': parseInt(resp['cliente'].fechaNacimiento.substr(-4, 2)),
-              'day': parseInt(resp['cliente'].fechaNacimiento.substr(-2, 2))
+              'year': parseInt(resp['cliente'].fechaNacimiento.substr(-4, 4)),
+              'month': parseInt(resp['cliente'].fechaNacimiento.substr(3, 2)),
+              'day': parseInt(resp['cliente'].fechaNacimiento.substr(0, 2))
             }
           }
           this.clienteInformacion = resp['cliente'];
