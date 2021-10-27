@@ -1,3 +1,6 @@
+
+export interface ICatalogoGenerico { }
+
 export interface IExceptuadosIPAB {
   institucion: string;
   numeroCliente: string;
@@ -51,11 +54,9 @@ export interface IClienteInformacion {
 
 export interface IPatrimonial {
   numeroCliente: string;
-  nombre: string;
-  apellidoPat: string;
-  apellidoMat: string;
   numeroCuenta: string;
   numeroInversion: string;
+  loadDate: string;
 }
 
 export interface IPatrimonialInformacion {
@@ -80,12 +81,29 @@ export interface IPatrimonialInformacion {
   plaza: string;
 }
 
+export interface IClienteCuentas {
+  titular: string;
+  idCuenta: string;
+  loadDate: string;
+}
+
+export interface IClienteCuentasInformacion {
+  titular: string;
+  idCuenta: string;
+  moneda: string;
+  categoria: string;
+  regimenFiscal: string;
+  exentoImpuesto: string;
+  cotitular: string;
+  porcentajeIPAB: string;
+  tipoFirmaCotitular: string;
+  loadDate: string;
+}
+
 export interface IBloqueo {
-  nombre: string;
-  apellidoPat: string;
-  apellidoMat: string;
   idCuenta: string;
   idBloqueo: string;
+  loadDate: string;
 }
 
 export interface IBloqueoInformacion {

@@ -1,7 +1,5 @@
 <div class="modal-container">
   <div class="modal-header">
-    <h4 class="modal-title" *ngIf="isUpdate">Editar Cuenta</h4>
-    <h4 class="modal-title" *ngIf="!isUpdate">Agregar Cuenta</h4>
     <button
       class="close"
       type="button"
@@ -12,53 +10,80 @@
     </button>
   </div>
   <div class="modal-body">
-    <h6 class="modal-title ml-3">Datos cuenta</h6>
+    <h6 class="modal-title ml-3">Clientes y Cuentas</h6>
     <div class="container-fluid mt-2">
       <div class="card">
         <div class="card-body">
           <div class="container">
             <div class="row">
-              <div class="col-lg-6">
+              <div class="col-lg-12">
                 <div class="form-group row">
-                  <label class="mt-1 col-xl-4">Cuenta:</label>
-                  <div class="col-xl-6">
-                    <input class="form-control form-control-sm" type="text" />
+                  <label class="mt-1 col-xl-2">Cuenta:</label>
+                  <div class="col-xl-3">
+                    <input
+                      class="form-control form-control-sm"
+                      type="text"
+                      [(ngModel)]="clienteCuentaInformacion.idCuenta"
+                      [disabled]="isUpdate"
+                    />
                   </div>
                 </div>
+              </div>
+              <div class="col-lg-6">
                 <div class="form-group row">
                   <label class="mt-1 col-xl-4">Moneda:</label>
                   <div class="col-xl-6">
-                    <select class="form-control form-control-sm">
-                      <option>Opción 1</option>
+                    <select
+                      class="form-control form-control-sm"
+                      [(ngModel)]="clienteCuentaInformacion.moneda"
+                    >
+                      <option
+                        [ngValue]="cat.clave"
+                        *ngFor="let cat of catalogosInformacion['moneda']"
+                      >
+                        {{ cat.descripcion }}
+                      </option>
                     </select>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="mt-1 col-xl-4">Régimen Físcal:</label>
+                  <label class="mt-1 col-xl-4">Régimen de la Cuenta:</label>
                   <div class="col-xl-6">
-                    <select class="form-control form-control-sm">
-                      <option>Opción 1</option>
+                    <select
+                      class="form-control form-control-sm"
+                      [(ngModel)]="clienteCuentaInformacion.regimenFiscal"
+                    >
+                      <option
+                        [ngValue]="cat.clave"
+                        *ngFor="
+                          let cat of catalogosInformacion['regimenFiscal']
+                        "
+                      >
+                        {{ cat.descripcion }}
+                      </option>
                     </select>
                   </div>
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="form-group row">
-                  <label class="mt-1 col-xl-4">Cliente:</label>
-                  <div class="col-xl-6">
-                    <input class="form-control form-control-sm" type="text" />
-                  </div>
-                </div>
-                <div class="form-group row">
                   <label class="mt-1 col-xl-4">Categoría:</label>
                   <div class="col-xl-6">
-                    <select class="form-control form-control-sm">
-                      <option>Opción 1</option>
+                    <select
+                      class="form-control form-control-sm"
+                      [(ngModel)]="clienteCuentaInformacion.categoria"
+                    >
+                      <option
+                        [ngValue]="cat.clave"
+                        *ngFor="let cat of catalogosInformacion['categoria']"
+                      >
+                        {{ cat.descripcion }}
+                      </option>
                     </select>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="mt-1 col-xl-4">Exento impuesto:</label>
+                  <label class="mt-1 col-xl-4">Exento Impuesto:</label>
                   <div class="col-xl-6">
                     <select class="form-control form-control-sm">
                       <option>Opción 1</option>
@@ -73,7 +98,12 @@
               <div class="form-group">
                 <label class="mt-1 col-xl-12">Titular:</label>
                 <div class="col-xl-12">
-                  <input class="form-control form-control-sm" type="text" />
+                  <input
+                    class="form-control form-control-sm"
+                    type="text"
+                    [(ngModel)]="clienteCuentaInformacion.titular"
+                    [disabled]="isUpdate"
+                  />
                 </div>
               </div>
             </div>
@@ -81,7 +111,11 @@
               <div class="form-group">
                 <label class="mt-1 col-xl-12">Porcentaje IPAB:</label>
                 <div class="col-xl-12">
-                  <input class="form-control form-control-sm" type="text" />
+                  <input
+                    class="form-control form-control-sm"
+                    type="text"
+                    [(ngModel)]="clienteCuentaInformacion.porcentajeIPAB"
+                  />
                 </div>
               </div>
             </div>
@@ -89,8 +123,16 @@
               <div class="form-group row">
                 <label class="mt-1 col-xl-12">Tipo Firma:</label>
                 <div class="col-xl-12">
-                  <select class="form-control form-control-sm">
-                    <option>Opción 1</option>
+                  <select
+                    class="form-control form-control-sm"
+                    [(ngModel)]="clienteCuentaInformacion.tipoFirmaCotitular"
+                  >
+                    <option
+                      [ngValue]="cat.clave"
+                      *ngFor="let cat of catalogosInformacion['tipoFirma']"
+                    >
+                      {{ cat.descripcion }}
+                    </option>
                   </select>
                 </div>
               </div>
@@ -102,7 +144,11 @@
                 <div class="form-group">
                   <label class="mt-1 col-xl-12">Cotitular:</label>
                   <div class="col-xl-12">
-                    <input class="form-control form-control-sm" type="text" />
+                    <input
+                      class="form-control form-control-sm"
+                      type="text"
+                      [(ngModel)]="clienteCuentaInformacion.cotitular"
+                    />
                   </div>
                 </div>
               </div>
@@ -110,7 +156,11 @@
                 <div class="form-group">
                   <label class="mt-1 col-xl-12">Porcentaje IPAB:</label>
                   <div class="col-xl-12">
-                    <input class="form-control form-control-sm" type="text" />
+                    <input
+                      class="form-control form-control-sm"
+                      type="text"
+                      [(ngModel)]="clienteCuentaInformacion.porcentajeIPAB"
+                    />
                   </div>
                 </div>
               </div>
@@ -118,8 +168,16 @@
                 <div class="form-group row">
                   <label class="mt-1 col-xl-12">Tipo Firma:</label>
                   <div class="col-xl-12">
-                    <select class="form-control form-control-sm">
-                      <option>Opción 1</option>
+                    <select
+                      class="form-control form-control-sm"
+                      [(ngModel)]="clienteCuentaInformacion.tipoFirmaCotitular"
+                    >
+                      <option
+                        [ngValue]="cat.clave"
+                        *ngFor="let cat of catalogosInformacion['tipoFirma']"
+                      >
+                        {{ cat.descripcion }}
+                      </option>
                     </select>
                   </div>
                 </div>

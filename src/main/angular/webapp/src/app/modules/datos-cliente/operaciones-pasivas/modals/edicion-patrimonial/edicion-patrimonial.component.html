@@ -44,8 +44,16 @@
                 <label>Categoria:</label>
               </div>
               <div class="col-lg-4">
-                <select class="form-control form-control-sm">
-                  <option>Opción 1</option>
+                <select
+                  class="form-control form-control-sm"
+                  [(ngModel)]="patrimonialInformacion.categoria"
+                >
+                  <option
+                    [ngValue]="cat.clave"
+                    *ngFor="let cat of catalogosInformacion['categoria']"
+                  >
+                    {{ cat.descripcion }}
+                  </option>
                 </select>
               </div>
               <div class="col-lg-2">
@@ -109,8 +117,16 @@
                 <label>Moneda IPAB:</label>
               </div>
               <div class="col-lg-4">
-                <select class="form-control form-control-sm">
-                  <option>Opción 1</option>
+                <select
+                  class="form-control form-control-sm"
+                  [(ngModel)]="patrimonialInformacion.monedaIPAB"
+                >
+                  <option
+                    [ngValue]="cat.claveIPAB"
+                    *ngFor="let cat of catalogosInformacion['moneda']"
+                  >
+                    {{ cat.descripcion }}
+                  </option>
                 </select>
               </div>
               <div class="col-lg-2">
@@ -156,8 +172,16 @@
                 <label>Tipo tasa:</label>
               </div>
               <div class="col-lg-4">
-                <select class="form-control form-control-sm">
-                  <option>Opción 1</option>
+                <select
+                  class="form-control form-control-sm"
+                  [(ngModel)]="patrimonialInformacion.tipoTasa"
+                >
+                  <option
+                    [ngValue]="cat.clave"
+                    *ngFor="let cat of catalogosInformacion['tipoTasa']"
+                  >
+                    {{ cat.descripcion }}
+                  </option>
                 </select>
               </div>
             </div>
@@ -207,8 +231,16 @@
                 <label>Entidad federativa:</label>
               </div>
               <div class="col-lg-4">
-                <select class="form-control form-control-sm">
-                  <option>Opción 1</option>
+                <select
+                  class="form-control form-control-sm"
+                  [(ngModel)]="patrimonialInformacion.entidadFederativa"
+                >
+                  <option
+                    [ngValue]="cat.claveIPAB"
+                    *ngFor="let cat of catalogosInformacion['entidadFed']"
+                  >
+                    {{ cat.descripcion }}
+                  </option>
                 </select>
               </div>
               <div class="col-lg-2">

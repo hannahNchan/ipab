@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OperacionesPasivasDataService } from '@services/operaciones-pasivas-data.service';
-import { IPatrimonial, IPatrimonialInformacion } from '@interfaces/operaciones-pasivas.interface';
+import { IPatrimonial, IPatrimonialInformacion, ICatalogoGenerico } from '@interfaces/operaciones-pasivas.interface';
 import { Subscription } from 'rxjs/Subscription';
 import { OperacionesPasivasService } from '@services/operaciones-pasivas.service';
 import swal from "sweetalert2";
@@ -16,6 +16,8 @@ export class EdicionPatrimonialComponent implements OnInit, OnDestroy {
   isUpdate: boolean;
   patrimonialLocal: IPatrimonial;
   patrimonialInformacion: IPatrimonialInformacion;
+  catalogosInformacion: ICatalogoGenerico;
+
 
   subscribeSelectedPatrimonial: Subscription;
   subscribeInfoPatrimonial: Subscription;
@@ -24,6 +26,9 @@ export class EdicionPatrimonialComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.patrimonialInformacion = EdicionPatrimonialComponent.initPatrimonialInformacion();
+    this.operacionesPasivasData$.catalogos.subscribe(catalogos => {
+      this.catalogosInformacion = catalogos
+    })
     this.subscribeSelectedPatrimonial = this.operacionesPasivasData$.selectedPatrimonial.subscribe(patrimonial => {
       this.patrimonialLocal = patrimonial;
       if (this.patrimonialLocal !== undefined) {
@@ -36,17 +41,17 @@ export class EdicionPatrimonialComponent implements OnInit, OnDestroy {
             swal.showLoading();
           }
         }).then();
-        this.subscribeInfoPatrimonial = this.operacionesPasivasService.getPatrimonial(this.patrimonialLocal.numeroCliente, this.patrimonialLocal.numeroCuenta).subscribe(resp => {
+        this.subscribeInfoPatrimonial = this.operacionesPasivasService.getPatrimonial(this.patrimonialLocal.numeroCliente, this.patrimonialLocal.numeroCuenta, this.patrimonialLocal.loadDate).subscribe(resp => {
           if (resp['patrimonial'] !== undefined) {
             resp['patrimonial'].fechaContratacion = {
-              'year': parseInt(resp['patrimonial'].fechaContratacion.substr(0, 4)),
-              'month': parseInt(resp['patrimonial'].fechaContratacion.substr(-4, 2)),
-              'day': parseInt(resp['patrimonial'].fechaContratacion.substr(-2, 2))
+              'year': parseInt(resp['patrimonial'].fechaContratacion.substr(-4, 4)),
+              'month': parseInt(resp['patrimonial'].fechaContratacion.substr(3, 2)),
+              'day': parseInt(resp['patrimonial'].fechaContratacion.substr(0, 2))
             }
             resp['patrimonial'].ultimaProvisionIntereses = {
-              'year': parseInt(resp['patrimonial'].ultimaProvisionIntereses.substr(0, 4)),
-              'month': parseInt(resp['patrimonial'].ultimaProvisionIntereses.substr(-4, 2)),
-              'day': parseInt(resp['patrimonial'].ultimaProvisionIntereses.substr(-2, 2))
+              'year': parseInt(resp['patrimonial'].ultimaProvisionIntereses.substr(-4, 4)),
+              'month': parseInt(resp['patrimonial'].ultimaProvisionIntereses.substr(3, 2)),
+              'day': parseInt(resp['patrimonial'].ultimaProvisionIntereses.substr(0, 2))
             }
           }
           this.patrimonialInformacion = resp['patrimonial'];

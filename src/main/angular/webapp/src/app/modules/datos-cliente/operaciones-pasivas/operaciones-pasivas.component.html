@@ -209,6 +209,36 @@
                       <div class="col-11 row">
                         <div class="col-1 pr-0 pl-0">
                           <label class="ml-4 col-form-label form-control-label">
+                            Fecha del Reporte:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <div class="input-group">
+                            <input
+                              class="form-control bg-white"
+                              id="patrimonialFechaReporte"
+                              type="text"
+                              ngbDatepicker
+                              #d="ngbDatepicker"
+                              placeholder="dd/mm/aaaa"
+                              (focus)="d.toggle()"
+                              name="patrimonialFechaReporte"
+                              (keydown)="onKeydown($event)"
+                              [(ngModel)]="patrimonialFechaReporte"
+                            />
+                            <div class="input-group-append">
+                              <button
+                                class="btn btn-outline-secondary calendar"
+                                (click)="d.toggle()"
+                                type="button"
+                              >
+                                <fa-icon icon="calendar-alt"></fa-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
                             Número de Cliente:
                           </label>
                         </div>
@@ -222,41 +252,28 @@
                         </div>
                         <div class="col-1 pr-0 pl-0">
                           <label class="ml-4 col-form-label form-control-label">
-                            Nombre o Razón social:
+                            Número de Cuenta:
                           </label>
                         </div>
                         <div class="col-2 mt-3">
                           <input
                             class="form-control"
-                            id="patrimonialNombreCliente"
-                            name="patrimonialNombreCliente"
-                            [(ngModel)]="patrimonialNombreCliente"
+                            id="patrimonialNumeroCuenta"
+                            name="patrimonialNumeroCuenta"
+                            [(ngModel)]="patrimonialNumeroCuenta"
                           />
                         </div>
                         <div class="col-1 pr-0 pl-0">
                           <label class="ml-4 col-form-label form-control-label">
-                            Apellido Paterno:
+                            Número de Inversión:
                           </label>
                         </div>
                         <div class="col-2 mt-3">
                           <input
                             class="form-control"
-                            id="patrimonialApellidoPaterno"
-                            name="patrimonialApellidoPaterno"
-                            [(ngModel)]="patrimonialApellidoPaterno"
-                          />
-                        </div>
-                        <div class="col-1 pr-0 pl-0">
-                          <label class="ml-4 col-form-label form-control-label">
-                            Apellido Materno:
-                          </label>
-                        </div>
-                        <div class="col-2 mt-3">
-                          <input
-                            class="form-control"
-                            id="patrimonialApellidoMaterno"
-                            name="patrimonialApellidoMaterno"
-                            [(ngModel)]="patrimonialApellidoMaterno"
+                            id="patrimonialNumeroInversion"
+                            name="patrimonialNumeroInversion"
+                            [(ngModel)]="patrimonialNumeroInversion"
                           />
                         </div>
                       </div>
@@ -288,21 +305,17 @@
                         <table class="table table-hover table-fixed">
                           <thead class="thead-light">
                             <tr class="hover-primary">
-                              <th class="col-2" scope="col">
+                              <th class="col-3" scope="col">
+                                Fecha del Reporte
+                              </th>
+                              <th class="col-3" scope="col">
                                 Número de Cliente
                               </th>
-                              <th class="col-2" scope="col">
+                              <th class="col-3" scope="col">
                                 Número de Cuenta
                               </th>
-                              <th class="col-2" scope="col">
+                              <th class="col-3" scope="col">
                                 Número de Inversión
-                              </th>
-                              <th class="col-2" scope="col">Nombre Cliente</th>
-                              <th class="col-2" scope="col">
-                                Apellido Paterno
-                              </th>
-                              <th class="col-2" scope="col">
-                                Apellido Materno
                               </th>
                             </tr>
                           </thead>
@@ -319,23 +332,17 @@
                                   selectedPatrimonial === indexOfelement
                               }"
                             >
-                              <td class="col-2">
+                              <td class="col-3">
+                                {{ patrimonial.loadDate }}
+                              </td>
+                              <td class="col-3">
                                 {{ patrimonial.numeroCliente }}
                               </td>
-                              <td class="col-2">
+                              <td class="col-3">
                                 {{ patrimonial.numeroCuenta }}
                               </td>
-                              <td class="col-2">
+                              <td class="col-3">
                                 {{ patrimonial.numeroInversion }}
-                              </td>
-                              <td class="col-2">
-                                {{ patrimonial.nombre }}
-                              </td>
-                              <td class="col-2">
-                                {{ patrimonial.apellidoPat }}
-                              </td>
-                              <td class="col-2">
-                                {{ patrimonial.apellidoMat }}
                               </td>
                             </tr>
                           </tbody>
@@ -402,54 +409,58 @@
                       <div class="col-11 row">
                         <div class="col-1 pr-0 pl-0">
                           <label class="ml-4 col-form-label form-control-label">
+                            Fecha del Reporte:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <div class="input-group">
+                            <input
+                              class="form-control bg-white"
+                              id="clienteCuentaFechaReporte"
+                              type="text"
+                              ngbDatepicker
+                              #d="ngbDatepicker"
+                              placeholder="dd/mm/aaaa"
+                              (focus)="d.toggle()"
+                              name="clienteCuentaFechaReporte"
+                              (keydown)="onKeydown($event)"
+                              [(ngModel)]="clienteCuentaFechaReporte"
+                            />
+                            <div class="input-group-append">
+                              <button
+                                class="btn btn-outline-secondary calendar"
+                                (click)="d.toggle()"
+                                type="button"
+                              >
+                                <fa-icon icon="calendar-alt"></fa-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
                             Número de Cliente:
                           </label>
                         </div>
                         <div class="col-2 mt-3">
                           <input
                             class="form-control"
-                            id="patrimonialNumeroCliente"
-                            name="patrimonialNumeroCliente"
-                            [(ngModel)]="patrimonialNumeroCliente"
+                            id="clienteCuentaNumeroCliente"
+                            name="clienteCuentaNumeroCliente"
+                            [(ngModel)]="clienteCuentaNumeroCliente"
                           />
                         </div>
                         <div class="col-1 pr-0 pl-0">
                           <label class="ml-4 col-form-label form-control-label">
-                            Nombre o Razón social:
+                            Número de Cuenta:
                           </label>
                         </div>
                         <div class="col-2 mt-3">
                           <input
                             class="form-control"
-                            id="patrimonialNombreCliente"
-                            name="patrimonialNombreCliente"
-                            [(ngModel)]="patrimonialNombreCliente"
-                          />
-                        </div>
-                        <div class="col-1 pr-0 pl-0">
-                          <label class="ml-4 col-form-label form-control-label">
-                            Apellido Paterno:
-                          </label>
-                        </div>
-                        <div class="col-2 mt-3">
-                          <input
-                            class="form-control"
-                            id="patrimonialApellidoPaterno"
-                            name="patrimonialApellidoPaterno"
-                            [(ngModel)]="patrimonialApellidoPaterno"
-                          />
-                        </div>
-                        <div class="col-1 pr-0 pl-0">
-                          <label class="ml-4 col-form-label form-control-label">
-                            Apellido Materno:
-                          </label>
-                        </div>
-                        <div class="col-2 mt-3">
-                          <input
-                            class="form-control"
-                            id="patrimonialApellidoMaterno"
-                            name="patrimonialApellidoMaterno"
-                            [(ngModel)]="patrimonialApellidoMaterno"
+                            id="clienteCuentaNumeroCuenta"
+                            name="clienteCuentaNumeroCuenta"
+                            [(ngModel)]="clienteCuentaNumeroCuenta"
                           />
                         </div>
                       </div>
@@ -459,7 +470,10 @@
                             <div
                               class="btn-group d-flex justify-content-center"
                             >
-                              <button class="btn btn-primary">
+                              <button
+                                class="btn btn-primary"
+                                (click)="searchClientesCuentas()"
+                              >
                                 <fa-icon icon="search"></fa-icon>
                               </button>
                             </div>
@@ -478,23 +492,40 @@
                         <table class="table table-hover table-fixed">
                           <thead class="thead-light">
                             <tr class="hover-primary">
-                              <th class="col-2" scope="col">
+                              <th class="col-4" scope="col">
+                                Fecha del Reporte
+                              </th>
+                              <th class="col-4" scope="col">
                                 Número de Cliente
                               </th>
-                              <th class="col-2" scope="col">
+                              <th class="col-4" scope="col">
                                 Número de Cuenta
-                              </th>
-                              <th class="col-3" scope="col">Nombre Cliente</th>
-                              <th class="col-2" scope="col">
-                                Apellido Paterno
-                              </th>
-                              <th class="col-3" scope="col">
-                                Apellido Materno
                               </th>
                             </tr>
                           </thead>
                           <tbody class="max-row-7 table-scroll">
-                            <tr class="cursor-pointer hover-primary"></tr>
+                            <tr
+                              *ngFor="
+                                let clienteCuenta of listaClientesCuentas;
+                                let indexOfelement = index
+                              "
+                              class="cursor-pointer hover-primary"
+                              (click)="selectClienteCuenta(indexOfelement)"
+                              [ngClass]="{
+                                'table-active':
+                                  selectedClienteCuenta === indexOfelement
+                              }"
+                            >
+                              <td class="col-4">
+                                {{ clienteCuenta.loadDate }}
+                              </td>
+                              <td class="col-4">
+                                {{ clienteCuenta.titular }}
+                              </td>
+                              <td class="col-4">
+                                {{ clienteCuenta.idCuenta }}
+                              </td>
+                            </tr>
                           </tbody>
                         </table>
                       </div>
@@ -504,7 +535,7 @@
                         <button
                           class="btn btn-primary"
                           type="button"
-                          (click)="openModalEditarCuenta()"
+                          (click)="openModalAltaCuenta()"
                         >
                           <fa-icon icon="plus"></fa-icon>
                         </button>
@@ -512,13 +543,18 @@
                       <div class="row justify-content-edit-button">
                         <button
                           class="btn btn-primary"
-                          (click)="openModalEditarCuenta()"
+                          (click)="openModalAltaCuenta('edit')"
+                          [disabled]="selectedClienteCuenta == null"
                         >
                           <fa-icon icon="edit"></fa-icon>
                         </button>
                       </div>
                       <div class="row justify-content-edit-button">
-                        <button class="btn btn-primary">
+                        <button
+                          class="btn btn-primary"
+                          (click)="onClickEliminarClienteCuenta()"
+                          [disabled]="selectedClienteCuenta == null"
+                        >
                           <fa-icon icon="trash"></fa-icon>
                         </button>
                       </div>
@@ -555,54 +591,58 @@
                       <div class="col-11 row">
                         <div class="col-1 pr-0 pl-0">
                           <label class="ml-4 col-form-label form-control-label">
-                            Número de Cliente:
+                            Fecha del Reporte:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <div class="input-group">
+                            <input
+                              class="form-control bg-white"
+                              id="bloqueosFechaReporte"
+                              type="text"
+                              ngbDatepicker
+                              #d="ngbDatepicker"
+                              placeholder="dd/mm/aaaa"
+                              (focus)="d.toggle()"
+                              name="bloqueosFechaReporte"
+                              (keydown)="onKeydown($event)"
+                              [(ngModel)]="bloqueosFechaReporte"
+                            />
+                            <div class="input-group-append">
+                              <button
+                                class="btn btn-outline-secondary calendar"
+                                (click)="d.toggle()"
+                                type="button"
+                              >
+                                <fa-icon icon="calendar-alt"></fa-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Número de cuenta:
                           </label>
                         </div>
                         <div class="col-2 mt-3">
                           <input
                             class="form-control"
-                            id="bloqueosNumeroCliente"
-                            name="bloqueosNumeroCliente"
-                            [(ngModel)]="bloqueosNumeroCliente"
+                            id="bloqueosNumeroCuenta"
+                            name="bloqueosNumeroCuenta"
+                            [(ngModel)]="bloqueosNumeroCuenta"
                           />
                         </div>
                         <div class="col-1 pr-0 pl-0">
                           <label class="ml-4 col-form-label form-control-label">
-                            Nombre o Razón social:
+                            Número de bloqueo:
                           </label>
                         </div>
                         <div class="col-2 mt-3">
                           <input
                             class="form-control"
-                            id="bloqueosNombreCliente"
-                            name="bloqueosNombreCliente"
-                            [(ngModel)]="bloqueosNombreCliente"
-                          />
-                        </div>
-                        <div class="col-1 pr-0 pl-0">
-                          <label class="ml-4 col-form-label form-control-label">
-                            Apellido Paterno:
-                          </label>
-                        </div>
-                        <div class="col-2 mt-3">
-                          <input
-                            class="form-control"
-                            id="bloqueosApellidoPaterno"
-                            name="bloqueosApellidoPaterno"
-                            [(ngModel)]="bloqueosApellidoPaterno"
-                          />
-                        </div>
-                        <div class="col-1 pr-0 pl-0">
-                          <label class="ml-4 col-form-label form-control-label">
-                            Apellido Materno:
-                          </label>
-                        </div>
-                        <div class="col-2 mt-3">
-                          <input
-                            class="form-control"
-                            id="bloqueosApellidoMaterno"
-                            name="bloqueosApellidoMaterno"
-                            [(ngModel)]="bloqueosApellidoMaterno"
+                            id="bloqueosNumeroBloqueo"
+                            name="bloqueosNumeroBloqueo"
+                            [(ngModel)]="bloqueosNumeroBloqueo"
                           />
                         </div>
                       </div>
@@ -634,18 +674,14 @@
                         <table class="table table-hover table-fixed">
                           <thead class="thead-light">
                             <tr class="hover-primary">
-                              <th class="col-2" scope="col">
-                                Número de Cliente
+                              <th class="col-4" scope="col">
+                                Fecha del Reporte
                               </th>
-                              <th class="col-2" scope="col">
+                              <th class="col-4" scope="col">
+                                Número de Cuenta
+                              </th>
+                              <th class="col-4" scope="col">
                                 Número de Bloqueo
-                              </th>
-                              <th class="col-3" scope="col">Nombre Cliente</th>
-                              <th class="col-2" scope="col">
-                                Apellido Paterno
-                              </th>
-                              <th class="col-3" scope="col">
-                                Apellido Materno
                               </th>
                             </tr>
                           </thead>
@@ -662,11 +698,9 @@
                                   selectedBloqueo === indexOfelement
                               }"
                             >
-                              <td class="col-2">{{ bloqueo.idCuenta }}</td>
-                              <td class="col-2">{{ bloqueo.idBloqueo }}</td>
-                              <td class="col-3">{{ bloqueo.nombre }}</td>
-                              <td class="col-2">{{ bloqueo.apellidoPat }}</td>
-                              <td class="col-3">{{ bloqueo.apellidoMat }}</td>
+                              <td class="col-4">{{ bloqueo.loadDate }}</td>
+                              <td class="col-4">{{ bloqueo.idCuenta }}</td>
+                              <td class="col-4">{{ bloqueo.idBloqueo }}</td>
                             </tr>
                           </tbody>
                         </table>
@@ -731,55 +765,12 @@
                   <div class="form">
                     <div class="form-row">
                       <div class="col-11 row">
-                        <div class="col-1 pr-0">
-                          <label class="ml-4 col-form-label form-control-label">
-                            Fecha del reporte:
-                          </label>
-                        </div>
-                        <div class="col-2">
-                          <div class="input-group">
-                            <input
-                              class="form-control bg-white"
-                              id="cierreCuentasFechaReporte"
-                              type="text"
-                              ngbDatepicker
-                              #d="ngbDatepicker"
-                              placeholder="dd/mm/aaaa"
-                              (focus)="d.toggle()"
-                              name="cierreCuentasFechaReporte"
-                              (keydown)="onKeydown($event)"
-                              [(ngModel)]="cierreCuentasFechaReporte"
-                            />
-                            <div class="input-group-append">
-                              <button
-                                class="btn btn-outline-secondary calendar"
-                                (click)="d.toggle()"
-                                type="button"
-                              >
-                                <fa-icon icon="calendar-alt"></fa-icon>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-2 pr-0 pl-0">
+                        <div class="col-1 pr-0 pl-0">
                           <label class="ml-4 col-form-label form-control-label">
                             Número de Cliente:
                           </label>
                         </div>
-                        <div class="col-2">
-                          <input
-                            class="form-control"
-                            id="cierreCuentasNumeroCuenta"
-                            name="cierreCuentasNumeroCuenta"
-                            [(ngModel)]="cierreCuentasNumeroCuenta"
-                          />
-                        </div>
-                        <div class="col-2 pr-0 pl-0">
-                          <label class="ml-4 col-form-label form-control-label">
-                            Número de cuenta:
-                          </label>
-                        </div>
-                        <div class="col-2">
+                        <div class="col-2 mt-3">
                           <input
                             class="form-control"
                             id="cierreCuentasNumeroCliente"
@@ -787,8 +778,47 @@
                             [(ngModel)]="cierreCuentasNumeroCliente"
                           />
                         </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Nombre o Razón social:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <input
+                            class="form-control"
+                            id="cierreCuentasNombreCliente"
+                            name="cierreCuentasNombreCliente"
+                            [(ngModel)]="cierreCuentasNombreCliente"
+                          />
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Apellido Paterno:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <input
+                            class="form-control"
+                            id="cierreCuentasApellidoPaterno"
+                            name="cierreCuentasApellidoPaterno"
+                            [(ngModel)]="cierreCuentasApellidoPaterno"
+                          />
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Apellido Materno:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <input
+                            class="form-control"
+                            id="cierreCuentasApellidoMaterno"
+                            name="cierreCuentasApellidoMaterno"
+                            [(ngModel)]="cierreCuentasApellidoMaterno"
+                          />
+                        </div>
                       </div>
-                      <div class="col-1">
+                      <div class="col-1 mt-3">
                         <div class="row justify-content-search">
                           <div class="col-md-6">
                             <div
@@ -816,13 +846,19 @@
                         <table class="table table-hover table-fixed">
                           <thead class="thead-light">
                             <tr class="hover-primary">
-                              <th class="col-4" scope="col">
-                                Fecha del reporte
+                              <th class="col-2" scope="col">
+                                Número de Cliente
                               </th>
-                              <th class="col-4" scope="col">
-                                Número de cliente
+                              <th class="col-2" scope="col">
+                                Número de Cuenta
                               </th>
-                              <th class="col-4" scope="col">Número de cuenta</th>
+                              <th class="col-3" scope="col">Nombre Cliente</th>
+                              <th class="col-2" scope="col">
+                                Apellido Paterno
+                              </th>
+                              <th class="col-3" scope="col">
+                                Apellido Materno
+                              </th>
                             </tr>
                           </thead>
                           <tbody class="max-row-7 table-scroll">
@@ -838,9 +874,11 @@
                                   selectedCierre === indexOfelement
                               }"
                             >
-                              <td class="col-4">{{ cierre.fecha }}</td>
-                              <td class="col-4">{{ cierre.idCliente }}</td>
-                              <td class="col-4">{{ cierre.idCuenta }}</td>
+                              <td class="col-2">{{ cierre.idTitular }}</td>
+                              <td class="col-2">{{ cierre.idCuenta }}</td>
+                              <td class="col-3">{{ cierre.nombre }}</td>
+                              <td class="col-2">{{ cierre.apellidoPat }}</td>
+                              <td class="col-3">{{ cierre.apellidoMat }}</td>
                             </tr>
                           </tbody>
                         </table>
@@ -913,9 +951,9 @@
                         <div class="col-2 mt-3">
                           <input
                             class="form-control"
-                            id="numeroClienteExceptuadosIPAB"
-                            name="numeroClienteExceptuadosIPAB"
-                            [(ngModel)]="numeroClienteExceptuadosIPAB"
+                            id="cierreCuentasNumeroCliente"
+                            name="cierreCuentasNumeroCliente"
+                            [(ngModel)]="cierreCuentasNumeroCliente"
                           />
                         </div>
                         <div class="col-1 pr-0 pl-0">
@@ -1047,57 +1085,66 @@
                   <div class="form">
                     <div class="form-row">
                       <div class="col-11 row">
-                        <div class="col-2 pr-0">
-                          <label class="ml-4 col-form-label form-control-label">
-                            Fecha del reporte:
-                          </label>
-                        </div>
-                        <div class="col-3">
-                          <div class="input-group">
-                            <input
-                              class="form-control bg-white"
-                              id="fechaReporteExceptuadosIPAB"
-                              type="text"
-                              ngbDatepicker
-                              #d="ngbDatepicker"
-                              placeholder="dd/mm/aaaa"
-                              (focus)="d.toggle()"
-                              name="fechaReporteExceptuadosIPAB"
-                              (keydown)="onKeydown($event)"
-                              [(ngModel)]="fechaReporteExceptuadosIPAB"
-                            />
-                            <div class="input-group-append">
-                              <button
-                                class="btn btn-outline-secondary calendar"
-                                (click)="d.toggle()"
-                                type="button"
-                              >
-                                <fa-icon icon="calendar-alt"></fa-icon>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-2 pr-0 pl-0">
+                        <div class="col-1 pr-0 pl-0">
                           <label class="ml-4 col-form-label form-control-label">
                             Número de Cliente:
                           </label>
                         </div>
-                        <div class="col-3">
+                        <div class="col-2 mt-3">
                           <input
                             class="form-control"
-                            id="numeroClienteExceptuadosIPAB"
-                            name="numeroClienteExceptuadosIPAB"
-                            [(ngModel)]="numeroClienteExceptuadosIPAB"
+                            id="cierreCuentasNumeroCliente"
+                            name="cierreCuentasNumeroCliente"
+                            [(ngModel)]="cierreCuentasNumeroCliente"
+                          />
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Nombre o Razón social:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <input
+                            class="form-control"
+                            id="cierreCuentasNombreCliente"
+                            name="cierreCuentasNombreCliente"
+                            [(ngModel)]="cierreCuentasNombreCliente"
+                          />
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Apellido Paterno:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <input
+                            class="form-control"
+                            id="cierreCuentasApellidoPaterno"
+                            name="cierreCuentasApellidoPaterno"
+                            [(ngModel)]="cierreCuentasApellidoPaterno"
+                          />
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Apellido Materno:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <input
+                            class="form-control"
+                            id="cierreCuentasApellidoMaterno"
+                            name="cierreCuentasApellidoMaterno"
+                            [(ngModel)]="cierreCuentasApellidoMaterno"
                           />
                         </div>
                       </div>
-                      <div class="col-1">
+                      <div class="col-1 mt-3">
                         <div class="row justify-content-search">
                           <div class="col-md-6">
                             <div
                               class="btn-group d-flex justify-content-center"
                             >
-                              <button class="btn btn-primary" (click)="searchExceptuadosIPAB()">
+                              <button class="btn btn-primary">
                                 <fa-icon icon="search"></fa-icon>
                               </button>
                             </div>
@@ -1116,11 +1163,18 @@
                         <table class="table table-hover table-fixed">
                           <thead class="thead-light">
                             <tr class="hover-primary">
-                              <th class="col-6" scope="col">
-                                Fecha del reporte
-                              </th>
-                              <th class="col-6" scope="col">
+                              <th class="col-2" scope="col">
                                 Número de Cliente
+                              </th>
+                              <th class="col-2" scope="col">
+                                Número de Cuenta
+                              </th>
+                              <th class="col-3" scope="col">Nombre Cliente</th>
+                              <th class="col-2" scope="col">
+                                Apellido Paterno
+                              </th>
+                              <th class="col-3" scope="col">
+                                Apellido Materno
                               </th>
                             </tr>
                           </thead>
