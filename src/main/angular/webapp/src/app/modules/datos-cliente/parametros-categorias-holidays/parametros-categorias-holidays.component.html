@@ -16,95 +16,44 @@
                 </div>
               </div>
               <div class="card-body">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="form">
-                      <div class="form-row">
-                        <div class="col-4 col-md-4 col-lg-4">
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <label for="codigo" class="input-group-text">
-                                Tipo de Parámetro:
-                              </label>
-                            </div>
-                            <input
-                              class="form-control"
-                              id="tipoParametro"
-                              name="tipoParametro"
-                              [(ngModel)]="tipoParametro"
-                            />
-                          </div>
-                        </div>
-                        <div class="col-4 col-md-4 col-lg-4">
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <label for="codigo" class="input-group-text">
-                                Id:
-                              </label>
-                            </div>
-                            <input
-                              class="form-control"
-                              id="idParametro"
-                              name="idParametro"
-                              [(ngModel)]="idParametro"
-                            />
-                          </div>
-                        </div>
-                        <div class="col-1 col-md-1 col-lg-1"></div>
-                        <div class="col-3 col-md-4 col-lg-2">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div
-                                class="btn-group d-flex justify-content-center"
-                              >
-                                <button
-                                  class="btn btn-primary"
-                                  id="btnSearchTiposProductoCreditos"
-                                  (click)="onClickSearchParametros()"
-                                >
-                                  <fa-icon icon="search"></fa-icon>
-                                </button>
-                                <!-- Botón agregar grupos-->
-                                <button
-                                  class="btn btn-primary"
-                                  id="btnSearchProspectos"
-                                  (click)="openModalAltaParametro()"
-                                >
-                                  <fa-icon icon="plus"></fa-icon>
-                                </button>
-                                <!-- Botón editar grupo-->
-                                <button
-                                  class="btn btn-primary"
-                                  type="button"
-                                  [disabled]="!isActiveBtnEditarParametro"
-                                  (click)="openModalEditarParametro()"
-                                >
-                                  <fa-icon icon="edit"></fa-icon>
-                                </button>
-                                <!-- Botón eliminar grupo-->
-                                <button
-                                  class="btn btn-primary"
-                                  type="button"
-                                  [disabled]="!isActiveBtnEliminarParametro"
-                                  (click)="onDeleteParametro()">
-
-                                  <fa-icon icon="trash"></fa-icon>
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                <div class="form-row">
+                  <div class="col-4 col-md-4 col-lg-4">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <label for="codigo" class="input-group-text">
+                          Tipo de Parámetro:
+                        </label>
                       </div>
+                      <input
+                        class="form-control"
+                        id="tipoParametro"
+                        name="tipoParametro"
+                        [(ngModel)]="tipoParametro"
+                      />
                     </div>
-                    <div class="col-12 col-md-12 col-lg-1 col-xl-4 mt-1"></div>
-                    <div class="col-12 col-md-12 col-lg-3 col-xl-2">
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="btn-group d-flex justify-content-center">
-                            <button class="btn btn-primary">
-                              <fa-icon icon="search"></fa-icon>
-                            </button>
-                          </div>
+                  </div>
+                  <div class="col-4 col-md-4 col-lg-4">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <label for="codigo" class="input-group-text">
+                          Id:
+                        </label>
+                      </div>
+                      <input
+                        class="form-control"
+                        id="idParametro"
+                        name="idParametro"
+                        [(ngModel)]="idParametro"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-4 col-md-4 col-lg-4">
+                    <div class="row justify-content-end">
+                      <div class="col-md-2">
+                        <div class="btn-group">
+                          <button class="btn btn-primary" (click)="onClickSearchParametros()">
+                            <fa-icon icon="search"></fa-icon>
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -117,23 +66,30 @@
                 <div class="row">
                   <div class="col-md-11">
                     <div class="table-responsive">
-                      <table class="table table-hover table-fixed">
+                      <table class="table table-hover">
                         <thead class="thead-light">
                         <tr class="hover-primary">
-                          <th class="col-3" scope="col">Tipo de parametro</th>
-                          <th class="col-3" scope="col">ID</th>
-                          <th class="col-3" scope="col">Campo</th>
-                          <th class="col-3" scope="col">Valor</th>
+                          <th class="col-1" scope="col">Alta</th>
+                          <th class="col-2" scope="col">Comentario</th>
+                          <th class="col-2" scope="col">Descripcion</th>
+                          <th class="col-1" scope="col">Fecha</th>
+                          <th class="col-2" scope="col">Nombre</th>
+                          <th class="col-2" scope="col">Valor</th>
+                          <th class="col-1" scope="col">Tipo</th>
                         </tr>
                         </thead>
                         <tbody class="max-row-7">
                         <tr
                           class="cursor-pointer hover-primary"
+                          *ngFor="let parametro of listaParametros; let i=index"
                         >
-                          <td class="col-3"></td>
-                          <td class="col-3"></td>
-                          <td class="col-3"></td>
-                          <td class="col-3"></td>
+                          <td class="col-1">{{parametro.alta}}</td>
+                          <td class="col-2">{{parametro.comment}}</td>
+                          <td class="col-2">{{parametro.descripcion}}</td>
+                          <td class="col-1">{{parametro.loadDate}}</td>
+                          <td class="col-2">{{parametro.paramName}}</td>
+                          <td class="col-2">{{parametro.paramValue}}</td>
+                          <td class="col-1">{{parametro.tipo}}</td>
                         </tr>
                         </tbody>
                       </table>
@@ -175,79 +131,26 @@
                 </div>
               </div>
               <div class="card-body">
-                <div class="form">
-                  <div class="form-row">
-                    <div class="col-12 col-md-6 col-lg-6 col-xl-6">
-                      <div class="input-group">
-                        <div class="col-3 col-md-3 col-lg-3 mt-1">
-                          <label class="mt-1">Categoria :</label>
-                        </div>
-                        <div class="col-4 col-md-4 col-lg-4">
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <label for="categoria" class="input-group-text">
-                                Categoría:
-                              </label>
-                            </div>
-                            <input
-                              class="form-control"
-                              id="categoria"
-                              name="categoria"
-                              [(ngModel)]="categoria"
-                            />
-                          </div>
-                        </div>
-                        <div class="col-3 col-md-3 col-lg-3"></div>
-                        <div class="col-3 col-md-4 col-lg-2">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div
-                                class="btn-group d-flex justify-content-center"
-                              >
-                                <button
-                                  class="btn btn-primary"
-                                  id="btnSearchTiposProductoCreditos"
-                                  (click)="onClickSearchCategorias()"
-                                >
-                                  <fa-icon icon="search"></fa-icon>
-                                </button>
-                                <!-- Botón agregar grupos-->
-                                <button
-                                  class="btn btn-primary"
-                                  id="btnAltaCategoria"
-                                  (click)="openModalAltaCategoria()"
-                                >
-                                  <fa-icon icon="plus"></fa-icon>
-                                </button>
-                                <!-- Botón editar grupo-->
-                                <button
-                                  class="btn btn-primary"
-                                  type="button"
-                                  id="btnEditarCategoria"
-                                  [disabled]="!isActiveBtnEditarCategoria"
-                                  (click)="openModalEditarCategoria()"
-                                >
-                                  <fa-icon icon="edit"></fa-icon>
-                                </button>
-                                <!-- Botón eliminar grupo-->
-                                <button
-                                  class="btn btn-primary"
-                                  type="button"
-                                  id="btnEliminarCategoria"
-                                  [disabled]="!isActiveBtnEliminarCategoria"
-                                  (click)="onDeleteCategorias()"
-                                >
-                                  <fa-icon icon="trash"></fa-icon>
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                <div class="form-row">
+                  <div class="col-4 col-md-4 col-lg-4">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <label for="codigo" class="input-group-text">
+                          Categoria:
+                        </label>
                       </div>
+                      <input
+                        class="form-control"
+                        id="categoria"
+                        name="categoria"
+                        [(ngModel)]="categoria"
+                      />
                     </div>
-                    <div class="col-12 col-md-12 col-lg-6 col-xl-6">
-                      <div class="d-flex justify-content-end">
-                        <button class="btn btn-primary">
+                  </div>
+                  <div class="col-8 col-md-8 col-lg-8">
+                    <div class="row justify-content-end">
+                      <div class="btn-group mr-3">
+                        <button class="btn btn-primary" (click)="onClickSearchCategorias()">
                           <fa-icon icon="search"></fa-icon>
                         </button>
                       </div>
@@ -261,21 +164,42 @@
                 <div class="row">
                   <div class="col-md-11">
                     <div class="table-responsive">
-                      <table class="table table-hover table-fixed">
+                      <table class="table table-hover">
                         <thead class="thead-light">
                         <tr class="hover-primary">
-                          <th class="col-4" scope="col">Codigo</th>
-                          <th class="col-4" scope="col">Categoria</th>
-                          <th class="col-4" scope="col">Descripcion</th>
+                          <th class="col-1" scope="col">Alta</th>
+                          <th class="col-1" scope="col">Aplicacion</th>
+                          <th class="col-1" scope="col">ID</th>
+                          <th class="col-1" scope="col">Categoria</th>
+                          <th class="col-1" scope="col">Descripcion</th>
+                          <th class="col-1" scope="col">Nombre</th>
+                          <th class="col-1" scope="col">Tipo</th>
+                          <th class="col-1" scope="col">Nivel</th>
+                          <th class="col-1" scope="col">Modalidad</th>
+                          <th class="col-1" scope="col">Descripcion IPAB</th>
+                          <th class="col-1" scope="col">Producto IPAB</th>
+                          <th class="col-1" scope="col">Fecha</th>
+                          <th class="col-1" scope="col">Tipo</th>
                         </tr>
                         </thead>
                         <tbody class="max-row-7">
                         <tr
                           class="cursor-pointer hover-primary"
+                          *ngFor="let categoria of listaCategorias; let i=index"
                         >
-                          <td class="col-4"></td>
-                          <td class="col-4"></td>
-                          <td class="col-4"></td>
+                          <td class="col-1">{{categoria.isAlta}}</td>
+                          <td class="col-1">{{categoria.aplicacion}}</td>
+                          <td class="col-1">{{categoria.idRegistro}}</td>
+                          <td class="col-1">{{categoria.categoria}}</td>
+                          <td class="col-1">{{categoria.descripcion}}</td>
+                          <td class="col-1">{{categoria.shortName}}</td>
+                          <td class="col-1">{{categoria.tipoProd}}</td>
+                          <td class="col-1">{{categoria.nivelCta}}</td>
+                          <td class="col-1">{{categoria.modalidad}}</td>
+                          <td class="col-1">{{categoria.descripcionIPAB}}</td>
+                          <td class="col-1">{{categoria.productoIPAB}}</td>
+                          <td class="col-1">{{categoria.loadDate}}</td>
+                          <td class="col-1">{{categoria.tipo}}</td>
                         </tr>
                         </tbody>
                       </table>
@@ -317,78 +241,25 @@
                 </div>
               </div>
               <div class="card-body">
-                <div class="form">
-                  <div class="form-row">
-                    <div class="col-12 col-md-6 col-lg-6 col-xl-6">
-                      <div class="input-group">
-                        <div class="col-3 col-md-3 col-lg-3 mt-1">
-                          <label class="mt-1">Año :</label>
-                        </div>
-                        <div class="col-4 col-md-4 col-lg-4">
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <label for="anio" class="input-group-text">
-                                Año:
-                              </label>
-                            </div>
-                            <div class="col-sm-8 col-md-8">
-                              <select class="form-control col-9 pr-0" id="anio" name="anio" [(ngModel)]="anio">
-                                <option *ngFor="let anio of anios" [ngValue]="anio">{{ anio }}</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-3 col-md-3 col-lg-3"></div>
-                        <div class="col-3 col-md-4 col-lg-2">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div
-                                class="btn-group d-flex justify-content-center"
-                              >
-                                <button
-                                  class="btn btn-primary"
-                                  id="btnSearchCalendario"
-                                  type="button"
-                                  (click)="onClickSearchCalendario()"
-                                >
-                                  <fa-icon icon="search"></fa-icon>
-                                </button>
-                                <!-- Botón agregar grupos-->
-                                <button
-                                  class="btn btn-primary"
-                                  type="button"
-                                  id="btnSearchCalendario"
-                                  (click)="openModalAltaHoliday()"
-                                >
-                                  <fa-icon icon="plus"></fa-icon>
-                                </button>
-                                <!-- Botón editar grupo-->
-                                <button
-                                  class="btn btn-primary"
-                                  type="button"
-                                  [disabled]="!isActiveBtnEditarCalendario"
-                                  (click)="openModalEditarHoliday()"
-                                >
-                                  <fa-icon icon="edit"></fa-icon>
-                                </button>
-                                <!-- Botón eliminar grupo-->
-                                <button
-                                  class="btn btn-primary"
-                                  type="button"
-                                  [disabled]="!isActiveBtnEliminarCalendario"
-                                  (click)="onDeleteCalendario()"
-                                >
-                                  <fa-icon icon="trash"></fa-icon>
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                <div class="form-row">
+                  <div class="col-4 col-md-4 col-lg-4">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <label for="anio" class="input-group-text">
+                          Año:
+                        </label>
+                      </div>
+                      <div class="col-sm-8 col-md-8">
+                        <select class="form-control col-9 pr-0" id="anio" name="anio" [(ngModel)]="anio">
+                          <option *ngFor="let anio of anios" [ngValue]="anio">{{ anio }}</option>
+                        </select>
                       </div>
                     </div>
-                    <div class="col-12 col-md-12 col-lg-6 col-xl-6">
-                      <div class="d-flex justify-content-end">
-                        <button class="btn btn-primary">
+                  </div>
+                  <div class="col-8 col-md-8 col-lg-8">
+                    <div class="row justify-content-end">
+                      <div class="btn-group mr-3">
+                        <button class="btn btn-primary" (click)="onClickSearchCalendario()">
                           <fa-icon icon="search"></fa-icon>
                         </button>
                       </div>
@@ -402,17 +273,30 @@
                 <div class="row">
                   <div class="col-md-11">
                     <div class="table-responsive">
-                      <table class="table table-hover table-fixed">
+                      <table class="table table-hover">
                         <thead class="thead-light">
                         <tr class="hover-primary">
-                          <th class="col-12" scope="col">Año</th>
+                          <th class="col-1" scope="col">Alta</th>
+                          <th class="col-2" scope="col">Descripcion</th>
+                          <th class="col-2" scope="col">Nombre</th>
+                          <th class="col-2" scope="col">Valor</th>
+                          <th class="col-2" scope="col">Comentario</th>
+                          <th class="col-2" scope="col">Fecha</th>
+                          <th class="col-1" scope="col">Tipo</th>
                         </tr>
                         </thead>
                         <tbody class="max-row-7">
                         <tr
                           class="cursor-pointer hover-primary"
+                          *ngFor="let calendario of listaCalendario; let i=index"
                         >
-                          <td class="col-4">MX002021</td>
+                          <td class="col-1">{{calendario.isAlta}}</td>
+                          <td class="col-2">{{calendario.descripcion}}</td>
+                          <td class="col-2">{{calendario.paramName}}</td>
+                          <td class="col-2">{{calendario.paramValue}}</td>
+                          <td class="col-2">{{calendario.comment}}</td>
+                          <td class="col-2">{{calendario.loadDate}}</td>
+                          <td class="col-1">{{calendario.tipo}}</td>
                         </tr>
                       </tbody>
                       </table>

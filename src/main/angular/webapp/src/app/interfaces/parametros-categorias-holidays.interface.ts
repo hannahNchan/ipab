@@ -1,29 +1,35 @@
 export interface IParametro {
-  description: string;
+  alta: boolean;
+  comment: string;
+  descripcion: string;
+  loadDate: string;
   paramName: string;
   paramValue: string;
-  comment: string;
-  loadDate: string;
+  tipo: number;
 }
 
 export interface ICategoria {
+  isAlta: boolean;
   aplicacion: string;
   idRegistro: string;
   categoria: string;
   descripcion: string;
   shortName: string;
-  tipoProd: number;
-  nivelCta: number;
-  modalidad: number;
-  descripcionIpab: string;
-  productoIpab: string;
+  tipoProd: string;
+  nivelCta: string;
+  modalidad: string;
+  descripcionIPAB: string;
+  productoIPAB: string;
   loadDate: string;
+  tipo: number;
 }
 
 export interface ICalendario {
-  description: string;
+  isAlta: boolean,
+  descripcion: string;
   paramName: string;
   paramValue: string;
   comment: string;
   loadDate: string;
+  tipo: number;
 }

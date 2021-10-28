@@ -202,6 +202,7 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
         });
       });
   }
+
   onClickSearchCategorias(): void {
     if (this.categoria.trim().length === 0) {
       return;
