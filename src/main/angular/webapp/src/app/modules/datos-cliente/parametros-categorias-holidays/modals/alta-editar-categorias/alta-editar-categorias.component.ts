@@ -85,9 +85,9 @@ export class AltaEditarCategoriasComponent implements OnInit {
       categoria: '',
       descripcion: '',
       shortName: '',
-      tipoProd: 0,
-      nivelCta: 0,
-      modalidad: 0,
+      tipoProd: '',
+      nivelCta: '',
+      modalidad: '',
       descripcionIpab: '',
       productoIpab: '',
       loadDate: ''
