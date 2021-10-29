@@ -81,11 +81,13 @@ export class AltaEditarHolidayComponent implements OnInit {
 
   private static initCalendario(): ICalendario {
     return {
-      description: '',
+      isAlta: false,
+      descripcion: '',
       paramName: '',
       paramValue: '',
       comment: '',
-      loadDate: ''
+      loadDate: '',
+      tipo: 0
     };
   }
 }

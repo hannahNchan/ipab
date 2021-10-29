@@ -80,11 +80,13 @@ export class AltaEditarParametrosComponent implements OnInit {
 
   private static initParametro(): IParametro {
     return {
-      description: '',
+      alta: false,
+      comment: '',
+      descripcion: '',
+      loadDate: '',
       paramName: '',
       paramValue: '',
-      comment: '',
-      loadDate: ''
+      tipo: 0
     };
   }
 

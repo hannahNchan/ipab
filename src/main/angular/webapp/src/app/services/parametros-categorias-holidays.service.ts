@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {ICalendario, ICategoria, IParametro} from "@interfaces/parametros-categorias-holidays.interface";
+import {ICalendario, ICategoria, IParametro, ICatalogoNivelCuenta, ICatalogoClasificacion} from "@interfaces/parametros-categorias-holidays.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -123,5 +123,18 @@ export class ParametrosCategoriasHolidaysService {
     return this.http.put<any>('/IPABESB/rest/param/updateCalendario', uploadData);
   }
 
+  /**
+   * Trae Catalogo por clasficacion
+   */
+  getCatalogoClasificacion(): Observable<any> {
+    return this.http.get<any>('/IPABESB/rest/catalogo/CLASIFICACION');
+  }
 
+  /**
+   * Trae Catalogo por nivel cuenta 
+   */
+  getCatalogoNivelCuenta(): Observable<any> {
+    return this.http.get<any>('/IPABESB/rest/catalogo/NIVEL_CUENTA');
+  }
 }
+

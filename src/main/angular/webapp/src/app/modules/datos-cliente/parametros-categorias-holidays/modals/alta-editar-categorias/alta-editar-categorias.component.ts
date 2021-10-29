@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from "@angular/core";
 
 import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { ICategoria, IParametro } from "@interfaces/parametros-categorias-holidays.interface";
+import { ICategoria, IParametro, ICatalogoNivelCuenta, ICatalogoClasificacion } from "@interfaces/parametros-categorias-holidays.interface";
 import { ParametrosCategoriasHolidaysDataService } from "@services/parametros-categorias-holidays-data.service";
 import swal from "sweetalert2";
 import { PopUpMessage } from "@helpers/PopUpMessage";
-import { ParametrosCategoriasHolidaysService } from "@services/parametros-categorias-holidays.service";
+import { ParametrosCategoriasHolidaysService, getCatalogoNivelCuenta, getCatalogoClasificacion } from "@services/parametros-categorias-holidays.service";
 
 @Component({
   selector: "app-alta-editar-categorias",
@@ -16,6 +16,8 @@ export class AltaEditarCategoriasComponent implements OnInit {
   @Input() public isUpdate: boolean;
 
   categoriaLocal: ICategoria;
+  catalogoNivelCuenta: ICatalogoNivelCuenta;
+  catalogoClasificacion: ICatalogoClasificacion;
 
   constructor(
     private modalService: NgbModal,
@@ -88,9 +90,11 @@ export class AltaEditarCategoriasComponent implements OnInit {
       tipoProd: '',
       nivelCta: '',
       modalidad: '',
-      descripcionIpab: '',
-      productoIpab: '',
-      loadDate: ''
+      descripcionIPAB: '',
+      productoIPAB: '',
+      loadDate: '',
+      isAlta: false,
+      tipo: 0
     };
   }
 }

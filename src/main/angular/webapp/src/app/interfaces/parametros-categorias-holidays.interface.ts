@@ -25,7 +25,7 @@ export interface ICategoria {
 }
 
 export interface ICalendario {
-  isAlta: boolean,
+  isAlta: boolean;
   descripcion: string;
   paramName: string;
   paramValue: string;
@@ -33,3 +33,16 @@ export interface ICalendario {
   loadDate: string;
   tipo: number;
 }
+
+export interface ICatalogoClasificacion {
+  clave: string;
+  descripcion: string;
+  tipo: boolean;
+}
+
+export interface ICatalogoNivelCuenta {
+  clave: string;
+  descripcion: string;
+  tipo: boolean;
+}
+
