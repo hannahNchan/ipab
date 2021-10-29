@@ -5,7 +5,7 @@ import { ICategoria, IParametro, ICatalogoNivelCuenta, ICatalogoClasificacion } 
 import { ParametrosCategoriasHolidaysDataService } from "@services/parametros-categorias-holidays-data.service";
 import swal from "sweetalert2";
 import { PopUpMessage } from "@helpers/PopUpMessage";
-import { ParametrosCategoriasHolidaysService, getCatalogoNivelCuenta, getCatalogoClasificacion } from "@services/parametros-categorias-holidays.service";
+import { ParametrosCategoriasHolidaysService } from "@services/parametros-categorias-holidays.service";
 
 @Component({
   selector: "app-alta-editar-categorias",
@@ -23,7 +23,7 @@ export class AltaEditarCategoriasComponent implements OnInit {
     private modalService: NgbModal,
     public activeModal: NgbActiveModal,
     private paramData$: ParametrosCategoriasHolidaysDataService,
-    private paramService: ParametrosCategoriasHolidaysService
+    private paramService: ParametrosCategoriasHolidaysService,
   ) { }
 
   ngOnInit() {
@@ -36,6 +36,16 @@ export class AltaEditarCategoriasComponent implements OnInit {
       } else {
         this.isUpdate = false;
         this.categoriaLocal = AltaEditarCategoriasComponent.initCategoria();
+      }
+    });
+    this.paramService.getCatalogoClasificacion().subscribe(res => {
+      if (res.header.estatus) {
+        this.catalogoClasificacion = res.catalogo;
+      }
+    });
+    this.paramService.getCatalogoNivelCuenta().subscribe(res => {
+      if (res.header.estatus) {
+        this.catalogoNivelCuenta = res.catalogo;
       }
     });
   }

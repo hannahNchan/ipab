@@ -71,7 +71,7 @@
                   <label class="mt-1 col-4 text-right">Tipo Producto:</label>
                   <div class="col-sm-8 col-md-8">
                     <select class="form-control form-control-sm">
-                      <option>Opción 1</option>
+                      <option *ngFor="let tipo of catalogoClasificacion">{{ tipo.descripcion }}</option>
                     </select>
                   </div>
                 </div>
@@ -81,7 +81,7 @@
                   <label class="mt-1 col-4 text-right">Nivel de Cuenta:</label>
                   <div class="col-sm-8 col-md-8">
                     <select class="form-control form-control-sm">
-                      <option>Opción 1</option>
+                      <option *ngFor="let tipo of catalogoNivelCuenta">{{ tipo.descripcion }}</option>
                     </select>
                   </div>
                 </div>

@@ -35,12 +35,14 @@ export interface ICalendario {
 }
 
 export interface ICatalogoClasificacion {
-  clave: string;
-  descripcion: string;
-  tipo: boolean;
+  catalogo: ICatalogo[];
 }
 
 export interface ICatalogoNivelCuenta {
+  catalogo: ICatalogo[];
+}
+
+export interface ICatalogo {
   clave: string;
   descripcion: string;
   tipo: boolean;
