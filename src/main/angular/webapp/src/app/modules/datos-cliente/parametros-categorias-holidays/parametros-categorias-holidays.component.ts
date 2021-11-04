@@ -415,7 +415,8 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
     this.selectedParametro = parametro;
     this.inicializarBotonesParametros();
   }
-
+  // *ngFor="let parametro of listaParametros; let i=index"
+  // (click)="onSelectedParameterIndex(i)"
   /**
    * Elige globalmente de la categoria seleccionado
    * @param parametro

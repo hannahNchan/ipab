@@ -79,6 +79,7 @@
                         <tr
                           class="cursor-pointer hover-primary"
                           *ngFor="let parametro of listaParametros; let i=index"
+                          (click)="onSelectedParametro(parametro)"
                         >
                           <td class="col-3">{{parametro.tipo}}</td>
                           <td class="col-3">{{parametro.paramName}}</td>
