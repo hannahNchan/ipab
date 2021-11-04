@@ -4,7 +4,7 @@ import { NgbCalendar, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstr
 import swal from 'sweetalert2';
 import { PopUpMessage } from '@helpers/PopUpMessage';
 
-import { ICalendario, ICategoria, IParametro } from '@interfaces/parametros-categorias-holidays.interface';
+import { ICalendario, ICategoria, IParametro, IYearSelected } from '@interfaces/parametros-categorias-holidays.interface';
 import { IDate } from '@interfaces/date.interface';
 
 import { ParametrosCategoriasHolidaysService } from '@services/parametros-categorias-holidays.service';
@@ -27,6 +27,8 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
   categoria: string;
 
   anio: string;
+  selectedIndex: number;
+  selectedRow: IYearSelected; 
 
   selectedParametro: IParametro;
   selectedCategoria: ICategoria;
@@ -91,7 +93,7 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
   }
 
   /**
-   * Abre el modal para la alta de usuario
+   * Abre el modal para la edicion de usuario
    */
   openModalEditarParametro(): void {
     this.paramData$.changeSelectedParametro(this.selectedParametro);
@@ -108,7 +110,7 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
   }
 
   /**
-   * Abre el modal para la alta de usuario
+   * Abre el modal para la alta de categoria 
    */
   openModalAltaCategoria(): void {
     this.paramData$.changeSelectedCategoria(undefined);
@@ -125,7 +127,7 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
   }
 
   /**
-   * Abre el modal para la alta de usuario
+   * Abre el modal para la edicion de categoria
    */
   openModalEditarCategoria(): void {
     this.paramData$.changeSelectedCategoria(this.selectedCategoria);
@@ -142,7 +144,7 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
   }
 
   /**
-   * Abre el modal para la alta de usuario
+   * Abre el modal para la alta de holiday 
    */
   openModalAltaHoliday(): void {
     this.paramData$.changeSelectedCalendario(undefined);
@@ -159,7 +161,7 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
   }
 
   /**
-   * Abre el modal para la alta de usuario
+   * Abre el modal para la edicion de holiday
    */
   openModalEditarHoliday(): void {
     this.paramData$.changeSelectedCalendario(this.selectedCalendario);
@@ -173,6 +175,7 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
     const activeModal = this.modalService
       .open(AltaEditarHolidayComponent, ngbModalOptions);
     activeModal.componentInstance.isUpdate = true; 
+    activeModal.componentInstance.selectedRow= this.selectedRow;
   }
 
   onClickSearchParametros(): void {
@@ -429,6 +432,18 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
   onSelectedCalendario(calendario: ICalendario): void {
     this.selectedCalendario = calendario;
     this.inicializarBotonesCalendario();
+  }
+
+  /**
+   * Guarda el ano elegido al dar click
+   * @param index
+   */
+  onSelectedIndex(index: number): void {
+    this.selectedIndex = index; 
+    this.selectedRow = {
+      anio: this.listaCalendario[index].paramName,
+      descripcion: this.listaCalendario[index].descripcion,
+    };
   }
 
   private inicializarBotonesCategoria(): void {

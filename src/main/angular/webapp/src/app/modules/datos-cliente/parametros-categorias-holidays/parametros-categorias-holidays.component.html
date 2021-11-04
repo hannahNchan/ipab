@@ -69,13 +69,10 @@
                       <table class="table table-hover">
                         <thead class="thead-light">
                         <tr class="hover-primary">
-                          <th class="col-1" scope="col">Alta</th>
-                          <th class="col-2" scope="col">Comentario</th>
-                          <th class="col-2" scope="col">Descripcion</th>
-                          <th class="col-1" scope="col">Fecha</th>
-                          <th class="col-2" scope="col">Nombre</th>
-                          <th class="col-2" scope="col">Valor</th>
-                          <th class="col-1" scope="col">Tipo</th>
+                          <th class="col-3" scope="col">Tipo de parametro</th>
+                          <th class="col-3" scope="col">Id</th>
+                          <th class="col-3" scope="col">Campo</th>
+                          <th class="col-3" scope="col">Valor</th>
                         </tr>
                         </thead>
                         <tbody class="max-row-7">
@@ -83,13 +80,10 @@
                           class="cursor-pointer hover-primary"
                           *ngFor="let parametro of listaParametros; let i=index"
                         >
-                          <td class="col-1">{{parametro.alta}}</td>
-                          <td class="col-2">{{parametro.comment}}</td>
-                          <td class="col-2">{{parametro.descripcion}}</td>
-                          <td class="col-1">{{parametro.loadDate}}</td>
-                          <td class="col-2">{{parametro.paramName}}</td>
-                          <td class="col-2">{{parametro.paramValue}}</td>
-                          <td class="col-1">{{parametro.tipo}}</td>
+                          <td class="col-3">{{parametro.tipo}}</td>
+                          <td class="col-3">{{parametro.paramName}}</td>
+                          <td class="col-3">{{parametro.descripcion}}</td>
+                          <td class="col-3">{{parametro.paramValue}}</td>
                         </tr>
                         </tbody>
                       </table>
@@ -269,34 +263,22 @@
               </div>
             </div>
             <div class="card mt-3">
-              <div class="card-body height-card-table">
+              <div class="card-body">
                 <div class="row">
                   <div class="col-md-11">
                     <div class="table-responsive">
                       <table class="table table-hover">
                         <thead class="thead-light">
                         <tr class="hover-primary">
-                          <th class="col-1" scope="col">Alta</th>
-                          <th class="col-2" scope="col">Descripcion</th>
-                          <th class="col-2" scope="col">Nombre</th>
-                          <th class="col-2" scope="col">Valor</th>
-                          <th class="col-2" scope="col">Comentario</th>
-                          <th class="col-2" scope="col">Fecha</th>
-                          <th class="col-1" scope="col">Tipo</th>
+                          <th class="col-12" scope="col">Año</th>
                         </tr>
                         </thead>
-                        <tbody class="max-row-7">
+                        <tbody class="max-row-12">
                         <tr
                           class="cursor-pointer hover-primary"
-                          *ngFor="let calendario of listaCalendario; let i=index"
+                          (click)="onSelectedIndex(0)"
                         >
-                          <td class="col-1">{{calendario.isAlta}}</td>
-                          <td class="col-2">{{calendario.descripcion}}</td>
-                          <td class="col-2">{{calendario.paramName}}</td>
-                          <td class="col-2">{{calendario.paramValue}}</td>
-                          <td class="col-2">{{calendario.comment}}</td>
-                          <td class="col-2">{{calendario.loadDate}}</td>
-                          <td class="col-1">{{calendario.tipo}}</td>
+                          <td class="col-12">MX002021</td>
                         </tr>
                       </tbody>
                       </table>

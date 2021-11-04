@@ -48,3 +48,7 @@ export interface ICatalogo {
   tipo: boolean;
 }
 
+export interface IYearSelected {
+  descripcion: string;
+  anio: string;
+}

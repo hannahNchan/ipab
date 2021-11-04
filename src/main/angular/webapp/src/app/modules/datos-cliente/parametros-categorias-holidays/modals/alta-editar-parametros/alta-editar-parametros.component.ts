@@ -14,7 +14,7 @@ import { PopUpMessage } from "@helpers/PopUpMessage";
 })
 export class AltaEditarParametrosComponent implements OnInit {
   @Input() public isUpdate: boolean;
-
+  
   parametroLocal: IParametro;
 
   constructor(

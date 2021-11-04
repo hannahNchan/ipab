@@ -5,7 +5,7 @@ import { ParametrosCategoriasHolidaysDataService } from '@services/parametros-ca
 import { ParametrosCategoriasHolidaysService } from '@services/parametros-categorias-holidays.service';
 import swal from 'sweetalert2';
 import { PopUpMessage } from '@helpers/PopUpMessage';
-import { ICalendario } from '@interfaces/parametros-categorias-holidays.interface';
+import { ICalendario, IYearSelected } from '@interfaces/parametros-categorias-holidays.interface';
 
 @Component({
   selector: 'app-alta-editar-holiday',
@@ -14,6 +14,7 @@ import { ICalendario } from '@interfaces/parametros-categorias-holidays.interfac
 })
 export class AltaEditarHolidayComponent implements OnInit {
   @Input() public isUpdate: boolean;
+  @Input() public selectedRow: IYearSelected;
   meses: number[];
   calendarioLocal: ICalendario;
 
@@ -25,12 +26,25 @@ export class AltaEditarHolidayComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.meses = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+    console.log(this.selectedRow)
     this.calendarioLocal = AltaEditarHolidayComponent.initCalendario();
     this.isUpdate = false;
     this.paramData$.selectedParametro.subscribe(calendario => {
       this.calendarioLocal = calendario;
       if (this.calendarioLocal !== undefined) {
+    this.paramService.getListaCalendario(this.selectedRow.anio).subscribe(
+      response => {
+        if (response.header['estatus'] === false) {
+          swal(PopUpMessage.getAppErrorMessageReportId(response)).then(() => { });
+        } else {
+          this.calendarioLocal = response['lista'];
+        }
+      },
+      err => {
+        swal(PopUpMessage.getServerErrorMessage(err)).then(() => {
+          console.error(err);
+        });
+      });
         this.isUpdate = true;
       } else {
         this.isUpdate = false;
