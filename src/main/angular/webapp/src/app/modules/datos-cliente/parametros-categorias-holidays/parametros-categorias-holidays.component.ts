@@ -236,6 +236,7 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
 
   onClickSearchCalendario(): void {
     if (this.anio.length === 0) {
+      swal(PopUpMessage.getValidateErrorMessage('Año')).then();
       return;
     }
     swal({
@@ -248,12 +249,16 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
     }).then();
     this.paramService.getListaCalendario(this.anio).subscribe(
       response => {
-        if (response.header['estatus'] === false) {
-          swal(PopUpMessage.getAppErrorMessageReportId(response)).then(() => { });
-        } else {
-          this.listaCalendario = response['lista'];
-          swal(PopUpMessage.getSuccesMessage(response, null, null)).then();
+        if (!response.header.estatus) {
+          return swal(PopUpMessage.getAppErrorMessageReportId(response)).then(() => { });
         }
+   
+        if (response.lista && response.lista.length !== 0) {
+          this.listaCalendario = [response.lista[0]];
+          return swal(PopUpMessage.getSuccesMessage(response, null, null)).then();
+        }
+ 
+        return swal(PopUpMessage.getAppErrorMessage('Mensaje', 'No se encontro ninguna informacion')).then();
       },
       err => {
         swal(PopUpMessage.getServerErrorMessage(err)).then(() => {
@@ -439,7 +444,7 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
    * Guarda el ano elegido al dar click
    * @param index
    */
-  onSelectedIndex(index: number): void {
+  onSelectedRowAnio(index: number): void {
     this.selectedIndex = index; 
     this.selectedRow = {
       anio: this.listaCalendario[index].paramName,

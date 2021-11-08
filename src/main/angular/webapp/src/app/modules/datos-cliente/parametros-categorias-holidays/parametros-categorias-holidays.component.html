@@ -244,8 +244,8 @@
                           Año:
                         </label>
                       </div>
-                      <div class="col-sm-8 col-md-8">
-                        <select class="form-control col-9 pr-0" id="anio" name="anio" [(ngModel)]="anio">
+                      <div class="col-sm-8 col-md-8 pl-0">
+                        <select class="form-control col-9" id="anio" name="anio" [(ngModel)]="anio">
                           <option *ngFor="let anio of anios" [ngValue]="anio">{{ anio }}</option>
                         </select>
                       </div>
@@ -276,10 +276,12 @@
                         </thead>
                         <tbody class="max-row-12">
                         <tr
+                          *ngFor="let anio of listaCalendario; let indice = index"
                           class="cursor-pointer hover-primary"
-                          (click)="onSelectedIndex(0)"
+                          (click)="onSelectedRowAnio(indice)"
+                          [class.highLighted]="indice === selectedIndex"
                         >
-                          <td class="col-12">MX002021</td>
+                          <td class="col-12">{{ anio.paramName }}</td>
                         </tr>
                       </tbody>
                       </table>
