@@ -19,8 +19,8 @@
             >
               <div class="col-6">
                 <input
-                  [attr.value]="isUpdate && selectedRow.anio"
-                  [attr.disabled]="isUpdate"
+                  [attr.value]="isUpdate ? selectedRow.anio : ''"
+                  [attr.disabled]="isUpdate ? true : null"
                   type="text"
                   id="descripcion"
                   class="form-control"
@@ -36,8 +36,8 @@
             >
               <div class="col-6">
                 <input
-                  [attr.value]="isUpdate && selectedRow.descripcion"
-                  [attr.disabled]="isUpdate"
+                  [attr.value]="isUpdate ? selectedRow.descripcion : ''"
+                  [attr.disabled]="isUpdate ? true : null"
                   type="text"
                   id="descripcion"
                   class="form-control"
@@ -46,8 +46,25 @@
               </div>
             </div>
           </div>
-          <ng-container *ngFor="let calendario of calendarioLocal">
-            <div class="form-group row">
+          <ng-container *ngIf="!isUpdate">
+            <div *ngFor="let mes of meses" class="form-group row">
+              <label
+                class="col-2 col-form-label col-form-label text-right"
+                for="valor"
+                >Mes {{ mes }} :</label
+              >
+              <div class="col-10">
+                <input
+                  type="text"
+                  id="valor"
+                  class="form-control"
+                  name="valor"
+                />
+              </div>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="isUpdate">
+            <div *ngFor="let calendario of calendarioLocal" class="form-group row">
               <label
                 class="col-2 col-form-label col-form-label text-right"
                 for="valor"

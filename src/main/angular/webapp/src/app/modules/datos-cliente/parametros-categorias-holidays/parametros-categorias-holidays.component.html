@@ -127,8 +127,8 @@
               </div>
               <div class="card-body">
                 <div class="form-row">
-                  <div class="col-4 col-md-4 col-lg-4">
-                    <div class="input-group">
+                  <div class="col-md-11 d-flex justify-content-center">
+                    <div class="col-3 col-md-3 input-group">
                       <div class="input-group-prepend">
                         <label for="codigo" class="input-group-text">
                           Categoria:
@@ -142,7 +142,7 @@
                       />
                     </div>
                   </div>
-                  <div class="col-8 col-md-8 col-lg-8">
+                  <div class="col-md-1">
                     <div class="row justify-content-end">
                       <div class="btn-group mr-3">
                         <button class="btn btn-primary" (click)="onClickSearchCategorias()">
@@ -162,39 +162,21 @@
                       <table class="table table-hover">
                         <thead class="thead-light">
                         <tr class="hover-primary">
-                          <th class="col-1" scope="col">Alta</th>
-                          <th class="col-1" scope="col">Aplicacion</th>
-                          <th class="col-1" scope="col">ID</th>
-                          <th class="col-1" scope="col">Categoria</th>
-                          <th class="col-1" scope="col">Descripcion</th>
-                          <th class="col-1" scope="col">Nombre</th>
-                          <th class="col-1" scope="col">Tipo</th>
-                          <th class="col-1" scope="col">Nivel</th>
-                          <th class="col-1" scope="col">Modalidad</th>
-                          <th class="col-1" scope="col">Descripcion IPAB</th>
-                          <th class="col-1" scope="col">Producto IPAB</th>
-                          <th class="col-1" scope="col">Fecha</th>
-                          <th class="col-1" scope="col">Tipo</th>
+                          <th class="col-3" scope="col">Codigo</th>
+                          <th class="col-3" scope="col">Categoria</th>
+                          <th class="col-6" scope="col">Descripcion</th>
                         </tr>
                         </thead>
                         <tbody class="max-row-7">
                         <tr
                           class="cursor-pointer hover-primary"
                           *ngFor="let categoria of listaCategorias; let i=index"
+                          (click)="onSelectedRowCategoria(i)"
+                          [class.highLighted]="i === selectedIndexCat"
                         >
-                          <td class="col-1">{{categoria.isAlta}}</td>
-                          <td class="col-1">{{categoria.aplicacion}}</td>
-                          <td class="col-1">{{categoria.idRegistro}}</td>
-                          <td class="col-1">{{categoria.categoria}}</td>
-                          <td class="col-1">{{categoria.descripcion}}</td>
-                          <td class="col-1">{{categoria.shortName}}</td>
-                          <td class="col-1">{{categoria.tipoProd}}</td>
-                          <td class="col-1">{{categoria.nivelCta}}</td>
-                          <td class="col-1">{{categoria.modalidad}}</td>
-                          <td class="col-1">{{categoria.descripcionIPAB}}</td>
-                          <td class="col-1">{{categoria.productoIPAB}}</td>
-                          <td class="col-1">{{categoria.loadDate}}</td>
-                          <td class="col-1">{{categoria.tipo}}</td>
+                          <td class="col-3">{{categoria.productoIPAB}}</td>
+                          <td class="col-3">{{categoria.categoria}}</td>
+                          <td class="col-6">{{categoria.descripcion}}</td>
                         </tr>
                         </tbody>
                       </table>

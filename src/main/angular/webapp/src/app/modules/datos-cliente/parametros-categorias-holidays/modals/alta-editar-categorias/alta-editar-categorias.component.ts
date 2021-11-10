@@ -14,6 +14,7 @@ import { ParametrosCategoriasHolidaysService } from "@services/parametros-catego
 })
 export class AltaEditarCategoriasComponent implements OnInit {
   @Input() public isUpdate: boolean;
+  @Input() public selectedRow: ICategoria;
 
   categoriaLocal: ICategoria;
   catalogoNivelCuenta: ICatalogoNivelCuenta;
@@ -31,6 +32,7 @@ export class AltaEditarCategoriasComponent implements OnInit {
     this.isUpdate = false;
     this.paramData$.selectedCategoria.subscribe(categoria => {
       this.categoriaLocal = categoria;
+      console.log(this.categoriaLocal)
       if (this.categoriaLocal !== undefined) {
         this.isUpdate = true;
       } else {

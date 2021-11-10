@@ -28,7 +28,9 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
 
   anio: string;
   selectedIndex: number;
+  selectedIndexCat: number;
   selectedRow: IYearSelected; 
+  selectedRowCategoria: ICategoria; 
 
   selectedParametro: IParametro;
   selectedCategoria: ICategoria;
@@ -141,6 +143,7 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
     const activeModal = this.modalService
       .open(AltaEditarCategoriasComponent, ngbModalOptions);
     activeModal.componentInstance.isUpdate = true; 
+    activeModal.componentInstance.selectedRow = this.selectedRowCategoria; 
   }
 
   /**
@@ -155,9 +158,9 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
       backdrop: 'static',
       keyboard: false
     };
-    this.modalService
-    .open(AltaEditarHolidayComponent, ngbModalOptions)
-    .result.then();
+    const activeModal = this.modalService
+      .open(AltaEditarHolidayComponent, ngbModalOptions);
+    activeModal.componentInstance.isUpdate = false; 
   }
 
   /**
@@ -208,6 +211,7 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
 
   onClickSearchCategorias(): void {
     if (this.categoria.trim().length === 0) {
+      swal(PopUpMessage.getValidateErrorMessage('Categoria')).then();
       return;
     }
     swal({
@@ -220,12 +224,16 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
     }).then();
     this.paramService.getListaCategorias(this.categoria).subscribe(
       response => {
-        if (response.header['estatus'] === false) {
-          swal(PopUpMessage.getAppErrorMessageReportId(response)).then(() => { });
-        } else {
-          this.listaCategorias = response['lista'];
-          swal(PopUpMessage.getSuccesMessage(response, null, null)).then();
+        if (!response.header.estatus) {
+          return swal(PopUpMessage.getAppErrorMessageReportId(response)).then(() => { });
         }
+
+        if (response.lista && response.lista.length !== 0) {
+          this.listaCategorias = response.lista;
+          return swal(PopUpMessage.getSuccesMessage(response, null, null)).then(); 
+        }
+
+        return swal(PopUpMessage.getAppErrorMessage('Mensaje', 'No se encontro ninguna informacion')).then();
       },
       err => {
         swal(PopUpMessage.getServerErrorMessage(err)).then(() => {
@@ -450,6 +458,15 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
       anio: this.listaCalendario[index].paramName,
       descripcion: this.listaCalendario[index].descripcion,
     };
+  }
+
+  /**
+   * Guarda la categoria elegida al dar click
+   * @param index
+   */
+  onSelectedRowCategoria(index: number): void {
+    this.selectedIndexCat = index; 
+    this.selectedRowCategoria = this.listaCategorias[index];
   }
 
   private inicializarBotonesCategoria(): void {

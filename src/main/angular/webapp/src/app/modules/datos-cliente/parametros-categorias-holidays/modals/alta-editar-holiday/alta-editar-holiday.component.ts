@@ -26,7 +26,7 @@ export class AltaEditarHolidayComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.selectedRow)
+    this.meses = Array.from({length: 12}, (_, i) => i + 1);
     this.calendarioLocal = AltaEditarHolidayComponent.initCalendario();
     this.isUpdate = false;
     this.paramData$.selectedParametro.subscribe(calendario => {
