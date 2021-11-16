@@ -1,0 +1,170 @@
+<div class="modal-container">
+  <div class="modal-header">
+    <h4 class="modal-title">Editar</h4>
+    <button class="close" type="button" aria-label="Close" (click)="activeModal.close('Close click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body flex-modal">
+    <div class="container-fluid mt-2 mb-2">
+      <div class="card">
+        <div class="card-body">
+          <div class="ml-5 form-max-height">
+            <div class="row mt-2">
+              <label class="mt-1 col-3 align-text-right">Número de crédito:</label>
+              <div class="col-sm-5 col-md-5">
+                <input class="form-control"
+                  name="numeroCredito"
+                  type="text"
+                  disabled
+                  [(ngModel)]="localTabla4A.numeroCredito"
+                />
+              </div>
+            </div>
+            <div class="row mt-2">
+              <label class="mt-1 col-3 align-text-right">Moneda:</label>
+              <div class="col-sm-5 col-md-5">
+                <select
+                  class="form-control"
+                  id="moneda"
+                  name="moneda"
+                  [(ngModel)]="selectedMonedaLineaTabla4A"
+                >
+                  <ng-container *ngFor="let moneda of catalogoMonedaLinea">
+                    <option [value]="moneda.clave">{{ moneda.descripcion }}</option>
+                  </ng-container>
+                </select>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <label class="mt-1 col-3 align-text-right">Segmento:</label>
+              <div class="col-sm-5 col-md-5">
+                <select
+                  class="form-control"
+                  id="segmento"
+                  name="segmento"
+                  [(ngModel)]="selectedSegmentoTabla4A"
+                >
+                  <ng-container *ngFor="let segmento of catalogoSegmento">
+                    <option [value]="segmento.clave">{{ segmento.descripcion }}</option>
+                  </ng-container>
+                </select>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <label class="mt-1 col-3 align-text-right">Tipo de cobranza:</label>
+              <div class="col-sm-5 col-md-5">
+                <select
+                  class="form-control"
+                  id="tipoCobranza"
+                  name="tipoCobranza"
+                  [(ngModel)]="selectedTipoCobranzaTabla4A"
+                >
+                  <ng-container *ngFor="let tipoCobranza of catalogoTipoCobranza">
+                    <option [value]="tipoCobranza.clave">
+                      {{ tipoCobranza.descripcion }}
+                    </option>
+                  </ng-container>
+                </select>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <label class="mt-1 col-3 align-text-right">Capital vencido contable:</label>
+              <div class="col-sm-5 col-md-5">
+                <input class="form-control"
+                  name="capitalVigente"
+                  type="text"
+                  [(ngModel)]="localTabla4A.capitalVigente"
+                  [pattern]="decimalPattern"
+                  #capitalVigente="ngModel"
+                />
+                <div *ngIf="capitalVigente.errors?.pattern && decimalPattern.length > 0 && localTabla4A.capitalVigente !== 0">
+                  <label class="color-red"> Valor decimal con formato incorrecto.</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <label class="mt-1 col-3 align-text-right">Capital vencido operativo:</label>
+              <div class="col-sm-5 col-md-5">
+                <input class="form-control"
+                  name="capitalVencido"
+                  type="text"
+                  [(ngModel)]="localTabla4A.capitalVencido"
+                  [pattern]="decimalPattern"
+                  #capitalVencido="ngModel"
+                />
+                <div *ngIf="capitalVencido.errors?.pattern && localTabla4A.capitalVencido !== 0">
+                  <label class="color-red"> Valor decimal con formato incorrecto.</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <label class="mt-1 col-3 align-text-right"
+              >Interés ordinario exigible:</label
+              >
+              <div class="col-sm-5 col-md-5">
+                <input class="form-control"
+                  name="interesOrdinarioExigible"
+                  type="text"
+                  [(ngModel)]="localTabla4A.interesesOrdinariosExigibles"
+                  [pattern]="decimal6Pattern"
+                  #interesOrdinarioExigible="ngModel"
+                />
+                <div *ngIf="interesOrdinarioExigible.errors?.pattern && localTabla4A.interesesOrdinariosExigibles !== 0">
+                  <label class="color-red"> Valor decimal con formato incorrecto.</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <label class="mt-1 col-3 align-text-right">Interés moratorio:</label>
+              <div class="col-sm-5 col-md-5">
+                <input class="form-control"
+                  name="interesMoratorio"
+                  type="text"
+                  [(ngModel)]="localTabla4A.interesesMoratorios"
+                  [pattern]="decimal6Pattern"
+                  #interesMoratorio="ngModel"
+                />
+                <div *ngIf="interesMoratorio.errors?.pattern && localTabla4A.interesesMoratorios !== 0">
+                  <label class="color-red"> Valor decimal con formato incorrecto.</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <label class="mt-1 col-3 align-text-right">Otros accesorios:</label>
+              <div class="col-sm-5 col-md-5">
+                <input class="form-control"
+                  name="otrosAccesorios"
+                  type="text"
+                  [(ngModel)]="localTabla4A.otrosAccesorios"
+                  [pattern]="decimalPattern"
+                  #otrosAccesorios="ngModel"
+                />
+                <div *ngIf="otrosAccesorios.errors?.pattern && localTabla4A.otrosAccesorios !== 0">
+                  <label class="color-red"> Valor decimal con formato incorrecto.</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <!-- Simple Buttons-->
+    <button class="btn btn-success"
+            type="button"
+            (click)="onClickAceptar()"
+            [disabled]="(otrosAccesorios.errors?.pattern && localTabla4A.otrosAccesorios !== 0) ||
+             (interesMoratorio.errors?.pattern && localTabla4A.interesesMoratorios !== 0) ||
+             (interesOrdinarioExigible.errors?.pattern && localTabla4A.interesesOrdinariosExigibles !== 0) ||
+             (capitalVencido.errors?.pattern && localTabla4A.capitalVencido !== 0) ||
+             (capitalVigente.errors?.pattern && decimalPattern.length > 0 && localTabla4A.capitalVigente !== 0)"
+    >
+      Aceptar
+    </button>
+    <button class="btn btn-danger" type="button" (click)="activeModal.close('Close click')">
+      Cancelar
+    </button>
+  </div>
+</div>

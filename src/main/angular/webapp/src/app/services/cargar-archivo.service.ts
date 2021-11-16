@@ -21,11 +21,18 @@ export class CargarArchivoService {
   }
 
   /**
+   * Ejecuta la validacion
+   */
+  validaArchivo(fecha: string, layout: string): Observable<any> {
+    return this.http.get(`/IPABESB/rest/archivost24/validar-archivos?fecha=${fecha}&layout=${layout}`);
+  }
+
+  /**
    * Obtener catalogo tipo archivo
    */
   getCatalogoTipoArchivoLayout(): Observable<any> {
     return this.http.get(
-      `/IPABESB/rest/catalogo/consultar?tipoCatalogo=TipoArchivoLayout`
+      `/IPABESB/rest/catalogo/consultar?orden=DA`
     );
   }
 }

@@ -26,13 +26,14 @@
                 [(ngModel)]="clienteInformacion.idCliente"
               />
             </div>
-            <div class="col-lg-2">
+            <div class="col-lg-2 pr-0">
               <label>Tipo persona:</label>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4 pl-0">
               <select
-                class="form-control form-control-sm"
+                class="form-control form-control-sm pl-0"
                 [(ngModel)]="clienteInformacion.tipoPersona"
+                [disabled]="clienteInformacion.tipoPersona == '3'"
               >
                 <option
                   [ngValue]="cat.clave"
@@ -64,6 +65,7 @@
                 class="form-control form-control-sm"
                 type="text"
                 [(ngModel)]="clienteInformacion.apellidoPaterno"
+                [disabled]="clienteInformacion.tipoPersona == '3'"
               />
             </div>
           </div>
@@ -76,15 +78,16 @@
                 class="form-control form-control-sm"
                 type="text"
                 [(ngModel)]="clienteInformacion.apellidoMaterno"
+                [disabled]="clienteInformacion.tipoPersona == '3'"
               />
             </div>
           </div>
           <div class="col-lg-12 form-group row">
             <div class="col-lg-2">
-              <label>Fecha de nacimiento:</label>
+              <label>Fecha nacimiento:</label>
             </div>
             <div class="pl-0 col-lg-4">
-              <div class="input-group col-xl-8">
+              <div class="input-group col-xl-12 pr-0">
                 <input
                   class="form-control bg-white"
                   id="fechaContratacion"
@@ -95,23 +98,25 @@
                   name="fechaContratacion"
                   [(ngModel)]="clienteInformacion.fechaNacimiento"
                   (click)="b.toggle()"
+                  style="font-size: 0.85rem"
                 />
-                <div class="input-group-append">
+                <div class="input-group-append" style="height: 2.1rem">
                   <button
                     class="btn btn-outline-secondary calendar"
                     (click)="b.toggle()"
                     type="button"
+                    style="padding-top: 4px"
                   >
                     <fa-icon icon="calendar-alt"></fa-icon>
                   </button>
                 </div>
               </div>
             </div>
-            <div class="col-lg-1">
+            <div class="col-lg-2 pr-0">
               <label>CURP :</label>
             </div>
-            <div class="col-lg-5">
-              <div class="input-group col-xl-12 pr-0">
+            <div class="col-lg-4 pl-0">
+              <div class="input-group col-xl-12 pr-0 pl-0">
                 <input
                   class="form-control form-control-sm"
                   type="text"
@@ -146,14 +151,64 @@
           </div>
           <div class="col-lg-12 form-group row">
             <div class="col-lg-2">
-              <label>Colonia domicilio:</label>
+              <label>Pais domicilio:</label>
+            </div>
+            <div class="col-lg-10">
+              <select
+                class="form-control form-control-sm"
+                [(ngModel)]="clienteInformacion.paisDomicilio"
+              >
+                <option
+                  [ngValue]="cat.descripcion1"
+                  *ngFor="let cat of catalogosInformacion['residencia']"
+                >
+                  {{ cat.descripcion }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-12 form-group row">
+            <div class="col-lg-2">
+              <label>Codigo postal:</label>
             </div>
             <div class="col-lg-10">
               <input
+                name="codigoPostal"
                 class="form-control form-control-sm"
                 type="text"
-                [(ngModel)]="clienteInformacion.coloniaDomicilio"
+                [(ngModel)]="clienteInformacion.codigoPostalDom"
+                [pattern]="enteroPattern"
+                maxlength="5"
+                #codigoPostal="ngModel"
+                (change)="isValid()"
               />
+              <div
+                *ngIf="
+                  codigoPostal.errors?.pattern ||
+                  (clienteInformacion.codigoPostalDom.length < 5 &&
+                    clienteInformacion.codigoPostalDom.length > 0)
+                "
+              >
+                <label class="color-red"> Valor con formato incorrecto.</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12 form-group row">
+            <div class="col-lg-2">
+              <label>Estado domicilio:</label>
+            </div>
+            <div class="col-lg-10">
+              <select
+                class="form-control form-control-sm"
+                [(ngModel)]="clienteInformacion.estadoDomicilio"
+              >
+                <option
+                  [ngValue]="cat.claveIPAB"
+                  *ngFor="let cat of catalogosInformacion['entidadFed']"
+                >
+                  {{ cat.descripcion }}
+                </option>
+              </select>
             </div>
           </div>
           <div class="col-lg-12 form-group row">
@@ -170,24 +225,6 @@
           </div>
           <div class="col-lg-12 form-group row">
             <div class="col-lg-2">
-              <label>Estado domicilio:</label>
-            </div>
-            <div class="col-lg-6">
-              <select
-                class="form-control form-control-sm"
-                [(ngModel)]="clienteInformacion.estadoDomicilio"
-              >
-                <option
-                  [ngValue]="cat.claveIPAB"
-                  *ngFor="let cat of catalogosInformacion['entidadFed']"
-                >
-                  {{ cat.descripcion }}
-                </option>
-              </select>
-            </div>
-          </div>
-          <div class="col-lg-12 form-group row">
-            <div class="col-lg-2">
               <label>Ciudad domicilio:</label>
             </div>
             <div class="col-lg-10">
@@ -200,152 +237,186 @@
           </div>
           <div class="col-lg-12 form-group row">
             <div class="col-lg-2">
-              <label>Pais domicilio:</label>
+              <label>Colonia domicilio:</label>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-10">
               <input
                 class="form-control form-control-sm"
                 type="text"
-                [(ngModel)]="clienteInformacion.paisDomicilio"
+                [(ngModel)]="clienteInformacion.coloniaDomicilio"
               />
             </div>
+          </div>
+          <div class="col-lg-12 form-group row">
             <div class="col-lg-2">
-              <label>Codigo postal domicilio:</label>
+              <label>Residencia:</label>
             </div>
             <div class="col-lg-4">
+              <select
+                class="form-control form-control-sm"
+                [(ngModel)]="clienteInformacion.residencia"
+                (change)="changeResidencia()"
+              >
+                <option
+                  [ngValue]="cat.clave"
+                  *ngFor="let cat of catalogosInformacion['residencia']"
+                >
+                  {{ cat.descripcion }}
+                </option>
+              </select>
+            </div>
+            <div class="col-lg-2 pr-0">
+              <label>Reside:</label>
+            </div>
+            <div class="col-lg-4 pl-0">
+              <select
+                class="form-control form-control-sm pl-0"
+                [(ngModel)]="clienteInformacion.reside"
+                [disabled]="true"
+              >
+                <option
+                  [ngValue]="cat.clave"
+                  *ngFor="let cat of catalogosInformacion['reside']"
+                >
+                  {{ cat.descripcion }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-12 form-group row">
+            <div class="col-lg-2">
+              <label>Exceptuado IPAB:</label>
+            </div>
+            <div class="col-lg-4">
+              <select
+                class="form-control form-control-sm"
+                [(ngModel)]="clienteInformacion.exceptuadoIPAB"
+              >
+                <option
+                  [ngValue]="cat.clave"
+                  *ngFor="let cat of catalogosInformacion['exceptuadoIPAB']"
+                >
+                  {{ cat.descripcion }}
+                </option>
+              </select>
+            </div>
+            <div class="col-lg-2 pr-0">
+              <label>Fideicomiso:</label>
+            </div>
+            <div class="col-lg-4 pl-0">
+              <select
+                class="form-control form-control-sm pl-0"
+                [(ngModel)]="clienteInformacion.fideicomiso"
+              >
+                <option
+                  [ngValue]="cat.clave"
+                  *ngFor="let cat of catalogosInformacion['fideicomiso']"
+                >
+                  {{ cat.descripcion }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-12 form-group row">
+            <div class="col-lg-2">
+              <label>Correo electrónico:</label>
+            </div>
+            <div class="col-lg-10">
               <input
                 class="form-control form-control-sm"
                 type="text"
-                [(ngModel)]="clienteInformacion.codigoPostalDom"
+                [(ngModel)]="clienteInformacion.correoElectronico"
               />
             </div>
-            <div class="col-lg-12 form-group row">
-              <div class="col-lg-2">
-                <label>Residencia:</label>
-              </div>
-              <div class="col-lg-4">
-                <select
-                  class="form-control form-control-sm"
-                  [(ngModel)]="clienteInformacion.residencia"
-                >
-                  <option
-                    [ngValue]="cat.clave"
-                    *ngFor="let cat of catalogosInformacion['residencia']"
-                  >
-                    {{ cat.descripcion }}
-                  </option>
-                </select>
-              </div>
-              <div class="col-lg-2">
-                <label>Reside:</label>
-              </div>
-              <div class="col-lg-4">
-                <select
-                  class="form-control form-control-sm"
-                  [(ngModel)]="clienteInformacion.reside"
-                >
-                  <option
-                    [ngValue]="cat.clave"
-                    *ngFor="let cat of catalogosInformacion['reside']"
-                  >
-                    {{ cat.descripcion }}
-                  </option>
-                </select>
-              </div>
-            </div>
-            <div class="col-lg-12 form-group row">
-              <div class="col-lg-2">
-                <label>Exceptuado IPAB:</label>
-              </div>
-              <div class="col-lg-4">
-                <select
-                  class="form-control form-control-sm"
-                  [(ngModel)]="clienteInformacion.exceptuadoIPAB"
-                >
-                  <option
-                    [ngValue]="cat.clave"
-                    *ngFor="let cat of catalogosInformacion['exceptuadoIPAB']"
-                  >
-                    {{ cat.descripcion }}
-                  </option>
-                </select>
-              </div>
-              <div class="col-lg-2">
-                <label>Fideicomiso:</label>
-              </div>
-              <div class="col-lg-4">
-                <select
-                  class="form-control form-control-sm"
-                  [(ngModel)]="clienteInformacion.fideicomiso"
-                >
-                  <option
-                    [ngValue]="cat.clave"
-                    *ngFor="let cat of catalogosInformacion['fideicomiso']"
-                  >
-                    {{ cat.descripcion }}
-                  </option>
-                </select>
-              </div>
-            </div>
-            <div class="col-lg-12 form-group row">
-              <div class="col-lg-2">
-                <label>Correo electrónico:</label>
-              </div>
-              <div class="col-lg-10">
-                <input
-                  class="form-control form-control-sm"
-                  type="text"
-                  [(ngModel)]="clienteInformacion.correoElectronico"
-                />
-              </div>
-            </div>
-            <div class="col-lg-12 form-group row">
-              <div class="col-lg-6">
+          </div>
+          <div class="col-lg-12 form-group row">
+            <div class="col-lg-6">
+              <div
+                class="col-lg-12 pl-0 pr-0 mb-2"
+                *ngFor="
+                  let tel of clienteInformacion.listTelefonoDomicilio;
+                  let indexOfelement = index
+                "
+              >
                 <label>Telefono domicilio:</label>
                 <div class="d-flex flex-row">
                   <input
                     class="form-control"
                     type="text"
-                    [(ngModel)]="clienteInformacion.telefonoDomicilio"
+                    [(ngModel)]="tel"
+                    (change)="changeTelDom(indexOfelement, tel)"
                   />
                   <div class="btn-group ml-3">
-                    <button class="btn btn-danger" type="button">
+                    <button
+                      class="btn btn-danger"
+                      type="button"
+                      (click)="restTelDom(indexOfelement)"
+                    >
                       <fa-icon icon="minus"></fa-icon>
                     </button>
-                    <button class="btn btn-primary" id="btnAltaModificacion">
-                      <fa-icon icon="plus"></fa-icon>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <label>Telefono oficina:</label>
-                <div class="d-flex flex-row">
-                  <input
-                    class="form-control"
-                    type="text"
-                    [(ngModel)]="clienteInformacion.telefonoOficina"
-                  />
-                  <div class="btn-group ml-3">
-                    <button class="btn btn-danger" type="button">
-                      <fa-icon icon="minus"></fa-icon>
-                    </button>
-                    <button class="btn btn-primary" id="btnAltaModificacion">
+                    <button
+                      class="btn btn-primary"
+                      id="btnAltaModificacion"
+                      (click)="addTelDom('')"
+                    >
                       <fa-icon icon="plus"></fa-icon>
                     </button>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-lg-12 form-group row">
-              <div class="col-lg-2">
-                <label>Estatus cliente:</label>
+            <div class="col-lg-6">
+              <div
+                class="col-lg-12 pl-0 pr-0 mb-2"
+                *ngFor="
+                  let tel of clienteInformacion.listTelefonoOficina;
+                  let indexOfelement = index
+                "
+              >
+                <label>Telefono oficina:</label>
+                <div class="d-flex flex-row">
+                  <input
+                    class="form-control"
+                    type="text"
+                    [(ngModel)]="tel"
+                    (change)="changeTelOfi(indexOfelement, tel)"
+                  />
+                  <div class="btn-group ml-3">
+                    <button
+                      class="btn btn-danger"
+                      type="button"
+                      (click)="restTelOfi(indexOfelement)"
+                    >
+                      <fa-icon icon="minus"></fa-icon>
+                    </button>
+                    <button
+                      class="btn btn-primary"
+                      id="btnAltaModificacion"
+                      (click)="addTelOfi('')"
+                    >
+                      <fa-icon icon="plus"></fa-icon>
+                    </button>
+                  </div>
+                </div>
               </div>
-              <div class="col-lg-4">
-                <select class="form-control form-control-sm">
-                  <option>Opción 1</option>
-                </select>
-              </div>
+            </div>
+          </div>
+          <div class="col-lg-12 form-group row">
+            <div class="col-lg-2">
+              <label>Estatus cliente:</label>
+            </div>
+            <div class="col-lg-4">
+              <select
+                class="form-control form-control-sm"
+                [(ngModel)]="clienteInformacion.estatuscliente"
+              >
+                <option
+                  [ngValue]="cat.clave"
+                  *ngFor="let cat of catalogosInformacion['estatusRegistro']"
+                >
+                  {{ cat.descripcion }}
+                </option>
+              </select>
             </div>
           </div>
         </div>
@@ -353,7 +424,14 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-success" type="button">Aceptar</button>
+    <button
+      class="btn btn-success"
+      type="button"
+      (click)="actualizarCliente()"
+      [disabled]="!valid"
+    >
+      Aceptar
+    </button>
     <button
       class="btn btn-danger"
       type="button"

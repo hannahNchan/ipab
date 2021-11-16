@@ -13,6 +13,7 @@ Para establecer la altura del modal:
 .center {
   justify-content: center
 }
+
 .end {
   display: flex;
   justify-content: flex-end;
@@ -39,3 +40,14 @@ Para establecer la altura del modal:
   font-weight: bold;
 }
 
+.align-text-right {
+  text-align: right;
+}
+
+.mt-2-3-int {
+  margin-top: .75rem;
+}
+
+.color-red {
+  color: firebrick;
+}

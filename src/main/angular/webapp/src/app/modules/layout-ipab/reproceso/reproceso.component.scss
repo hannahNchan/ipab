@@ -1,0 +1,12 @@
+@import '../../../../scss/base';
+@import '../../../../scss/variables';
+.text-align-right {
+  text-align: right;
+}
+.archivos-card-height {
+  height: 180px;
+}
+.table-scroll {
+    overflow-y: auto;
+    max-height: 15vh;
+}

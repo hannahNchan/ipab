@@ -4,7 +4,7 @@ import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import swal from 'sweetalert2';
 import { PopUpMessage } from '@helpers/PopUpMessage';
 
-import { IBloqueo, ICliente, IPatrimonial, ICierreCuentas, IClienteCuentas, ICatalogoGenerico } from '@interfaces/operaciones-pasivas.interface';
+import { IBloqueo, ICliente, IPatrimonial, ICierreCuentas, IClienteCuentas, ICatalogoGenerico, IExceptuados } from '@interfaces/operaciones-pasivas.interface';
 
 import { AltaModificarExceptuadosComponent } from '@modules/datos-cliente/operaciones-pasivas/modals/alta-modificar-exceptuados/alta-modificar-exceptuados.component';
 import { OperacionesPasivasService } from '@services/operaciones-pasivas.service';
@@ -17,6 +17,7 @@ import { AltaModificarBloqueoModalComponent } from './modals/alta-modificar-bloq
 import { AltaModificarCierreModalComponent } from './modals/alta-modificar-cierre/alta-modificar-cierre.modal.component';
 import { AltaModificarDuplicadoModalComponent } from './modals/alta-modificar-duplicado/alta-modificar-duplicado.modal.component';
 import { AltaEditarCuentaComponent } from './alta-editar-cuenta/alta-editar-cuenta.component';
+import { CargarFechaReportePasivasModalComponent } from './modals/cargar-fecha-reporte-pasivas/cargar-fecha-reporte-pasivas.modal.component';
 // import { AltaUsuarioModalComponent } from '@modules/sistema/usuarios/modals/alta-usuarios/alta-usuarios.modal.component';
 
 @Component({
@@ -26,41 +27,42 @@ import { AltaEditarCuentaComponent } from './alta-editar-cuenta/alta-editar-cuen
 })
 export class OperacionesPasivasComponent implements OnInit {
 
+  isReady: boolean;
   dictCatalogos: ICatalogoGenerico;
-  bloqueosFechaReporte: string;
   bloqueosNumeroCuenta: string;
   bloqueosNumeroBloqueo: string;
   selectedBloqueo: string;
+  fechaReporte: string;
   numeroCliente: string;
   nombreCliente: string;
   apellidoPaterno: string;
   apellidoMaterno: string;
-  selectedCliente: number;
-  patrimonialFechaReporte: string;
+  selectedCliente: string;
   patrimonialNumeroCliente: string;
   patrimonialNumeroCuenta: string;
   patrimonialNumeroInversion: string;
-  selectedPatrimonial: number;
-  clienteCuentaFechaReporte: string;
+  selectedPatrimonial: string;
   clienteCuentaNumeroCliente: string;
   clienteCuentaNumeroCuenta: string;
-  selectedClienteCuenta: number;
+  selectedClienteCuenta: string;
   cierreCuentasNumeroCliente: string;
-  cierreCuentasNombreCliente: string;
-  cierreCuentasApellidoPaterno: string;
-  cierreCuentasApellidoMaterno: string;
+  cierreCuentasNumeroCuenta: string;
   selectedCierre: string;
+  exceptuadosNumeroCliente: string;
+  selectedExceptuado: string;
   listaBloqueos: IBloqueo[];
   listaClientes: ICliente[];
   listaPatrimonial: IPatrimonial[];
   listaClientesCuentas: IClienteCuentas[];
   listaCierreCuentas: ICierreCuentas[];
+  listaExceptuados: IExceptuados[];
 
 
   constructor(private modalService: NgbModal, private operacionesPasivasService: OperacionesPasivasService, private operacionesPasivasData$: OperacionesPasivasDataService) { }
 
   ngOnInit(): void {
-    this.bloqueosFechaReporte = '';
+    this.isReady = false;
+    this.fechaReporte = '';
     this.bloqueosNumeroCuenta = '';
     this.bloqueosNumeroBloqueo = '';
     this.selectedBloqueo = null;
@@ -69,23 +71,20 @@ export class OperacionesPasivasComponent implements OnInit {
     this.apellidoPaterno = '';
     this.apellidoMaterno = '';
     this.selectedCliente = null;
-    this.patrimonialFechaReporte = '';
     this.patrimonialNumeroCliente = '';
     this.patrimonialNumeroCuenta = '';
     this.patrimonialNumeroInversion = '';
     this.selectedPatrimonial = null;
-    this.clienteCuentaFechaReporte = "";
     this.clienteCuentaNumeroCliente = "";
     this.clienteCuentaNumeroCuenta = "";
     this.selectedClienteCuenta = null;
     this.cierreCuentasNumeroCliente = '';
-    this.cierreCuentasNombreCliente = '';
-    this.cierreCuentasApellidoPaterno = '';
-    this.cierreCuentasApellidoMaterno = '';
+    this.cierreCuentasNumeroCuenta = '';
     this.selectedCierre = null;
+    this.exceptuadosNumeroCliente = '';
     this.dictCatalogos = {};
     swal({
-      title: 'Obteniendo catalogos...',
+      title: 'Obteniendo catálogos...',
       allowEscapeKey: false,
       allowOutsideClick: false,
       onOpen: () => {
@@ -97,10 +96,11 @@ export class OperacionesPasivasComponent implements OnInit {
         if (response.header['estatus'] === false) {
           swal(PopUpMessage.getAppErrorMessageReportId(response)).then(() => { });
         } else {
-          swal(PopUpMessage.getSuccesMessage(response, null, null)).then();
-          console.log(Object.keys(response));
+          swal.close();
+          this.isReady = true;
           this.dictCatalogos = response
           this.operacionesPasivasData$.saveCatalogos(this.dictCatalogos);
+          this.openModalFechaReporte()
         }
       },
       err => {
@@ -108,6 +108,103 @@ export class OperacionesPasivasComponent implements OnInit {
           console.error(err);
         });
       });
+  }
+
+  onClickCambiarFechaReporte(): void {
+    const swalWithBootstrapButtons = swal.mixin({
+      confirmButtonClass: 'btn btn-success btn-lg mx-3',
+      cancelButtonClass: 'btn btn-danger btn-lg mx-3',
+      buttonsStyling: false
+    });
+    swalWithBootstrapButtons({
+      title: '¿Desea cambiar la fecha de reporte seleccionada?',
+      text: '¡Se borrarán las busquedas realizadas!',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, cambiar',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true
+    }).then(result => {
+      if (result.value) {
+        this.openModalFechaReporte()
+      }
+    });
+  }
+
+  openModalFechaReporte(): void {
+    this.listaBloqueos = []
+    this.listaCierreCuentas = []
+    this.listaClientes = []
+    this.listaClientesCuentas = []
+    this.listaExceptuados = []
+    this.listaPatrimonial = []
+    this.selectedBloqueo = ''
+    this.selectedCierre = ''
+    this.selectedCliente = ''
+    this.selectedClienteCuenta = ''
+    this.selectedExceptuado = ''
+    this.selectedPatrimonial = ''
+    const ngbModalOptions: NgbModalOptions = {
+      centered: true,
+      backdrop: 'static',
+      keyboard: false
+    };
+    this.modalService.open(CargarFechaReportePasivasModalComponent, ngbModalOptions).result.then(
+      () => { },
+      () => {
+        this.operacionesPasivasData$.fechaReporte.subscribe(fechaReporte => {
+          this.fechaReporte = fechaReporte
+        })
+      }
+    );
+  }
+
+  changeDataCliente(band) {
+    this.listaClientes = [];
+    this.selectedCliente = null
+    if (band) {
+      this.apellidoPaterno = ''
+      this.apellidoMaterno = ''
+      this.nombreCliente = ''
+    }
+  }
+
+  changeDataPatrimonial(band) {
+    this.listaPatrimonial = [];
+    this.selectedPatrimonial = null
+    if (band) {
+      this.patrimonialNumeroCuenta = ''
+      this.patrimonialNumeroInversion = ''
+    }
+  }
+
+  changeDataClienteCuentas(band) {
+    this.listaClientesCuentas = [];
+    this.selectedClienteCuenta = null
+    if (band) {
+      this.clienteCuentaNumeroCuenta = ''
+    }
+  }
+
+  changeDataBloqueos(band) {
+    this.listaBloqueos = [];
+    this.selectedBloqueo = null
+    if (band) {
+      this.bloqueosNumeroBloqueo = ''
+    }
+  }
+
+  changeDataCierres(band) {
+    this.listaCierreCuentas = [];
+    this.selectedCierre = null
+    if (band) {
+      this.cierreCuentasNumeroCuenta = ''
+    }
+  }
+
+  changeDataExceptuados() {
+    this.listaExceptuados = [];
+    this.selectedExceptuado = null
   }
 
   searchBloqueos(): void {
@@ -123,17 +220,17 @@ export class OperacionesPasivasComponent implements OnInit {
       }
     }).then();
     let fecha = ''
-    if (this.bloqueosFechaReporte['month'] > 9 && this.bloqueosFechaReporte['day'] > 9) {
-      fecha = this.bloqueosFechaReporte['day'] + '/' + this.bloqueosFechaReporte['month'] + '/' + this.bloqueosFechaReporte['year']
+    if (this.fechaReporte['month'] > 9 && this.fechaReporte['day'] > 9) {
+      fecha = this.fechaReporte['day'] + '/' + this.fechaReporte['month'] + '/' + this.fechaReporte['year']
     }
-    else if (this.bloqueosFechaReporte['month'] < 10 && this.bloqueosFechaReporte['day'] > 9) {
-      fecha = this.bloqueosFechaReporte['day'] + '/0' + this.bloqueosFechaReporte['month'] + '/' + this.bloqueosFechaReporte['year']
+    else if (this.fechaReporte['month'] < 10 && this.fechaReporte['day'] > 9) {
+      fecha = this.fechaReporte['day'] + '/0' + this.fechaReporte['month'] + '/' + this.fechaReporte['year']
     }
-    else if (this.bloqueosFechaReporte['month'] > 9 && this.bloqueosFechaReporte['day'] < 10) {
-      fecha = '0' + this.bloqueosFechaReporte['day'] + '/' + this.bloqueosFechaReporte['month'] + '/' + this.bloqueosFechaReporte['year']
+    else if (this.fechaReporte['month'] > 9 && this.fechaReporte['day'] < 10) {
+      fecha = '0' + this.fechaReporte['day'] + '/' + this.fechaReporte['month'] + '/' + this.fechaReporte['year']
     }
     else {
-      fecha = '0' + this.bloqueosFechaReporte['day'] + '/0' + this.bloqueosFechaReporte['month'] + '/' + this.bloqueosFechaReporte['year']
+      fecha = '0' + this.fechaReporte['day'] + '/0' + this.fechaReporte['month'] + '/' + this.fechaReporte['year']
     }
     this.operacionesPasivasService.getBloqueos(fecha, this.bloqueosNumeroCuenta, this.bloqueosNumeroBloqueo).subscribe(
       response => {
@@ -176,7 +273,27 @@ export class OperacionesPasivasComponent implements OnInit {
       cancelButtonText: 'Cancelar',
       reverseButtons: true
     }).then(result => {
+      if (result.value) {
+        let bloqueo = this.listaBloqueos[this.selectedBloqueo]
+        let json = {
+          alta: false,
+          idBloqueo: bloqueo.idBloqueo,
+          idCuenta: bloqueo.idCuenta,
+        }
+        this.operacionesPasivasService.deleteBloqueo(json).subscribe(resp => {
+          if (resp['header'].estatus === false) {
+            swal(PopUpMessage.getAppErrorMessageReportId(resp)).then(() => { });
+          }
+          else {
+            swal(PopUpMessage.getSuccesMessage(resp, null, null)).then();
+          }
+        }, err => {
+          swal(PopUpMessage.getServerErrorMessage(err)).then(() => {
+            console.error(err);
+          });
+        });
 
+      }
     });
   }
 
@@ -231,17 +348,17 @@ export class OperacionesPasivasComponent implements OnInit {
       }
     }).then();
     let fecha = ''
-    if (this.patrimonialFechaReporte['month'] > 9 && this.patrimonialFechaReporte['day'] > 9) {
-      fecha = this.patrimonialFechaReporte['day'] + '/' + this.patrimonialFechaReporte['month'] + '/' + this.patrimonialFechaReporte['year']
+    if (this.fechaReporte['month'] > 9 && this.fechaReporte['day'] > 9) {
+      fecha = this.fechaReporte['day'] + '/' + this.fechaReporte['month'] + '/' + this.fechaReporte['year']
     }
-    else if (this.patrimonialFechaReporte['month'] < 10 && this.patrimonialFechaReporte['day'] > 9) {
-      fecha = this.patrimonialFechaReporte['day'] + '/0' + this.patrimonialFechaReporte['month'] + '/' + this.patrimonialFechaReporte['year']
+    else if (this.fechaReporte['month'] < 10 && this.fechaReporte['day'] > 9) {
+      fecha = this.fechaReporte['day'] + '/0' + this.fechaReporte['month'] + '/' + this.fechaReporte['year']
     }
-    else if (this.patrimonialFechaReporte['month'] > 9 && this.patrimonialFechaReporte['day'] < 10) {
-      fecha = '0' + this.patrimonialFechaReporte['day'] + '/' + this.patrimonialFechaReporte['month'] + '/' + this.patrimonialFechaReporte['year']
+    else if (this.fechaReporte['month'] > 9 && this.fechaReporte['day'] < 10) {
+      fecha = '0' + this.fechaReporte['day'] + '/' + this.fechaReporte['month'] + '/' + this.fechaReporte['year']
     }
     else {
-      fecha = '0' + this.patrimonialFechaReporte['day'] + '/0' + this.patrimonialFechaReporte['month'] + '/' + this.patrimonialFechaReporte['year']
+      fecha = '0' + this.fechaReporte['day'] + '/0' + this.fechaReporte['month'] + '/' + this.fechaReporte['year']
     }
     this.operacionesPasivasService.getPatrimoniales(fecha, this.patrimonialNumeroCliente, this.patrimonialNumeroCuenta, this.patrimonialNumeroInversion).subscribe(
       response => {
@@ -282,17 +399,17 @@ export class OperacionesPasivasComponent implements OnInit {
       }
     }).then();
     let fecha = ''
-    if (this.clienteCuentaFechaReporte['month'] > 9 && this.clienteCuentaFechaReporte['day'] > 9) {
-      fecha = this.clienteCuentaFechaReporte['day'] + '/' + this.clienteCuentaFechaReporte['month'] + '/' + this.clienteCuentaFechaReporte['year']
+    if (this.fechaReporte['month'] > 9 && this.fechaReporte['day'] > 9) {
+      fecha = this.fechaReporte['day'] + '/' + this.fechaReporte['month'] + '/' + this.fechaReporte['year']
     }
-    else if (this.clienteCuentaFechaReporte['month'] < 10 && this.clienteCuentaFechaReporte['day'] > 9) {
-      fecha = this.clienteCuentaFechaReporte['day'] + '/0' + this.clienteCuentaFechaReporte['month'] + '/' + this.clienteCuentaFechaReporte['year']
+    else if (this.fechaReporte['month'] < 10 && this.fechaReporte['day'] > 9) {
+      fecha = this.fechaReporte['day'] + '/0' + this.fechaReporte['month'] + '/' + this.fechaReporte['year']
     }
-    else if (this.clienteCuentaFechaReporte['month'] > 9 && this.clienteCuentaFechaReporte['day'] < 10) {
-      fecha = '0' + this.clienteCuentaFechaReporte['day'] + '/' + this.clienteCuentaFechaReporte['month'] + '/' + this.clienteCuentaFechaReporte['year']
+    else if (this.fechaReporte['month'] > 9 && this.fechaReporte['day'] < 10) {
+      fecha = '0' + this.fechaReporte['day'] + '/' + this.fechaReporte['month'] + '/' + this.fechaReporte['year']
     }
     else {
-      fecha = '0' + this.clienteCuentaFechaReporte['day'] + '/0' + this.clienteCuentaFechaReporte['month'] + '/' + this.clienteCuentaFechaReporte['year']
+      fecha = '0' + this.fechaReporte['day'] + '/0' + this.fechaReporte['month'] + '/' + this.fechaReporte['year']
     }
     this.operacionesPasivasService.getClientesCuentas(fecha, this.clienteCuentaNumeroCliente, this.clienteCuentaNumeroCuenta).subscribe(
       response => {
@@ -335,7 +452,26 @@ export class OperacionesPasivasComponent implements OnInit {
       cancelButtonText: 'Cancelar',
       reverseButtons: true
     }).then(result => {
-
+      if (result.value) {
+        let clienteCuenta = this.listaClientesCuentas[this.selectedClienteCuenta]
+        let json = {
+          alta: false,
+          titular: clienteCuenta.titular,
+          idCuenta: clienteCuenta.idCuenta,
+        }
+        this.operacionesPasivasService.deleteClienteCuenta(json).subscribe(resp => {
+          if (resp['header'].estatus === false) {
+            swal(PopUpMessage.getAppErrorMessageReportId(resp)).then(() => { });
+          }
+          else {
+            swal(PopUpMessage.getSuccesMessage(resp, null, null)).then();
+          }
+        }, err => {
+          swal(PopUpMessage.getServerErrorMessage(err)).then(() => {
+            console.error(err);
+          });
+        });
+      }
     });
   }
 
@@ -351,7 +487,20 @@ export class OperacionesPasivasComponent implements OnInit {
         swal.showLoading();
       }
     }).then();
-    this.operacionesPasivasService.getCierres(this.cierreCuentasNumeroCliente, this.cierreCuentasNombreCliente, this.cierreCuentasApellidoPaterno, this.cierreCuentasApellidoMaterno).subscribe(
+    let fecha = ''
+    if (this.fechaReporte['month'] > 9 && this.fechaReporte['day'] > 9) {
+      fecha = this.fechaReporte['day'] + '/' + this.fechaReporte['month'] + '/' + this.fechaReporte['year']
+    }
+    else if (this.fechaReporte['month'] < 10 && this.fechaReporte['day'] > 9) {
+      fecha = this.fechaReporte['day'] + '/0' + this.fechaReporte['month'] + '/' + this.fechaReporte['year']
+    }
+    else if (this.fechaReporte['month'] > 9 && this.fechaReporte['day'] < 10) {
+      fecha = '0' + this.fechaReporte['day'] + '/' + this.fechaReporte['month'] + '/' + this.fechaReporte['year']
+    }
+    else {
+      fecha = '0' + this.fechaReporte['day'] + '/0' + this.fechaReporte['month'] + '/' + this.fechaReporte['year']
+    }
+    this.operacionesPasivasService.getCierres(fecha, this.cierreCuentasNumeroCliente, this.cierreCuentasNumeroCuenta).subscribe(
       response => {
         if (response.header['estatus'] === false) {
           swal(PopUpMessage.getAppErrorMessageReportId(response)).then(() => { });
@@ -392,23 +541,125 @@ export class OperacionesPasivasComponent implements OnInit {
       cancelButtonText: 'Cancelar',
       reverseButtons: true
     }).then(result => {
-
+      if (result.value) {
+        let cierre = this.listaCierreCuentas[this.selectedCierre]
+        let json = {
+          alta: false,
+          idTitular: cierre.idTitular,
+          idCuenta: cierre.idCuenta,
+        }
+        this.operacionesPasivasService.deleteCierre(json).subscribe(resp => {
+          if (resp['header'].estatus === false) {
+            swal(PopUpMessage.getAppErrorMessageReportId(resp)).then(() => { });
+          }
+          else {
+            swal(PopUpMessage.getSuccesMessage(resp, null, null)).then();
+          }
+        }, err => {
+          swal(PopUpMessage.getServerErrorMessage(err)).then(() => {
+            console.error(err);
+          });
+        });
+      }
     });
   }
 
-  openModalAltaExceptuados(): void {
-    this.modalService.dismissAll();
-    const ngbModalOptions: NgbModalOptions = {
-      centered: true,
-      backdrop: 'static',
-      size: 'lg',
-      keyboard: false
-    };
-    this.modalService.open(AltaModificarExceptuadosComponent, ngbModalOptions).result.then();
+  searchExceptuados(): void {
+    this.listaExceptuados = []
+    this.selectedExceptuado = null;
+    // if (this.validaGuardar()) {
+    swal({
+      title: 'Obteniendo información...',
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      onOpen: () => {
+        swal.showLoading();
+      }
+    }).then();
+    let fecha = ''
+    if (this.fechaReporte['month'] > 9 && this.fechaReporte['day'] > 9) {
+      fecha = this.fechaReporte['day'] + '/' + this.fechaReporte['month'] + '/' + this.fechaReporte['year']
+    }
+    else if (this.fechaReporte['month'] < 10 && this.fechaReporte['day'] > 9) {
+      fecha = this.fechaReporte['day'] + '/0' + this.fechaReporte['month'] + '/' + this.fechaReporte['year']
+    }
+    else if (this.fechaReporte['month'] > 9 && this.fechaReporte['day'] < 10) {
+      fecha = '0' + this.fechaReporte['day'] + '/' + this.fechaReporte['month'] + '/' + this.fechaReporte['year']
+    }
+    else {
+      fecha = '0' + this.fechaReporte['day'] + '/0' + this.fechaReporte['month'] + '/' + this.fechaReporte['year']
+    }
+    this.operacionesPasivasService.getExceptuados(fecha, this.exceptuadosNumeroCliente).subscribe(
+      response => {
+        if (response.header['estatus'] === false) {
+          swal(PopUpMessage.getAppErrorMessageReportId(response)).then(() => { });
+        } else {
+          if (response["lista"].length <= 100) {
+            this.listaExceptuados = response['lista'];
+            swal(PopUpMessage.getSuccesMessage(response, null, null)).then();
+          }
+          else {
+            swal(PopUpMessage.getAppErrorMessage('Ocurrio un error', 'La busqueda regreso demasiadas coincidencias')).then();
+          }
+        }
+      },
+      err => {
+        swal(PopUpMessage.getServerErrorMessage(err)).then(() => {
+          console.error(err);
+        });
+      });
+    // }
   }
 
-  openModalEditarExceptuados(): void {
-    // Dado que es una edición se da por hecho que habrá un Data$
+  selectExceptuado(index): void {
+    this.selectedExceptuado = index;
+  }
+
+  onClickEliminarExceptuado(): void {
+    const swalWithBootstrapButtons = swal.mixin({
+      confirmButtonClass: 'btn btn-success btn-lg mx-3',
+      cancelButtonClass: 'btn btn-danger btn-lg mx-3',
+      buttonsStyling: false
+    });
+    swalWithBootstrapButtons({
+      title: '¿Desea eliminar el cierre seleccionado?',
+      text: '¡No podrás deshacer esta acción!',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true
+    }).then(result => {
+      if (result.value) {
+        let exceptuado = this.listaExceptuados[this.selectedExceptuado]
+        let json = {
+          alta: false,
+          numeroCliente: exceptuado.numeroCliente,
+        }
+        this.operacionesPasivasService.deleteExceptuado(json).subscribe(resp => {
+          if (resp['header'].estatus === false) {
+            swal(PopUpMessage.getAppErrorMessageReportId(resp)).then(() => { });
+          }
+          else {
+            swal(PopUpMessage.getSuccesMessage(resp, null, null)).then();
+          }
+        }, err => {
+          swal(PopUpMessage.getServerErrorMessage(err)).then(() => {
+            console.error(err);
+          });
+        });
+      }
+    });
+  }
+
+  openModalAltaExceptuados(type): void {
+    if (type == 'edit') {
+      let exceptuado = this.listaExceptuados[this.selectedExceptuado]
+      this.operacionesPasivasData$.changeSelectedExceptuado(exceptuado);
+    }
+    else {
+      this.operacionesPasivasData$.changeSelectedExceptuado(undefined);
+    }
     this.modalService.dismissAll();
     const ngbModalOptions: NgbModalOptions = {
       centered: true,

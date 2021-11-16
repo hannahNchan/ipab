@@ -17,21 +17,52 @@
         <div class="card-body">
           <div class="form ml-5 form-max-height">
             <div class="form-group row center">
-              <label class="mt-1 col-2">Cuenta:</label>
-              <div class="col-sm-3 col-md-3">
-                <input class="form-control form-control-sm" type="text" />
+              <label class="mt-1 col-lg-2">Cuenta:</label>
+              <div class="col-lg-3">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  [(ngModel)]="cierreInformacion.idCuenta"
+                />
               </div>
             </div>
             <div class="form-group row center">
-              <label class="mt-1 col-2">Titular:</label>
-              <div class="col-sm-3 col-md-3">
-                <input class="form-control form-control-sm" type="text" />
+              <label class="mt-1 col-lg-2">Titular:</label>
+              <div class="col-lg-3">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  [(ngModel)]="cierreInformacion.idTitular"
+                />
               </div>
             </div>
             <div class="form-group row center">
-              <label class="mt-1 col-2">Fecha cierre:</label>
-              <div class="col-sm-3 col-md-3">
-                <input class="form-control form-control-sm" type="text" />
+              <label class="mt-1 col-lg-2">Fecha cierre:</label>
+              <div class="col-lg-3">
+                <div class="input-group">
+                  <input
+                    class="form-control bg-white"
+                    id="cierreCuentasFechaReporte"
+                    type="text"
+                    ngbDatepicker
+                    #d="ngbDatepicker"
+                    placeholder="dd/mm/aaaa"
+                    (click)="d.toggle()"
+                    name="cierreCuentasFechaReporte"
+                    [(ngModel)]="cierreInformacion.fechaCierre"
+                    style="font-size: 0.85rem"
+                  />
+                  <div class="input-group-append" style="height: 2.18rem">
+                    <button
+                      class="btn btn-outline-secondary calendar"
+                      (click)="d.toggle()"
+                      type="button"
+                      style="padding-top: 4px"
+                    >
+                      <fa-icon icon="calendar-alt"></fa-icon>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -41,7 +72,9 @@
   </div>
   <div class="modal-footer">
     <!-- Simple Buttons-->
-    <button class="btn btn-success" type="button">Aceptar</button>
+    <button class="btn btn-success" type="button" (click)="nuevoCierre()">
+      Aceptar
+    </button>
     <button
       class="btn btn-danger"
       type="button"

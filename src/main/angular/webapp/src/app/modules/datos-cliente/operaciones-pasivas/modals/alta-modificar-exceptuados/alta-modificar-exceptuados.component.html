@@ -1,159 +1,219 @@
 <div class="modal-container">
   <div class="modal-header">
     <h4 class="modal-title">Exceptuados IPAB</h4>
-    <button class="close" type="button" aria-label="Close" (click)="activeModal.close()"><span aria-hidden="true">×</span></button>
+    <button
+      class="close"
+      type="button"
+      aria-label="Close"
+      (click)="activeModal.close()"
+    >
+      <span aria-hidden="true">×</span>
+    </button>
   </div>
   <div class="modal-body">
-
     <div class="card">
       <div class="card-body">
         <div class="form ml-5 form-max-height">
           <div class="form-group row">
-            <label class="mt-1 col-2">Institución:</label>
-            <div class="col-sm-3 col-md-3">
+            <label class="mt-1 col-lg-2">Institución:</label>
+            <div class="col-lg-3">
               <input
                 class="form-control form-control-sm"
                 type="text"
                 id="institucion"
                 name="institucion"
+                [(ngModel)]="exceptuadoInformacion.institucion"
               />
             </div>
           </div>
           <div class="form-group row">
-            <label class="mt-1 col-2">Número de cliente:</label>
-            <div class="col-sm-3 col-md-3">
+            <label class="mt-1 col-lg-2">Número de cliente:</label>
+            <div class="col-lg-3">
               <input
                 class="form-control form-control-sm"
                 type="text"
                 id="numeroCliente"
                 name="numeroCliente"
+                [disabled]="isUpdate"
+                [(ngModel)]="exceptuadoInformacion.numeroCliente"
               />
             </div>
-            <label class="mt-1 col-3 align-text-right">Número de cliente 2:</label>
-            <div class="col-sm-3 col-md-3">
+            <label class="mt-1 col-3 align-text-right"
+              >Número de cliente 2:</label
+            >
+            <div class="col-lg-3">
               <input
                 class="form-control form-control-sm"
                 type="text"
                 id="numeroCliente2"
                 name="numeroCliente2"
+                [(ngModel)]="exceptuadoInformacion.numeroCliente2"
               />
             </div>
           </div>
           <div class="form-group row">
-            <label class="mt-1 col-2">Personalidad:</label>
-            <div class="col-sm-3 col-md-3">
-              <select class="form-control form-control-sm">
-                <option>Opción 1</option>
+            <label class="mt-1 col-lg-2">Personalidad:</label>
+            <div class="col-lg-3">
+              <select
+                class="form-control form-control-sm"
+                [(ngModel)]="exceptuadoInformacion.personalidad"
+              >
+                <option
+                  [ngValue]="cat.clave"
+                  *ngFor="
+                    let cat of catalogosInformacion[
+                      'personalidadJuridicaExceptuados'
+                    ]
+                  "
+                >
+                  {{ cat.descripcion }}
+                </option>
               </select>
             </div>
-            <label class="mt-1 col-3 align-text-right">Número de cliente 3:</label>
-            <div class="col-sm-3 col-md-3">
+            <label class="mt-1 col-3 align-text-right"
+              >Número de cliente 3:</label
+            >
+            <div class="col-lg-3">
               <input
                 class="form-control form-control-sm"
                 type="text"
                 id="numeroCliente3"
                 name="numeroCliente3"
+                [(ngModel)]="exceptuadoInformacion.numeroCliente3"
               />
             </div>
           </div>
           <div class="form-group row">
-            <label class="mt-1 col-2">Número de Cuenta:</label>
-            <div class="col-sm-3 col-md-3">
+            <label class="mt-1 col-lg-2">Número de Cuenta:</label>
+            <div class="col-lg-3">
               <input
                 class="form-control form-control-sm"
                 type="text"
                 id="numeroCuenta"
                 name="numeroCuenta"
+                [(ngModel)]="exceptuadoInformacion.numeroCuenta"
               />
             </div>
-            <label class="mt-1 col-3 align-text-right">Número de Inversión:</label>
-            <div class="col-sm-3 col-md-3">
+            <label class="mt-1 col-3 align-text-right"
+              >Número de Inversión:</label
+            >
+            <div class="col-lg-3">
               <input
                 class="form-control form-control-sm"
                 type="text"
                 id="numeroInversion"
                 name="numeroInversion"
+                [(ngModel)]="exceptuadoInformacion.numeroInversion"
               />
             </div>
           </div>
           <div class="form-group row">
-            <label class="mt-1 col-2">Nombre o Razón Social:</label>
+            <label class="mt-1 col-lg-2">Nombre o Razón Social:</label>
             <div class="col-sm-3 col-md-9">
               <input
                 class="form-control form-control-sm"
                 type="text"
                 id="nombreRazonSocial"
                 name="nombreRazonSocial"
+                [(ngModel)]="exceptuadoInformacion.nombreRazonSocial"
               />
             </div>
           </div>
           <div class="form-group row">
-            <label class="mt-1 col-2">Apellido Paterno:</label>
+            <label class="mt-1 col-lg-2">Apellido Paterno:</label>
             <div class="col-sm-3 col-md-9">
               <input
                 class="form-control form-control-sm"
                 type="text"
                 id="apellidoPaterno"
                 name="apellidoPaterno"
+                [(ngModel)]="exceptuadoInformacion.apellidoPaterno"
               />
             </div>
           </div>
           <div class="form-group row">
-            <label class="mt-1 col-2">Appellido Materno:</label>
+            <label class="mt-1 col-lg-2">Appellido Materno:</label>
             <div class="col-sm-3 col-md-9">
               <input
                 class="form-control form-control-sm"
                 type="text"
                 id="apellidoMaterno"
                 name="apellidoMaterno"
+                [(ngModel)]="exceptuadoInformacion.apellidoMaterno"
               />
             </div>
           </div>
           <div class="form-group row">
-            <label class="mt-1 col-2">Causal de revision:</label>
-            <div class="col-sm-3 col-md-3">
-              <select class="form-control form-control-sm">
-                <option>Opción 1</option>
+            <label class="mt-1 col-lg-2">Causal de revision:</label>
+            <div class="col-lg-3">
+              <select
+                class="form-control form-control-sm"
+                [(ngModel)]="exceptuadoInformacion.causalRevision"
+                (change)="changeCausal()"
+              >
+                <option
+                  [ngValue]="cat.clave"
+                  *ngFor="let cat of catalogosInformacion['causalRevision']"
+                >
+                  {{ cat.clave }}
+                </option>
               </select>
             </div>
           </div>
           <div class="form-group row">
-            <label class="mt-1 col-2">Descripción:</label>
+            <label class="mt-1 col-lg-2">Descripción:</label>
             <div class="col-sm-3 col-md-9">
-            <textarea
-              class="form-control pb-3"
-              name="descripcion"
-              id="descripcion"
-              cols="35"
-              rows="2"
-              aria-label="descripcion"></textarea>
+              <textarea
+                class="form-control pb-3"
+                name="descripcion"
+                id="descripcion"
+                cols="35"
+                rows="2"
+                aria-label="descripcion"
+                [(ngModel)]="exceptuadoInformacion.descripcion"
+                [disabled]="true"
+              ></textarea>
             </div>
           </div>
           <div class="form-group row">
-            <label class="mt-1 col-2">Fracción:</label>
-            <div class="col-sm-3 col-md-3">
+            <label class="mt-1 col-lg-2">Fracción:</label>
+            <div class="col-lg-3">
               <input
                 class="form-control form-control-sm"
                 type="text"
                 id="fraccion"
                 name="fraccion"
+                [(ngModel)]="exceptuadoInformacion.fraccion"
+                [disabled]="true"
               />
             </div>
             <label class="mt-1 col-3 align-text-right">Concepto:</label>
-            <div class="col-sm-3 col-md-3">
-              <select class="form-control form-control-sm">
-                <option>Opción 1</option>
+            <div class="col-lg-3">
+              <select
+                class="form-control form-control-sm"
+                [(ngModel)]="exceptuadoInformacion.concepto"
+                (change)="changeConcepto()"
+              >
+                <option
+                  [ngValue]="cat.clave"
+                  *ngFor="let cat of catalogosInformacion['conceptoExclusion']"
+                >
+                  {{ cat.clave }}
+                </option>
               </select>
             </div>
           </div>
           <div class="form-group row">
-            <label class="mt-1 col-2"
-            >Exclusión:</label
-            >
-            <div class="col-sm-3 col-md-3">
-              <select class="form-control form-control-sm">
-                <option>Opción 1</option>
-              </select>
+            <label class="mt-1 col-lg-2">Exclusión:</label>
+            <div class="col-lg-3">
+              <input
+                class="form-control form-control-sm"
+                type="text"
+                id="exclusion"
+                name="exclusion"
+                [(ngModel)]="exceptuadoInformacion.exclusion"
+                [disabled]="true"
+              />
             </div>
           </div>
         </div>
@@ -161,16 +221,28 @@
     </div>
   </div>
   <div class="modal-footer">
-    <div class="container-fluid">
-      <div class="col mr-2">
-        <div class="row justify-content-end">
-          <button class="btn btn-success mr-3" type="button">Aceptar</button>
-          <button class="btn btn-danger" type="button" (click)="activeModal.close('Close click')">Cancelar</button>
-        </div>
-      </div>
-    </div>
+    <button
+      *ngIf="isUpdate"
+      class="btn btn-success"
+      type="button"
+      (click)="actualizarExceptuados()"
+    >
+      Aceptar
+    </button>
+    <button
+      *ngIf="!isUpdate"
+      class="btn btn-success"
+      type="button"
+      (click)="crearExceptuados()"
+    >
+      Aceptar
+    </button>
+    <button
+      class="btn btn-danger"
+      type="button"
+      (click)="activeModal.close('Close click')"
+    >
+      Cancelar
+    </button>
   </div>
 </div>
-
-
-

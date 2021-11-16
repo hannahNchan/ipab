@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { IBloqueo, ICliente, IPatrimonial, IClienteCuentas, ICatalogoGenerico } from '@interfaces/operaciones-pasivas.interface';
+import { IBloqueo, ICliente, IPatrimonial, IClienteCuentas, ICatalogoGenerico, IExceptuados } from '@interfaces/operaciones-pasivas.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +11,18 @@ export class OperacionesPasivasDataService {
   selectedCliente: Observable<any>;
   selectedPatrimonial: Observable<any>;
   selectedClienteCuenta: Observable<any>;
+  selectedExceptuado: Observable<any>;
+  fechaReporte: Observable<any>;
+
 
   private catalogosSource$ = new BehaviorSubject({});
   private selectedBloqueoSource$ = new BehaviorSubject({});
   private selectedClienteSource$ = new BehaviorSubject({});
   private selectedPatrimonialSource$ = new BehaviorSubject({});
   private selectedClienteCuentaSource$ = new BehaviorSubject({});
+  private selectedExceptuadoSource$ = new BehaviorSubject({});
+  private fechaReporteSource$ = new BehaviorSubject({});
+
 
 
   constructor() {
@@ -25,6 +31,8 @@ export class OperacionesPasivasDataService {
     this.selectedCliente = this.selectedClienteSource$.asObservable();
     this.selectedPatrimonial = this.selectedPatrimonialSource$.asObservable();
     this.selectedClienteCuenta = this.selectedClienteCuentaSource$.asObservable();
+    this.selectedExceptuado = this.selectedExceptuadoSource$.asObservable();
+    this.fechaReporte = this.fechaReporteSource$.asObservable();
   }
 
   /**
@@ -33,6 +41,14 @@ export class OperacionesPasivasDataService {
    */
   saveCatalogos(catalogos: ICatalogoGenerico): void {
     this.catalogosSource$.next(catalogos);
+  }
+
+  /**
+     * Serviciolocal para guardar la fecha
+     * @param fecha
+     */
+  saveFechaReporte(fecha: string): void {
+    this.fechaReporteSource$.next(fecha);
   }
 
   /**
@@ -65,5 +81,13 @@ export class OperacionesPasivasDataService {
  */
   changeSelectedClienteCuenta(clienteCuenta: IClienteCuentas): void {
     this.selectedClienteCuentaSource$.next(clienteCuenta);
+  }
+
+  /**
+ * Serviciolocal para cambiar el exceptuado seleccionado
+ * @param exceptuado
+ */
+  changeSelectedExceptuado(exceptuado: IExceptuados): void {
+    this.selectedExceptuadoSource$.next(exceptuado);
   }
 }

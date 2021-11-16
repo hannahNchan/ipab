@@ -36,3 +36,9 @@
     overflow-y: auto;
     max-height: 32vh;
 }
+
+.inputStick {
+  @media (min-width: 1535px) {
+    margin-left: -5%;
+  }
+}

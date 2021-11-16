@@ -1,0 +1,15 @@
+.flex-modal {
+  min-height: 0;
+}
+
+.form-max-height {
+  min-height: 0rem;
+  max-height: 33rem;
+  min-width: 31rem;
+  overflow-y: auto;
+  overflow-x: clip;
+}
+
+.align-text-right {
+  text-align: right;
+}

@@ -17,16 +17,16 @@
         <div class="card-body">
           <div class="form ml-5 form-max-height">
             <div class="form-group row">
-              <label class="mt-1 col-2">Número de cuenta:</label>
-              <div class="col-sm-3 col-md-3">
+              <label class="mt-1 col-lg-2">Número de cuenta:</label>
+              <div class="col-lg-3">
                 <input
                   class="form-control form-control-sm"
                   type="text"
                   [(ngModel)]="bloqueoInformacion.idCuenta"
                 />
               </div>
-              <label class="mt-1 col-3">Número de bloqueo:</label>
-              <div class="col-sm-3 col-md-3">
+              <label class="mt-1 col-lg-3">Número de bloqueo:</label>
+              <div class="col-lg-3">
                 <input
                   class="form-control form-control-sm"
                   type="text"
@@ -35,8 +35,8 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="mt-1 col-2">Fecha bloqueo:</label>
-              <div class="col-sm-3 col-md-3">
+              <label class="mt-1 col-lg-2">Fecha bloqueo:</label>
+              <div class="col-lg-3">
                 <div class="input-group">
                   <input
                     class="form-control bg-white"
@@ -47,49 +47,62 @@
                     placeholder="dd/mm/aaaa"
                     name="fechaDisposicion"
                     (click)="c.toggle()"
+                    [(ngModel)]="bloqueoInformacion.fechaBloqueo"
+                    style="font-size: 0.85rem"
                   />
-                  <div class="input-group-append">
+                  <div class="input-group-append" style="height: 2.18rem">
                     <button
                       class="btn btn-outline-secondary calendar"
                       (click)="c.toggle()"
                       type="button"
+                      style="padding-top: 4px"
                     >
                       <fa-icon icon="calendar-alt"></fa-icon>
                     </button>
                   </div>
                 </div>
               </div>
-              <label class="mt-1 col-3">Monto bloqueo:</label>
-              <div class="col-sm-3 col-md-3">
+              <label class="mt-1 col-lg-3">Monto bloqueo:</label>
+              <div class="col-lg-3">
                 <input
                   class="form-control form-control-sm"
                   type="text"
                   [(ngModel)]="bloqueoInformacion.montoBloqueo"
+                  [pattern]="decimalPattern"
+                  #montoBloqueo="ngModel"
+                  (change)="isValid()"
                 />
+                <div *ngIf="montoBloqueo.errors?.pattern">
+                  <label class="color-red">
+                    Valor con formato incorrecto.</label
+                  >
+                </div>
               </div>
             </div>
             <div class="form-group row">
-              <label class="mt-1 col-2">Tipo bloqueo:</label>
-              <div class="col-sm-3 col-md-3">
+              <label class="mt-1 col-lg-2">Tipo bloqueo:</label>
+              <div class="col-lg-3">
                 <select
                   class="form-control form-control-sm"
                   [(ngModel)]="bloqueoInformacion.tipoBloqueo"
+                  (change)="getDescripcion()"
                 >
                   <option
                     [ngValue]="cat.clave"
                     *ngFor="let cat of catalogosInformacion['tipoBloqueo']"
                   >
-                    {{ cat.descripcion }}
+                    {{ cat.clave }}
                   </option>
                 </select>
               </div>
             </div>
             <div class="form-group row">
-              <label class="mt-1 col-2">Descripción bloqueo:</label>
-              <div class="col-sm-3 col-md-9">
+              <label class="mt-1 col-lg-2">Descripción bloqueo:</label>
+              <div class="col-lg-9">
                 <textarea
                   class="form-control"
                   [(ngModel)]="bloqueoInformacion.descBloqueo"
+                  [disabled]="true"
                 ></textarea>
               </div>
             </div>
@@ -100,7 +113,14 @@
   </div>
   <div class="modal-footer">
     <!-- Simple Buttons-->
-    <button class="btn btn-success" type="button">Aceptar</button>
+    <button
+      class="btn btn-success"
+      type="button"
+      (click)="nuevoBloqueo()"
+      [disabled]="!valid"
+    >
+      Aceptar
+    </button>
     <button
       class="btn btn-danger"
       type="button"

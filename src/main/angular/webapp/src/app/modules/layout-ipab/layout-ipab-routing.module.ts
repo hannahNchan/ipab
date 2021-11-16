@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ProcesoComponent } from '@modules/layout-ipab/proceso/proceso.component';
 import { CargarArchivoComponent } from '@modules/layout-ipab/cargar-archivo/cargar-archivo.component';
+import { ReprocesoComponent } from '@modules/layout-ipab/reproceso/reproceso.component';
 import { LogsComponent } from './logs/logs.component';
 
 const routes: Routes = [
@@ -11,6 +12,7 @@ const routes: Routes = [
     children: [
       { path: 'layout-ipab', component: ProcesoComponent },
       { path: 'cargar-archivo', component: CargarArchivoComponent },
+      { path: 'reproceso', component: ReprocesoComponent },
       { path: 'logs', component: LogsComponent }
     ]
   }

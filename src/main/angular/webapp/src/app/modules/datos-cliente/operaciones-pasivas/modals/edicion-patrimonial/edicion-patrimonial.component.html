@@ -73,11 +73,17 @@
                 <label>Sucursal:</label>
               </div>
               <div class="col-lg-4">
-                <input
+                <select
                   class="form-control form-control-sm"
-                  type="text"
                   [(ngModel)]="patrimonialInformacion.sucursal"
-                />
+                >
+                  <option
+                    [ngValue]="cat.clave"
+                    *ngFor="let cat of catalogosInformacion['sucursal']"
+                  >
+                    {{ cat.descripcion }}
+                  </option>
+                </select>
               </div>
               <div class="col-lg-2">
                 <label>Saldo de la cuenta:</label>
@@ -87,7 +93,15 @@
                   class="form-control form-control-sm"
                   type="text"
                   [(ngModel)]="patrimonialInformacion.saldoCuenta"
+                  [pattern]="decimalPattern"
+                  #saldoCuenta="ngModel"
+                  (change)="isValid()"
                 />
+                <div *ngIf="saldoCuenta.errors?.pattern">
+                  <label class="color-red">
+                    Valor con formato incorrecto.</label
+                  >
+                </div>
               </div>
             </div>
             <div class="col-lg-12 form-group row">
@@ -99,7 +113,15 @@
                   class="form-control form-control-sm"
                   type="text"
                   [(ngModel)]="patrimonialInformacion.saldoInteresArt61"
+                  [pattern]="decimalPattern"
+                  #saldoInteresArt61="ngModel"
+                  (change)="isValid()"
                 />
+                <div *ngIf="saldoInteresArt61.errors?.pattern">
+                  <label class="color-red">
+                    Valor con formato incorrecto.</label
+                  >
+                </div>
               </div>
               <div class="col-lg-2">
                 <label>Saldo interes:</label>
@@ -109,7 +131,15 @@
                   class="form-control form-control-sm"
                   type="text"
                   [(ngModel)]="patrimonialInformacion.saldoInteres"
+                  [pattern]="decimalPattern"
+                  #saldoInteres="ngModel"
+                  (change)="isValid()"
                 />
+                <div *ngIf="saldoInteres.errors?.pattern">
+                  <label class="color-red">
+                    Valor con formato incorrecto.</label
+                  >
+                </div>
               </div>
             </div>
             <div class="col-lg-12 form-group row">
@@ -133,7 +163,7 @@
                 <label>Fecha de contratacion:</label>
               </div>
               <div class="pl-0 col-lg-4">
-                <div class="input-group col-xl-8">
+                <div class="input-group col-xl-12 pr-0">
                   <input
                     class="form-control bg-white"
                     id="fechaContratacion"
@@ -144,12 +174,14 @@
                     name="fechaContratacion"
                     (click)="a.toggle()"
                     [(ngModel)]="patrimonialInformacion.fechaContratacion"
+                    style="font-size: 0.85rem"
                   />
-                  <div class="input-group-append">
+                  <div class="input-group-append" style="height: 2.18rem">
                     <button
                       class="btn btn-outline-secondary calendar"
                       (click)="a.toggle()"
                       type="button"
+                      style="padding-top: 4px"
                     >
                       <fa-icon icon="calendar-alt"></fa-icon>
                     </button>
@@ -166,7 +198,15 @@
                   class="form-control form-control-sm"
                   type="text"
                   [(ngModel)]="patrimonialInformacion.plazoOperacion"
+                  [pattern]="enteroPattern"
+                  #plazoOperacion="ngModel"
+                  (change)="isValid()"
                 />
+                <div *ngIf="plazoOperacion.errors?.pattern">
+                  <label class="color-red">
+                    Valor con formato incorrecto.</label
+                  >
+                </div>
               </div>
               <div class="col-lg-2">
                 <label>Tipo tasa:</label>
@@ -194,13 +234,21 @@
                   class="form-control form-control-sm"
                   type="text"
                   [(ngModel)]="patrimonialInformacion.tasa"
+                  [pattern]="decimalPattern"
+                  #tasa="ngModel"
+                  (change)="isValid()"
                 />
+                <div *ngIf="tasa.errors?.pattern">
+                  <label class="color-red">
+                    Valor con formato incorrecto.</label
+                  >
+                </div>
               </div>
               <div class="col-lg-2">
                 <label>Ultimo provision de intereses:</label>
               </div>
               <div class="pl-0 col-lg-4">
-                <div class="input-group col-xl-8">
+                <div class="input-group col-xl-12 pr-0">
                   <input
                     class="form-control bg-white"
                     id="fechaUltProvInt"
@@ -213,12 +261,14 @@
                     [(ngModel)]="
                       patrimonialInformacion.ultimaProvisionIntereses
                     "
+                    style="font-size: 0.85rem"
                   />
-                  <div class="input-group-append">
+                  <div class="input-group-append" style="height: 2.18rem">
                     <button
                       class="btn btn-outline-secondary calendar"
                       (click)="b.toggle()"
                       type="button"
+                      style="padding-top: 4px"
                     >
                       <fa-icon icon="calendar-alt"></fa-icon>
                     </button>
@@ -247,9 +297,11 @@
                 <label>Plaza:</label>
               </div>
               <div class="col-lg-4">
-                <select class="form-control form-control-sm">
-                  <option>Opción 1</option>
-                </select>
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  [(ngModel)]="patrimonialInformacion.plaza"
+                />
               </div>
             </div>
           </div>
@@ -260,7 +312,24 @@
 </div>
 
 <div class="modal-footer">
-  <button class="btn btn-success" type="button">Aceptar</button>
+  <button
+    *ngIf="isUpdate"
+    class="btn btn-success"
+    type="button"
+    (click)="actualizarPatrimonial()"
+    [disabled]="!valid"
+  >
+    Aceptar
+  </button>
+  <button
+    *ngIf="!isUpdate"
+    class="btn btn-success"
+    type="button"
+    (click)="nuevoPatrimonial()"
+    [disabled]="!valid"
+  >
+    Aceptar
+  </button>
   <button
     class="btn btn-danger"
     type="button"

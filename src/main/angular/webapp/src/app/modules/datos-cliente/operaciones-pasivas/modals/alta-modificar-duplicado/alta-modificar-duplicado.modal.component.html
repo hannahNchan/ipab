@@ -19,7 +19,7 @@
             <div class="form-group row center">
               <label class="mt-1 col-2">Cliente principal:</label>
               <div class="col-sm-3 col-md-4">
-                <input class="form-control form-control-sm" type="text" />
+                <input class="form-control" type="text" />
               </div>
             </div>
             <div class="row">
@@ -28,7 +28,7 @@
                   <div class="form-group col-4">
                     <label class="mt-1 col-xl-12">Cliente duplicado:</label>
                     <div class="col-xl-12">
-                      <input class="form-control form-control-sm" type="text" />
+                      <input class="form-control" type="text" />
                     </div>
                   </div>
                   <div class="form-group col-4">
@@ -36,30 +36,47 @@
                       >Fecha alta/modificación:</label
                     >
                     <div class="col-xl-12">
-                      <input class="form-control form-control-sm" type="text" />
+                      <div class="input-group">
+                        <input
+                          class="form-control bg-white"
+                          id="cierreCuentasFechaReporte"
+                          type="text"
+                          ngbDatepicker
+                          #d="ngbDatepicker"
+                          placeholder="dd/mm/aaaa"
+                          (focus)="d.toggle()"
+                          name="cierreCuentasFechaReporte"
+                        />
+                        <div class="input-group-append">
+                          <button
+                            class="btn btn-outline-secondary calendar"
+                            (click)="d.toggle()"
+                            type="button"
+                          >
+                            <fa-icon icon="calendar-alt"></fa-icon>
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="form-group col-4">
                     <label class="mt-1 col-xl-12">Usuario:</label>
                     <div class="col-xl-12">
-                      <input class="form-control form-control-sm" type="text" />
+                      <input class="form-control" type="text" />
                     </div>
                   </div>
                   <div class="form-group col-12">
                     <label class="mt-1 col-xl-12">Comentarios Duplicado:</label>
                     <div class="col-xl-12">
-                      <input class="form-control form-control-sm" type="text" />
+                      <input class="form-control" type="text" />
                     </div>
                   </div>
                 </div>
               </div>
               <div class="row col-2 end">
-                <!-- Botón buscar tipos de producto-->
-                <!-- Botón editar grupo-->
                 <button class="btn btn-danger small-height" type="button">
                   <fa-icon icon="times"></fa-icon>
                 </button>
-                <!-- Botón agregar producto-->
                 <button class="btn btn-primary ml-2 small-height" type="button">
                   <fa-icon icon="plus"></fa-icon>
                 </button>
@@ -69,15 +86,20 @@
               <div class="form-group col-12">
                 <label class="mt-1 col-xl-12">Comentarios:</label>
                 <div class="col-xl-12">
-                  <input class="form-control form-control-sm" type="text" />
+                  <input class="form-control" type="text" />
                 </div>
               </div>
             </div>
             <div class="form-group row ml-1">
               <label class="mt-1 col-1">Estatus:</label>
               <div class="col-sm-3 col-md-3">
-                <select class="form-control form-control-sm">
-                  <option>Opción 1</option>
+                <select class="form-control">
+                  <option
+                    [ngValue]="cat.clave"
+                    *ngFor="let cat of catalogosInformacion['estatusRegistro']"
+                  >
+                    {{ cat.descripcion }}
+                  </option>
                 </select>
               </div>
             </div>

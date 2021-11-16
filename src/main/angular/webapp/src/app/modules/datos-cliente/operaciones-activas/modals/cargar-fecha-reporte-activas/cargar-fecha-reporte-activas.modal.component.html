@@ -1,0 +1,56 @@
+<div class="modal-container">
+  <div class="modal-header">
+    <h4 class="modal-title">Cargar fecha del reporte</h4>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid mt-2">
+      <div class="card">
+        <div class="card-body">
+          <div class="form form-max-height">
+            <div class="form-group row mt-3">
+              <label class="mt-1 col-lg-6">Fecha del Reporte:</label>
+              <div class="col-lg-6">
+                <div class="input-group">
+                  <input
+                    class="form-control bg-white"
+                    id="fecha"
+                    type="text"
+                    ngbDatepicker
+                    #d="ngbDatepicker"
+                    placeholder="dd/mm/aaaa"
+                    (click)="d.toggle()"
+                    name="fecha"
+                    [(ngModel)]="fecha"
+                    style="font-size: 0.85rem"
+                    [readonly]="true"
+                  />
+                  <div class="input-group-append" style="height: 2.18rem">
+                    <button
+                      class="btn btn-outline-secondary calendar"
+                      (click)="d.toggle()"
+                      type="button"
+                      style="padding-top: 4px"
+                    >
+                      <fa-icon icon="calendar-alt"></fa-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <!-- Simple Buttons-->
+    <button
+      class="btn btn-success"
+      type="button"
+      [disabled]="isvalid()"
+      (click)="guardarFecha()"
+    >
+      Aceptar
+    </button>
+  </div>
+</div>

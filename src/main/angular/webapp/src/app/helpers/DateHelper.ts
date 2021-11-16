@@ -35,6 +35,22 @@ export class DateHelper {
   }
 
   /**
+   * Convierte a la fecha recuperada de la base de datos con formato aaaammdd a la interfaz requerida por Angular
+   * @param fecha fecha recuperada de la base de datos  { string }
+   * @returns fecha: Fecha en formato { day:int, month:int, year:int }
+   */
+  static convertString2ToIDate(fecha: string): IDate {
+    const aux = fecha.slice(0, 4);
+    const aux2 = fecha.slice(4, 6);
+    const aux3 = fecha.slice(6, 8);
+    return {
+      day: parseInt(aux3, 10),
+      month: parseInt(aux2, 10),
+      year: parseInt(aux, 10)
+    };
+  }
+
+  /**
    * Convierte la hora a interfae ITime
    * @param hora Hora a convertir en formato hh:mm:ss
    */

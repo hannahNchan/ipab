@@ -36,6 +36,7 @@
                     <select
                       class="form-control form-control-sm"
                       [(ngModel)]="clienteCuentaInformacion.moneda"
+                      [disabled]="isUpdate"
                     >
                       <option
                         [ngValue]="cat.clave"
@@ -85,8 +86,18 @@
                 <div class="form-group row">
                   <label class="mt-1 col-xl-4">Exento Impuesto:</label>
                   <div class="col-xl-6">
-                    <select class="form-control form-control-sm">
-                      <option>Opción 1</option>
+                    <select
+                      class="form-control form-control-sm"
+                      [(ngModel)]="clienteCuentaInformacion.exentoImpuesto"
+                    >
+                      <option
+                        [ngValue]="cat.claveIPAB"
+                        *ngFor="
+                          let cat of catalogosInformacion['exentoImpuesto']
+                        "
+                      >
+                        {{ cat.descripcion1 }}
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -114,8 +125,24 @@
                   <input
                     class="form-control form-control-sm"
                     type="text"
-                    [(ngModel)]="clienteCuentaInformacion.porcentajeIPAB"
+                    [(ngModel)]="clienteCuentaInformacion.titularPorcentajeIPAB"
+                    [disabled]="
+                      clienteCuentaInformacion.regimenFiscal == 'INSDISTINTA'
+                    "
+                    [pattern]="porcentajePattern"
+                    #porcentajeTitular="ngModel"
+                    (ngModelChange)="isValid()"
                   />
+                </div>
+                <div
+                  *ngIf="
+                    porcentajeTitular.errors?.pattern ||
+                    porcentajeTitularTemp > 100
+                  "
+                >
+                  <label class="color-red">
+                    Valor con formato incorrecto.</label
+                  >
                 </div>
               </div>
             </div>
@@ -125,7 +152,11 @@
                 <div class="col-xl-12">
                   <select
                     class="form-control form-control-sm"
-                    [(ngModel)]="clienteCuentaInformacion.tipoFirmaCotitular"
+                    [(ngModel)]="clienteCuentaInformacion.idTitularTipoFirma"
+                    [disabled]="
+                      clienteCuentaInformacion.regimenFiscal == 'INSDISTINTA' ||
+                      clienteCuentaInformacion.regimenFiscal == 'MANCOMUNADA'
+                    "
                   >
                     <option
                       [ngValue]="cat.clave"
@@ -138,81 +169,138 @@
               </div>
             </div>
           </div>
-          <div *ngFor="let cot of cotitulares">
-            <div class="row">
-              <div class="col-sm-12 col-md-4">
-                <div class="form-group">
-                  <label class="mt-1 col-xl-12">Cotitular:</label>
-                  <div class="col-xl-12">
-                    <input
-                      class="form-control form-control-sm"
-                      type="text"
-                      [(ngModel)]="clienteCuentaInformacion.cotitular"
-                    />
+          <ng-container
+            *ngIf="clienteCuentaInformacion.regimenFiscal !== 'INDIVIDUAL'"
+          >
+            <div
+              *ngFor="
+                let cot of clienteCuentaInformacion.listCotitular;
+                let indexOfelement = index
+              "
+            >
+              <div class="row">
+                <div class="col-sm-12 col-md-4">
+                  <div class="form-group">
+                    <label class="mt-1 col-xl-12">Cotitular:</label>
+                    <div class="col-xl-12">
+                      <input
+                        class="form-control form-control-sm"
+                        type="text"
+                        [(ngModel)]="cot"
+                        (change)="changeCotitular(indexOfelement, cot)"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-sm-12 col-md-3">
-                <div class="form-group">
-                  <label class="mt-1 col-xl-12">Porcentaje IPAB:</label>
-                  <div class="col-xl-12">
-                    <input
-                      class="form-control form-control-sm"
-                      type="text"
-                      [(ngModel)]="clienteCuentaInformacion.porcentajeIPAB"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-12 col-md-3">
-                <div class="form-group row">
-                  <label class="mt-1 col-xl-12">Tipo Firma:</label>
-                  <div class="col-xl-12">
-                    <select
-                      class="form-control form-control-sm"
-                      [(ngModel)]="clienteCuentaInformacion.tipoFirmaCotitular"
-                    >
-                      <option
-                        [ngValue]="cat.clave"
-                        *ngFor="let cat of catalogosInformacion['tipoFirma']"
+                <div class="col-sm-12 col-md-3">
+                  <div class="form-group">
+                    <label class="mt-1 col-xl-12">Porcentaje IPAB:</label>
+                    <div class="col-xl-12">
+                      <input
+                        class="form-control form-control-sm"
+                        type="text"
+                        [(ngModel)]="
+                          clienteCuentaInformacion.listPorcentajeIPAB[
+                            indexOfelement
+                          ]
+                        "
+                        [disabled]="
+                          clienteCuentaInformacion.regimenFiscal ==
+                          'INSDISTINTA'
+                        "
+                        [pattern]="porcentajePattern"
+                        #porcentaje="ngModel"
+                        (ngModelChange)="isValid()"
+                      />
+                      <div
+                        *ngIf="
+                          porcentaje.errors?.pattern ||
+                          porcentajeCotitual[indexOfelement] > 100
+                        "
                       >
-                        {{ cat.descripcion }}
-                      </option>
-                    </select>
+                        <label class="color-red">
+                          Valor con formato incorrecto.</label
+                        >
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-sm-12 col-md-1 mt-4">
-                <div class="col-md-12">
-                  <div class="btn-group d-flex justify-content-center">
-                    <!-- Botón agregar grupos-->
-                    <button
-                      class="btn btn-success"
-                      id="btnSearchProspectos"
-                      (click)="agregarCotitular()"
-                    >
-                      <fa-icon icon="plus"></fa-icon>
-                    </button>
-                    <!-- Botón eliminar grupo-->
+                <div class="col-sm-12 col-md-3">
+                  <div class="form-group row">
+                    <label class="mt-1 col-xl-12">Tipo Firma:</label>
+                    <div class="col-xl-12">
+                      <select
+                        class="form-control form-control-sm"
+                        [(ngModel)]="
+                          clienteCuentaInformacion.listTipoFirma[indexOfelement]
+                        "
+                        [disabled]="
+                          clienteCuentaInformacion.regimenFiscal ==
+                            'INSDISTINTA' ||
+                          clienteCuentaInformacion.regimenFiscal ==
+                            'MANCOMUNADA'
+                        "
+                      >
+                        <option
+                          [ngValue]="cat.clave"
+                          *ngFor="let cat of catalogosInformacion['tipoFirma']"
+                        >
+                          {{ cat.descripcion }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-1 mt-4">
+                  <div class="btn-group ml-3 mt-1 pt-1">
                     <button
                       class="btn btn-danger"
                       type="button"
-                      (click)="removerCotitular()"
+                      (click)="removerCotitular(indexOfelement)"
                     >
                       <fa-icon icon="minus"></fa-icon>
+                    </button>
+                    <button
+                      class="btn btn-primary"
+                      id="btnSearchProspectos"
+                      (click)="agregarCotitular('')"
+                    >
+                      <fa-icon icon="plus"></fa-icon>
                     </button>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </ng-container>
         </div>
       </div>
     </div>
   </div>
+  <div *ngIf="suma > 100">
+    <label class="color-red pl-5">
+      **La suma de los porcentajes no puede ser mayor que 100</label
+    >
+  </div>
   <div class="modal-footer">
     <!-- Simple Buttons-->
-    <button class="btn btn-success" type="button">Aceptar</button>
+    <button
+      *ngIf="isUpdate"
+      class="btn btn-success"
+      type="button"
+      (click)="actualizarCuenta()"
+      [disabled]="!valid"
+    >
+      Aceptar
+    </button>
+    <button
+      *ngIf="!isUpdate"
+      class="btn btn-success"
+      type="button"
+      (click)="nuevaCuenta()"
+      [disabled]="!valid"
+    >
+      Aceptar
+    </button>
     <button
       class="btn btn-danger mr-3"
       type="button"

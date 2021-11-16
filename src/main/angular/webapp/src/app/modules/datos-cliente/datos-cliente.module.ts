@@ -18,11 +18,15 @@ import { AltaModificarDuplicadoModalComponent } from '@modules/datos-cliente/ope
 import { AltaModificarCierreModalComponent } from '@modules/datos-cliente/operaciones-pasivas/modals/alta-modificar-cierre/alta-modificar-cierre.modal.component';
 import { AltaModificarTabla4bModalComponent } from '@modules/datos-cliente/operaciones-activas/modals/alta-modificar-tabla4b/alta-modificar-tabla4b.modal.component';
 import { AltaModificarTabla2bModalComponent } from '@modules/datos-cliente/operaciones-activas/modals/alta-modificar-tabla2b/alta-modificar-tabla2b.modal.component';
+import { AltaModificarTabla4aModalComponent } from '@modules/datos-cliente/operaciones-activas/modals/alta-modificar-tabla4a/alta-modificar-tabla4a.modal.component';
+import { AltaModificarTabla5aModalComponent } from '@modules/datos-cliente/operaciones-activas/modals/alta-modificar-tabla5a/alta-modificar-tabla5a.modal.component';
+import { AltaModificarTabla1bModalComponent } from '@modules/datos-cliente/operaciones-activas/modals/alta-modificar-tabla1b/alta-modificar-tabla1b.modal.component';
+import { CargarFechaReportePasivasModalComponent } from '@modules/datos-cliente/operaciones-pasivas/modals/cargar-fecha-reporte-pasivas/cargar-fecha-reporte-pasivas.modal.component';
+import { CargarFechaReporteActivasModalComponent } from '@modules/datos-cliente/operaciones-activas/modals/cargar-fecha-reporte-activas/cargar-fecha-reporte-activas.modal.component';
 
 import { AltaModificarExceptuadosComponent } from './operaciones-pasivas/modals/alta-modificar-exceptuados/alta-modificar-exceptuados.component';
 import { AltaModificacionClienteComponent } from './operaciones-pasivas/modals/alta-modificacion-cliente/alta-modificacion-cliente.component';
 import { EdicionPatrimonialComponent } from './operaciones-pasivas/modals/edicion-patrimonial/edicion-patrimonial.component';
-import { AltaModificarCreditosVencidosComponent } from './operaciones-activas/modals/alta-modificar-creditos-vencidos/alta-modificar-creditos-vencidos.component';
 
 @NgModule({
   imports: [
@@ -49,7 +53,11 @@ import { AltaModificarCreditosVencidosComponent } from './operaciones-activas/mo
     AltaModificarExceptuadosComponent,
     AltaModificarTabla2bModalComponent,
     AltaModificarTabla4bModalComponent,
-    AltaModificarCreditosVencidosComponent
+    AltaModificarTabla4aModalComponent,
+    AltaModificarTabla5aModalComponent,
+    AltaModificarTabla1bModalComponent,
+    CargarFechaReportePasivasModalComponent,
+    CargarFechaReporteActivasModalComponent
   ],
   entryComponents: [
     AltaModificacionClienteComponent,
@@ -64,7 +72,11 @@ import { AltaModificarCreditosVencidosComponent } from './operaciones-activas/mo
     AltaModificarExceptuadosComponent,
     AltaModificarTabla2bModalComponent,
     AltaModificarTabla4bModalComponent,
-    AltaModificarCreditosVencidosComponent
+    AltaModificarTabla5aModalComponent,
+    AltaModificarTabla4aModalComponent,
+    AltaModificarTabla1bModalComponent,
+    CargarFechaReportePasivasModalComponent,
+    CargarFechaReporteActivasModalComponent
   ]
 })
 export class DatosClienteModule {

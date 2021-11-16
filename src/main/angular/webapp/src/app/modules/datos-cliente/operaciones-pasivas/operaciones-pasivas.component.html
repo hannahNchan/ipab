@@ -1,16 +1,5 @@
 <div class="container mt-3">
   <div class="section mt-3">
-    <div class="row">
-      <div class="col-12">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="flex-fill align-self-center">
-              <h5>Operaciones pasivas</h5>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="card mt-3">
       <div class="card-body tabs-card">
         <ngb-tabset>
@@ -19,7 +8,26 @@
               <b>Clientes</b>
             </ng-template>
             <ng-template ngbTabContent>
-              <h5 class="mt-3 ml-3 setBolder">Clientes</h5>
+              <div class="row">
+                <div class="col-11">
+                  <h5 class="mt-3 ml-3 setBolder">Clientes</h5>
+                </div>
+                <div class="col-1 mt-3">
+                  <div class="row justify-content-search">
+                    <div class="col-md-6" style="padding-right: 65px">
+                      <div class="btn-group d-flex justify-content-center">
+                        <button
+                          class="btn btn-primary"
+                          [disabled]="!isReady"
+                          (click)="onClickCambiarFechaReporte()"
+                        >
+                          <fa-icon icon="calendar-alt"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="card mt-2">
                 <div class="card-header pb-0 pt-0">
                   <div class="flex-fill align-self-center">
@@ -50,6 +58,7 @@
                             id="numeroCliente"
                             name="numeroCliente"
                             [(ngModel)]="numeroCliente"
+                            (ngModelChange)="changeDataCliente(true)"
                           />
                         </div>
                         <div class="col-1 pr-0 pl-0">
@@ -63,6 +72,7 @@
                             id="nombreCliente"
                             name="nombreCliente"
                             [(ngModel)]="nombreCliente"
+                            (ngModelChange)="changeDataCliente()"
                           />
                         </div>
                         <div class="col-1 pr-0 pl-0">
@@ -76,6 +86,7 @@
                             id="apellidoPaterno"
                             name="apellidoPaterno"
                             [(ngModel)]="apellidoPaterno"
+                            (ngModelChange)="changeDataCliente()"
                           />
                         </div>
                         <div class="col-1 pr-0 pl-0">
@@ -89,6 +100,7 @@
                             id="apellidoMaterno"
                             name="apellidoMaterno"
                             [(ngModel)]="apellidoMaterno"
+                            (ngModelChange)="changeDataCliente()"
                           />
                         </div>
                       </div>
@@ -100,6 +112,7 @@
                             >
                               <button
                                 class="btn btn-primary"
+                                [disabled]="!isReady"
                                 (click)="searchClientes()"
                               >
                                 <fa-icon icon="search"></fa-icon>
@@ -170,8 +183,9 @@
                       <div class="row justify-content-edit-button">
                         <button
                           class="btn btn-primary"
-                          [disabled]="selectedCliente == null"
+                          [disabled]="selectedCliente == null || !isReady"
                           (click)="openModalCliente('edit')"
+                          style="width: 40px"
                         >
                           <fa-icon icon="edit"></fa-icon>
                         </button>
@@ -187,7 +201,26 @@
               <b>Patrimonial</b>
             </ng-template>
             <ng-template ngbTabContent>
-              <h5 class="mt-3 ml-3 setBolder">Patrimonial</h5>
+              <div class="row">
+                <div class="col-11">
+                  <h5 class="mt-3 ml-3 setBolder">Patrimonial</h5>
+                </div>
+                <div class="col-1 mt-3">
+                  <div class="row justify-content-search">
+                    <div class="col-md-6" style="padding-right: 65px">
+                      <div class="btn-group d-flex justify-content-center">
+                        <button
+                          class="btn btn-primary"
+                          [disabled]="!isReady"
+                          (click)="onClickCambiarFechaReporte()"
+                        >
+                          <fa-icon icon="calendar-alt"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="card mt-2">
                 <div class="card-header pb-0 pt-0">
                   <div class="flex-fill align-self-center">
@@ -215,16 +248,18 @@
                         <div class="col-2 mt-3">
                           <div class="input-group">
                             <input
-                              class="form-control bg-white"
-                              id="patrimonialFechaReporte"
+                              class="form-control"
+                              id="fechaReporte"
                               type="text"
                               ngbDatepicker
                               #d="ngbDatepicker"
                               placeholder="dd/mm/aaaa"
                               (focus)="d.toggle()"
-                              name="patrimonialFechaReporte"
+                              name="fechaReporte"
                               (keydown)="onKeydown($event)"
-                              [(ngModel)]="patrimonialFechaReporte"
+                              [(ngModel)]="fechaReporte"
+                              (ngModelChange)="changeDataPatrimonial()"
+                              [disabled]="true"
                             />
                             <div class="input-group-append">
                               <button
@@ -248,6 +283,7 @@
                             id="patrimonialNumeroCliente"
                             name="patrimonialNumeroCliente"
                             [(ngModel)]="patrimonialNumeroCliente"
+                            (ngModelChange)="changeDataPatrimonial(true)"
                           />
                         </div>
                         <div class="col-1 pr-0 pl-0">
@@ -261,6 +297,7 @@
                             id="patrimonialNumeroCuenta"
                             name="patrimonialNumeroCuenta"
                             [(ngModel)]="patrimonialNumeroCuenta"
+                            (ngModelChange)="changeDataPatrimonial()"
                           />
                         </div>
                         <div class="col-1 pr-0 pl-0">
@@ -274,6 +311,7 @@
                             id="patrimonialNumeroInversion"
                             name="patrimonialNumeroInversion"
                             [(ngModel)]="patrimonialNumeroInversion"
+                            (ngModelChange)="changeDataPatrimonial()"
                           />
                         </div>
                       </div>
@@ -286,6 +324,7 @@
                               <button
                                 class="btn btn-primary"
                                 (click)="searchPatrimoniales()"
+                                [disabled]="!isReady"
                               >
                                 <fa-icon icon="search"></fa-icon>
                               </button>
@@ -355,24 +394,26 @@
                           class="btn btn-primary"
                           type="button"
                           (click)="openModalPatrimonial('new')"
+                          [disabled]="!isReady"
                         >
                           <fa-icon icon="plus"></fa-icon>
                         </button>
                       </div>
-                      <div class="row justify-content-edit-button">
+                      <div class="row justify-content-edit-button pt-4">
                         <button
                           class="btn btn-primary"
                           (click)="openModalPatrimonial('edit')"
-                          [disabled]="selectedPatrimonial == null"
+                          [disabled]="selectedPatrimonial == null || !isReady"
+                          style="width: 40px"
                         >
                           <fa-icon icon="edit"></fa-icon>
                         </button>
                       </div>
                       <div
-                        class="row justify-content-edit-button"
+                        class="row justify-content-edit-button pt-4"
                         style="display: none"
                       >
-                        <button class="btn btn-primary">
+                        <button class="btn btn-primary" style="width: 40px">
                           <fa-icon icon="trash"></fa-icon>
                         </button>
                       </div>
@@ -387,7 +428,26 @@
               <b>Clientes y Cuentas</b>
             </ng-template>
             <ng-template ngbTabContent>
-              <h5 class="mt-3 ml-3 setBolder">Clientes y Cuentas</h5>
+              <div class="row">
+                <div class="col-11">
+                  <h5 class="mt-3 ml-3 setBolder">Clientes y Cuentas</h5>
+                </div>
+                <div class="col-1 mt-3">
+                  <div class="row justify-content-search">
+                    <div class="col-md-6" style="padding-right: 65px">
+                      <div class="btn-group d-flex justify-content-center">
+                        <button
+                          class="btn btn-primary"
+                          [disabled]="!isReady"
+                          (click)="onClickCambiarFechaReporte()"
+                        >
+                          <fa-icon icon="calendar-alt"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="card mt-2">
                 <div class="card-header pb-0 pt-0">
                   <div class="flex-fill align-self-center">
@@ -415,16 +475,18 @@
                         <div class="col-2 mt-3">
                           <div class="input-group">
                             <input
-                              class="form-control bg-white"
-                              id="clienteCuentaFechaReporte"
+                              class="form-control"
+                              id="fechaReporte"
                               type="text"
                               ngbDatepicker
                               #d="ngbDatepicker"
                               placeholder="dd/mm/aaaa"
                               (focus)="d.toggle()"
-                              name="clienteCuentaFechaReporte"
+                              name="fechaReporte"
                               (keydown)="onKeydown($event)"
-                              [(ngModel)]="clienteCuentaFechaReporte"
+                              [(ngModel)]="fechaReporte"
+                              (ngModelChange)="changeDataClienteCuentas()"
+                              [disabled]="true"
                             />
                             <div class="input-group-append">
                               <button
@@ -437,30 +499,36 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-1 pr-0 pl-0">
-                          <label class="ml-4 col-form-label form-control-label">
+                        <div class="col-2 pr-0 pl-0">
+                          <label
+                            class="ml-4 mt-3 col-form-label form-control-label"
+                          >
                             Número de Cliente:
                           </label>
                         </div>
-                        <div class="col-2 mt-3">
+                        <div class="col-2 mt-3 inputStick">
                           <input
                             class="form-control"
                             id="clienteCuentaNumeroCliente"
                             name="clienteCuentaNumeroCliente"
                             [(ngModel)]="clienteCuentaNumeroCliente"
+                            (ngModelChange)="changeDataClienteCuentas(true)"
                           />
                         </div>
-                        <div class="col-1 pr-0 pl-0">
-                          <label class="ml-4 col-form-label form-control-label">
+                        <div class="col-2 pr-0 pl-0">
+                          <label
+                            class="ml-4 mt-3 col-form-label form-control-label"
+                          >
                             Número de Cuenta:
                           </label>
                         </div>
-                        <div class="col-2 mt-3">
+                        <div class="col-2 mt-3 inputStick">
                           <input
                             class="form-control"
                             id="clienteCuentaNumeroCuenta"
                             name="clienteCuentaNumeroCuenta"
                             [(ngModel)]="clienteCuentaNumeroCuenta"
+                            (ngModelChange)="changeDataClienteCuentas()"
                           />
                         </div>
                       </div>
@@ -473,6 +541,7 @@
                               <button
                                 class="btn btn-primary"
                                 (click)="searchClientesCuentas()"
+                                [disabled]="!isReady"
                               >
                                 <fa-icon icon="search"></fa-icon>
                               </button>
@@ -536,24 +605,27 @@
                           class="btn btn-primary"
                           type="button"
                           (click)="openModalAltaCuenta()"
+                          [disabled]="!isReady"
                         >
                           <fa-icon icon="plus"></fa-icon>
                         </button>
                       </div>
-                      <div class="row justify-content-edit-button">
+                      <div class="row justify-content-edit-button pt-4">
                         <button
                           class="btn btn-primary"
                           (click)="openModalAltaCuenta('edit')"
-                          [disabled]="selectedClienteCuenta == null"
+                          [disabled]="selectedClienteCuenta == null || !isReady"
+                          style="width: 40px"
                         >
                           <fa-icon icon="edit"></fa-icon>
                         </button>
                       </div>
-                      <div class="row justify-content-edit-button">
+                      <div class="row justify-content-edit-button pt-4">
                         <button
                           class="btn btn-primary"
                           (click)="onClickEliminarClienteCuenta()"
-                          [disabled]="selectedClienteCuenta == null"
+                          [disabled]="selectedClienteCuenta == null || !isReady"
+                          style="width: 40px"
                         >
                           <fa-icon icon="trash"></fa-icon>
                         </button>
@@ -569,7 +641,26 @@
               <b>Bloqueo de Saldos</b>
             </ng-template>
             <ng-template ngbTabContent>
-              <h5 class="mt-3 ml-3 setBolder">Bloqueo de Saldos</h5>
+              <div class="row">
+                <div class="col-11">
+                  <h5 class="mt-3 ml-3 setBolder">Bloqueo de Saldos</h5>
+                </div>
+                <div class="col-1 mt-3">
+                  <div class="row justify-content-search">
+                    <div class="col-md-6" style="padding-right: 65px">
+                      <div class="btn-group d-flex justify-content-center">
+                        <button
+                          class="btn btn-primary"
+                          [disabled]="!isReady"
+                          (click)="onClickCambiarFechaReporte()"
+                        >
+                          <fa-icon icon="calendar-alt"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="card mt-2">
                 <div class="card-header pb-0 pt-0">
                   <div class="flex-fill align-self-center">
@@ -597,16 +688,18 @@
                         <div class="col-2 mt-3">
                           <div class="input-group">
                             <input
-                              class="form-control bg-white"
-                              id="bloqueosFechaReporte"
+                              class="form-control"
+                              id="fechaReporte"
                               type="text"
                               ngbDatepicker
                               #d="ngbDatepicker"
                               placeholder="dd/mm/aaaa"
                               (focus)="d.toggle()"
-                              name="bloqueosFechaReporte"
+                              name="fechaReporte"
                               (keydown)="onKeydown($event)"
-                              [(ngModel)]="bloqueosFechaReporte"
+                              [(ngModel)]="fechaReporte"
+                              (ngModelChange)="changeDataBloqueos()"
+                              [disabled]="true"
                             />
                             <div class="input-group-append">
                               <button
@@ -619,30 +712,36 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-1 pr-0 pl-0">
-                          <label class="ml-4 col-form-label form-control-label">
-                            Número de cuenta:
+                        <div class="col-2 pr-0 pl-0">
+                          <label
+                            class="ml-4 mt-3 col-form-label form-control-label"
+                          >
+                            Número de Cuenta:
                           </label>
                         </div>
-                        <div class="col-2 mt-3">
+                        <div class="col-2 mt-3 inputStick">
                           <input
                             class="form-control"
                             id="bloqueosNumeroCuenta"
                             name="bloqueosNumeroCuenta"
                             [(ngModel)]="bloqueosNumeroCuenta"
+                            (ngModelChange)="changeDataBloqueos(true)"
                           />
                         </div>
-                        <div class="col-1 pr-0 pl-0">
-                          <label class="ml-4 col-form-label form-control-label">
-                            Número de bloqueo:
+                        <div class="col-2 pr-0 pl-0">
+                          <label
+                            class="ml-4 mt-3 col-form-label form-control-label"
+                          >
+                            Número de Bloqueo:
                           </label>
                         </div>
-                        <div class="col-2 mt-3">
+                        <div class="col-2 mt-3 inputStick">
                           <input
                             class="form-control"
                             id="bloqueosNumeroBloqueo"
                             name="bloqueosNumeroBloqueo"
                             [(ngModel)]="bloqueosNumeroBloqueo"
+                            (ngModelChange)="changeDataBloqueos()"
                           />
                         </div>
                       </div>
@@ -655,6 +754,7 @@
                               <button
                                 class="btn btn-primary"
                                 (click)="searchBloqueos()"
+                                [disabled]="!isReady"
                               >
                                 <fa-icon icon="search"></fa-icon>
                               </button>
@@ -712,23 +812,25 @@
                           class="btn btn-primary"
                           type="button"
                           (click)="openModalAltaBloqueo(any)"
+                          [disabled]="!isReady"
                         >
                           <fa-icon icon="plus"></fa-icon>
                         </button>
                       </div>
                       <div
-                        class="row justify-content-edit-button"
+                        class="row justify-content-edit-button pt-4"
                         style="display: none"
                       >
-                        <button class="btn btn-primary">
+                        <button class="btn btn-primary" style="width: 40px">
                           <fa-icon icon="edit"></fa-icon>
                         </button>
                       </div>
-                      <div class="row justify-content-edit-button">
+                      <div class="row justify-content-edit-button pt-4">
                         <button
                           class="btn btn-primary"
                           (click)="onClickEliminarBloqueo()"
-                          [disabled]="selectedBloqueo == null"
+                          [disabled]="selectedBloqueo == null || !isReady"
+                          style="width: 40px"
                         >
                           <fa-icon icon="trash"></fa-icon>
                         </button>
@@ -745,7 +847,26 @@
               <b>Cierre de cuentas</b>
             </ng-template>
             <ng-template ngbTabContent>
-              <h5 class="mt-3 ml-3 setBolder">Cierre de Cuentas</h5>
+              <div class="row">
+                <div class="col-11">
+                  <h5 class="mt-3 ml-3 setBolder">Cierre de Cuentas</h5>
+                </div>
+                <div class="col-1 mt-3">
+                  <div class="row justify-content-search">
+                    <div class="col-md-6" style="padding-right: 65px">
+                      <div class="btn-group d-flex justify-content-center">
+                        <button
+                          class="btn btn-primary"
+                          [disabled]="!isReady"
+                          (click)="onClickCambiarFechaReporte()"
+                        >
+                          <fa-icon icon="calendar-alt"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="card mt-2">
                 <div class="card-header pb-0 pt-0">
                   <div class="flex-fill align-self-center">
@@ -767,54 +888,66 @@
                       <div class="col-11 row">
                         <div class="col-1 pr-0 pl-0">
                           <label class="ml-4 col-form-label form-control-label">
-                            Número de Cliente:
+                            Fecha del Reporte:
                           </label>
                         </div>
                         <div class="col-2 mt-3">
+                          <div class="input-group">
+                            <input
+                              class="form-control"
+                              id="fechaReporte"
+                              type="text"
+                              ngbDatepicker
+                              #d="ngbDatepicker"
+                              placeholder="dd/mm/aaaa"
+                              (focus)="d.toggle()"
+                              name="fechaReporte"
+                              (keydown)="onKeydown($event)"
+                              [(ngModel)]="fechaReporte"
+                              (ngModelChange)="changeDataCierres()"
+                              [disabled]="true"
+                            />
+                            <div class="input-group-append">
+                              <button
+                                class="btn btn-outline-secondary calendar"
+                                (click)="d.toggle()"
+                                type="button"
+                              >
+                                <fa-icon icon="calendar-alt"></fa-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-2 pr-0 pl-0">
+                          <label
+                            class="ml-4 mt-3 col-form-label form-control-label"
+                          >
+                            Número de Cliente:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3 inputStick">
                           <input
                             class="form-control"
                             id="cierreCuentasNumeroCliente"
                             name="cierreCuentasNumeroCliente"
                             [(ngModel)]="cierreCuentasNumeroCliente"
+                            (ngModelChange)="changeDataCierres(true)"
                           />
                         </div>
-                        <div class="col-1 pr-0 pl-0">
-                          <label class="ml-4 col-form-label form-control-label">
-                            Nombre o Razón social:
+                        <div class="col-2 pr-0 pl-0">
+                          <label
+                            class="ml-4 mt-3 col-form-label form-control-label"
+                          >
+                            Número de Cuenta:
                           </label>
                         </div>
-                        <div class="col-2 mt-3">
+                        <div class="col-2 mt-3 inputStick">
                           <input
                             class="form-control"
-                            id="cierreCuentasNombreCliente"
-                            name="cierreCuentasNombreCliente"
-                            [(ngModel)]="cierreCuentasNombreCliente"
-                          />
-                        </div>
-                        <div class="col-1 pr-0 pl-0">
-                          <label class="ml-4 col-form-label form-control-label">
-                            Apellido Paterno:
-                          </label>
-                        </div>
-                        <div class="col-2 mt-3">
-                          <input
-                            class="form-control"
-                            id="cierreCuentasApellidoPaterno"
-                            name="cierreCuentasApellidoPaterno"
-                            [(ngModel)]="cierreCuentasApellidoPaterno"
-                          />
-                        </div>
-                        <div class="col-1 pr-0 pl-0">
-                          <label class="ml-4 col-form-label form-control-label">
-                            Apellido Materno:
-                          </label>
-                        </div>
-                        <div class="col-2 mt-3">
-                          <input
-                            class="form-control"
-                            id="cierreCuentasApellidoMaterno"
-                            name="cierreCuentasApellidoMaterno"
-                            [(ngModel)]="cierreCuentasApellidoMaterno"
+                            id="cierreCuentasNumeroCuenta"
+                            name="cierreCuentasNumeroCuenta"
+                            [(ngModel)]="cierreCuentasNumeroCuenta"
+                            (ngModelChange)="changeDataCierres()"
                           />
                         </div>
                       </div>
@@ -827,6 +960,7 @@
                               <button
                                 class="btn btn-primary"
                                 (click)="searchCierreCuentas()"
+                                [disabled]="!isReady"
                               >
                                 <fa-icon icon="search"></fa-icon>
                               </button>
@@ -846,18 +980,14 @@
                         <table class="table table-hover table-fixed">
                           <thead class="thead-light">
                             <tr class="hover-primary">
-                              <th class="col-2" scope="col">
+                              <th class="col-4" scope="col">
+                                Fecha del Reporte
+                              </th>
+                              <th class="col-4" scope="col">
                                 Número de Cliente
                               </th>
-                              <th class="col-2" scope="col">
+                              <th class="col-4" scope="col">
                                 Número de Cuenta
-                              </th>
-                              <th class="col-3" scope="col">Nombre Cliente</th>
-                              <th class="col-2" scope="col">
-                                Apellido Paterno
-                              </th>
-                              <th class="col-3" scope="col">
-                                Apellido Materno
                               </th>
                             </tr>
                           </thead>
@@ -874,11 +1004,9 @@
                                   selectedCierre === indexOfelement
                               }"
                             >
-                              <td class="col-2">{{ cierre.idTitular }}</td>
-                              <td class="col-2">{{ cierre.idCuenta }}</td>
-                              <td class="col-3">{{ cierre.nombre }}</td>
-                              <td class="col-2">{{ cierre.apellidoPat }}</td>
-                              <td class="col-3">{{ cierre.apellidoMat }}</td>
+                              <td class="col-4">{{ cierre.loadDate }}</td>
+                              <td class="col-4">{{ cierre.idTitular }}</td>
+                              <td class="col-3">{{ cierre.idCuenta }}</td>
                             </tr>
                           </tbody>
                         </table>
@@ -890,23 +1018,25 @@
                           class="btn btn-primary"
                           type="button"
                           (click)="openModalAltaCierre()"
+                          [disabled]="!isReady"
                         >
                           <fa-icon icon="plus"></fa-icon>
                         </button>
                       </div>
                       <div
-                        class="row justify-content-edit-button"
+                        class="row justify-content-edit-button pt-4"
                         style="display: none"
                       >
-                        <button class="btn btn-primary">
+                        <button class="btn btn-primary" style="width: 40px">
                           <fa-icon icon="edit"></fa-icon>
                         </button>
                       </div>
-                      <div class="row justify-content-edit-button">
+                      <div class="row justify-content-edit-button pt-4">
                         <button
                           class="btn btn-primary"
                           (click)="onClickEliminarCierre()"
-                          [disabled]="selectedCierre == null"
+                          [disabled]="selectedCierre == null || !isReady"
+                          style="width: 40px"
                         >
                           <fa-icon icon="trash"></fa-icon>
                         </button>
@@ -923,7 +1053,26 @@
               <b>Clientes Duplicados IPAB</b>
             </ng-template>
             <ng-template ngbTabContent>
-              <h5 class="mt-3 ml-3 setBolder">Clientes Duplicados IPAB</h5>
+              <div class="row">
+                <div class="col-11">
+                  <h5 class="mt-3 ml-3 setBolder">Clientes Duplicados IPAB</h5>
+                </div>
+                <div class="col-1 mt-3">
+                  <div class="row justify-content-search">
+                    <div class="col-md-6" style="padding-right: 65px">
+                      <div class="btn-group d-flex justify-content-center">
+                        <button
+                          class="btn btn-primary"
+                          [disabled]="!isReady"
+                          (click)="onClickCambiarFechaReporte()"
+                        >
+                          <fa-icon icon="calendar-alt"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="card mt-2">
                 <div class="card-header pb-0 pt-0">
                   <div class="flex-fill align-self-center">
@@ -945,49 +1094,43 @@
                       <div class="col-11 row">
                         <div class="col-1 pr-0 pl-0">
                           <label class="ml-4 col-form-label form-control-label">
+                            Fecha del Reporte:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <div class="input-group">
+                            <input
+                              class="form-control"
+                              id="fechaReporte"
+                              type="text"
+                              ngbDatepicker
+                              #d="ngbDatepicker"
+                              placeholder="dd/mm/aaaa"
+                              (focus)="d.toggle()"
+                              name="fechaReporte"
+                              (keydown)="onKeydown($event)"
+                              [(ngModel)]="fechaReporte"
+                              [disabled]="true"
+                            />
+                            <div class="input-group-append">
+                              <button
+                                class="btn btn-outline-secondary calendar"
+                                (click)="d.toggle()"
+                                type="button"
+                              >
+                                <fa-icon icon="calendar-alt"></fa-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-2 pr-0 pl-0">
+                          <label
+                            class="ml-4 mt-3 col-form-label form-control-label"
+                          >
                             Número de Cliente:
                           </label>
                         </div>
-                        <div class="col-2 mt-3">
-                          <input
-                            class="form-control"
-                            id="cierreCuentasNumeroCliente"
-                            name="cierreCuentasNumeroCliente"
-                            [(ngModel)]="cierreCuentasNumeroCliente"
-                          />
-                        </div>
-                        <div class="col-1 pr-0 pl-0">
-                          <label class="ml-4 col-form-label form-control-label">
-                            Nombre o Razón social:
-                          </label>
-                        </div>
-                        <div class="col-2 mt-3">
-                          <input
-                            class="form-control"
-                            id="cierreCuentasNombreCliente"
-                            name="cierreCuentasNombreCliente"
-                            [(ngModel)]="cierreCuentasNombreCliente"
-                          />
-                        </div>
-                        <div class="col-1 pr-0 pl-0">
-                          <label class="ml-4 col-form-label form-control-label">
-                            Apellido Paterno:
-                          </label>
-                        </div>
-                        <div class="col-2 mt-3">
-                          <input
-                            class="form-control"
-                            id="cierreCuentasApellidoPaterno"
-                            name="cierreCuentasApellidoPaterno"
-                            [(ngModel)]="cierreCuentasApellidoPaterno"
-                          />
-                        </div>
-                        <div class="col-1 pr-0 pl-0">
-                          <label class="ml-4 col-form-label form-control-label">
-                            Apellido Materno:
-                          </label>
-                        </div>
-                        <div class="col-2 mt-3">
+                        <div class="col-2 mt-3 inputStick">
                           <input
                             class="form-control"
                             id="cierreCuentasApellidoMaterno"
@@ -1021,15 +1164,11 @@
                         <table class="table table-hover table-fixed">
                           <thead class="thead-light">
                             <tr class="hover-primary">
-                              <th class="col-3" scope="col">
+                              <th class="col-6" scope="col">
+                                Fecha del Reporte
+                              </th>
+                              <th class="col-6" scope="col">
                                 Numero de Cliente principal
-                              </th>
-                              <th class="col-3" scope="col">Nombre Cliente</th>
-                              <th class="col-3" scope="col">
-                                Apellido Paterno
-                              </th>
-                              <th class="col-3" scope="col">
-                                Apellido Materno
                               </th>
                             </tr>
                           </thead>
@@ -1049,8 +1188,8 @@
                           <fa-icon icon="plus"></fa-icon>
                         </button>
                       </div>
-                      <div class="row justify-content-edit-button">
-                        <button class="btn btn-primary">
+                      <div class="row justify-content-edit-button pt-4">
+                        <button class="btn btn-primary" style="width: 40px">
                           <fa-icon icon="edit"></fa-icon>
                         </button>
                       </div>
@@ -1065,7 +1204,26 @@
               <b>Exceptuados IPAB</b>
             </ng-template>
             <ng-template ngbTabContent>
-              <h5 class="mt-3 ml-3 setBolder">Exceptuados IPAB</h5>
+              <div class="row">
+                <div class="col-11">
+                  <h5 class="mt-3 ml-3 setBolder">Exceptuados IPAB</h5>
+                </div>
+                <div class="col-1 mt-3">
+                  <div class="row justify-content-search">
+                    <div class="col-md-6" style="padding-right: 65px">
+                      <div class="btn-group d-flex justify-content-center">
+                        <button
+                          class="btn btn-primary"
+                          [disabled]="!isReady"
+                          (click)="onClickCambiarFechaReporte()"
+                        >
+                          <fa-icon icon="calendar-alt"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="card mt-2">
                 <div class="card-header pb-0 pt-0">
                   <div class="flex-fill align-self-center">
@@ -1087,54 +1245,50 @@
                       <div class="col-11 row">
                         <div class="col-1 pr-0 pl-0">
                           <label class="ml-4 col-form-label form-control-label">
+                            Fecha del Reporte:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <div class="input-group">
+                            <input
+                              class="form-control"
+                              id="fechaReporte"
+                              type="text"
+                              ngbDatepicker
+                              #d="ngbDatepicker"
+                              placeholder="dd/mm/aaaa"
+                              (focus)="d.toggle()"
+                              name="fechaReporte"
+                              (keydown)="onKeydown($event)"
+                              [(ngModel)]="fechaReporte"
+                              (ngModelChange)="changeDataExceptuados()"
+                              [disabled]="true"
+                            />
+                            <div class="input-group-append">
+                              <button
+                                class="btn btn-outline-secondary calendar"
+                                (click)="d.toggle()"
+                                type="button"
+                              >
+                                <fa-icon icon="calendar-alt"></fa-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-2 pr-0 pl-0">
+                          <label
+                            class="ml-4 mt-3 col-form-label form-control-label"
+                          >
                             Número de Cliente:
                           </label>
                         </div>
-                        <div class="col-2 mt-3">
+                        <div class="col-2 mt-3 inputStick">
                           <input
                             class="form-control"
-                            id="cierreCuentasNumeroCliente"
-                            name="cierreCuentasNumeroCliente"
-                            [(ngModel)]="cierreCuentasNumeroCliente"
-                          />
-                        </div>
-                        <div class="col-1 pr-0 pl-0">
-                          <label class="ml-4 col-form-label form-control-label">
-                            Nombre o Razón social:
-                          </label>
-                        </div>
-                        <div class="col-2 mt-3">
-                          <input
-                            class="form-control"
-                            id="cierreCuentasNombreCliente"
-                            name="cierreCuentasNombreCliente"
-                            [(ngModel)]="cierreCuentasNombreCliente"
-                          />
-                        </div>
-                        <div class="col-1 pr-0 pl-0">
-                          <label class="ml-4 col-form-label form-control-label">
-                            Apellido Paterno:
-                          </label>
-                        </div>
-                        <div class="col-2 mt-3">
-                          <input
-                            class="form-control"
-                            id="cierreCuentasApellidoPaterno"
-                            name="cierreCuentasApellidoPaterno"
-                            [(ngModel)]="cierreCuentasApellidoPaterno"
-                          />
-                        </div>
-                        <div class="col-1 pr-0 pl-0">
-                          <label class="ml-4 col-form-label form-control-label">
-                            Apellido Materno:
-                          </label>
-                        </div>
-                        <div class="col-2 mt-3">
-                          <input
-                            class="form-control"
-                            id="cierreCuentasApellidoMaterno"
-                            name="cierreCuentasApellidoMaterno"
-                            [(ngModel)]="cierreCuentasApellidoMaterno"
+                            id="exceptuadosNumeroCliente"
+                            name="exceptuadosNumeroCliente"
+                            [(ngModel)]="exceptuadosNumeroCliente"
+                            (ngModelChange)="changeDataExceptuados()"
                           />
                         </div>
                       </div>
@@ -1144,7 +1298,11 @@
                             <div
                               class="btn-group d-flex justify-content-center"
                             >
-                              <button class="btn btn-primary">
+                              <button
+                                class="btn btn-primary"
+                                (click)="searchExceptuados()"
+                                [disabled]="!isReady"
+                              >
                                 <fa-icon icon="search"></fa-icon>
                               </button>
                             </div>
@@ -1163,23 +1321,32 @@
                         <table class="table table-hover table-fixed">
                           <thead class="thead-light">
                             <tr class="hover-primary">
-                              <th class="col-2" scope="col">
+                              <th class="col-6" scope="col">
+                                Fecha del Reporte
+                              </th>
+                              <th class="col-6" scope="col">
                                 Número de Cliente
-                              </th>
-                              <th class="col-2" scope="col">
-                                Número de Cuenta
-                              </th>
-                              <th class="col-3" scope="col">Nombre Cliente</th>
-                              <th class="col-2" scope="col">
-                                Apellido Paterno
-                              </th>
-                              <th class="col-3" scope="col">
-                                Apellido Materno
                               </th>
                             </tr>
                           </thead>
                           <tbody class="max-row-7 table-scroll">
-                            <tr class="cursor-pointer hover-primary"></tr>
+                            <tr
+                              *ngFor="
+                                let exceptuado of listaExceptuados;
+                                let indexOfelement = index
+                              "
+                              class="cursor-pointer hover-primary"
+                              (click)="selectExceptuado(indexOfelement)"
+                              [ngClass]="{
+                                'table-active':
+                                  selectedExceptuado === indexOfelement
+                              }"
+                            >
+                              <td class="col-6">{{ exceptuado.loadDate }}</td>
+                              <td class="col-6">
+                                {{ exceptuado.numeroCliente }}
+                              </td>
+                            </tr>
                           </tbody>
                         </table>
                       </div>
@@ -1190,17 +1357,30 @@
                           class="btn btn-primary"
                           type="button"
                           (click)="openModalAltaExceptuados()"
+                          [disabled]="!isReady"
                         >
                           <fa-icon icon="plus"></fa-icon>
                         </button>
                       </div>
-                      <div class="row justify-content-edit-button">
+                      <div class="row justify-content-edit-button pt-4">
                         <button
                           class="btn btn-primary"
                           type="button"
-                          (click)="openModalEditarExceptuados()"
+                          (click)="openModalAltaExceptuados('edit')"
+                          [disabled]="selectedExceptuado == null || !isReady"
+                          style="width: 40px"
                         >
                           <fa-icon icon="edit"></fa-icon>
+                        </button>
+                      </div>
+                      <div class="row justify-content-edit-button pt-4">
+                        <button
+                          class="btn btn-primary"
+                          (click)="onClickEliminarExceptuado()"
+                          [disabled]="selectedExceptuado == null || !isReady"
+                          style="width: 40px"
+                        >
+                          <fa-icon icon="trash"></fa-icon>
                         </button>
                       </div>
                     </div>

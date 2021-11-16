@@ -5,6 +5,8 @@ import { IBloqueo, IBloqueoInformacion, ICatalogoGenerico } from '@interfaces/op
 import { Subscription } from 'rxjs/Subscription';
 import { OperacionesPasivasService } from '@services/operaciones-pasivas.service';
 import swal from "sweetalert2";
+import { PopUpMessage } from '@helpers/PopUpMessage';
+
 
 @Component({
   selector: 'app-alta-modificar-bloqueo',
@@ -16,13 +18,15 @@ export class AltaModificarBloqueoModalComponent implements OnInit, OnDestroy {
   bloqueoLocal: IBloqueo;
   bloqueoInformacion: IBloqueoInformacion;
   catalogosInformacion: ICatalogoGenerico;
-
+  decimalPattern: string;
+  valid: boolean = true;
   subscribeSelectedBloqueo: Subscription;
   subscribeInfoBloqueo: Subscription;
 
   constructor(public activeModal: NgbActiveModal, private modalService: NgbModal, private operacionesPasivasData$: OperacionesPasivasDataService, private operacionesPasivasService: OperacionesPasivasService) { }
 
   ngOnInit(): void {
+    this.decimalPattern = '^[0-9]+[.][0-9][0-9]$';
     this.bloqueoInformacion = AltaModificarBloqueoModalComponent.initBloqueoInformacion();
     this.operacionesPasivasData$.catalogos.subscribe(catalogos => {
       this.catalogosInformacion = catalogos
@@ -40,8 +44,17 @@ export class AltaModificarBloqueoModalComponent implements OnInit, OnDestroy {
           }
         }).then();
         this.subscribeInfoBloqueo = this.operacionesPasivasService.getBloqueo(this.bloqueoLocal.idCuenta, this.bloqueoLocal.idBloqueo).subscribe(resp => {
-          this.bloqueoInformacion = resp['bloqueo'];
-          swal.close();
+          if (resp.header['estatus'] === false) {
+            swal(PopUpMessage.getAppErrorMessageReportId(resp)).then(() => { });
+          }
+          else {
+            this.bloqueoInformacion = resp['bloqueo'];
+            swal.close();
+          }
+        }, err => {
+          swal(PopUpMessage.getServerErrorMessage(err)).then(() => {
+            console.error(err);
+          });
         });
       } else {
         this.isUpdate = false;
@@ -50,6 +63,55 @@ export class AltaModificarBloqueoModalComponent implements OnInit, OnDestroy {
     });
 
   }
+
+  getDescripcion(): void {
+    const ItemIndex = this.catalogosInformacion['tipoBloqueo'].findIndex(
+      (p) => p.clave === this.bloqueoInformacion.tipoBloqueo
+    )
+    this.bloqueoInformacion.descBloqueo = this.catalogosInformacion['tipoBloqueo'][ItemIndex].descripcion
+  }
+
+  nuevoBloqueo() {
+    let json
+    let today = new Date();
+    let fechaT = today.getFullYear().toString() + (today.getMonth() + 1).toString() + today.getDate().toString()
+    let fecha = ""
+    if (this.bloqueoInformacion.fechaBloqueo['year'] !== undefined) {
+      fecha = this.bloqueoInformacion.fechaBloqueo['year'].toString() + this.bloqueoInformacion.fechaBloqueo['month'].toString() + this.bloqueoInformacion.fechaBloqueo['day'].toString()
+    }
+    json = {
+      alta: true,
+      idCuenta: this.bloqueoInformacion.idCuenta,
+      idBloqueo: this.bloqueoInformacion.idBloqueo,
+      fechaBloqueo: fecha,
+      montoBloqueo: this.bloqueoInformacion.montoBloqueo,
+      tipoBloqueo: this.bloqueoInformacion.tipoBloqueo,
+      descBloqueo: this.bloqueoInformacion.descBloqueo,
+      loadDate: fechaT,
+    }
+    this.operacionesPasivasService.newBloqueo(json).subscribe(resp => {
+      if (resp['header'].estatus === false) {
+        swal(PopUpMessage.getAppErrorMessageReportId(resp)).then(() => { });
+      }
+      else {
+        swal(PopUpMessage.getSuccesMessage(resp, null, null)).then();
+      }
+    }, err => {
+      swal(PopUpMessage.getServerErrorMessage(err)).then(() => {
+        console.error(err);
+      });
+    });
+  }
+
+  isValid(): void {
+    if (!this.bloqueoInformacion.montoBloqueo.match(this.decimalPattern) && this.bloqueoInformacion.montoBloqueo.length > 0) {
+      this.valid = false;
+    }
+    else {
+      this.valid = true;
+    }
+  }
+
 
   ngOnDestroy(): void {
     if (this.isUpdate) {
@@ -63,8 +125,8 @@ export class AltaModificarBloqueoModalComponent implements OnInit, OnDestroy {
       idCuenta: '',
       idBloqueo: '',
       fechaBloqueo: '',
-      montoBloqueo: 0,
-      tipoBloqueo: 0,
+      montoBloqueo: '',
+      tipoBloqueo: '',
       descBloqueo: '',
       loadDate: ''
     };

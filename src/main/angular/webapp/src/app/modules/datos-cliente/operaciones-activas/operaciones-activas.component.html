@@ -17,7 +17,28 @@
           <ngb-tab>
             <ng-template ngbTabTitle><b> Tabla 4 Art. A</b></ng-template>
             <ng-template ngbTabContent>
-              <h5 class="mt-3 ml-3 setBolder">Tabla 4 Art. A</h5>
+              <div class="row">
+                <div class="col-11">
+                  <h5 class="mt-3 ml-3 setBolder">
+                    Créditos vencidos de los titulares
+                  </h5>
+                </div>
+                <div class="col-1 mt-3">
+                  <div class="row justify-content-search">
+                    <div class="col-md-6" style="padding-right: 65px">
+                      <div class="btn-group d-flex justify-content-center">
+                        <button
+                          class="btn btn-primary"
+                          [disabled]="!catalogsCorrectFlag"
+                          (click)="onClickCambiarFechaReporte()"
+                        >
+                          <fa-icon icon="calendar-alt"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="card mt-2">
                 <div class="card-header pb-0 pt-0">
                   <div class="flex-fill align-self-center">
@@ -45,16 +66,17 @@
                         <div class="col-2">
                           <div class="input-group">
                             <input
-                              class="form-control bg-white"
-                              id="fechaProceso"
+                              class="form-control"
+                              id="fechaReporte"
                               type="text"
                               ngbDatepicker
                               #d="ngbDatepicker"
                               placeholder="dd/mm/aaaa"
                               (focus)="d.toggle()"
-                              name="fechaProceso"
+                              name="fechaReporte"
                               (keydown)="onKeydown($event)"
-                              [(ngModel)]="fecha"
+                              [(ngModel)]="fechaReporte"
+                              [disabled]="true"
                             />
                             <div class="input-group-append">
                               <button
@@ -75,9 +97,9 @@
                         <div class="col-2">
                           <input
                             class="form-control"
-                            id="credito"
-                            name="credito"
-                            [(ngModel)]="credito"
+                            id="creditoTabla4A"
+                            name="creditoTabla4A"
+                            [(ngModel)]="creditoTabla4A"
                           />
                         </div>
                       </div>
@@ -89,8 +111,9 @@
                             >
                               <button
                                 class="btn btn-primary"
-                                id="btnSearchTiposProductoCreditos"
-                                (click)="getCreditoTabla4()"
+                                id="btnSearchTabla4A"
+                                (click)="getTabla4A()"
+                                [disabled]="!catalogsCorrectFlag"
                               >
                                 <fa-icon icon="search"></fa-icon>
                               </button>
@@ -102,238 +125,79 @@
                   </div>
                 </div>
               </div>
-              <div class="card">
-                <div class="card-body">
-                  <form [formGroup]="tabla4Form" novalidate>
-                    <div class="form ml-5 form-max-height">
-                      <div class="form-group row">
-                        <label class="mt-1 col-2">Número de crédito:</label>
-                        <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="numeroCredito"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
-                              numeroCredito.invalid &&
-                              (numeroCredito.dirty || numeroCredito.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="numeroCredito.errors?.required"
-                              class="error-message"
-                            >
-                              Valor Obligatorio
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="mt-1 col-2">Moneda 1:</label>
-                        <div class="col-sm-3 col-md-3">
-                          <select class="form-control form-control-sm">
-                            <option>Opción 1</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="mt-1 col-2">Segmento:</label>
-                        <div class="col-sm-3 col-md-3">
-                          <select class="form-control form-control-sm">
-                            <option>Opción 1</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="mt-1 col-2">Tipo de cobranza:</label>
-                        <div class="col-sm-3 col-md-3">
-                          <select class="form-control form-control-sm">
-                            <option>Opción 1</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="mt-1 col-2">Capital vigente:</label>
-                        <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="capitalVigente"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
-                              capitalVigente.invalid &&
-                              (capitalVigente.dirty || capitalVigente.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="capitalVigente.errors?.required"
-                              class="error-message"
-                            >
-                              Valor Obligatorio
-                            </div>
-                            <div
-                              *ngIf="capitalVigente.errors?.pattern"
-                              class="error-message"
-                            >
-                              Valor inválido
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="mt-1 col-2">Capital vencido:</label>
-                        <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="capitalVencido"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
-                              capitalVencido.invalid &&
-                              (capitalVencido.dirty || capitalVencido.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="capitalVencido.errors?.required"
-                              class="error-message"
-                            >
-                              Valor Obligatorio
-                            </div>
-                            <div
-                              *ngIf="capitalVencido.errors?.pattern"
-                              class="error-message"
-                            >
-                              Valor inválido
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="mt-1 col-2"
-                          >Interés ordinario exigible:</label
-                        >
-                        <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="interesOrdinarioExigible"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
-                              interesOrdinarioExigible.invalid &&
-                              (interesOrdinarioExigible.dirty ||
-                                interesOrdinarioExigible.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="interesOrdinarioExigible.errors?.required"
-                              class="error-message"
-                            >
-                              Valor Obligatorio
-                            </div>
-                            <div
-                              *ngIf="interesOrdinarioExigible.errors?.pattern"
-                              class="error-message"
-                            >
-                              Valor inválido
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="mt-1 col-2">Interés moratorio:</label>
-                        <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="interesMoratorio"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
-                              interesMoratorio.invalid &&
-                              (interesMoratorio.dirty ||
-                                interesMoratorio.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="interesMoratorio.errors?.required"
-                              class="error-message"
-                            >
-                              Valor Obligatorio
-                            </div>
-                            <div
-                              *ngIf="interesMoratorio.errors?.pattern"
-                              class="error-message"
-                            >
-                              Valor inválido
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="mt-1 col-2">Otros accesorios:</label>
-                        <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="otrosAccesorios"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
-                              otrosAccesorios.invalid &&
-                              (otrosAccesorios.dirty || otrosAccesorios.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="otrosAccesorios.errors?.required"
-                              class="error-message"
-                            >
-                              Valor Obligatorio
-                            </div>
-                            <div
-                              *ngIf="otrosAccesorios.errors?.pattern"
-                              class="error-message"
-                            >
-                              Valor inválido
-                            </div>
-                          </div>
-                        </div>
+              <div class="card mt-3">
+                <div class="card-body height-card-table">
+                  <div class="row">
+                    <div class="col-md-11">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-fixed">
+                          <thead class="thead-light">
+                            <tr class="hover-primary">
+                              <th class="col-6" scope="col">Fecha</th>
+                              <th class="col-6" scope="col">
+                                Número de Crédito
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody class="max-row-7">
+                            <ng-container *ngFor="let row of listaTabla4A">
+                              <tr
+                                class="cursor-pointer hover-primary"
+                                [ngClass]="{
+                                  'table-active': selectedTabla4A === row
+                                }"
+                                (dblclick)="openModalTabla4A(row)"
+                                (click)="onSelectedTabla4A(row)"
+                              >
+                                <td class="col-6">{{ row.fecha }}</td>
+                                <td class="col-6">{{ row.numeroCredito }}</td>
+                              </tr>
+                            </ng-container>
+                          </tbody>
+                        </table>
                       </div>
                     </div>
-                  </form>
+                    <div class="col-md-1 justify-content-buttons">
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                          (click)="openModalTabla4A(selectedTabla4A)"
+                          [disabled]="!tabla4AselectedFlag"
+                        >
+                          <fa-icon icon="edit"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div class="modal-footer">
-                <!-- Simple Buttons-->
-                <button class="btn btn-danger" type="button">Cancelar</button>
-                <button
-                  class="btn btn-success"
-                  type="button"
-                  (click)="onClickAceptar()"
-                  [disabled]="tabla4Form.invalid || tabla1Form.invalid"
-                >
-                  Aceptar
-                </button>
               </div>
             </ng-template>
           </ngb-tab>
           <ngb-tab>
-            <ng-template ngbTabTitle
-              ><b>Créditos vencidos asociados a los titulares</b></ng-template
-            >
+            <ng-template ngbTabTitle><b>Tabla 5 Art. A</b></ng-template>
             <ng-template ngbTabContent>
-              <h5 class="mt-3 ml-3 setBolder">
-                Créditos vencidos asociados a los titulares
-              </h5>
+              <div class="row">
+                <div class="col-11">
+                  <h5 class="mt-3 ml-3 setBolder">
+                    Créditos vencidos asociados a los titulares
+                  </h5>
+                </div>
+                <div class="col-1 mt-3">
+                  <div class="row justify-content-search">
+                    <div class="col-md-6" style="padding-right: 65px">
+                      <div class="btn-group d-flex justify-content-center">
+                        <button
+                          class="btn btn-primary"
+                          [disabled]="!catalogsCorrectFlag"
+                          (click)="onClickCambiarFechaReporte()"
+                        >
+                          <fa-icon icon="calendar-alt"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="card mt-2">
                 <div class="card-header pb-0 pt-0">
                   <div class="flex-fill align-self-center">
@@ -361,16 +225,17 @@
                         <div class="col-2">
                           <div class="input-group">
                             <input
-                              class="form-control bg-white"
-                              id="fecha"
+                              class="form-control"
+                              id="fechaReporte"
                               type="text"
                               ngbDatepicker
-                              #d="ngbDatepicker"
+                              #f="ngbDatepicker"
                               placeholder="dd/mm/aaaa"
-                              (focus)="d.toggle()"
-                              name="fecha"
+                              (focus)="f.toggle()"
+                              name="fechaReporte"
                               (keydown)="onKeydown($event)"
-                              [(ngModel)]="fechaCreditoAsociado"
+                              [(ngModel)]="fechaReporte"
+                              [disabled]="true"
                             />
                             <div class="input-group-append">
                               <button
@@ -385,16 +250,29 @@
                         </div>
                         <div class="col-1 pr-0 pl-0">
                           <label class="ml-4 col-form-label form-control-label">
+                            Cliente:
+                          </label>
+                        </div>
+                        <div class="col-2">
+                          <input
+                            class="form-control"
+                            id="clienteTabla5A"
+                            name="clienteTabla5A"
+                            [(ngModel)]="clienteTabla5A"
+                          />
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
                             Crédito:
                           </label>
                         </div>
                         <div class="col-2">
                           <input
                             class="form-control"
-                            id="nombreUsuario"
-                            name="nombre"
+                            id="creditoTabla5A"
+                            name="creditoTabla5A"
                             maxlength="15"
-                            [(ngModel)]="creditoAsociado"
+                            [(ngModel)]="creditoTabla5A"
                           />
                         </div>
                       </div>
@@ -406,7 +284,9 @@
                             >
                               <button
                                 class="btn btn-primary"
-                                (click)="onSearchCredit()"
+                                id="btnSearchTabla5A"
+                                (click)="getTabla5A()"
+                                [disabled]="!catalogsCorrectFlag"
                               >
                                 <fa-icon icon="search"></fa-icon>
                               </button>
@@ -419,37 +299,49 @@
                 </div>
               </div>
 
-              <div class="card">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-hover table-fixed">
-                      <thead class="thead-light">
-                        <tr class="hover-primary">
-                          <th class="col-4" scope="col">Cliente</th>
-                          <th class="col-4" scope="col">Numero de credito</th>
-                          <th class="col-4" scope="col">Edicion</th>
-                        </tr>
-                      </thead>
-                      <tbody class="max-row-7">
-                        <tr
-                          class="hover-primary"
-                          *ngFor="let item of gridCreditos"
-                        >
-                          <td class="col-4">{{ item.claveUnica }}</td>
-                          <td class="col-4">{{ item.numeroCredito }}</td>
-                          <td class="col-4">
-                            <div class="d-flex flex-row justify-content-center">
-                              <button
-                                class="btn btn-primary"
-                                (click)="openModalVencidosAsociados(item)"
+              <div class="card mt-3">
+                <div class="card-body height-card-table">
+                  <div class="row">
+                    <div class="col-md-11">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-fixed">
+                          <thead class="thead-light">
+                            <tr class="hover-primary">
+                              <th class="col-6" scope="col">Cliente</th>
+                              <th class="col-6" scope="col">
+                                Numero de credito
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody class="max-row-7">
+                            <ng-container *ngFor="let row of listaTabla5A">
+                              <tr
+                                class="cursor-pointer hover-primary"
+                                [ngClass]="{
+                                  'table-active': selectedTabla5A === row
+                                }"
+                                (dblclick)="openModalTabla5A(row)"
+                                (click)="onSelectedTabla5A(row)"
                               >
-                                <fa-icon icon="edit"></fa-icon>
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                                <td class="col-6">{{ row.claveUnica }}</td>
+                                <td class="col-6">{{ row.numeroCredito }}</td>
+                              </tr>
+                            </ng-container>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="col-md-1 justify-content-buttons">
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                          (click)="openModalTabla5A(selectedTabla5A)"
+                          [disabled]="!tabla5AselectedFlag"
+                        >
+                          <fa-icon icon="edit"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -457,56 +349,74 @@
           </ngb-tab>
           <!--Empieza Negocio-->
           <ngb-tab>
-            <ng-template ngbTabTitle
-              ><b
-                >Información patrimonial del titlular de los créditos
-                (vivienda)</b
-              ></ng-template
-            >
+            <ng-template ngbTabTitle><b>Tabla 1 Art. B</b></ng-template>
             <ng-template ngbTabContent>
-              <h5 class="mt-3 ml-3 setBolder">
-                Información patrimonial del titlular de los créditos (vivienda)
-              </h5>
-              <div class="card">
-                <div class="card-body">
-                  <form [formGroup]="tabla1Form" novalidate>
-                    <div class="form ml-5 form-max-height">
-                      <div class="form-group row">
-                        <label class="mt-1 col-2">Clave única:</label>
-                        <div class="col-sm-3 col-md-3">
-                          <input
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                        </div>
+              <div class="row">
+                <div class="col-11">
+                  <h5 class="mt-3 ml-3 setBolder">
+                    Información patrimonial del titular de los créditos
+                    (vivienda)
+                  </h5>
+                </div>
+                <div class="col-1 mt-3">
+                  <div class="row justify-content-search">
+                    <div class="col-md-6" style="padding-right: 65px">
+                      <div class="btn-group d-flex justify-content-center">
+                        <button
+                          class="btn btn-primary"
+                          [disabled]="!catalogsCorrectFlag"
+                          (click)="onClickCambiarFechaReporte()"
+                        >
+                          <fa-icon icon="calendar-alt"></fa-icon>
+                        </button>
                       </div>
-                      <div class="form-group row">
-                        <label class="mt-1 col-2">Nombre del acreditado:</label>
-                        <div class="col-sm-3 col-md-8">
-                          <input
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card mt-2">
+                <div class="card-header pb-0 pt-0">
+                  <div class="flex-fill align-self-center">
+                    <label
+                      class="
+                        col-lg-3 col-form-label
+                        form-control-label
+                        setBolder
+                        pb-0
+                      "
+                    >
+                      Criterios de búsqueda:
+                    </label>
+                  </div>
+                </div>
+                <div class="card-body pl-0 pr-0">
+                  <div class="form">
+                    <div class="form-row">
+                      <div class="col-11 row">
+                        <div class="col-1 pr-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Fecha:
+                          </label>
                         </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="mt-1 col-2">Periodo:</label>
-                        <div class="col-sm-3 col-md-3">
+                        <div class="col-2">
                           <div class="input-group">
                             <input
-                              class="form-control bg-white"
-                              id="fechaDisp"
+                              class="form-control"
+                              id="fechaReporte"
                               type="text"
                               ngbDatepicker
-                              #b="ngbDatepicker"
+                              #f="ngbDatepicker"
                               placeholder="dd/mm/aaaa"
-                              name="fechaDisposicion"
-                              (click)="b.toggle()"
+                              (focus)="f.toggle()"
+                              name="fechaReporte"
+                              (keydown)="onKeydown($event)"
+                              [(ngModel)]="fechaReporte"
+                              [disabled]="true"
                             />
                             <div class="input-group-append">
                               <button
                                 class="btn btn-outline-secondary calendar"
-                                (click)="b.toggle()"
+                                (click)="f.toggle()"
                                 type="button"
                               >
                                 <fa-icon icon="calendar-alt"></fa-icon>
@@ -514,628 +424,108 @@
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="mt-1 col-2"
-                          >Identificador del crédito:</label
-                        >
-                        <div class="col-sm-3 col-md-3">
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Cliente:
+                          </label>
+                        </div>
+                        <div class="col-2">
                           <input
-                            class="form-control form-control-sm"
-                            type="text"
+                            class="form-control"
+                            id="clienteTabla1B"
+                            name="clienteTabla1B"
+                            [(ngModel)]="clienteTabla1B"
                           />
                         </div>
-                        <label class="mt-1 col-2">Categoría del credito:</label>
-                        <div class="col-sm-3 col-md-3">
-                          <select class="form-control form-control-sm">
-                            <option>Opción 1</option>
-                          </select>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
+                            Crédito:
+                          </label>
+                        </div>
+                        <div class="col-2">
+                          <input
+                            id="creditoTabla1B"
+                            name="creditoTabla1B"
+                            class="form-control form-control-sm"
+                            type="text"
+                            [(ngModel)]="creditoTabla1B"
+                          />
                         </div>
                       </div>
-                      <div class="form-group row">
-                        <label class="mt-1 col-2"
-                          >Tipo de alta del crédito:</label
-                        >
-                        <div class="col-sm-3 col-md-3">
-                          <select class="form-control form-control-sm">
-                            <option>Opción 1</option>
-                          </select>
-                        </div>
-                        <label class="mt-1 col-2">Destino del crédito:</label>
-                        <div class="col-sm-3 col-md-3">
-                          <select class="form-control form-control-sm">
-                            <option>Opción 1</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="mt-1 col-2">Fecha otorgamiento:</label>
-                        <div class="col-sm-3 col-md-3">
-                          <div class="input-group">
-                            <input
-                              class="form-control bg-white"
-                              id="fechaDisp"
-                              type="text"
-                              ngbDatepicker
-                              #c="ngbDatepicker"
-                              placeholder="dd/mm/aaaa"
-                              name="fechaDisposicion"
-                              (click)="c.toggle()"
-                            />
-                            <div class="input-group-append">
+                      <div class="col-1">
+                        <div class="row justify-content-search">
+                          <div class="col-md-6">
+                            <div
+                              class="btn-group d-flex justify-content-center"
+                            >
                               <button
-                                class="btn btn-outline-secondary calendar"
-                                (click)="c.toggle()"
-                                type="button"
+                                class="btn btn-primary"
+                                id="btnSearchTabla1B"
+                                (click)="getTabla1B()"
+                                [disabled]="!catalogsCorrectFlag"
                               >
-                                <fa-icon icon="calendar-alt"></fa-icon>
+                                <fa-icon icon="search"></fa-icon>
                               </button>
                             </div>
                           </div>
-                        </div>
-                        <label class="mt-1 col-2">Fecha vencimiento:</label>
-                        <div class="col-sm-3 col-md-3">
-                          <div class="input-group">
-                            <input
-                              class="form-control bg-white"
-                              id="fechaDisp"
-                              type="text"
-                              ngbDatepicker
-                              #d="ngbDatepicker"
-                              placeholder="dd/mm/aaaa"
-                              name="fechaDisposicion"
-                              (click)="d.toggle()"
-                            />
-                            <div class="input-group-append">
-                              <button
-                                class="btn btn-outline-secondary calendar"
-                                (click)="d.toggle()"
-                                type="button"
-                              >
-                                <fa-icon icon="calendar-alt"></fa-icon>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="mt-1 col-2"
-                          >Monto original crédito:</label
-                        >
-                        <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="montoOriginalCredito"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
-                              montoOriginalCredito.invalid &&
-                              (montoOriginalCredito.dirty ||
-                                montoOriginalCredito.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="montoOriginalCredito.errors?.required"
-                              class="error-message"
-                            >
-                              Valor Obligatorio
-                            </div>
-                            <div
-                              *ngIf="montoOriginalCredito.errors?.pattern"
-                              class="error-message"
-                            >
-                              Valor inválido
-                            </div>
-                          </div>
-                        </div>
-                        <label class="mt-1 col-2">Valor vivienda:</label>
-                        <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="valorVivienda"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
-                              valorVivienda.invalid &&
-                              (valorVivienda.dirty || valorVivienda.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="valorVivienda.errors?.required"
-                              class="error-message"
-                            >
-                              Valor Obligatorio
-                            </div>
-                            <div
-                              *ngIf="valorVivienda.errors?.pattern"
-                              class="error-message"
-                            >
-                              Valor inválido
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="mt-1 col-2"
-                          >Tipo tasa de interés de crédito:</label
-                        >
-                        <div class="col-sm-3 col-md-3">
-                          <select class="form-control form-control-sm">
-                            <option>Opción 1</option>
-                          </select>
-                        </div>
-                        <label class="mt-1 col-2"
-                          >Denominación de crédito:</label
-                        >
-                        <div class="col-sm-3 col-md-3">
-                          <select class="form-control form-control-sm">
-                            <option>Opción 1</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="mt-1 col-2"
-                          >Tasa de interés aplicada en el periodo:</label
-                        >
-                        <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="tasaInteresAplicadoPeriodo"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
-                              tasaInteresAplicadoPeriodo.invalid &&
-                              (tasaInteresAplicadoPeriodo.dirty ||
-                                tasaInteresAplicadoPeriodo.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="
-                                tasaInteresAplicadoPeriodo.errors?.required
-                              "
-                              class="error-message"
-                            >
-                              Valor Obligatorio
-                            </div>
-                            <div
-                              *ngIf="tasaInteresAplicadoPeriodo.errors?.pattern"
-                              class="error-message"
-                            >
-                              Valor inválido
-                            </div>
-                          </div>
-                        </div>
-                        <label class="mt-1 col-2"
-                          >Responsabilidad total al final del periodo:</label
-                        >
-                        <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="responsabilidadTotalperiodo"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
-                              responsabilidadTotalperiodo.invalid &&
-                              (responsabilidadTotalperiodo.dirty ||
-                                responsabilidadTotalperiodo.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="
-                                responsabilidadTotalperiodo.errors?.required
-                              "
-                              class="error-message"
-                            >
-                              Valor Obligatorio
-                            </div>
-                            <div
-                              *ngIf="
-                                responsabilidadTotalperiodo.errors?.pattern
-                              "
-                              class="error-message"
-                            >
-                              Valor inválido
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="mt-1 col-2">Fecha último pago:</label>
-                        <div class="col-sm-3 col-md-3">
-                          <div class="input-group">
-                            <input
-                              class="form-control bg-white"
-                              id="fechaDisp"
-                              type="text"
-                              ngbDatepicker
-                              #e="ngbDatepicker"
-                              placeholder="dd/mm/aaaa"
-                              name="fechaDisposicion"
-                              (click)="e.toggle()"
-                            />
-                            <div class="input-group-append">
-                              <button
-                                class="btn btn-outline-secondary calendar"
-                                (click)="e.toggle()"
-                                type="button"
-                              >
-                                <fa-icon icon="calendar-alt"></fa-icon>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                        <label class="mt-1 col-2">Situación del crédito:</label>
-                        <div class="col-sm-3 col-md-3">
-                          <input
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="mt-1 col-2"
-                          >Probabilidad de incumplimiento:</label
-                        >
-                        <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="probabilidadIncumplimiento"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
-                              probabilidadIncumplimiento.invalid &&
-                              (probabilidadIncumplimiento.dirty ||
-                                probabilidadIncumplimiento.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="
-                                probabilidadIncumplimiento.errors?.required
-                              "
-                              class="error-message"
-                            >
-                              Valor Obligatorio
-                            </div>
-                            <div
-                              *ngIf="probabilidadIncumplimiento.errors?.pattern"
-                              class="error-message"
-                            >
-                              Valor inválido
-                            </div>
-                          </div>
-                        </div>
-                        <label class="mt-1 col-2"
-                          >Severidad de la pérdida:</label
-                        >
-                        <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="severidadPerdida"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
-                              severidadPerdida.invalid &&
-                              (severidadPerdida.dirty ||
-                                severidadPerdida.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="severidadPerdida.errors?.required"
-                              class="error-message"
-                            >
-                              Valor Obligatorio
-                            </div>
-                            <div
-                              *ngIf="severidadPerdida.errors?.pattern"
-                              class="error-message"
-                            >
-                              Valor inválido
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="mt-1 col-2">Días de atraso:</label>
-                        <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="diasAtraso"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
-                              diasAtraso.invalid &&
-                              (diasAtraso.dirty || diasAtraso.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="diasAtraso.errors?.required"
-                              class="error-message"
-                            >
-                              Valor Obligatorio
-                            </div>
-                            <div
-                              *ngIf="diasAtraso.errors?.pattern"
-                              class="error-message"
-                            >
-                              Valor inválido
-                            </div>
-                          </div>
-                        </div>
-                        <label class="mt-1 col-2"
-                          >Monto de la subcuenta garantía de crédito:</label
-                        >
-                        <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="montoSubcuentaVivienda"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
-                              montoSubcuentaVivienda.invalid &&
-                              (montoSubcuentaVivienda.dirty ||
-                                montoSubcuentaVivienda.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="montoSubcuentaVivienda.errors?.required"
-                              class="error-message"
-                            >
-                              Valor Obligatorio
-                            </div>
-                            <div
-                              *ngIf="montoSubcuentaVivienda.errors?.pattern"
-                              class="error-message"
-                            >
-                              Valor inválido
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="mt-1 col-2"
-                          >Convenio judicial o fideicomiso de garantía:</label
-                        >
-                        <div class="col-sm-3 col-md-3">
-                          <select class="form-control form-control-sm">
-                            <option>Opción 1</option>
-                          </select>
-                        </div>
-                        <label class="mt-1 col-2">Reservas:</label>
-                        <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="reservas"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
-                              reservas.invalid &&
-                              (reservas.dirty || reservas.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="reservas.errors?.required"
-                              class="error-message"
-                            >
-                              Valor Obligatorio
-                            </div>
-                            <div
-                              *ngIf="reservas.errors?.pattern"
-                              class="error-message"
-                            >
-                              Valor inválido
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="mt-1 col-2"
-                          >Segmento de la vivienda:</label
-                        >
-                        <div class="col-sm-3 col-md-3">
-                          <select class="form-control form-control-sm">
-                            <option>Opción 1</option>
-                          </select>
-                        </div>
-                        <label class="mt-1 col-2">Tipo de cobranza:</label>
-                        <div class="col-sm-3 col-md-3">
-                          <select class="form-control form-control-sm">
-                            <option>Opción 1</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="mt-1 col-2"
-                          >Capital vencido operativo:</label
-                        >
-                        <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="capitalVencidoOperativo"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
-                              capitalVencidoOperativo.invalid &&
-                              (capitalVencidoOperativo.dirty ||
-                                capitalVencidoOperativo.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="capitalVencidoOperativo.errors?.required"
-                              class="error-message"
-                            >
-                              Valor Obligatorio
-                            </div>
-                            <div
-                              *ngIf="capitalVencidoOperativo.errors?.pattern"
-                              class="error-message"
-                            >
-                              Valor inválido
-                            </div>
-                          </div>
-                        </div>
-                        <label class="mt-1 col-2"
-                          >Interes ordinarios exigibles:</label
-                        >
-                        <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="interesesOrdinarios"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
-                              interesesOrdinarios.invalid &&
-                              (interesesOrdinarios.dirty ||
-                                interesesOrdinarios.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="interesesOrdinarios.errors?.required"
-                              class="error-message"
-                            >
-                              Valor Obligatorio
-                            </div>
-                            <div
-                              *ngIf="interesesOrdinarios.errors?.pattern"
-                              class="error-message"
-                            >
-                              Valor inválido
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="mt-1 col-2"
-                          >Capital vigente operativo:</label
-                        >
-                        <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="capitalVigenteOperativo"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
-                              capitalVigenteOperativo.invalid &&
-                              (capitalVigenteOperativo.dirty ||
-                                capitalVigenteOperativo.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="capitalVigenteOperativo.errors?.required"
-                              class="error-message"
-                            >
-                              Valor Obligatorio
-                            </div>
-                            <div
-                              *ngIf="capitalVigenteOperativo.errors?.pattern"
-                              class="error-message"
-                            >
-                              Valor inválido
-                            </div>
-                          </div>
-                        </div>
-                        <label class="mt-1 col-2">Intereses moratorios:</label>
-                        <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="interesesMoratorios"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
-                              interesesMoratorios.invalid &&
-                              (interesesMoratorios.dirty ||
-                                interesesMoratorios.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="interesesMoratorios.errors?.required"
-                              class="error-message"
-                            >
-                              Valor Obligatorio
-                            </div>
-                            <div
-                              *ngIf="interesesMoratorios.errors?.pattern"
-                              class="error-message"
-                            >
-                              Valor inválido
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="mt-1 col-2">Otros accesorios:</label>
-                        <div class="col-sm-3 col-md-3">
-                          <input
-                            formControlName="otrosAccesorios"
-                            class="form-control form-control-sm"
-                            type="text"
-                          />
-                          <div
-                            *ngIf="
-                              otrosAccesorios2.invalid &&
-                              (otrosAccesorios2.dirty ||
-                                otrosAccesorios2.touched)
-                            "
-                            class="mt-2"
-                          >
-                            <div
-                              *ngIf="otrosAccesorios2.errors?.required"
-                              class="error-message"
-                            >
-                              Valor Obligatorio
-                            </div>
-                            <div
-                              *ngIf="otrosAccesorios2.errors?.pattern"
-                              class="error-message"
-                            >
-                              Valor inválido
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="mt-1 col-2">Estado:</label>
-                        <div class="col-sm-3 col-md-3">
-                          <select class="form-control form-control-sm">
-                            <option>Opción 1</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="mt-1 col-2">Tipo de recursos:</label>
-                        <div class="col-sm-3 col-md-3">
-                          <select class="form-control form-control-sm">
-                            <option>Opción 1</option>
-                          </select>
                         </div>
                       </div>
                     </div>
-                  </form>
+                  </div>
+                </div>
+              </div>
+              <div class="card mt-3">
+                <div class="card-body height-card-table">
+                  <div class="row">
+                    <div class="col-md-11">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-fixed">
+                          <thead class="thead-light">
+                            <tr class="hover-primary">
+                              <th class="col-2" scope="col">Fecha</th>
+                              <th class="col-3" scope="col">Cliente</th>
+                              <th class="col-3" scope="col">Crédito</th>
+                              <th class="col-4" scope="col">
+                                Nombre Acreditado
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody class="max-row-7">
+                            <ng-container *ngFor="let row of listaTabla1B">
+                              <tr
+                                class="cursor-pointer hover-primary"
+                                [ngClass]="{
+                                  'table-active': selectedTabla1B === row
+                                }"
+                                (dblclick)="openModalTabla1B(row)"
+                                (click)="onSelectedTabla1B(row)"
+                              >
+                                <td class="col-2">{{ row.loadDate }}</td>
+                                <td class="col-3">{{ row.claveUnica }}</td>
+                                <td class="col-3">
+                                  {{ row.identificadorCredito }}
+                                </td>
+                                <td class="col-4">
+                                  {{ row.nombreAcreditado }}
+                                </td>
+                              </tr>
+                            </ng-container>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="col-md-1 justify-content-buttons">
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                          (click)="openModalTabla1B(selectedTabla1B)"
+                          [disabled]="!tabla1BselectedFlag"
+                        >
+                          <fa-icon icon="edit"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </ng-template>
@@ -1144,7 +534,29 @@
           <ngb-tab>
             <ng-template ngbTabTitle><b> Tabla 2 Art. B</b></ng-template>
             <ng-template ngbTabContent>
-              <h5 class="mt-3 ml-3 setBolder">Tabla 2 Art. B</h5>
+              <div class="row">
+                <div class="col-11">
+                  <h5 class="mt-3 ml-3 setBolder">
+                    Información patrimonial del titlular de los créditos
+                    (comercial)
+                  </h5>
+                </div>
+                <div class="col-1 mt-3">
+                  <div class="row justify-content-search">
+                    <div class="col-md-6" style="padding-right: 65px">
+                      <div class="btn-group d-flex justify-content-center">
+                        <button
+                          class="btn btn-primary"
+                          [disabled]="!catalogsCorrectFlag"
+                          (click)="onClickCambiarFechaReporte()"
+                        >
+                          <fa-icon icon="calendar-alt"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="card mt-2">
                 <div class="card-header pb-0 pt-0">
                   <div class="flex-fill align-self-center">
@@ -1172,21 +584,22 @@
                         <div class="col-2">
                           <div class="input-group">
                             <input
-                              class="form-control bg-white"
-                              id="fechaCreditoNoRevolvente"
+                              class="form-control"
+                              id="fechaReporte"
                               type="text"
                               ngbDatepicker
-                              #f="ngbDatepicker"
+                              #w="ngbDatepicker"
                               placeholder="dd/mm/aaaa"
-                              (focus)="f.toggle()"
-                              name="fecha"
+                              (focus)="w.toggle()"
+                              name="fechaReporte"
                               (keydown)="onKeydown($event)"
-                              [(ngModel)]="fecha"
+                              [(ngModel)]="fechaReporte"
+                              [disabled]="true"
                             />
                             <div class="input-group-append">
                               <button
                                 class="btn btn-outline-secondary calendar"
-                                (click)="f.toggle()"
+                                (click)="w.toggle()"
                                 type="button"
                               >
                                 <fa-icon icon="calendar-alt"></fa-icon>
@@ -1202,9 +615,9 @@
                         <div class="col-2">
                           <input
                             class="form-control"
-                            id="cliente"
-                            name="cliente"
-                            [(ngModel)]="cliente"
+                            id="clienteTabla2B"
+                            name="clienteTabla2B"
+                            [(ngModel)]="clienteTabla2B"
                           />
                         </div>
                         <div class="col-1 pr-0 pl-0">
@@ -1214,16 +627,11 @@
                         </div>
                         <div class="col-2">
                           <input
-                            id="credito"
-                            name="credito"
+                            id="creditoTabla2"
+                            name="creditoTabla2"
                             class="form-control form-control-sm"
                             type="text"
-                            autocomplete="off"
-                            (ngModelChange)="changeAcreditado($event)"
-                            [(ngModel)]="credito"
-                            [resultTemplate]="rt"
-                            [ngbTypeahead]="search"
-                            [inputFormatter]="formatter"
+                            [(ngModel)]="creditoTabla2B"
                           />
                         </div>
                       </div>
@@ -1235,7 +643,9 @@
                             >
                               <button
                                 class="btn btn-primary"
+                                id="btnSearchTabla2B"
                                 (click)="getTabla2BR()"
+                                [disabled]="!catalogsCorrectFlag"
                               >
                                 <fa-icon icon="search"></fa-icon>
                               </button>
@@ -1248,27 +658,49 @@
                 </div>
               </div>
 
-              <div class="card">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-hover table-fixed">
-                      <thead class="thead-light">
-                        <tr class="hover-primary">
-                          <th class="col-6" scope="col">Cliente</th>
-                          <th class="col-6" scope="col">Crédito</th>
-                        </tr>
-                      </thead>
-                      <tbody class="max-row-7">
-                        <tr
-                          *ngFor="let row of tabla2"
-                          class="cursor-pointer hover-primary"
-                          (click)="onSelectedSeccion(row)"
+              <div class="card mt-3">
+                <div class="card-body height-card-table">
+                  <div class="row">
+                    <div class="col-md-11">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-fixed">
+                          <thead class="thead-light">
+                            <tr class="hover-primary">
+                              <th class="col-6" scope="col">Cliente</th>
+                              <th class="col-6" scope="col">Crédito</th>
+                            </tr>
+                          </thead>
+                          <tbody class="max-row-7">
+                            <ng-container *ngFor="let row of listaTabla2B">
+                              <tr
+                                class="cursor-pointer hover-primary"
+                                [ngClass]="{
+                                  'table-active': selectedTabla2B === row
+                                }"
+                                (dblclick)="openModalTabla2B(row)"
+                                (click)="onSelectedTabla2B(row)"
+                              >
+                                <td class="col-6">{{ row.claveUnica }}</td>
+                                <td class="col-6">
+                                  {{ row.identificadorCredito }}
+                                </td>
+                              </tr>
+                            </ng-container>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="col-md-1 justify-content-buttons">
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                          (click)="openModalTabla2B(selectedTabla2B)"
+                          [disabled]="!tabla2BselectedFlag"
                         >
-                          <td class="col-6">{{ row.claveUnica }}</td>
-                          <td class="col-6">{{ row.identificadorCredito }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
+                          <fa-icon icon="edit"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1277,7 +709,29 @@
           <ngb-tab>
             <ng-template ngbTabTitle><b>Tabla 4 Art. B</b></ng-template>
             <ng-template ngbTabContent>
-              <h5 class="mt-3 ml-3 setBolder">Tabla 4 Art. B</h5>
+              <div class="row">
+                <div class="col-11">
+                  <h5 class="mt-3 ml-3 setBolder">
+                    Información patrimonial del titular de los créditos consumo
+                    (no revolvente)
+                  </h5>
+                </div>
+                <div class="col-1 mt-3">
+                  <div class="row justify-content-search">
+                    <div class="col-md-6" style="padding-right: 65px">
+                      <div class="btn-group d-flex justify-content-center">
+                        <button
+                          class="btn btn-primary"
+                          [disabled]="!catalogsCorrectFlag"
+                          (click)="onClickCambiarFechaReporte()"
+                        >
+                          <fa-icon icon="calendar-alt"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="card mt-2">
                 <div class="card-header pb-0 pt-0">
                   <div class="flex-fill align-self-center">
@@ -1305,21 +759,22 @@
                         <div class="col-2">
                           <div class="input-group">
                             <input
-                              class="form-control bg-white"
-                              id="fechaCreditoNoRevolvente"
+                              class="form-control"
+                              id="fechaReporte"
                               type="text"
                               ngbDatepicker
-                              #f="ngbDatepicker"
+                              #p="ngbDatepicker"
                               placeholder="dd/mm/aaaa"
-                              (focus)="f.toggle()"
-                              name="fechaCreditoNoRevolvente"
+                              (focus)="p.toggle()"
+                              name="fechaReporte"
                               (keydown)="onKeydown($event)"
-                              [(ngModel)]="fechaCreditoNoRevolvente"
+                              [(ngModel)]="fechaReporte"
+                              [disabled]="true"
                             />
                             <div class="input-group-append">
                               <button
                                 class="btn btn-outline-secondary calendar"
-                                (click)="f.toggle()"
+                                (click)="p.toggle()"
                                 type="button"
                               >
                                 <fa-icon icon="calendar-alt"></fa-icon>
@@ -1335,9 +790,9 @@
                         <div class="col-2">
                           <input
                             class="form-control"
-                            id="clienteCreditoNoRevolvente"
-                            name="clienteCreditoNoRevolvente"
-                            [(ngModel)]="clienteCreditoNoRevolvente"
+                            id="clienteTabla4B"
+                            name="clienteTabla4B"
+                            [(ngModel)]="clienteTabla4B"
                           />
                         </div>
                         <div class="col-1 pr-0 pl-0">
@@ -1347,11 +802,11 @@
                         </div>
                         <div class="col-2">
                           <input
-                            id="creditoCreditoNoRevolvente"
-                            name="creditoCreditoNoRevolvente"
+                            id="creditoTabla4B"
+                            name="creditoTabla4B"
                             class="form-control form-control-sm"
                             type="text"
-                            [(ngModel)]="creditoCreditoNoRevolvente"
+                            [(ngModel)]="creditoTabla4B"
                           />
                         </div>
                       </div>
@@ -1361,7 +816,12 @@
                             <div
                               class="btn-group d-flex justify-content-center"
                             >
-                              <button class="btn btn-primary">
+                              <button
+                                class="btn btn-primary"
+                                id="btnSearchTabla4B"
+                                (click)="getTabla4B()"
+                                [disabled]="!catalogsCorrectFlag"
+                              >
                                 <fa-icon icon="search"></fa-icon>
                               </button>
                             </div>
@@ -1372,29 +832,53 @@
                   </div>
                 </div>
               </div>
-              <div class="card">
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table table-hover table-fixed">
-                      <thead class="thead-light">
-                        <tr class="hover-primary">
-                          <th class="col-6" scope="col">Número de cliente</th>
-                          <th class="col-6" scope="col">Nombre de cliente</th>
-                        </tr>
-                      </thead>
-                      <tbody class="max-row-7">
-                        <tr
-                          *ngFor="let acreditado of listaTabla4B"
-                          class="cursor-pointer hover-primary"
-                          (click)="openModalTabla4B(acreditado)"
+              <div class="card mt-3">
+                <div class="card-body height-card-table">
+                  <div class="row">
+                    <div class="col-md-11">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-fixed">
+                          <thead class="thead-light">
+                            <tr class="hover-primary">
+                              <th class="col-6" scope="col">
+                                Número de cliente
+                              </th>
+                              <th class="col-6" scope="col">
+                                Nombre de cliente
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody class="max-row-7">
+                            <ng-container *ngFor="let row of listaTabla4B">
+                              <tr
+                                class="cursor-pointer hover-primary"
+                                [ngClass]="{
+                                  'table-active': selectedTabla4B === row
+                                }"
+                                (dblclick)="openModalTabla4B(row)"
+                                (click)="onSelectedTabla4B(row)"
+                              >
+                                <td class="col-6">{{ row.claveUnica }}</td>
+                                <td class="col-6">
+                                  {{ row.identificadorCredito }}
+                                </td>
+                              </tr>
+                            </ng-container>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="col-md-1 justify-content-buttons">
+                      <div class="row justify-content-edit-button">
+                        <button
+                          class="btn btn-primary"
+                          (click)="openModalTabla4B(selectedTabla4B)"
+                          [disabled]="!tabla4BselectedFlag"
                         >
-                          <td class="col-6">{{ acreditado.claveUnica }}</td>
-                          <td class="col-6">
-                            {{ acreditado.identificadorCredito }}
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                          <fa-icon icon="edit"></fa-icon>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

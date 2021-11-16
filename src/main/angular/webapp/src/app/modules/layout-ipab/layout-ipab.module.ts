@@ -6,6 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { LayoutIpabRoutingModule } from '@modules/layout-ipab/layout-ipab-routing.module';
+import { ReprocesoComponent } from './reproceso/reproceso.component';
 import { ProcesoComponent } from '@modules/layout-ipab/proceso/proceso.component';
 import { CargarArchivoComponent } from './cargar-archivo/cargar-archivo.component';
 import { LogsComponent } from './logs/logs.component';
@@ -22,6 +23,7 @@ import { LogsComponent } from './logs/logs.component';
     ProcesoComponent,
     CargarArchivoComponent,
     LogsComponent,
+    ReprocesoComponent,
   ],
   entryComponents: []
 })

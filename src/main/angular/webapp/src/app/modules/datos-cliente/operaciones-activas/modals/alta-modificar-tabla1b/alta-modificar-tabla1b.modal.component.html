@@ -1,0 +1,772 @@
+<div class="modal-container">
+  <div class="modal-header">
+    <h4 class="modal-title">Editar</h4>
+    <button
+      class="close"
+      type="button"
+      aria-label="Close"
+      (click)="activeModal.close('Close click')"
+    >
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body flex-modal">
+    <div class="container-fluid mt-2 mb-2">
+      <div class="card">
+        <div class="card-body">
+          <div class="form ml-5 form-max-height">
+            <div class="form-group row">
+              <label class="mt-1 col-2 align-text-right">Clave única:</label>
+              <div class="col-sm-4 col-md-4">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="claveUnica"
+                  name="claveUnica"
+                  disabled
+                  [(ngModel)]="localTabla1B.claveUnica"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2 align-text-right"
+                >Nombre del acreditado:</label
+              >
+              <div class="col-sm-3 col-md-8 mt-2-3-int">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="nombreAcreditado"
+                  name="nombreAcreditado"
+                  [(ngModel)]="localTabla1B.nombreAcreditado"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2 align-text-right">Periodo:</label>
+              <div class="col-sm-3 col-md-3">
+                <div class="input-group">
+                  <input
+                    class="form-control form-control-sm"
+                    type="text"
+                    id="periodo"
+                    name="periodo"
+                    maxlength="6"
+                    [(ngModel)]="localTabla1B.periodoReporta"
+                    [pattern]="enteroPattern"
+                    #periodo="ngModel"
+                  />
+                </div>
+                <div
+                  *ngIf="
+                    periodo.errors?.pattern &&
+                    localTabla1B.periodoReporta.length !== 0
+                  "
+                >
+                  <label class="color-red"> Valor incorrecto.</label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2 align-text-right"
+                >Identificador del crédito:</label
+              >
+              <div class="col-sm-3 col-md-3 mt-2-3-int">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="identificadorCredito"
+                  name="identificadorCredito"
+                  disabled
+                  [(ngModel)]="localTabla1B.identificadorCredito"
+                />
+              </div>
+              <label class="mt-1 col-2 align-text-right"
+                >Categoría del credito:</label
+              >
+              <div class="col-sm-3 col-md-3 mt-2-3-int">
+                <select
+                  class="form-control form-control-sm"
+                  id="catCredito"
+                  name="catCredito"
+                  [(ngModel)]="selectedCategoriaCredito"
+                >
+                  <ng-container
+                    *ngFor="let catCredito of catalogoCategoriaCredito"
+                  >
+                    <option [value]="catCredito.clave">
+                      {{ catCredito.descripcion }}
+                    </option>
+                  </ng-container>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2 align-text-right"
+                >Tipo de alta del crédito:</label
+              >
+              <div class="col-sm-3 col-md-3 mt-2-3-int">
+                <select
+                  class="form-control form-control-sm"
+                  id="catCredito"
+                  name="catCredito"
+                  [(ngModel)]="selectedTipoAltaCredito"
+                >
+                  <ng-container
+                    *ngFor="let tipoAltaCredito of catalogoTipoAltaCredito"
+                  >
+                    <option [value]="tipoAltaCredito.clave">
+                      {{ tipoAltaCredito.descripcion }}
+                    </option>
+                  </ng-container>
+                </select>
+              </div>
+              <label class="mt-1 col-2 align-text-right"
+                >Destino del crédito:</label
+              >
+              <div class="col-sm-3 col-md-3">
+                <select
+                  class="form-control form-control-sm"
+                  id="destinoCredito"
+                  name="destinoCredito"
+                  [(ngModel)]="selectedDestinoCredito"
+                >
+                  <ng-container
+                    *ngFor="let destCredito of catalogoDestinoCredito"
+                  >
+                    <option [value]="destCredito.clave">
+                      {{ destCredito.descripcion }}
+                    </option>
+                  </ng-container>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2 align-text-right"
+                >Fecha otorgamiento:</label
+              >
+              <div class="col-sm-3 col-md-3 mt-2-3-int">
+                <div class="input-group">
+                  <input
+                    class="form-control bg-white"
+                    id="fechaOtorgamiento"
+                    name="fechaOtorgamiento"
+                    type="text"
+                    ngbDatepicker
+                    #c="ngbDatepicker"
+                    placeholder="dd/mm/aaaa"
+                    [(ngModel)]="fechaOtorgamiento"
+                    (click)="c.toggle()"
+                  />
+                  <div class="input-group-append">
+                    <button
+                      class="btn btn-outline-secondary calendar"
+                      (click)="c.toggle()"
+                      type="button"
+                    >
+                      <fa-icon icon="calendar-alt"></fa-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <label class="mt-1 col-2 align-text-right"
+                >Fecha vencimiento:</label
+              >
+              <div class="col-sm-3 col-md-3">
+                <div class="input-group">
+                  <input
+                    class="form-control bg-white"
+                    id="fechaVencimiento"
+                    name="fechaVencimiento"
+                    type="text"
+                    ngbDatepicker
+                    #d="ngbDatepicker"
+                    placeholder="dd/mm/aaaa"
+                    [(ngModel)]="fechaVencimiento"
+                    (click)="d.toggle()"
+                  />
+                  <div class="input-group-append">
+                    <button
+                      class="btn btn-outline-secondary calendar"
+                      (click)="d.toggle()"
+                      type="button"
+                    >
+                      <fa-icon icon="calendar-alt"></fa-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2 align-text-right"
+                >Monto original crédito:</label
+              >
+              <div class="col-sm-3 col-md-3 mt-2-3-int">
+                <input
+                  name="montoOriginalCredito"
+                  id="montoOriginalCredito"
+                  class="form-control form-control-sm"
+                  type="text"
+                  [(ngModel)]="localTabla1B.montoOriginalCredito"
+                  [pattern]="decimalPattern"
+                  #montoOriginalCredito="ngModel"
+                />
+                <div
+                  *ngIf="
+                    montoOriginalCredito.errors?.pattern &&
+                    localTabla1B.montoOriginalCredito !== 0
+                  "
+                >
+                  <label class="color-red">
+                    Valor decimal con formato incorrecto.</label
+                  >
+                </div>
+              </div>
+              <label class="mt-1 col-2 align-text-right">Valor vivienda:</label>
+              <div class="col-sm-3 col-md-3">
+                <input
+                  name="valorVivienda"
+                  id="valorVivienda"
+                  class="form-control form-control-sm"
+                  type="text"
+                  [(ngModel)]="localTabla1B.valorVivienda"
+                  [pattern]="decimalPattern"
+                  #valorVivienda="ngModel"
+                />
+                <div
+                  *ngIf="
+                    valorVivienda.errors?.pattern &&
+                    localTabla1B.valorVivienda !== 0
+                  "
+                >
+                  <label class="color-red">
+                    Valor decimal con formato incorrecto.</label
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2 align-text-right"
+                >Tipo tasa de interés de crédito:</label
+              >
+              <div class="col-sm-3 col-md-3 mt-2-3-int">
+                <select
+                  class="form-control form-control-sm"
+                  id="tipoTasaInteresCredito"
+                  name="tipoTasaInteresCredito"
+                  [(ngModel)]="selectedTipoTasaIntCredito"
+                >
+                  <ng-container
+                    *ngFor="let tipoTasaIntCredito of catalogoTipoTasaCredito"
+                  >
+                    <option [value]="tipoTasaIntCredito.clave">
+                      {{ tipoTasaIntCredito.descripcion }}
+                    </option>
+                  </ng-container>
+                </select>
+              </div>
+              <label class="mt-1 col-2 align-text-right"
+                >Denominación de crédito:</label
+              >
+              <div class="col-sm-3 col-md-3 mt-2-3-int">
+                <select
+                  class="form-control form-control-sm"
+                  id="denominacionCredito"
+                  name="denominacionCredito"
+                  [(ngModel)]="selectedDenominacionCredito"
+                >
+                  <ng-container
+                    *ngFor="let denomCredito of catalogoDenominacionCredito"
+                  >
+                    <option [value]="denomCredito.clave">
+                      {{ denomCredito.descripcion }}
+                    </option>
+                  </ng-container>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2 align-text-right"
+                >Tasa de interés aplicada en el periodo:</label
+              >
+              <div class="col-sm-3 col-md-3 mt-2-3-int">
+                <input
+                  name="tasaInteresAplicadoPeriodo"
+                  id="tasaInteresAplicadoPeriodo"
+                  class="form-control form-control-sm"
+                  type="text"
+                  [(ngModel)]="localTabla1B.tasaInteresAplicadaPeriodo"
+                  [pattern]="decimalPattern"
+                  #tasaInteresAplicadoPeriodo="ngModel"
+                />
+                <div
+                  *ngIf="
+                    tasaInteresAplicadoPeriodo.errors?.pattern &&
+                    localTabla1B.tasaInteresAplicadaPeriodo !== 0
+                  "
+                >
+                  <label class="color-red">
+                    Valor decimal con formato incorrecto.</label
+                  >
+                </div>
+              </div>
+              <label class="mt-1 col-2 align-text-right"
+                >Responsabilidad total al final del periodo:</label
+              >
+              <div class="col-sm-3 col-md-3 mt-2-3-int">
+                <input
+                  name="responsabilidadTotalperiodo"
+                  id="responsabilidadTotalperiodo"
+                  class="form-control form-control-sm"
+                  type="text"
+                  [(ngModel)]="localTabla1B.responsabilidadTotalFinalPeriodo"
+                  [pattern]="decimalPattern"
+                  #responsabilidadTotalperiodo="ngModel"
+                />
+                <div
+                  *ngIf="
+                    responsabilidadTotalperiodo.errors?.pattern &&
+                    localTabla1B.responsabilidadTotalFinalPeriodo !== 0
+                  "
+                >
+                  <label class="color-red">
+                    Valor decimal con formato incorrecto.</label
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2 align-text-right"
+                >Fecha último pago:</label
+              >
+              <div class="col-sm-3 col-md-3">
+                <div class="input-group">
+                  <input
+                    class="form-control bg-white"
+                    id="fechaUltimoPago"
+                    name="fechaUltimoPago"
+                    type="text"
+                    ngbDatepicker
+                    #e="ngbDatepicker"
+                    placeholder="dd/mm/aaaa"
+                    [(ngModel)]="fechaUltimoPago"
+                    (click)="e.toggle()"
+                  />
+                  <div class="input-group-append">
+                    <button
+                      class="btn btn-outline-secondary calendar"
+                      (click)="e.toggle()"
+                      type="button"
+                    >
+                      <fa-icon icon="calendar-alt"></fa-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <label class="mt-1 col-2 align-text-right"
+                >Situación del crédito:</label
+              >
+              <div class="col-sm-3 col-md-3 mt-2-3-int">
+                <input
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="situacionCredito"
+                  name="situacionCredito"
+                  [(ngModel)]="localTabla1B.situacionCredito"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2 align-text-right"
+                >Probabilidad de incumplimiento:</label
+              >
+              <div class="col-sm-3 col-md-3 mt-2-3-int">
+                <input
+                  name="probabilidadIncumplimiento"
+                  class="form-control form-control-sm"
+                  type="text"
+                  id="probabilidadIncumplimiento"
+                  [(ngModel)]="localTabla1B.probabilidadIncumplimiento"
+                  [pattern]="decimalPattern"
+                  #probabilidadIncumplimiento="ngModel"
+                />
+                <div
+                  *ngIf="
+                    probabilidadIncumplimiento.errors?.pattern &&
+                    localTabla1B.probabilidadIncumplimiento !== '0'
+                  "
+                >
+                  <label class="color-red">
+                    Valor decimal con formato incorrecto.</label
+                  >
+                </div>
+              </div>
+              <label class="mt-1 col-2 align-text-right"
+                >Severidad de la pérdida:</label
+              >
+              <div class="col-sm-3 col-md-3 mt-2-3-int">
+                <input
+                  name="severidadPerdida"
+                  id="severidadPerdida"
+                  class="form-control form-control-sm"
+                  type="text"
+                  [(ngModel)]="localTabla1B.severidadPerdida"
+                  [pattern]="decimalPattern"
+                  #severidadPerdida="ngModel"
+                />
+                <div
+                  *ngIf="
+                    severidadPerdida.errors?.pattern &&
+                    localTabla1B.severidadPerdida !== '0'
+                  "
+                >
+                  <label class="color-red">
+                    Valor decimal con formato incorrecto.</label
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2 align-text-right">Días de atraso:</label>
+              <div class="col-sm-3 col-md-3">
+                <input
+                  name="diasAtraso"
+                  id="diasAtraso"
+                  class="form-control form-control-sm"
+                  type="text"
+                  [(ngModel)]="localTabla1B.diasAtraso"
+                  [pattern]="enteroPattern"
+                  #diasAtraso="ngModel"
+                />
+                <div
+                  *ngIf="
+                    diasAtraso.errors?.pattern && localTabla1B.diasAtraso !== 0
+                  "
+                >
+                  <label class="color-red">
+                    Valor entero con formato incorrecto.</label
+                  >
+                </div>
+              </div>
+              <label class="mt-1 col-2 align-text-right"
+                >Monto de la subcuenta garantía de crédito:</label
+              >
+              <div class="col-sm-3 col-md-3 mt-175">
+                <input
+                  name="montoSubcuentaGarantiaCred"
+                  id="montoSubcuentaGarantiaCred"
+                  class="form-control form-control-sm"
+                  type="text"
+                  [(ngModel)]="localTabla1B.montoSubcuentaGarantiaCred"
+                  [pattern]="decimalPattern"
+                  #montoSubcuentaGarantiaCred="ngModel"
+                />
+                <div
+                  *ngIf="
+                    montoSubcuentaGarantiaCred.errors?.pattern &&
+                    localTabla1B.montoSubcuentaGarantiaCred !== 0
+                  "
+                >
+                  <label class="color-red">
+                    Valor decimal con formato incorrecto.</label
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2 align-text-right"
+                >Convenio judicial o fideicomiso de garantía:</label
+              >
+              <div class="col-sm-3 col-md-3 mt-175">
+                <select
+                  class="form-control form-control-sm"
+                  id="convenioJudicial"
+                  name="convenioJudicial"
+                  [(ngModel)]="selectedConvenioJudicial"
+                >
+                  <ng-container
+                    *ngFor="let convJudicial of catalogoConvenioJudicial"
+                  >
+                    <option [value]="convJudicial.clave">
+                      {{ convJudicial.descripcion }}
+                    </option>
+                  </ng-container>
+                </select>
+              </div>
+              <label class="mt-1 col-2 align-text-right">Reservas:</label>
+              <div class="col-sm-3 col-md-3">
+                <input
+                  name="reservas"
+                  id="reservas"
+                  class="form-control form-control-sm"
+                  type="text"
+                  [(ngModel)]="localTabla1B.reservas"
+                  [pattern]="decimalPattern"
+                  #reservas="ngModel"
+                />
+                <div
+                  *ngIf="
+                    reservas.errors?.pattern && localTabla1B.reservas !== '0'
+                  "
+                >
+                  <label class="color-red">
+                    Valor decimal con formato incorrecto.</label
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2 align-text-right"
+                >Segmento de la vivienda:</label
+              >
+              <div class="col-sm-3 col-md-3 mt-2-3-int">
+                <select
+                  class="form-control form-control-sm"
+                  id="segmentoVivienda"
+                  name="segmentoVivienda"
+                  [(ngModel)]="selectedSegmentoVivienda"
+                >
+                  <ng-container
+                    *ngFor="let segVivienda of catalogoSegmentoVivienda"
+                  >
+                    <option [value]="segVivienda.clave">
+                      {{ segVivienda.descripcion }}
+                    </option>
+                  </ng-container>
+                </select>
+              </div>
+              <label class="mt-1 col-2 align-text-right"
+                >Tipo de cobranza:</label
+              >
+              <div class="col-sm-3 col-md-3">
+                <select
+                  class="form-control form-control-sm"
+                  id="tipoCobranza"
+                  name="tipoCobranza"
+                  [(ngModel)]="selectedTipoCobranza"
+                >
+                  <ng-container
+                    *ngFor="let tipoCobranza of catalogoTipoCobranza"
+                  >
+                    <option [value]="tipoCobranza.clave">
+                      {{ tipoCobranza.descripcion }}
+                    </option>
+                  </ng-container>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2 align-text-right"
+                >Capital vencido operativo:</label
+              >
+              <div class="col-sm-3 col-md-3 mt-2-3-int">
+                <input
+                  name="capitalVencidoOperativo"
+                  id="capitalVencidoOperativo"
+                  class="form-control form-control-sm"
+                  type="text"
+                  [(ngModel)]="localTabla1B.capitalVencidoOperativo"
+                  [pattern]="decimalPattern"
+                  #capitalVencidoOperativo="ngModel"
+                />
+                <div
+                  *ngIf="
+                    capitalVencidoOperativo.errors?.pattern &&
+                    localTabla1B.capitalVencidoOperativo !== 0
+                  "
+                >
+                  <label class="color-red">
+                    Valor decimal con formato incorrecto.</label
+                  >
+                </div>
+              </div>
+              <label class="mt-1 col-2 align-text-right"
+                >Interes ordinarios exigibles:</label
+              >
+              <div class="col-sm-3 col-md-3 mt-2-3-int">
+                <input
+                  name="interesesOrdinariosExigibles"
+                  id="interesesOrdinariosExigibles"
+                  class="form-control form-control-sm"
+                  type="text"
+                  [(ngModel)]="localTabla1B.interesOrdinariosExigibles"
+                  [pattern]="decimal6Pattern"
+                  #interesesOrdinariosExigibles="ngModel"
+                />
+                <div
+                  *ngIf="
+                    interesesOrdinariosExigibles.errors?.pattern &&
+                    localTabla1B.interesOrdinariosExigibles !== 0
+                  "
+                >
+                  <label class="color-red">
+                    Valor decimal con formato incorrecto.</label
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="mt-1 col-2 align-text-right"
+                >Capital vigente operativo:</label
+              >
+              <div class="col-sm-3 col-md-3 mt-2-3-int">
+                <input
+                  name="capitalVigenteOperativo"
+                  id="capitalVigenteOperativo"
+                  class="form-control form-control-sm"
+                  type="text"
+                  [(ngModel)]="localTabla1B.capitalVigenteOperativo"
+                  [pattern]="decimalPattern"
+                  #capitalVigenteOperativo="ngModel"
+                />
+                <div
+                  *ngIf="
+                    capitalVigenteOperativo.errors?.pattern &&
+                    localTabla1B.capitalVigenteOperativo !== 0
+                  "
+                >
+                  <label class="color-red">
+                    Valor decimal con formato incorrecto.</label
+                  >
+                </div>
+              </div>
+              <label class="mt-1 col-2 align-text-right"
+                >Intereses moratorios:</label
+              >
+              <div class="col-sm-3 col-md-3 mt-2-3-int">
+                <input
+                  name="interesesMoratorios"
+                  id="interesesMoratorios"
+                  class="form-control form-control-sm"
+                  type="text"
+                  [(ngModel)]="localTabla1B.interesesMoratorios"
+                  [pattern]="decimal6Pattern"
+                  #interesesMoratorios="ngModel"
+                />
+                <div
+                  *ngIf="
+                    interesesMoratorios.errors?.pattern &&
+                    localTabla1B.interesesMoratorios !== 0
+                  "
+                >
+                  <label class="color-red">
+                    Valor decimal con formato incorrecto.</label
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <label class="mt-1 col-2 align-text-right"
+                >Otros accesorios:</label
+              >
+              <div class="col-sm-3 col-md-3">
+                <input
+                  name="otrosAccesorios"
+                  id="otrosAccesorios"
+                  class="form-control form-control-sm"
+                  type="text"
+                  [(ngModel)]="localTabla1B.otrosAccesorios"
+                  [pattern]="decimalPattern"
+                  #otrosAccesorios="ngModel"
+                />
+                <div
+                  *ngIf="
+                    otrosAccesorios.errors?.pattern &&
+                    localTabla1B.otrosAccesorios !== 0
+                  "
+                >
+                  <label class="color-red">
+                    Valor decimal con formato incorrecto.</label
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <label class="mt-1 col-2 align-text-right">Estado:</label>
+              <div class="col-sm-3 col-md-3">
+                <select
+                  class="form-control form-control-sm"
+                  id="estado"
+                  name="estado"
+                  [(ngModel)]="selectedEstadoCredito"
+                >
+                  <ng-container *ngFor="let estado of catalogoEstadoCredito">
+                    <option [value]="estado.clave">
+                      {{ estado.descripcion }}
+                    </option>
+                  </ng-container>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row mt-2">
+              <label class="mt-1 col-2 align-text-right"
+                >Tipo de recursos:</label
+              >
+              <div class="col-sm-3 col-md-3">
+                <select
+                  class="form-control form-control-sm"
+                  id="tipoRecursos"
+                  name="tipoRecursos"
+                  [(ngModel)]="selectedTipoRecurso"
+                >
+                  <ng-container
+                    *ngFor="let tipoRecurso of catalogoTipoRecursos"
+                  >
+                    <option [value]="tipoRecurso.clave">
+                      {{ tipoRecurso.descripcion }}
+                    </option>
+                  </ng-container>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <!-- Simple Buttons-->
+    <button
+      class="btn btn-success"
+      type="button"
+      (click)="onClickAceptar()"
+      [disabled]="
+        (montoOriginalCredito.errors?.pattern &&
+          localTabla1B.montoOriginalCredito !== 0) ||
+        (valorVivienda.errors?.pattern && localTabla1B.valorVivienda !== 0) ||
+        (tasaInteresAplicadoPeriodo.errors?.pattern &&
+          localTabla1B.tasaInteresAplicadaPeriodo !== 0) ||
+        (responsabilidadTotalperiodo.errors?.pattern &&
+          localTabla1B.responsabilidadTotalFinalPeriodo !== 0) ||
+        (probabilidadIncumplimiento.errors?.pattern &&
+          localTabla1B.probabilidadIncumplimiento !== '0') ||
+        (severidadPerdida.errors?.pattern &&
+          localTabla1B.severidadPerdida.length !== 0) ||
+        (diasAtraso.errors?.pattern && localTabla1B.diasAtraso !== 0) ||
+        (montoSubcuentaGarantiaCred.errors?.pattern &&
+          localTabla1B.montoSubcuentaGarantiaCred !== 0) ||
+        (reservas.errors?.pattern && localTabla1B.reservas !== '0') ||
+        (capitalVencidoOperativo.errors?.pattern &&
+          localTabla1B.capitalVencidoOperativo !== 0) ||
+        (interesesOrdinariosExigibles.errors?.pattern &&
+          localTabla1B.interesOrdinariosExigibles !== 0) ||
+        (capitalVigenteOperativo.errors?.pattern &&
+          localTabla1B.capitalVigenteOperativo !== 0) ||
+        (interesesMoratorios.errors?.pattern &&
+          localTabla1B.interesesMoratorios !== 0) ||
+        (otrosAccesorios.errors?.pattern &&
+          localTabla1B.otrosAccesorios !== 0) ||
+        (periodo.errors?.pattern && localTabla1B.periodoReporta.length !== 0)
+      "
+    >
+      Aceptar
+    </button>
+    <button
+      class="btn btn-danger"
+      type="button"
+      (click)="activeModal.close('Close click')"
+    >
+      Cancelar
+    </button>
+  </div>
+</div>

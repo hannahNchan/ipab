@@ -228,7 +228,7 @@ export class LocalStorageManagerService {
 
   private addToSessionStorageHelper(data: any, key: string): void {
     this.addToSyncKeysHelper(key);
-    this.sessionStorageSetItem(key, data);
+    this.localStorageSetItem(key, data)
   }
 
   private removeFromSessionStorage(keyToRemove: string): void {
