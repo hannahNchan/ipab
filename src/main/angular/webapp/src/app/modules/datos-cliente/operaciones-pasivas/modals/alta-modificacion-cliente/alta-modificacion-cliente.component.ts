@@ -6,6 +6,8 @@ import { Subscription } from 'rxjs/Subscription';
 import { OperacionesPasivasService } from '@services/operaciones-pasivas.service';
 import swal from "sweetalert2";
 import { PopUpMessage } from '@helpers/PopUpMessage';
+import { FormControl } from '@angular/forms';
+import * as regExValidators from "@helpers/RFCVregex";
 
 @Component({
   selector: 'app-alta-modificacion-cliente',
@@ -26,6 +28,10 @@ export class AltaModificacionClienteComponent implements OnInit, OnDestroy {
   enteroPattern: string;
 
   valid: boolean = true;
+
+  regExValidator = new FormControl();
+  curpRegEx = regExValidators.regExCURP;
+  rfcFisicasRegEx = regExValidators.regExCURP;
 
   constructor(public activeModal: NgbActiveModal, private modalService: NgbModal, private operacionesPasivasData$: OperacionesPasivasDataService, private operacionesPasivasService: OperacionesPasivasService) { }
 
