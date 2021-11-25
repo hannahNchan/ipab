@@ -78,7 +78,7 @@
                   [pattern]="decimalPattern"
                   #capitalVigente="ngModel"
                 />
-                <div *ngIf="capitalVigente.errors?.pattern && decimalPattern.length > 0 && localTabla4A.capitalVigente !== 0">
+                <div *ngIf="capitalVigente.errors?.pattern && decimalPattern.length > 0 && localTabla4A.capitalVigente.length !== 0">
                   <label class="color-red"> Valor decimal con formato incorrecto.</label>
                 </div>
               </div>
@@ -93,7 +93,7 @@
                   [pattern]="decimalPattern"
                   #capitalVencido="ngModel"
                 />
-                <div *ngIf="capitalVencido.errors?.pattern && localTabla4A.capitalVencido !== 0">
+                <div *ngIf="capitalVencido.errors?.pattern && localTabla4A.capitalVencido.length !== 0">
                   <label class="color-red"> Valor decimal con formato incorrecto.</label>
                 </div>
               </div>
@@ -110,7 +110,7 @@
                   [pattern]="decimal6Pattern"
                   #interesOrdinarioExigible="ngModel"
                 />
-                <div *ngIf="interesOrdinarioExigible.errors?.pattern && localTabla4A.interesesOrdinariosExigibles !== 0">
+                <div *ngIf="interesOrdinarioExigible.errors?.pattern && localTabla4A.interesesOrdinariosExigibles.length !== 0">
                   <label class="color-red"> Valor decimal con formato incorrecto.</label>
                 </div>
               </div>
@@ -125,7 +125,7 @@
                   [pattern]="decimal6Pattern"
                   #interesMoratorio="ngModel"
                 />
-                <div *ngIf="interesMoratorio.errors?.pattern && localTabla4A.interesesMoratorios !== 0">
+                <div *ngIf="interesMoratorio.errors?.pattern && localTabla4A.interesesMoratorios.length !== 0">
                   <label class="color-red"> Valor decimal con formato incorrecto.</label>
                 </div>
               </div>
@@ -140,7 +140,7 @@
                   [pattern]="decimalPattern"
                   #otrosAccesorios="ngModel"
                 />
-                <div *ngIf="otrosAccesorios.errors?.pattern && localTabla4A.otrosAccesorios !== 0">
+                <div *ngIf="otrosAccesorios.errors?.pattern && localTabla4A.otrosAccesorios !== '0'">
                   <label class="color-red"> Valor decimal con formato incorrecto.</label>
                 </div>
               </div>
@@ -155,11 +155,11 @@
     <button class="btn btn-success"
             type="button"
             (click)="onClickAceptar()"
-            [disabled]="(otrosAccesorios.errors?.pattern && localTabla4A.otrosAccesorios !== 0) ||
-             (interesMoratorio.errors?.pattern && localTabla4A.interesesMoratorios !== 0) ||
-             (interesOrdinarioExigible.errors?.pattern && localTabla4A.interesesOrdinariosExigibles !== 0) ||
-             (capitalVencido.errors?.pattern && localTabla4A.capitalVencido !== 0) ||
-             (capitalVigente.errors?.pattern && decimalPattern.length > 0 && localTabla4A.capitalVigente !== 0)"
+            [disabled]="(otrosAccesorios.errors?.pattern && localTabla4A.otrosAccesorios !== '0') ||
+             (interesMoratorio.errors?.pattern && localTabla4A.interesesMoratorios.length !== 0) ||
+             (interesOrdinarioExigible.errors?.pattern && localTabla4A.interesesOrdinariosExigibles.length !== 0) ||
+             (capitalVencido.errors?.pattern && localTabla4A.capitalVencido.length !== 0) ||
+             (capitalVigente.errors?.pattern && decimalPattern.length > 0 && localTabla4A.capitalVigente.length !== 0)"
     >
       Aceptar
     </button>

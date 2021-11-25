@@ -39,16 +39,17 @@
               <div class="col-lg-3">
                 <div class="input-group">
                   <input
-                    class="form-control bg-white"
-                    id="fechaDisp"
+                    class="form-control"
+                    id="fechaBloqueo"
                     type="text"
                     ngbDatepicker
                     #c="ngbDatepicker"
                     placeholder="dd/mm/aaaa"
-                    name="fechaDisposicion"
+                    name="fechaBloqueo"
                     (click)="c.toggle()"
-                    [(ngModel)]="bloqueoInformacion.fechaBloqueo"
+                    [(ngModel)]="fechaBloqueo"
                     style="font-size: 0.85rem"
+                    [disabled]="true"
                   />
                   <div class="input-group-append" style="height: 2.18rem">
                     <button
@@ -70,7 +71,9 @@
                   [(ngModel)]="bloqueoInformacion.montoBloqueo"
                   [pattern]="decimalPattern"
                   #montoBloqueo="ngModel"
-                  (change)="isValid()"
+                  (ngModelChange)="isValid('montoBloqueo')"
+                  (keydown)="onKeyPressCodigo($event)"
+                  (keypress)="onKeyPressCodigo($event)"
                 />
                 <div *ngIf="montoBloqueo.errors?.pattern">
                   <label class="color-red">

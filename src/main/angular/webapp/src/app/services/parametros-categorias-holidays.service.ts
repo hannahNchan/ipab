@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {ICalendario, ICategoria, IParametro, ICatalogoNivelCuenta, ICatalogoClasificacion} from "@interfaces/parametros-categorias-holidays.interface";
+import { ICalendario, ICategoria, IParametro, ICatalogoNivelCuenta, ICatalogoClasificacion } from "@interfaces/parametros-categorias-holidays.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ import {ICalendario, ICategoria, IParametro, ICatalogoNivelCuenta, ICatalogoClas
 export class ParametrosCategoriasHolidaysService {
 
   host: string;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    * Obtiene la lista de parametros.
@@ -135,6 +135,14 @@ export class ParametrosCategoriasHolidaysService {
    */
   getCatalogoNivelCuenta(): Observable<any> {
     return this.http.get<any>('/IPABESB/rest/catalogo/NIVEL_CUENTA');
+  }
+
+  /**
+   * Trae Catalogo festivos
+   * @param year
+   */
+  getCatalogoFestivos(year: string,): Observable<any> {
+    return this.http.get<any>(`/IPABESB/rest/catalogo/consultaFestivos?year=${year}`);
   }
 }
 

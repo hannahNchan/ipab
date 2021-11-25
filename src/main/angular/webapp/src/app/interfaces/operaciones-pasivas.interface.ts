@@ -24,6 +24,7 @@ export interface ICliente {
   nombreCliente: string;
   apellidoPaterno: string;
   apellidoMaterno: string;
+  loadDate: string;
 }
 
 export interface IClienteInformacion {

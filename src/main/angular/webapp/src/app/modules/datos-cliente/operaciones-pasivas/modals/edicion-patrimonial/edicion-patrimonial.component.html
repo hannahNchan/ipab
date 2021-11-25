@@ -95,7 +95,9 @@
                   [(ngModel)]="patrimonialInformacion.saldoCuenta"
                   [pattern]="decimalPattern"
                   #saldoCuenta="ngModel"
-                  (change)="isValid()"
+                  (ngModelChange)="isValid('saldoCuenta')"
+                  (keydown)="onKeyPressCodigo($event)"
+                  (keypress)="onKeyPressCodigo($event)"
                 />
                 <div *ngIf="saldoCuenta.errors?.pattern">
                   <label class="color-red">
@@ -115,7 +117,9 @@
                   [(ngModel)]="patrimonialInformacion.saldoInteresArt61"
                   [pattern]="decimalPattern"
                   #saldoInteresArt61="ngModel"
-                  (change)="isValid()"
+                  (ngModelChange)="isValid('saldoArt')"
+                  (keydown)="onKeyPressCodigo($event)"
+                  (keypress)="onKeyPressCodigo($event)"
                 />
                 <div *ngIf="saldoInteresArt61.errors?.pattern">
                   <label class="color-red">
@@ -133,7 +137,9 @@
                   [(ngModel)]="patrimonialInformacion.saldoInteres"
                   [pattern]="decimalPattern"
                   #saldoInteres="ngModel"
-                  (change)="isValid()"
+                  (ngModelChange)="isValid('saldoInteres')"
+                  (keydown)="onKeyPressCodigo($event)"
+                  (keypress)="onKeyPressCodigo($event)"
                 />
                 <div *ngIf="saldoInteres.errors?.pattern">
                   <label class="color-red">
@@ -144,7 +150,7 @@
             </div>
             <div class="col-lg-12 form-group row">
               <div class="col-lg-2">
-                <label>Moneda IPAB:</label>
+                <label>Moneda:</label>
               </div>
               <div class="col-lg-4">
                 <select
@@ -200,7 +206,7 @@
                   [(ngModel)]="patrimonialInformacion.plazoOperacion"
                   [pattern]="enteroPattern"
                   #plazoOperacion="ngModel"
-                  (change)="isValid()"
+                  (ngModelChange)="isValid()"
                 />
                 <div *ngIf="plazoOperacion.errors?.pattern">
                   <label class="color-red">
@@ -236,7 +242,9 @@
                   [(ngModel)]="patrimonialInformacion.tasa"
                   [pattern]="decimalPattern"
                   #tasa="ngModel"
-                  (change)="isValid()"
+                  (ngModelChange)="isValid('tasa')"
+                  (keydown)="onKeyPressCodigo($event)"
+                  (keypress)="onKeyPressCodigo($event)"
                 />
                 <div *ngIf="tasa.errors?.pattern">
                   <label class="color-red">
@@ -284,6 +292,7 @@
                 <select
                   class="form-control form-control-sm"
                   [(ngModel)]="patrimonialInformacion.entidadFederativa"
+                  [disabled]="isUpdate"
                 >
                   <option
                     [ngValue]="cat.claveIPAB"
@@ -301,6 +310,7 @@
                   class="form-control form-control-sm"
                   type="text"
                   [(ngModel)]="patrimonialInformacion.plaza"
+                  [disabled]="isUpdate"
                 />
               </div>
             </div>

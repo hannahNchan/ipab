@@ -49,6 +49,38 @@
                       <div class="col-11 row">
                         <div class="col-1 pr-0 pl-0">
                           <label class="ml-4 col-form-label form-control-label">
+                            Fecha del Reporte:
+                          </label>
+                        </div>
+                        <div class="col-2 mt-3">
+                          <div class="input-group">
+                            <input
+                              class="form-control"
+                              id="fechaReporte"
+                              type="text"
+                              ngbDatepicker
+                              #d="ngbDatepicker"
+                              placeholder="dd/mm/aaaa"
+                              (focus)="d.toggle()"
+                              name="fechaReporte"
+                              (keydown)="onKeydown($event)"
+                              [(ngModel)]="fechaReporte"
+                              (ngModelChange)="changeDataClienteCuentas()"
+                              [disabled]="true"
+                            />
+                            <div class="input-group-append">
+                              <button
+                                class="btn btn-outline-secondary calendar"
+                                (click)="d.toggle()"
+                                type="button"
+                              >
+                                <fa-icon icon="calendar-alt"></fa-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-1 pr-0 pl-0">
+                          <label class="ml-4 col-form-label form-control-label">
                             Número de Cliente:
                           </label>
                         </div>
@@ -61,6 +93,7 @@
                             (ngModelChange)="changeDataCliente(true)"
                           />
                         </div>
+                        <div class="col-6"></div>
                         <div class="col-1 pr-0 pl-0">
                           <label class="ml-4 col-form-label form-control-label">
                             Nombre o Razón social:
@@ -104,7 +137,7 @@
                           />
                         </div>
                       </div>
-                      <div class="col-1 mt-3">
+                      <div class="col-1 mt-5">
                         <div class="row justify-content-search">
                           <div class="col-md-6">
                             <div
@@ -389,7 +422,10 @@
                       </div>
                     </div>
                     <div class="col-md-1 justify-content-buttons">
-                      <div class="row justify-content-edit-button">
+                      <div
+                        class="row justify-content-edit-button"
+                        style="display: none"
+                      >
                         <button
                           class="btn btn-primary"
                           type="button"
@@ -399,7 +435,7 @@
                           <fa-icon icon="plus"></fa-icon>
                         </button>
                       </div>
-                      <div class="row justify-content-edit-button pt-4">
+                      <div class="row justify-content-edit-button">
                         <button
                           class="btn btn-primary"
                           (click)="openModalPatrimonial('edit')"
@@ -425,12 +461,12 @@
           </ngb-tab>
           <ngb-tab>
             <ng-template ngbTabTitle>
-              <b>Clientes y Cuentas</b>
+              <b>Cuentas y Relaciones</b>
             </ng-template>
             <ng-template ngbTabContent>
               <div class="row">
                 <div class="col-11">
-                  <h5 class="mt-3 ml-3 setBolder">Clientes y Cuentas</h5>
+                  <h5 class="mt-3 ml-3 setBolder">Cuentas y Relaciones</h5>
                 </div>
                 <div class="col-1 mt-3">
                   <div class="row justify-content-search">
@@ -600,7 +636,10 @@
                       </div>
                     </div>
                     <div class="col-md-1 justify-content-buttons">
-                      <div class="row justify-content-edit-button">
+                      <div
+                        class="row justify-content-edit-button"
+                        style="display: none"
+                      >
                         <button
                           class="btn btn-primary"
                           type="button"
@@ -610,7 +649,7 @@
                           <fa-icon icon="plus"></fa-icon>
                         </button>
                       </div>
-                      <div class="row justify-content-edit-button pt-4">
+                      <div class="row justify-content-edit-button">
                         <button
                           class="btn btn-primary"
                           (click)="openModalAltaCuenta('edit')"
@@ -620,10 +659,12 @@
                           <fa-icon icon="edit"></fa-icon>
                         </button>
                       </div>
-                      <div class="row justify-content-edit-button pt-4">
+                      <div
+                        class="row justify-content-edit-button pt-4"
+                        style="display: none"
+                      >
                         <button
                           class="btn btn-primary"
-                          (click)="onClickEliminarClienteCuenta()"
                           [disabled]="selectedClienteCuenta == null || !isReady"
                           style="width: 40px"
                         >
@@ -1390,10 +1431,6 @@
             </ng-template>
           </ngb-tab>
         </ngb-tabset>
-        <div class="modal-footer">
-          <button class="btn btn-danger" type="button">Cancelar</button>
-          <button class="btn btn-success" type="button">Aceptar</button>
-        </div>
       </div>
     </div>
   </div>

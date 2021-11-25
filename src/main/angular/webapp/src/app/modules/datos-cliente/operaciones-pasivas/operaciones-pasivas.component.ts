@@ -6,7 +6,7 @@ import { PopUpMessage } from '@helpers/PopUpMessage';
 
 import { IBloqueo, ICliente, IPatrimonial, ICierreCuentas, IClienteCuentas, ICatalogoGenerico, IExceptuados } from '@interfaces/operaciones-pasivas.interface';
 
-import { AltaModificarExceptuadosComponent } from '@modules/datos-cliente/operaciones-pasivas/modals/alta-modificar-exceptuados/alta-modificar-exceptuados.component';
+import { AltaModificarExceptuadosComponent } from './modals/alta-modificar-exceptuados/alta-modificar-exceptuados.component';
 import { OperacionesPasivasService } from '@services/operaciones-pasivas.service';
 import { OperacionesPasivasDataService } from '@services/operaciones-pasivas-data.service';
 
@@ -18,7 +18,6 @@ import { AltaModificarCierreModalComponent } from './modals/alta-modificar-cierr
 import { AltaModificarDuplicadoModalComponent } from './modals/alta-modificar-duplicado/alta-modificar-duplicado.modal.component';
 import { AltaEditarCuentaComponent } from './alta-editar-cuenta/alta-editar-cuenta.component';
 import { CargarFechaReportePasivasModalComponent } from './modals/cargar-fecha-reporte-pasivas/cargar-fecha-reporte-pasivas.modal.component';
-// import { AltaUsuarioModalComponent } from '@modules/sistema/usuarios/modals/alta-usuarios/alta-usuarios.modal.component';
 
 @Component({
   selector: 'app-operaciones-pasivas',
@@ -138,12 +137,12 @@ export class OperacionesPasivasComponent implements OnInit {
     this.listaClientesCuentas = []
     this.listaExceptuados = []
     this.listaPatrimonial = []
-    this.selectedBloqueo = ''
-    this.selectedCierre = ''
-    this.selectedCliente = ''
-    this.selectedClienteCuenta = ''
-    this.selectedExceptuado = ''
-    this.selectedPatrimonial = ''
+    this.selectedBloqueo = null
+    this.selectedCierre = null
+    this.selectedCliente = null
+    this.selectedClienteCuenta = null
+    this.selectedExceptuado = null
+    this.selectedPatrimonial = null
     const ngbModalOptions: NgbModalOptions = {
       centered: true,
       backdrop: 'static',
@@ -210,7 +209,6 @@ export class OperacionesPasivasComponent implements OnInit {
   searchBloqueos(): void {
     this.listaBloqueos = []
     this.selectedBloqueo = null;
-    // if (this.validaGuardar()) {
     swal({
       title: 'Obteniendo información...',
       allowEscapeKey: false,
@@ -251,7 +249,6 @@ export class OperacionesPasivasComponent implements OnInit {
           console.error(err);
         });
       });
-    // }
   }
 
   selectBloqueo(index): void {
@@ -298,7 +295,6 @@ export class OperacionesPasivasComponent implements OnInit {
   }
 
   searchClientes(): void {
-    // if (this.validaGuardar()) {
     this.listaClientes = []
     this.selectedCliente = null;
     swal({
@@ -309,7 +305,20 @@ export class OperacionesPasivasComponent implements OnInit {
         swal.showLoading();
       }
     }).then();
-    this.operacionesPasivasService.getClientes(this.numeroCliente, this.nombreCliente, this.apellidoPaterno, this.apellidoMaterno).subscribe(
+    let fecha = ''
+    if (this.fechaReporte['month'] > 9 && this.fechaReporte['day'] > 9) {
+      fecha = this.fechaReporte['day'] + '/' + this.fechaReporte['month'] + '/' + this.fechaReporte['year']
+    }
+    else if (this.fechaReporte['month'] < 10 && this.fechaReporte['day'] > 9) {
+      fecha = this.fechaReporte['day'] + '/0' + this.fechaReporte['month'] + '/' + this.fechaReporte['year']
+    }
+    else if (this.fechaReporte['month'] > 9 && this.fechaReporte['day'] < 10) {
+      fecha = '0' + this.fechaReporte['day'] + '/' + this.fechaReporte['month'] + '/' + this.fechaReporte['year']
+    }
+    else {
+      fecha = '0' + this.fechaReporte['day'] + '/0' + this.fechaReporte['month'] + '/' + this.fechaReporte['year']
+    }
+    this.operacionesPasivasService.getClientes(fecha, this.numeroCliente, this.nombreCliente, this.apellidoPaterno, this.apellidoMaterno).subscribe(
       response => {
         if (response.header['estatus'] === false) {
           swal(PopUpMessage.getAppErrorMessageReportId(response)).then(() => { });
@@ -328,7 +337,6 @@ export class OperacionesPasivasComponent implements OnInit {
           console.error(err);
         });
       });
-    // }
   }
 
   selectClient(index): void {
@@ -338,7 +346,6 @@ export class OperacionesPasivasComponent implements OnInit {
   searchPatrimoniales(): void {
     this.listaPatrimonial = []
     this.selectedPatrimonial = null;
-    // if (this.validaGuardar()) {
     swal({
       title: 'Obteniendo información...',
       allowEscapeKey: false,
@@ -379,7 +386,6 @@ export class OperacionesPasivasComponent implements OnInit {
           console.error(err);
         });
       });
-    // }
   }
 
   selectPatrimonial(index): void {
@@ -387,7 +393,6 @@ export class OperacionesPasivasComponent implements OnInit {
   }
 
   searchClientesCuentas(): void {
-    // if (this.validaGuardar()) {
     this.listaClientesCuentas = []
     this.selectedClienteCuenta = null;
     swal({
@@ -430,7 +435,6 @@ export class OperacionesPasivasComponent implements OnInit {
           console.error(err);
         });
       });
-    // }
   }
 
   selectClienteCuenta(index): void {
@@ -478,7 +482,6 @@ export class OperacionesPasivasComponent implements OnInit {
   searchCierreCuentas(): void {
     this.listaCierreCuentas = []
     this.selectedCierre = null;
-    // if (this.validaGuardar()) {
     swal({
       title: 'Obteniendo información...',
       allowEscapeKey: false,
@@ -519,7 +522,6 @@ export class OperacionesPasivasComponent implements OnInit {
           console.error(err);
         });
       });
-    // }
   }
 
   selectCierre(index): void {
@@ -567,7 +569,6 @@ export class OperacionesPasivasComponent implements OnInit {
   searchExceptuados(): void {
     this.listaExceptuados = []
     this.selectedExceptuado = null;
-    // if (this.validaGuardar()) {
     swal({
       title: 'Obteniendo información...',
       allowEscapeKey: false,
@@ -608,7 +609,6 @@ export class OperacionesPasivasComponent implements OnInit {
           console.error(err);
         });
       });
-    // }
   }
 
   selectExceptuado(index): void {

@@ -25,6 +25,11 @@ export class AltaModificarTabla4aModalComponent implements OnInit, OnDestroy {
   localTabla4A: ITabla4;
   nuevaTabla4A: ITabla4;
   today: IDate;
+  capitalVencidoSplit: string[];
+  capitalVigenteSplit: string[];
+  interesesMoratoriosSplit: string[];
+  interesesOrdinariosExigiblesSplit: string[];
+  otrosAccesoriosSplit: string[];
 
   selectedMonedaLineaTabla4A: string;
   selectedSegmentoTabla4A: string;
@@ -42,13 +47,13 @@ export class AltaModificarTabla4aModalComponent implements OnInit, OnDestroy {
               private _calendar: NgbCalendar) { }
 
   ngOnInit() {
-    this.decimalPattern = '^[0-9]+[.][0-9][0-9]$';
-    this.decimal6Pattern = '^[0-9]+[.]\\d{2,6}$';
+    this.decimalPattern = '^\\d{1,3}([,]\\d{3})*[.][0-9][0-9]$';
+    this.decimal6Pattern = '^\\d{1,3}([,]\\d{3})*[.]\\d{2,6}$';
     this.subscriptionSelectedTabla4A = this._data$.selectedTable4a.subscribe(tabla4 => {
       this.localTabla4A = tabla4;
-      this.selectedMonedaLineaTabla4A = this.localTabla4A.moneda;
-      this.selectedSegmentoTabla4A = this.localTabla4A.segmento;
-      this.selectedTipoCobranzaTabla4A = this.localTabla4A.tipoCobranza;
+      this.selectedMonedaLineaTabla4A = this.localTabla4A.moneda.toString();
+      this.selectedSegmentoTabla4A = this.localTabla4A.segmento.toString();
+      this.selectedTipoCobranzaTabla4A = this.localTabla4A.tipoCobranza.toString();
     });
     this.subscriptionCatMonedaLinea = this._data$.catalogoMonedaLinea.subscribe(catalogo => {
       this.catalogoMonedaLinea = catalogo;
@@ -68,11 +73,40 @@ export class AltaModificarTabla4aModalComponent implements OnInit, OnDestroy {
     this.subscriptionCatTipoCobranza.unsubscribe();
   }
 
+  numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
   onClickAceptar() {
+    this.capitalVencidoSplit = this.localTabla4A.capitalVencido.toString().split(',');
+    this.localTabla4A.capitalVencido = '';
+    this.capitalVencidoSplit.forEach(cantidad => {
+      this.localTabla4A.capitalVencido += cantidad;
+    });
+    this.capitalVigenteSplit = this.localTabla4A.capitalVigente.toString().split(',');
+    this.localTabla4A.capitalVigente = '';
+    this.capitalVigenteSplit.forEach(cantidad => {
+      this.localTabla4A.capitalVigente += cantidad;
+    });
+    this.interesesMoratoriosSplit = this.localTabla4A.interesesMoratorios.toString().split(',');
+    this.localTabla4A.interesesMoratorios = '';
+    this.interesesMoratoriosSplit.forEach(interes => {
+      this.localTabla4A.interesesMoratorios += interes;
+    });
+    this.interesesOrdinariosExigiblesSplit = this.localTabla4A.interesesOrdinariosExigibles.toString().split(',');
+    this.localTabla4A.interesesOrdinariosExigibles = '';
+    this.interesesOrdinariosExigiblesSplit.forEach(interes => {
+      this.localTabla4A.interesesOrdinariosExigibles += interes;
+    });
+    this.otrosAccesoriosSplit = this.localTabla4A.otrosAccesorios.toString().split(',');
+    this.localTabla4A.otrosAccesorios = '';
+    this.otrosAccesoriosSplit.forEach(accesorios => {
+      this.localTabla4A.otrosAccesorios += accesorios;
+    });
     this.nuevaTabla4A = this.localTabla4A;
-    this.nuevaTabla4A.moneda = this.selectedMonedaLineaTabla4A;
-    this.nuevaTabla4A.tipoCobranza = this.selectedTipoCobranzaTabla4A;
-    this.nuevaTabla4A.segmento = this.selectedSegmentoTabla4A;
+    this.nuevaTabla4A.moneda = parseInt(this.selectedMonedaLineaTabla4A);
+    this.nuevaTabla4A.tipoCobranza = parseInt(this.selectedTipoCobranzaTabla4A);
+    this.nuevaTabla4A.segmento = parseInt(this.selectedSegmentoTabla4A);
     swal({
       title: 'Obteniendo información...',
       allowEscapeKey: false,
@@ -84,6 +118,11 @@ export class AltaModificarTabla4aModalComponent implements OnInit, OnDestroy {
     this.operacionesActivasService.updateTabla4A(this.nuevaTabla4A).subscribe(
       response => {
         if (response.header['estatus'] === false) {
+          this.localTabla4A.interesesMoratorios = this.numberWithCommas(this.localTabla4A.interesesMoratorios);
+          this.localTabla4A.interesesOrdinariosExigibles = this.numberWithCommas(this.localTabla4A.interesesOrdinariosExigibles);
+          this.localTabla4A.capitalVencido = this.numberWithCommas(this.localTabla4A.capitalVencido);
+          this.localTabla4A.capitalVigente = this.numberWithCommas(this.localTabla4A.capitalVigente);
+          this.localTabla4A.otrosAccesorios = this.numberWithCommas(this.localTabla4A.otrosAccesorios);
           swal(PopUpMessage.getAppErrorMessageReportId(response)).then(() => { });
         } else {
           swal(PopUpMessage.getSuccesMessage(response, 'Actualización exitosa.', null)).then(() => {
@@ -92,6 +131,11 @@ export class AltaModificarTabla4aModalComponent implements OnInit, OnDestroy {
         }
       },
       err => {
+        this.localTabla4A.interesesMoratorios = this.numberWithCommas(this.localTabla4A.interesesMoratorios);
+        this.localTabla4A.interesesOrdinariosExigibles = this.numberWithCommas(this.localTabla4A.interesesOrdinariosExigibles);
+        this.localTabla4A.capitalVencido = this.numberWithCommas(this.localTabla4A.capitalVencido);
+        this.localTabla4A.capitalVigente = this.numberWithCommas(this.localTabla4A.capitalVigente);
+        this.localTabla4A.otrosAccesorios = this.numberWithCommas(this.localTabla4A.otrosAccesorios);
         swal(PopUpMessage.getServerErrorMessage(err)).then(() => {
           console.error(err);
         });

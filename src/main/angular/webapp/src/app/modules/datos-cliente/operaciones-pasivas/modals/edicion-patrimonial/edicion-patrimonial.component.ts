@@ -24,16 +24,20 @@ export class EdicionPatrimonialComponent implements OnInit, OnDestroy {
   valid: boolean;
   subscribeSelectedPatrimonial: Subscription;
   subscribeInfoPatrimonial: Subscription;
+  fechaReporte: string;
 
   constructor(public activeModal: NgbActiveModal, private modalService: NgbModal, private operacionesPasivasData$: OperacionesPasivasDataService, private operacionesPasivasService: OperacionesPasivasService) { }
 
   ngOnInit() {
     this.valid = true
-    this.decimalPattern = '^[0-9]+[.][0-9][0-9]$';
+    this.decimalPattern = '^\\d{1,3}([,]\\d{3})*[.][0-9][0-9]$';
     this.enteroPattern = '^[0-9]+$';
     this.patrimonialInformacion = EdicionPatrimonialComponent.initPatrimonialInformacion();
     this.operacionesPasivasData$.catalogos.subscribe(catalogos => {
       this.catalogosInformacion = catalogos
+    })
+    this.operacionesPasivasData$.fechaReporte.subscribe(fechaReporte => {
+      this.fechaReporte = this.getFormatFecha(fechaReporte, 2);
     })
     this.subscribeSelectedPatrimonial = this.operacionesPasivasData$.selectedPatrimonial.subscribe(patrimonial => {
       this.patrimonialLocal = patrimonial;
@@ -65,7 +69,6 @@ export class EdicionPatrimonialComponent implements OnInit, OnDestroy {
               }
             }
             this.patrimonialInformacion = resp['patrimonial'];
-            console.log(this.patrimonialInformacion)
             swal.close();
           }
         }, err => {
@@ -80,15 +83,58 @@ export class EdicionPatrimonialComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+  * Sólo permite la escritura de números con decimales
+  * @param event Evento desencadenador
+  */
+  onKeyPressCodigo(event: KeyboardEvent): void {
+    const inputChar = event.key;
+    if (!inputChar.match(this.enteroPattern) && inputChar !== 'Backspace' && inputChar !== 'ArrowLeft' && inputChar !== 'ArrowRight' && inputChar !== '.') {
+      // invalid character, prevent input
+      event.stopPropagation();
+      event.preventDefault()
+    }
+  }
+
+  getFormatFecha(fecha1, type: number) {
+    let fecha = fecha1
+    let day = ''
+    let month = ''
+    if (parseInt(fecha['day']) < 10) day = '0' + fecha['day']
+    else day = fecha['day']
+
+    if (parseInt(fecha['month']) < 10) month = '0' + fecha['month']
+    else month = fecha['month']
+
+    if (type == 1) {
+      return (
+        day + "/" + month + "/" + fecha["year"]
+      );
+    }
+    else {
+      return (
+        String(fecha["year"]) + String(month) + String(day)
+      );
+    }
+  }
+
   actualizarPatrimonial() {
+    swal({
+      title: 'Actualizando información...',
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      onOpen: () => {
+        swal.showLoading();
+      }
+    }).then();
     let json
     let fecha = ""
     if (this.patrimonialInformacion.fechaContratacion['year'] !== undefined && !Number.isNaN(this.patrimonialInformacion.fechaContratacion['year'])) {
-      fecha = this.patrimonialInformacion.fechaContratacion['year'].toString() + this.patrimonialInformacion.fechaContratacion['month'].toString() + this.patrimonialInformacion.fechaContratacion['day'].toString()
+      fecha = this.getFormatFecha(this.patrimonialInformacion.fechaContratacion, 2)
     }
     let fecha1 = ""
     if (this.patrimonialInformacion.ultimaProvisionIntereses['year'] !== undefined && !Number.isNaN(this.patrimonialInformacion.ultimaProvisionIntereses['year'])) {
-      fecha1 = this.patrimonialInformacion.ultimaProvisionIntereses['year'].toString() + this.patrimonialInformacion.ultimaProvisionIntereses['month'].toString() + this.patrimonialInformacion.ultimaProvisionIntereses['day'].toString()
+      fecha1 = this.getFormatFecha(this.patrimonialInformacion.ultimaProvisionIntereses, 2)
     }
     json = {
       alta: false,
@@ -97,25 +143,27 @@ export class EdicionPatrimonialComponent implements OnInit, OnDestroy {
       numeroInversion: this.patrimonialInformacion.numeroInversion,
       categoria: this.patrimonialInformacion.categoria,
       sucursal: this.patrimonialInformacion.sucursal,
-      saldoCuenta: this.patrimonialInformacion.saldoCuenta,
-      saldoInteresArt61: this.patrimonialInformacion.saldoInteresArt61,
-      saldoInteres: this.patrimonialInformacion.saldoInteres,
+      saldoCuenta: this.patrimonialInformacion.saldoCuenta.replace(/,/g, ""),
+      saldoInteresArt61: this.patrimonialInformacion.saldoInteresArt61.replace(/,/g, ""),
+      saldoInteres: this.patrimonialInformacion.saldoInteres.replace(/,/g, ""),
       monedaIPAB: this.patrimonialInformacion.monedaIPAB,
       fechaContratacion: fecha,
       plazoOperacion: this.patrimonialInformacion.plazoOperacion,
       tipoTasa: this.patrimonialInformacion.tipoTasa,
-      tasa: this.patrimonialInformacion.tasa,
+      tasa: this.patrimonialInformacion.tasa.replace(/,/g, ""),
       ultimaProvisionIntereses: fecha1,
       entidadFederativa: this.patrimonialInformacion.entidadFederativa,
       plaza: this.patrimonialInformacion.plaza,
-      loadDate: this.patrimonialInformacion.loadDate,
+      loadDate: this.fechaReporte,
     }
     this.operacionesPasivasService.updatePatrimonial(json).subscribe(resp => {
       if (resp['header'].estatus === false) {
         swal(PopUpMessage.getAppErrorMessageReportId(resp)).then(() => { });
       }
       else {
-        swal(PopUpMessage.getSuccesMessage(resp, null, null)).then();
+        swal(PopUpMessage.getSuccesMessage(resp, null, null)).then(() => {
+          this.modalService.dismissAll()
+        })
       }
     }, err => {
       swal(PopUpMessage.getServerErrorMessage(err)).then(() => {
@@ -170,7 +218,7 @@ export class EdicionPatrimonialComponent implements OnInit, OnDestroy {
     });
   }
 
-  isValid(): void {
+  isValid(type: string): void {
     if (!this.patrimonialInformacion.saldoCuenta.match(this.decimalPattern) && this.patrimonialInformacion.saldoCuenta.length > 0) {
       this.valid = false;
     }
@@ -188,6 +236,43 @@ export class EdicionPatrimonialComponent implements OnInit, OnDestroy {
     }
     else {
       this.valid = true;
+    }
+
+    if (type !== undefined) {
+      let str0 = ''
+      if (type == 'saldoCuenta') str0 = this.patrimonialInformacion.saldoCuenta
+      if (type == 'saldoArt') str0 = this.patrimonialInformacion.saldoInteresArt61
+      if (type == 'saldoInteres') str0 = this.patrimonialInformacion.saldoInteres
+      if (type == 'tasa') str0 = this.patrimonialInformacion.tasa
+      let final = ""
+      let str1 = str0.split(".")[0]
+      let str2 = str1.replace(/,/g, "")
+      let div = str2.length / 3
+      let count = 1
+      if (str2.length % 3 == 0) {
+        div = div - 1
+      }
+      else {
+        div = Math.trunc(div)
+      }
+      let strReverse = str2.split("").reverse()
+      strReverse.forEach((char) => {
+        final += char
+        if (count == 3 && div > 0) {
+          final += ","
+          count = 1
+          div -= 1
+        }
+        else count += 1
+      })
+      final = final.split("").reverse().join("")
+      if (str0.split(".")[1] !== undefined) {
+        final += "." + str0.split(".")[1]
+      }
+      if (type == 'saldoCuenta') this.patrimonialInformacion.saldoCuenta = final
+      if (type == 'saldoArt') this.patrimonialInformacion.saldoInteresArt61 = final
+      if (type == 'saldoInteres') this.patrimonialInformacion.saldoInteres = final
+      if (type == 'tasa') this.patrimonialInformacion.tasa = final
     }
   }
 

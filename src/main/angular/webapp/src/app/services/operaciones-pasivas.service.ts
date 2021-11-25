@@ -23,20 +23,22 @@ export class OperacionesPasivasService {
   }
   /**
      * Obtiene los clientes.
+     * @param fecha
      * @param cliente
      * @param nombre
      * @param apellidoPat
      * @param apellidoMat
      */
-  getClientes(cliente: string, nombre: string, apellidoPat: string, apellidoMat: string): Observable<any> {
-    return this.http.get(`/IPABESB/rest/pasivas/clientes?cliente=${cliente}&nombre=${nombre}&apellidoMat=${apellidoMat}&apellidoPat=${apellidoPat}`);
+  getClientes(fecha: string, cliente: string, nombre: string, apellidoPat: string, apellidoMat: string): Observable<any> {
+    return this.http.get(`/IPABESB/rest/pasivas/clientes?fechaReporte=${fecha}&cliente=${cliente}&nombre=${nombre}&apellidoMat=${apellidoMat}&apellidoPat=${apellidoPat}`);
   }
   /**
      * Obtiene un cliente.
      * @param cliente
+     * @param fecha
      */
-  getCliente(cliente: string): Observable<any> {
-    return this.http.get(`/IPABESB/rest/pasivas/cliente?cliente=${cliente}`);
+  getCliente(cliente: string, fecha: string): Observable<any> {
+    return this.http.get(`/IPABESB/rest/pasivas/cliente?cliente=${cliente}&fechaReporte=${fecha}`);
   }
   /**
      * Actualiza un cliente.

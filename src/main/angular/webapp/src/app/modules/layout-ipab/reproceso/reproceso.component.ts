@@ -106,6 +106,7 @@ export class ReprocesoComponent implements OnInit {
                       null
                     )
                   ).then();
+                  this.limpiar()
                 }
               },
               (err) => {

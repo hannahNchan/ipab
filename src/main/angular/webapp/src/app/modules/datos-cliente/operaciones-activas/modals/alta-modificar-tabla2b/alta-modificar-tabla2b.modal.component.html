@@ -53,15 +53,10 @@
                         name="periodoReporta"
                         id="periodoReporta"
                         class="form-control form-control-sm"
-                        type="text"
+                        type="number"
                         maxlength="6"
                         [(ngModel)]="localTabla2B.periodoReporta"
-                        [pattern]="enteroPattern"
-                        #periodoReporta="ngModel"
                       />
-                    </div>
-                    <div *ngIf="periodoReporta.errors?.pattern && localTabla2B.periodoReporta.length !== 0">
-                      <label class="color-red"> Valor incorrecto.</label>
                     </div>
                   </div>
                   <label class="mt-1 col-3 align-text-right">Identificador del crédito:</label>
@@ -1115,7 +1110,6 @@
     <button class="btn btn-success"
             (click)="onClickAceptar()"
             type="button"
-            [disabled]="periodoReporta.errors?.pattern && localTabla2B.periodoReporta.length !== 0"
     >
       Aceptar
     </button>

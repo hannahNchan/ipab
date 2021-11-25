@@ -4,7 +4,7 @@
       <div class="col-12">
         <div class="container-fluid">
           <div class="row">
-            <div class="flex-fill align-self-center">
+            <div class="flex-fill align-self-center ml-3">
               <h5>CARGAR ARCHIVO T24</h5>
             </div>
           </div>
@@ -62,7 +62,8 @@
                           (focus)="d.toggle()"
                           name="fechaProceso"
                           (ngModelChange)="limpiarArchivos()"
-                          [markDisabled]="finDeSemana"
+                          [markDisabled]="fechasFestivos"
+                          (navigate)="nuevasFechas($event)"
                         />
                         <div class="input-group-append">
                           <button
@@ -124,7 +125,8 @@
                         <table class="table table-hover table-fixed">
                           <thead class="thead-light">
                             <tr class="hover-primary">
-                              <th class="col-12" scope="col">
+                              <th class="col-6" scope="col">Tipo Archivo</th>
+                              <th class="col-6" scope="col">
                                 Nombre del archivo
                               </th>
                             </tr>
@@ -132,7 +134,10 @@
                           <tbody class="max-row-7 table-scroll">
                             <ng-container *ngFor="let row of files">
                               <tr class="cursor-pointer hover-primary">
-                                <td class="col-12">{{ row }}</td>
+                                <td class="col-6">
+                                  {{ row.descripcionArchivo }}
+                                </td>
+                                <td class="col-6">{{ row.nombreArchivo }}</td>
                               </tr>
                             </ng-container>
                           </tbody>

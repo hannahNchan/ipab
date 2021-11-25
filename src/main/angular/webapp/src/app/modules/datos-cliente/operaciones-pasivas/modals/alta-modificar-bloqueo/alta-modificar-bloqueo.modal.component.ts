@@ -19,17 +19,24 @@ export class AltaModificarBloqueoModalComponent implements OnInit, OnDestroy {
   bloqueoInformacion: IBloqueoInformacion;
   catalogosInformacion: ICatalogoGenerico;
   decimalPattern: string;
+  enteroPattern: string;
   valid: boolean = true;
   subscribeSelectedBloqueo: Subscription;
   subscribeInfoBloqueo: Subscription;
+  fechaReporte: any;
+  fechaBloqueo: any;
 
   constructor(public activeModal: NgbActiveModal, private modalService: NgbModal, private operacionesPasivasData$: OperacionesPasivasDataService, private operacionesPasivasService: OperacionesPasivasService) { }
 
   ngOnInit(): void {
-    this.decimalPattern = '^[0-9]+[.][0-9][0-9]$';
+    this.decimalPattern = '^\\d{1,3}([,]\\d{3})*[.][0-9][0-9]$';
+    this.enteroPattern = '^[0-9]+$';
     this.bloqueoInformacion = AltaModificarBloqueoModalComponent.initBloqueoInformacion();
     this.operacionesPasivasData$.catalogos.subscribe(catalogos => {
       this.catalogosInformacion = catalogos
+    })
+    this.operacionesPasivasData$.fechaReporte.subscribe(fechaReporte => {
+      this.fechaReporte = fechaReporte
     })
     this.subscribeSelectedBloqueo = this.operacionesPasivasData$.selectedBloqueo.subscribe(bloqueo => {
       this.bloqueoLocal = bloqueo;
@@ -59,9 +66,49 @@ export class AltaModificarBloqueoModalComponent implements OnInit, OnDestroy {
       } else {
         this.isUpdate = false;
         this.bloqueoInformacion = AltaModificarBloqueoModalComponent.initBloqueoInformacion();
+        this.fechaBloqueo = {
+          'year': parseInt(this.getFormatFecha(this.fechaReporte, 1).split('/')[2]),
+          'month': parseInt(this.getFormatFecha(this.fechaReporte, 1).split('/')[1]),
+          'day': parseInt(this.getFormatFecha(this.fechaReporte, 1).split('/')[0])
+        }
       }
     });
 
+  }
+
+  /**
+  * Sólo permite la escritura de números con decimales
+  * @param event Evento desencadenador
+  */
+  onKeyPressCodigo(event: KeyboardEvent): void {
+    const inputChar = event.key;
+    if (!inputChar.match(this.enteroPattern) && inputChar !== 'Backspace' && inputChar !== 'ArrowLeft' && inputChar !== 'ArrowRight' && inputChar !== '.') {
+      // invalid character, prevent input
+      event.stopPropagation();
+      event.preventDefault()
+    }
+  }
+
+  getFormatFecha(fecha1, type: number) {
+    let fecha = fecha1
+    let day = ''
+    let month = ''
+    if (parseInt(fecha['day']) < 10) day = '0' + fecha['day']
+    else day = fecha['day']
+
+    if (parseInt(fecha['month']) < 10) month = '0' + fecha['month']
+    else month = fecha['month']
+
+    if (type == 1) {
+      return (
+        day + "/" + month + "/" + fecha["year"]
+      );
+    }
+    else {
+      return (
+        String(fecha["year"]) + String(month) + String(day)
+      );
+    }
   }
 
   getDescripcion(): void {
@@ -72,19 +119,23 @@ export class AltaModificarBloqueoModalComponent implements OnInit, OnDestroy {
   }
 
   nuevoBloqueo() {
+    swal({
+      title: 'Creando información...',
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      onOpen: () => {
+        swal.showLoading();
+      }
+    }).then();
     let json
     let today = new Date();
     let fechaT = today.getFullYear().toString() + (today.getMonth() + 1).toString() + today.getDate().toString()
-    let fecha = ""
-    if (this.bloqueoInformacion.fechaBloqueo['year'] !== undefined) {
-      fecha = this.bloqueoInformacion.fechaBloqueo['year'].toString() + this.bloqueoInformacion.fechaBloqueo['month'].toString() + this.bloqueoInformacion.fechaBloqueo['day'].toString()
-    }
     json = {
       alta: true,
       idCuenta: this.bloqueoInformacion.idCuenta,
       idBloqueo: this.bloqueoInformacion.idBloqueo,
-      fechaBloqueo: fecha,
-      montoBloqueo: this.bloqueoInformacion.montoBloqueo,
+      fechaBloqueo: this.getFormatFecha(this.fechaReporte, 2),
+      montoBloqueo: this.bloqueoInformacion.montoBloqueo.replace(/,/g, ""),
       tipoBloqueo: this.bloqueoInformacion.tipoBloqueo,
       descBloqueo: this.bloqueoInformacion.descBloqueo,
       loadDate: fechaT,
@@ -103,12 +154,43 @@ export class AltaModificarBloqueoModalComponent implements OnInit, OnDestroy {
     });
   }
 
-  isValid(): void {
+  isValid(type: string): void {
     if (!this.bloqueoInformacion.montoBloqueo.match(this.decimalPattern) && this.bloqueoInformacion.montoBloqueo.length > 0) {
       this.valid = false;
     }
     else {
       this.valid = true;
+    }
+
+    if (type !== undefined) {
+      let str0 = ''
+      if (type == 'montoBloqueo') str0 = this.bloqueoInformacion.montoBloqueo
+      let final = ""
+      let str1 = str0.split(".")[0]
+      let str2 = str1.replace(/,/g, "")
+      let div = str2.length / 3
+      let count = 1
+      if (str2.length % 3 == 0) {
+        div = div - 1
+      }
+      else {
+        div = Math.trunc(div)
+      }
+      let strReverse = str2.split("").reverse()
+      strReverse.forEach((char) => {
+        final += char
+        if (count == 3 && div > 0) {
+          final += ","
+          count = 1
+          div -= 1
+        }
+        else count += 1
+      })
+      final = final.split("").reverse().join("")
+      if (str0.split(".")[1] !== undefined) {
+        final += "." + str0.split(".")[1]
+      }
+      if (type == 'montoBloqueo') this.bloqueoInformacion.montoBloqueo = final
     }
   }
 

@@ -47,19 +47,13 @@
                   <div class="input-group">
                     <input
                       class="form-control form-control-sm"
-                      type="text"
+                      type="number"
                       id="periodo"
                       name="periodo"
                       [(ngModel)]="
                             selectedAcreditadoTabla4B.periodoReporta
                           "
-                      [pattern]="enteroPattern"
-                      #periodo="ngModel"
                     />
-                  </div>
-
-                  <div *ngIf="periodo.errors?.pattern && selectedAcreditadoTabla4B.periodoReporta.length !== 0">
-                    <label class="color-red"> Valor incorrecto.</label>
                   </div>
                 </div>
                 <label class="mt-1 col-3 align-text-right"
@@ -520,7 +514,6 @@
     <button class="btn btn-success"
             (click)="onClickAceptar()"
             type="button"
-            [disabled]="periodo.errors?.pattern && selectedAcreditadoTabla4B.periodoReporta.length !== 0"
     >
       Aceptar
     </button>

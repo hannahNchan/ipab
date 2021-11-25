@@ -34,6 +34,7 @@
                 class="form-control form-control-sm pl-0"
                 [(ngModel)]="clienteInformacion.tipoPersona"
                 [disabled]="clienteInformacion.tipoPersona == '3'"
+                (ngModelChange)="changeTP()"
               >
                 <option
                   [ngValue]="cat.clave"
@@ -121,10 +122,14 @@
                   class="form-control form-control-sm"
                   type="text"
                   [(ngModel)]="clienteInformacion.curp"
-                  [formControl]="curpValidator"
-                  [pattern]="regExValidator"
+                  [pattern]="curpRegEx"
                   maxlength="18"
+                  #curp="ngModel"
+                  (ngModelChange)="isValid()"
                 />
+              </div>
+              <div *ngIf="curp.errors?.pattern">
+                <label class="color-red"> Valor con formato incorrecto.</label>
               </div>
             </div>
           </div>
@@ -137,23 +142,15 @@
                 class="form-control form-control-sm"
                 type="text"
                 [(ngModel)]="clienteInformacion.rfc"
-                [formControl]="regExValidator"
-                [pattern]="rfcFisicasRegEx"
+                [pattern]="rfcRegEx"
                 minlength="10"
                 maxlength="13"
+                #rfc="ngModel"
+                (ngModelChange)="isValid()"
               />
             </div>
-          </div>
-          <div class="col-lg-12 form-group row">
-            <div class="col-lg-2">
-              <label>Calle domicilio:</label>
-            </div>
-            <div class="col-lg-10">
-              <input
-                class="form-control form-control-sm"
-                type="text"
-                [(ngModel)]="clienteInformacion.calleDomicilio"
-              />
+            <div *ngIf="rfc.errors?.pattern">
+              <label class="color-red"> Valor con formato incorrecto.</label>
             </div>
           </div>
           <div class="col-lg-12 form-group row">
@@ -164,9 +161,10 @@
               <select
                 class="form-control form-control-sm"
                 [(ngModel)]="clienteInformacion.paisDomicilio"
+                (ngModelChange)="changePais()"
               >
                 <option
-                  [ngValue]="cat.descripcion1"
+                  [ngValue]="cat.clave"
                   *ngFor="let cat of catalogosInformacion['residencia']"
                 >
                   {{ cat.descripcion }}
@@ -175,6 +173,26 @@
             </div>
           </div>
           <div class="col-lg-12 form-group row">
+            <div class="col-lg-2">
+              <label *ngIf="clienteInformacion.residencia == 'MX'"
+                >Calle domicilio:</label
+              >
+              <label *ngIf="clienteInformacion.residencia != 'MX'"
+                >Street:</label
+              >
+            </div>
+            <div class="col-lg-10">
+              <input
+                class="form-control form-control-sm"
+                type="text"
+                [(ngModel)]="clienteInformacion.calleDomicilio"
+              />
+            </div>
+          </div>
+          <div
+            class="col-lg-12 form-group row"
+            *ngIf="clienteInformacion.residencia == 'MX'"
+          >
             <div class="col-lg-2">
               <label>Codigo postal:</label>
             </div>
@@ -187,7 +205,7 @@
                 [pattern]="enteroPattern"
                 maxlength="5"
                 #codigoPostal="ngModel"
-                (change)="isValid()"
+                (ngModelChange)="isValid('cp')"
               />
               <div
                 *ngIf="
@@ -198,59 +216,92 @@
               >
                 <label class="color-red"> Valor con formato incorrecto.</label>
               </div>
+              <div
+                *ngIf="
+                  !codigoPostal.errors?.pattern &&
+                  !cpExist &&
+                  clienteInformacion.codigoPostalDom.length == 5
+                "
+              >
+                <label class="color-red"> El código postal no existe.</label>
+              </div>
             </div>
           </div>
-          <div class="col-lg-12 form-group row">
+          <div
+            class="col-lg-12 form-group row"
+            *ngIf="clienteInformacion.residencia == 'MX'"
+          >
             <div class="col-lg-2">
-              <label>Estado domicilio:</label>
+              <label>Colonia domicilio:</label>
             </div>
-            <div class="col-lg-10">
+            <div class="col-lg-4">
               <select
+                id="selColonia"
                 class="form-control form-control-sm"
-                [(ngModel)]="clienteInformacion.estadoDomicilio"
+                [(ngModel)]="selectedColonia"
+                (ngModelChange)="changeColonia()"
               >
-                <option
-                  [ngValue]="cat.claveIPAB"
-                  *ngFor="let cat of catalogosInformacion['entidadFed']"
-                >
-                  {{ cat.descripcion }}
+                <option [ngValue]="colonia.id" *ngFor="let colonia of colonias">
+                  {{ colonia.colonia }}
                 </option>
               </select>
             </div>
+            <div class="col-lg-6">
+              <input
+                class="form-control form-control-sm"
+                type="text"
+                [(ngModel)]="clienteInformacion.coloniaDomicilio"
+                [disabled]="selectedColonia !== '99999'"
+              />
+            </div>
           </div>
           <div class="col-lg-12 form-group row">
             <div class="col-lg-2">
-              <label>Municipio domicilio:</label>
+              <label *ngIf="clienteInformacion.residencia == 'MX'"
+                >Municipio domicilio:</label
+              >
+              <label *ngIf="clienteInformacion.residencia != 'MX'"
+                >Zip Code & State:</label
+              >
             </div>
             <div class="col-lg-10">
               <input
                 class="form-control form-control-sm"
                 type="text"
                 [(ngModel)]="clienteInformacion.municipioDomicilio"
+                [disabled]="clienteInformacion.residencia == 'MX'"
+              />
+            </div>
+          </div>
+          <div
+            class="col-lg-12 form-group row"
+            *ngIf="clienteInformacion.residencia == 'MX'"
+          >
+            <div class="col-lg-2">
+              <label>Estado domicilio:</label>
+            </div>
+            <div class="col-lg-10">
+              <input
+                class="form-control form-control-sm"
+                type="text"
+                [(ngModel)]="estado"
+                [disabled]="clienteInformacion.residencia == 'MX'"
               />
             </div>
           </div>
           <div class="col-lg-12 form-group row">
             <div class="col-lg-2">
-              <label>Ciudad domicilio:</label>
+              <label *ngIf="clienteInformacion.residencia == 'MX'"
+                >Ciudad domicilio:</label
+              >
+              <label *ngIf="clienteInformacion.residencia != 'MX'">City:</label>
             </div>
             <div class="col-lg-10">
               <input
                 class="form-control form-control-sm"
                 type="text"
                 [(ngModel)]="clienteInformacion.ciudadDomicilio"
-              />
-            </div>
-          </div>
-          <div class="col-lg-12 form-group row">
-            <div class="col-lg-2">
-              <label>Colonia domicilio:</label>
-            </div>
-            <div class="col-lg-10">
-              <input
-                class="form-control form-control-sm"
-                type="text"
-                [(ngModel)]="clienteInformacion.coloniaDomicilio"
+                [disabled]="clienteInformacion.residencia == 'MX'"
               />
             </div>
           </div>
@@ -262,7 +313,7 @@
               <select
                 class="form-control form-control-sm"
                 [(ngModel)]="clienteInformacion.residencia"
-                (change)="changeResidencia()"
+                [disabled]="true"
               >
                 <option
                   [ngValue]="cat.clave"

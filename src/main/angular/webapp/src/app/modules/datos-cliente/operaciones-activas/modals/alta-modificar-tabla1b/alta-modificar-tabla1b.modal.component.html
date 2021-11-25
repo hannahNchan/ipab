@@ -60,7 +60,7 @@
                 <div
                   *ngIf="
                     periodo.errors?.pattern &&
-                    localTabla1B.periodoReporta.length !== 0
+                    localTabla1B.periodoReporta !== '0'
                   "
                 >
                   <label class="color-red"> Valor incorrecto.</label>
@@ -214,7 +214,7 @@
                 <div
                   *ngIf="
                     montoOriginalCredito.errors?.pattern &&
-                    localTabla1B.montoOriginalCredito !== 0
+                    localTabla1B.montoOriginalCredito.length !== 0
                   "
                 >
                   <label class="color-red">
@@ -236,7 +236,7 @@
                 <div
                   *ngIf="
                     valorVivienda.errors?.pattern &&
-                    localTabla1B.valorVivienda !== 0
+                    localTabla1B.valorVivienda !== '0'
                   "
                 >
                   <label class="color-red">
@@ -302,7 +302,7 @@
                 <div
                   *ngIf="
                     tasaInteresAplicadoPeriodo.errors?.pattern &&
-                    localTabla1B.tasaInteresAplicadaPeriodo !== 0
+                    localTabla1B.tasaInteresAplicadaPeriodo.length !== 0
                   "
                 >
                   <label class="color-red">
@@ -326,7 +326,7 @@
                 <div
                   *ngIf="
                     responsabilidadTotalperiodo.errors?.pattern &&
-                    localTabla1B.responsabilidadTotalFinalPeriodo !== 0
+                    localTabla1B.responsabilidadTotalFinalPeriodo.length !== 0
                   "
                 >
                   <label class="color-red">
@@ -440,7 +440,7 @@
                 />
                 <div
                   *ngIf="
-                    diasAtraso.errors?.pattern && localTabla1B.diasAtraso !== 0
+                    diasAtraso.errors?.pattern && localTabla1B.diasAtraso !== '0'
                   "
                 >
                   <label class="color-red">
@@ -464,7 +464,7 @@
                 <div
                   *ngIf="
                     montoSubcuentaGarantiaCred.errors?.pattern &&
-                    localTabla1B.montoSubcuentaGarantiaCred !== 0
+                    localTabla1B.montoSubcuentaGarantiaCred.length !== 0
                   "
                 >
                   <label class="color-red">
@@ -572,7 +572,7 @@
                 <div
                   *ngIf="
                     capitalVencidoOperativo.errors?.pattern &&
-                    localTabla1B.capitalVencidoOperativo !== 0
+                    localTabla1B.capitalVencidoOperativo !== '0'
                   "
                 >
                   <label class="color-red">
@@ -596,7 +596,7 @@
                 <div
                   *ngIf="
                     interesesOrdinariosExigibles.errors?.pattern &&
-                    localTabla1B.interesOrdinariosExigibles !== 0
+                    localTabla1B.interesOrdinariosExigibles !== '0'
                   "
                 >
                   <label class="color-red">
@@ -622,7 +622,7 @@
                 <div
                   *ngIf="
                     capitalVigenteOperativo.errors?.pattern &&
-                    localTabla1B.capitalVigenteOperativo !== 0
+                    localTabla1B.capitalVigenteOperativo !== '0'
                   "
                 >
                   <label class="color-red">
@@ -646,7 +646,7 @@
                 <div
                   *ngIf="
                     interesesMoratorios.errors?.pattern &&
-                    localTabla1B.interesesMoratorios !== 0
+                    localTabla1B.interesesMoratorios !== '0'
                   "
                 >
                   <label class="color-red">
@@ -672,7 +672,7 @@
                 <div
                   *ngIf="
                     otrosAccesorios.errors?.pattern &&
-                    localTabla1B.otrosAccesorios !== 0
+                    localTabla1B.otrosAccesorios !== '0'
                   "
                 >
                   <label class="color-red">
@@ -732,31 +732,31 @@
       (click)="onClickAceptar()"
       [disabled]="
         (montoOriginalCredito.errors?.pattern &&
-          localTabla1B.montoOriginalCredito !== 0) ||
-        (valorVivienda.errors?.pattern && localTabla1B.valorVivienda !== 0) ||
+          localTabla1B.montoOriginalCredito !== '0') ||
+        (valorVivienda.errors?.pattern && localTabla1B.valorVivienda !== '0') ||
         (tasaInteresAplicadoPeriodo.errors?.pattern &&
-          localTabla1B.tasaInteresAplicadaPeriodo !== 0) ||
+          localTabla1B.tasaInteresAplicadaPeriodo !== '0') ||
         (responsabilidadTotalperiodo.errors?.pattern &&
-          localTabla1B.responsabilidadTotalFinalPeriodo !== 0) ||
+          localTabla1B.responsabilidadTotalFinalPeriodo !== '0') ||
         (probabilidadIncumplimiento.errors?.pattern &&
           localTabla1B.probabilidadIncumplimiento !== '0') ||
         (severidadPerdida.errors?.pattern &&
-          localTabla1B.severidadPerdida.length !== 0) ||
-        (diasAtraso.errors?.pattern && localTabla1B.diasAtraso !== 0) ||
+          localTabla1B.severidadPerdida !== '0') ||
+        (diasAtraso.errors?.pattern && localTabla1B.diasAtraso !== '0') ||
         (montoSubcuentaGarantiaCred.errors?.pattern &&
-          localTabla1B.montoSubcuentaGarantiaCred !== 0) ||
+          localTabla1B.montoSubcuentaGarantiaCred !== '0') ||
         (reservas.errors?.pattern && localTabla1B.reservas !== '0') ||
         (capitalVencidoOperativo.errors?.pattern &&
-          localTabla1B.capitalVencidoOperativo !== 0) ||
+          localTabla1B.capitalVencidoOperativo !== '0') ||
         (interesesOrdinariosExigibles.errors?.pattern &&
-          localTabla1B.interesOrdinariosExigibles !== 0) ||
+          localTabla1B.interesOrdinariosExigibles !== '0') ||
         (capitalVigenteOperativo.errors?.pattern &&
-          localTabla1B.capitalVigenteOperativo !== 0) ||
+          localTabla1B.capitalVigenteOperativo !== '0') ||
         (interesesMoratorios.errors?.pattern &&
-          localTabla1B.interesesMoratorios !== 0) ||
+          localTabla1B.interesesMoratorios !== '0') ||
         (otrosAccesorios.errors?.pattern &&
-          localTabla1B.otrosAccesorios !== 0) ||
-        (periodo.errors?.pattern && localTabla1B.periodoReporta.length !== 0)
+          localTabla1B.otrosAccesorios !== '0') ||
+        (periodo.errors?.pattern && localTabla1B.periodoReporta !== '0')
       "
     >
       Aceptar
