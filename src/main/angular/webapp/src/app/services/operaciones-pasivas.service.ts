@@ -240,4 +240,12 @@ export class OperacionesPasivasService {
     };
     return this.http.delete(`/IPABESB/rest/pasivas/deleteExceptuados`, options);
   }
+
+  /**
+    * Obtiene los clientes check.
+    * @param cliente
+    */
+  checkClientes(cliente: string): Observable<any> {
+    return this.http.get(`/IPABESB/rest/pasivas/Checkclientes?cliente=${cliente}`);
+  }
 }

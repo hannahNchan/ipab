@@ -2,7 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OperacionesPasivasDataService } from '@services/operaciones-pasivas-data.service';
 import { IClienteCuentas, IClienteCuentasInformacion, ICatalogoGenerico } from '@interfaces/operaciones-pasivas.interface';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable, Subscription } from 'rxjs';
+import { debounceTime, map } from 'rxjs/operators';
 import { OperacionesPasivasService } from '@services/operaciones-pasivas.service';
 import { PopUpMessage } from '@helpers/PopUpMessage';
 import swal from "sweetalert2";
@@ -25,12 +26,16 @@ export class AltaEditarCuentaComponent implements OnInit, OnDestroy {
   subscribeInfoClienteCuenta: Subscription;
   suma: number;
   valid: boolean = true;
+  enteroPattern: string;
+  clientes: object[] = [];
+  cotitularValido: boolean[] = [];
 
 
   constructor(public activeModal: NgbActiveModal, private modalService: NgbModal, private operacionesPasivasData$: OperacionesPasivasDataService, private operacionesPasivasService: OperacionesPasivasService) { }
 
   ngOnInit(): void {
     this.porcentajePattern = '(^100(\.0{1,2})?$)|(^([1-9]([0-9])?|0)(\.[0-9]{1,2})?$)';
+    this.enteroPattern = '^[0-9]+$';
     this.operacionesPasivasData$.catalogos.subscribe(catalogos => {
       this.catalogosInformacion = JSON.parse(JSON.stringify(catalogos));
     })
@@ -76,6 +81,7 @@ export class AltaEditarCuentaComponent implements OnInit, OnDestroy {
             }
             this.clienteCuentaInformacion.listCotitular.map((row) => {
               this.porcentajeCotitual.push(0)
+              this.cotitularValido.push(true);
             })
             swal.close();
           }
@@ -87,6 +93,7 @@ export class AltaEditarCuentaComponent implements OnInit, OnDestroy {
       } else {
         this.isUpdate = false;
         this.porcentajeCotitual.push(0)
+        this.cotitularValido.push(true);
         this.clienteCuentaInformacion = AltaEditarCuentaComponent.initClienteCuentaInformacion();
       }
     });
@@ -135,6 +142,7 @@ export class AltaEditarCuentaComponent implements OnInit, OnDestroy {
     this.clienteCuentaInformacion.listPorcentajeIPAB.push(coti);
     this.clienteCuentaInformacion.listTipoFirma.push(coti);
     this.porcentajeCotitual.push(0)
+    this.cotitularValido.push(false);
   }
 
   removerCotitular(index) {
@@ -143,10 +151,11 @@ export class AltaEditarCuentaComponent implements OnInit, OnDestroy {
       this.clienteCuentaInformacion.listPorcentajeIPAB.splice(index, 1)
       this.clienteCuentaInformacion.listTipoFirma.splice(index, 1)
       this.porcentajeCotitual.splice(index, 1)
+      this.cotitularValido.splice(index, 1)
     }
   }
 
-  changeCotitular(index, coti): void {
+  changeCotitular(index, coti) {
     this.clienteCuentaInformacion.listCotitular[index] = coti;
   }
 
@@ -267,6 +276,65 @@ export class AltaEditarCuentaComponent implements OnInit, OnDestroy {
         console.error(err);
       });
     });
+  }
+
+  /**
+  * Sólo permite la escritura de números y busca clientes
+  * @param event Evento desencadenador
+  */
+  onKeyPressCodigo(event: KeyboardEvent): void {
+    const inputChar = event.key;
+    if (!inputChar.match(this.enteroPattern) && inputChar !== 'Backspace' && inputChar !== 'ArrowLeft' && inputChar !== 'ArrowRight' && inputChar !== '.') {
+      // invalid character, prevent input
+      event.stopPropagation();
+      event.preventDefault()
+    }
+  }
+
+  onPaste(event: ClipboardEvent, index) {
+    event.stopPropagation();
+    event.preventDefault()
+  }
+
+  checkClientesLista(index, coti) {
+    if (coti.length == 5) {
+      this.operacionesPasivasService.checkClientes(coti).subscribe(resp => {
+        if (resp['header'].estatus === false) {
+        }
+        else {
+          this.clientes = resp['lista']
+        }
+      }, err => {
+        console.error(err);
+      });
+    }
+    else if (coti.length < 5) {
+      this.clientes = []
+    }
+    else if (coti.length == 10) {
+      const ItemIndex = this.clientes.findIndex(
+        (p) => p['idCliente'] === coti
+      )
+      if (ItemIndex == -1) {
+        this.cotitularValido[index] = false
+      } else {
+        this.cotitularValido[index] = true
+      }
+    }
+  }
+
+  /**
+   * Filtro para la busqueda de clientes
+   * @param text$
+   */
+  searchClientes = (text$: Observable<string>) => {
+    return text$.pipe(
+      debounceTime(200), map(txt => txt === '' ? [] :
+        this.clientes
+          .filter(obj => obj['idCliente'].toLowerCase()
+            .indexOf(txt.toLowerCase()) === 0).map(a => a['idCliente'])
+      )
+    );
   }
 
   private static initClienteCuentaInformacion(): IClienteCuentasInformacion {

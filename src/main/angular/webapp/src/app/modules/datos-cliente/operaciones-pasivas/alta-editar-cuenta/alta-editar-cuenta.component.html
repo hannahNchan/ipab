@@ -187,8 +187,24 @@
                         class="form-control form-control-sm"
                         type="text"
                         [(ngModel)]="cot"
+                        maxlength="10"
                         (change)="changeCotitular(indexOfelement, cot)"
+                        (ngModelChange)="
+                          checkClientesLista(indexOfelement, cot)
+                        "
+                        (keypress)="onKeyPressCodigo($event)"
+                        (paste)="onPaste($event, indexOfelement)"
+                        autocomplete="off"
+                        [resultTemplate]="rt"
+                        [ngbTypeahead]="searchClientes"
                       />
+                    </div>
+                    <div
+                      *ngIf="
+                        !cotitularValido[indexOfelement] && cot.length == 10
+                      "
+                    >
+                      <label class="color-red"> El cliente no existe.</label>
                     </div>
                   </div>
                 </div>

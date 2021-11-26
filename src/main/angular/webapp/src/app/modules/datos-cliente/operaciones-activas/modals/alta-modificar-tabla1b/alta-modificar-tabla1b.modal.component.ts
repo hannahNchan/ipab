@@ -52,6 +52,7 @@ export class AltaModificarTabla1bModalComponent implements OnInit, OnDestroy {
   decimalPattern: string;
   decimal6Pattern: string;
   enteroPattern: string;
+  periodoPattern: string;
 
   periodoSplit: string[];
   montoOriginalCreditoSplit: string[];
@@ -92,6 +93,7 @@ export class AltaModificarTabla1bModalComponent implements OnInit, OnDestroy {
     this.decimalPattern = '^\\d{1,3}([,]\\d{3})*[.][0-9][0-9]$';
     this.decimal6Pattern = '^\\d{1,3}([,]\\d{3})*[.]\\d{2,6}$';
     this.enteroPattern = '^\\d{1,3}([,]\\d{3})*$';
+    this.periodoPattern = '^\\d{4,4}(([0][1-9])|([1][0-2]))$';
     this.subscriptionCatTipoAltaCredito = this._data$.catalogoTipoAltaCredito.subscribe(catalogo => {
       this.catalogoTipoAltaCredito = catalogo;
     });

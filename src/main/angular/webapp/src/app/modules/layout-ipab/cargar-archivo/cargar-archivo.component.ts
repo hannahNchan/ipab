@@ -19,7 +19,6 @@ export class CargarArchivoComponent implements OnInit {
   valid: boolean = false;
   festivos: Object[];
   year: number;
-  wait: boolean = false;
 
   constructor(
     private _calendar: NgbCalendar,

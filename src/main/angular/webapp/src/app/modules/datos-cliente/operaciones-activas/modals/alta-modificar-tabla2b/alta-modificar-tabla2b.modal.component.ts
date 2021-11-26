@@ -51,6 +51,8 @@ export class AltaModificarTabla2bModalComponent implements OnInit, OnDestroy {
   today; IDate;
   fechaVencimientoLineaCredito: IDate;
 
+  periodoPattern: string;
+
   private subscriptionCatActividadEconomica: Subscription;
   private subscriptionCatMonedaLinea: Subscription;
   private subscriptionCatTipoAltaCredito2: Subscription;
@@ -74,6 +76,7 @@ export class AltaModificarTabla2bModalComponent implements OnInit, OnDestroy {
     private _calendar: NgbCalendar) { }
 
   ngOnInit(): void {
+    this.periodoPattern = '^\\d{4,4}(([0][1-9])|([1][0-2]))$';
     this.subscriptionCatActividadEconomica = this._data$.catalogoActividadEconomica.subscribe(catalogo => {
       this.catalogoActividadEconomica = catalogo;
     });

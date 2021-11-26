@@ -62,7 +62,8 @@
                           (focus)="d.toggle()"
                           name="fechaProceso"
                           (ngModelChange)="limpiarArchivos()"
-                          [markDisabled]="finDeSemana"
+                          [markDisabled]="fechasFestivos"
+                          (navigate)="nuevasFechas($event)"
                         />
                         <div class="input-group-append">
                           <button

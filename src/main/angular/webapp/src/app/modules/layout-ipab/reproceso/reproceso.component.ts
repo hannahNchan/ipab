@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { PopUpMessage } from "@helpers/PopUpMessage";
 import { NgbCalendar, NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 import { CargarArchivoService } from "@services/cargar-archivo.service";
+import { ParametrosCategoriasHolidaysService } from "@services/parametros-categorias-holidays.service";
+
 import swal from "sweetalert2";
 
 @Component({
@@ -16,10 +18,13 @@ export class ReprocesoComponent implements OnInit {
   files: string[] = [];;
   maxFecha: NgbDateStruct;
   valid: boolean = false;
+  festivos: Object[];
+  year: number;
 
   constructor(
     private _calendar: NgbCalendar,
-    private cargaArchivoService: CargarArchivoService
+    private cargaArchivoService: CargarArchivoService,
+    private HolidaysService: ParametrosCategoriasHolidaysService
   ) { }
 
   ngOnInit(): void {
@@ -49,7 +54,21 @@ export class ReprocesoComponent implements OnInit {
         }
         else {
           this.layouts = this.layouts.concat(response.lista);
-          swal.close();
+          var today = new Date();
+          var yearT = today.getFullYear();
+          this.HolidaysService.getCatalogoFestivos(yearT.toString()).subscribe((response) => {
+            if (response.header["estatus"] === false) {
+              swal(PopUpMessage.getAppErrorMessageReportId(response)).then(
+                () => {
+                  console.error(response);
+                }
+              );
+            } else {
+              this.year = yearT
+              this.festivos = response.meses
+              swal.close();
+            }
+          })
         }
       });
     this.maxFecha = this._calendar.getToday();
@@ -178,11 +197,40 @@ export class ReprocesoComponent implements OnInit {
     this.files = [];
   }
 
-  finDeSemana(date: NgbDateStruct) {
+  fechasFestivos = (date: NgbDateStruct) => {
     let dateF = date["year"] + "/" + date["month"] + "/" + date["day"]
     let dateC = new Date(dateF)
-    return (dateC.getDay() === 6) || (dateC.getDay() === 0);
+    if (date["year"] == this.year) {
+      const ItemIndex = this.festivos.findIndex(
+        (p) => p['mes'] === date["month"].toString()
+      )
+      return this.festivos[ItemIndex]['Dias'][date["day"]] === 'H'
+    }
+    else {
+      return (dateC.getDay() === 6) || (dateC.getDay() === 0);
+    }
+
   }
+
+  nuevasFechas(e: Event) {
+    if (e['next'].year != this.year) {
+      this.HolidaysService.getCatalogoFestivos(e['next'].year.toString()).subscribe((response) => {
+        if (response.header["estatus"] === false) {
+          swal(PopUpMessage.getAppErrorMessage('Error carga festivos', 'No se pudieron cargar los festivos del año ' + e['next'].year)).then(
+            () => {
+              console.error(response);
+            }
+          );
+          e.preventDefault()
+          this.fecha = '';
+        } else {
+          this.year = e['next'].year
+          this.festivos = response.meses
+        }
+      })
+    }
+  }
+
 
   getFormatFecha() {
     let day = ''

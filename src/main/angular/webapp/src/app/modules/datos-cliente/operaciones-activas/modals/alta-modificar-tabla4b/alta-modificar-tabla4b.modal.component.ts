@@ -41,6 +41,8 @@ export class AltaModificarTabla4bModalComponent implements OnInit, OnDestroy {
   selectedEscalaPeriodos: string;
   selectedTipoGarantiat4: string;
 
+  periodoPattern: string;
+
   private subscriptionCatMonedat4: Subscription;
   private subscriptionCatConSinRestricciones: Subscription;
   private subscriptionCatTipoTasaCredito: Subscription;
@@ -58,6 +60,7 @@ export class AltaModificarTabla4bModalComponent implements OnInit, OnDestroy {
 
   // tslint:disable-next-line:typedef
   ngOnInit() {
+    this.periodoPattern = '^\\d{4,4}(([0][1-9])|([1][0-2]))$';
     this.selectedAcreditadoTabla4B = AltaModificarTabla4bModalComponent.initAcreditado();
     this.subscriptionCatMonedat4 = this._data$.catalogoMonedat4.subscribe(catalogo => {
       this.catalogoMonedat4 = catalogo;

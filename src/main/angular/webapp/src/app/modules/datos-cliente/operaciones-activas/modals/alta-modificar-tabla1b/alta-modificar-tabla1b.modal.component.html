@@ -53,7 +53,7 @@
                     name="periodo"
                     maxlength="6"
                     [(ngModel)]="localTabla1B.periodoReporta"
-                    [pattern]="enteroPattern"
+                    [pattern]="periodoPattern"
                     #periodo="ngModel"
                   />
                 </div>
@@ -63,7 +63,7 @@
                     localTabla1B.periodoReporta !== '0'
                   "
                 >
-                  <label class="color-red"> Valor incorrecto.</label>
+                  <label class="color-red"> Valor incorrecto (yyyymm).</label>
                 </div>
               </div>
             </div>
