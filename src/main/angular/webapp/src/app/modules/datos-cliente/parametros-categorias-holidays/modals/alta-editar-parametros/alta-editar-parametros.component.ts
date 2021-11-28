@@ -34,6 +34,7 @@ export class AltaEditarParametrosComponent implements OnInit {
       } else {
         this.isUpdate = false;
         this.parametroLocal = AltaEditarParametrosComponent.initParametro();
+        this.parametroLocal.alta = true;
       }
     });
   }

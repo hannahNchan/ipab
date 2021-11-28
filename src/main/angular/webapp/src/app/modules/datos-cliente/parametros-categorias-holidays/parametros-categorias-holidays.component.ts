@@ -36,6 +36,8 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
   selectedCategoria: ICategoria;
   selectedCalendario: ICalendario;
 
+  selectedParametroIndex: Number;
+
   isActiveBtnEditarParametro: boolean;
   isActiveBtnEliminarParametro: boolean;
   isActiveBtnEditarCategoria: boolean;
@@ -48,6 +50,8 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
   listaCalendario: ICalendario[];
   anios: string[];
   fecha: IDate;
+  parametrosDisableButtons: boolean = true;
+  categoriasDisableButtons: boolean = true;
 
   constructor(
       private modalService: NgbModal,
@@ -199,6 +203,7 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
           swal(PopUpMessage.getAppErrorMessageReportId(response)).then(() => { });
         } else {
           this.listaParametros = response['lista'];
+          this.parametrosDisableButtons = response.lista.length !== 0 ? false : true;
           swal(PopUpMessage.getSuccesMessage(response, null, null)).then();
         }
       },
@@ -229,6 +234,7 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
         }
 
         if (response.lista && response.lista.length !== 0) {
+          this.categoriasDisableButtons = false;
           this.listaCategorias = response.lista;
           return swal(PopUpMessage.getSuccesMessage(response, null, null)).then(); 
         }
@@ -423,9 +429,10 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
    * Elige globalmente el parametro seleccionado
    * @param parametro
    */
-  onSelectedParametro(parametro: IParametro): void {
+  onSelectedParametro(parametro: IParametro, index: Number): void {
     this.paramData$.changeSelectedParametro(parametro);
     this.selectedParametro = parametro;
+    this.selectedParametroIndex = index;
     this.inicializarBotonesParametros();
   }
   // *ngFor="let parametro of listaParametros; let i=index"
@@ -464,7 +471,9 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
    * Guarda la categoria elegida al dar click
    * @param index
    */
-  onSelectedRowCategoria(index: number): void {
+  onSelectedRowCategoria(categoria: ICategoria, index: number): void {
+    this.paramData$.changeSelectedCategoria(categoria);
+    this.selectedCategoria = categoria;
     this.selectedIndexCat = index; 
     this.selectedRowCategoria = this.listaCategorias[index];
   }

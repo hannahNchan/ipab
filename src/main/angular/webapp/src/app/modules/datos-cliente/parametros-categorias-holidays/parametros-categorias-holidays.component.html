@@ -79,9 +79,10 @@
                         <tr
                           class="cursor-pointer hover-primary"
                           *ngFor="let parametro of listaParametros; let i=index"
-                          (click)="onSelectedParametro(parametro)"
+                          [ngClass]="selectedParametroIndex === i && 'highLighted'"
+                          (click)="onSelectedParametro(parametro, i)"
                         >
-                          <td class="col-3">{{parametro.tipo}}</td>
+                          <td class="col-3">{{parametro.descripcion}}</td>
                           <td class="col-3">{{parametro.paramName}}</td>
                           <td class="col-3">{{parametro.descripcion}}</td>
                           <td class="col-3">{{parametro.paramValue}}</td>
@@ -92,12 +93,12 @@
                   </div>
                   <div class="col-md-1 justify-content-buttons">
                     <div class="row justify-content-edit-button">
-                      <button class="btn btn-primary" type="button" (click)="openModalEditarParametro()">
+                      <button [attr.disabled]="parametrosDisableButtons ? true : null" class="btn btn-primary" type="button" (click)="openModalEditarParametro()">
                         <fa-icon icon="edit"></fa-icon>
                       </button>
                     </div>
                     <div class="row justify-content-edit-button">
-                      <button class="btn btn-primary" type="button">
+                      <button [attr.disabled]="parametrosDisableButtons ? true : null" class="btn btn-primary" type="button">
                         <fa-icon icon="trash"></fa-icon>
                       </button>
                     </div>
@@ -171,7 +172,7 @@
                         <tr
                           class="cursor-pointer hover-primary"
                           *ngFor="let categoria of listaCategorias; let i=index"
-                          (click)="onSelectedRowCategoria(i)"
+                          (click)="onSelectedRowCategoria(categoria, i)"
                           [class.highLighted]="i === selectedIndexCat"
                         >
                           <td class="col-3">{{categoria.productoIPAB}}</td>
@@ -184,12 +185,12 @@
                   </div>
                   <div class="col-md-1 justify-content-buttons">
                     <div class="row justify-content-edit-button">
-                      <button class="btn btn-primary" type="button" (click)="openModalEditarCategoria()">
+                      <button [attr.disabled]="categoriasDisableButtons ? true : null" class="btn btn-primary" type="button" (click)="openModalEditarCategoria()">
                         <fa-icon icon="edit"></fa-icon>
                       </button>
                     </div>
                     <div class="row justify-content-edit-button">
-                      <button class="btn btn-primary" type="button">
+                      <button [attr.disabled]="categoriasDisableButtons ? true : null" class="btn btn-primary" type="button">
                         <fa-icon icon="trash"></fa-icon>
                       </button>
                     </div>
