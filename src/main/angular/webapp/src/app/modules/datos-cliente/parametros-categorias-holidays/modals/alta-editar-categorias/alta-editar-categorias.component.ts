@@ -15,10 +15,10 @@ import { ParametrosCategoriasHolidaysService } from "@services/parametros-catego
 export class AltaEditarCategoriasComponent implements OnInit {
   @Input() public isUpdate: boolean;
   @Input() public selectedRow: ICategoria;
+  @Input() public catalogoNivelCuenta: ICatalogoNivelCuenta;
+  @Input() public catalogoClasificacion: ICatalogoClasificacion;
 
   categoriaLocal: ICategoria;
-  catalogoNivelCuenta: ICatalogoNivelCuenta;
-  catalogoClasificacion: ICatalogoClasificacion;
 
   constructor(
     private modalService: NgbModal,
@@ -38,16 +38,6 @@ export class AltaEditarCategoriasComponent implements OnInit {
       } else {
         this.isUpdate = false;
         this.categoriaLocal = AltaEditarCategoriasComponent.initCategoria();
-      }
-    });
-    this.paramService.getCatalogoClasificacion().subscribe(res => {
-      if (res.header.estatus) {
-        this.catalogoClasificacion = res.catalogo;
-      }
-    });
-    this.paramService.getCatalogoNivelCuenta().subscribe(res => {
-      if (res.header.estatus) {
-        this.catalogoNivelCuenta = res.catalogo;
       }
     });
   }

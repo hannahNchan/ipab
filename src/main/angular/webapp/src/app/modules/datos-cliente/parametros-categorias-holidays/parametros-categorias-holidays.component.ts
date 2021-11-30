@@ -4,7 +4,14 @@ import { NgbCalendar, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstr
 import swal from 'sweetalert2';
 import { PopUpMessage } from '@helpers/PopUpMessage';
 
-import { ICalendario, ICategoria, IParametro, IYearSelected } from '@interfaces/parametros-categorias-holidays.interface';
+import {
+  ICalendario,
+  ICategoria,
+  IParametro,
+  IYearSelected,
+  ICatalogoNivelCuenta,
+  ICatalogoClasificacion
+} from '@interfaces/parametros-categorias-holidays.interface';
 import { IDate } from '@interfaces/date.interface';
 
 import { ParametrosCategoriasHolidaysService } from '@services/parametros-categorias-holidays.service';
@@ -52,6 +59,8 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
   fecha: IDate;
   parametrosDisableButtons: boolean = true;
   categoriasDisableButtons: boolean = true;
+  catalogoNivelCuenta: ICatalogoNivelCuenta;
+  catalogoClasificacion: ICatalogoClasificacion;
 
   constructor(
       private modalService: NgbModal,
@@ -79,6 +88,17 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
       anioArray.push(anioLimiteInferior);
     }
     this.anios = anioArray;
+
+    this.paramService.getCatalogoClasificacion().subscribe(res => {
+      if (res.header.estatus) {
+        this.catalogoClasificacion = res.catalogo;
+      }
+    });
+    this.paramService.getCatalogoNivelCuenta().subscribe(res => {
+      if (res.header.estatus) {
+        this.catalogoNivelCuenta = res.catalogo;
+      }
+    });
   }
 
   /**
@@ -148,6 +168,8 @@ export class ParametrosCategoriasHolidaysComponent implements OnInit {
       .open(AltaEditarCategoriasComponent, ngbModalOptions);
     activeModal.componentInstance.isUpdate = true; 
     activeModal.componentInstance.selectedRow = this.selectedRowCategoria; 
+    activeModal.componentInstanced.catalogoNivelCuenta = this.catalogoNivelCuenta;
+    activeModal.componentInstanced.catalogoClasificacion = this.catalogoClasificacion;
   }
 
   /**
